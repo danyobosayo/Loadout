@@ -1,9 +1,13 @@
 import SwiftUI
+import SwiftData
 
 struct MealTrayView: View {
     @Bindable var store: MealBuilderStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @Environment(\.modelContext) private var modelContext
+    @State private var savePrompt = false
+    @State private var favoriteName = ""
 
     var body: some View {
         NavigationStack {
@@ -25,6 +29,14 @@ struct MealTrayView: View {
                     Button("Close") { dismiss() }
                 }
                 if !store.isEmpty {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            favoriteName = "\(store.restaurant.name) Bowl"
+                            savePrompt = true
+                        } label: {
+                            Label("Save to Favorites", systemImage: "heart")
+                        }
+                    }
                     ToolbarItem(placement: .destructiveAction) {
                         Button("Clear", role: .destructive) {
                             store.clear()
@@ -32,6 +44,13 @@ struct MealTrayView: View {
                         .foregroundStyle(.appDestructive)
                     }
                 }
+            }
+            .alert("Save favorite", isPresented: $savePrompt) {
+                TextField("Name", text: $favoriteName)
+                Button("Save", action: saveFavorite)
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Give this meal a name so you can rerun it later.")
             }
             .safeAreaInset(edge: .bottom) {
                 if !store.isEmpty {
@@ -90,6 +109,20 @@ struct MealTrayView: View {
             openURL(url)
         }
         dismiss()
+    }
+
+    private func saveFavorite() {
+        let trimmed = favoriteName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = trimmed.isEmpty ? "\(store.restaurant.name) Bowl" : trimmed
+        let favorite = FavoriteMeal(
+            name: name,
+            restaurantId: store.restaurant.id,
+            lineItems: store.lineItems
+        )
+        modelContext.insert(favorite)
+        try? modelContext.save()
+        // Don't clear or dismiss — saving a favorite is a side action,
+        // the user is probably about to also Log it to MacroFactor.
     }
 }
 

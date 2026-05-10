@@ -7,8 +7,9 @@ final class MealBuilderStore {
     let restaurant: Restaurant
     private(set) var lineItems: [LineItem] = []
 
-    init(restaurant: Restaurant) {
+    init(restaurant: Restaurant, lineItems: [LineItem] = []) {
         self.restaurant = restaurant
+        self.lineItems = lineItems
     }
 
     enum AddOutcome: Equatable {

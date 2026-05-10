@@ -2,7 +2,12 @@ import SwiftUI
 
 struct RootView: View {
     var body: some View {
-        RestaurantsView()
+        TabView {
+            RestaurantsView()
+                .tabItem { Label("Menus", systemImage: "fork.knife") }
+            FavoritesView()
+                .tabItem { Label("Favorites", systemImage: "heart") }
+        }
     }
 }
 

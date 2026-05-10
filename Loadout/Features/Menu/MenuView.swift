@@ -3,11 +3,15 @@ import SwiftUI
 struct MenuView: View {
     let restaurant: Restaurant
     @State private var store: MealBuilderStore
-    @State private var trayPresented = false
+    @State private var trayPresented: Bool
 
-    init(restaurant: Restaurant) {
+    init(restaurant: Restaurant, seed: [LineItem] = []) {
         self.restaurant = restaurant
-        _store = State(initialValue: MealBuilderStore(restaurant: restaurant))
+        _store = State(initialValue: MealBuilderStore(restaurant: restaurant, lineItems: seed))
+        // Re-opening a favorite should land the user in the tray with the
+        // existing items visible, not on the menu list — that's the whole
+        // point of saving a meal in the first place.
+        _trayPresented = State(initialValue: !seed.isEmpty)
     }
 
     var body: some View {

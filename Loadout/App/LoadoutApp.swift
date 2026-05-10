@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct LoadoutApp: App {
@@ -6,5 +7,6 @@ struct LoadoutApp: App {
         WindowGroup {
             RootView()
         }
+        .modelContainer(for: [FavoriteMeal.self])
     }
 }
