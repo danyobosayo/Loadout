@@ -35,8 +35,15 @@ CATEGORY_META = {
     "toppings": ("Toppings", {"kind": "selectMany"}),
     "dressing": ("Dressing", {"kind": "selectUpTo", "max": 1}),
     "chips":    ("Chips",    {"kind": "selectUpTo", "max": 1}),
-    "drinks":   ("Drinks",   {"kind": "selectUpTo", "max": 1}),
 }
+
+# Drinks aren't shipped: Loadout's job is fast-food entrée + side macros
+# pre-order, and 35 soda variants bury the actual food in the menu. The
+# CSV keeps the drinks rows so the file stays faithful to the source PDF —
+# filtering happens here. If a future restaurant treats beverages as the
+# menu (e.g. Starbucks), drop its category id from this set in that
+# restaurant's build script.
+EXCLUDED_CATEGORIES: set[str] = {"drinks"}
 
 
 def parse_macro(s: str) -> float | None:
@@ -51,9 +58,13 @@ def main() -> None:
 
     categories: dict[str, dict] = {}
     skipped: list[str] = []
+    excluded_count = 0
 
     for row in rows:
         cat_id = row["category"]
+        if cat_id in EXCLUDED_CATEGORIES:
+            excluded_count += 1
+            continue
         if cat_id not in categories:
             name, rule = CATEGORY_META.get(cat_id, (cat_id.title(), {"kind": "selectMany"}))
             categories[cat_id] = {
@@ -106,6 +117,9 @@ def main() -> None:
     total_items = sum(len(c["items"]) for c in restaurant["categories"])
     rel = JSON_PATH.relative_to(ROOT)
     print(f"Wrote {rel}: {len(restaurant['categories'])} categories, {total_items} items")
+    if excluded_count:
+        excluded = sorted(EXCLUDED_CATEGORIES)
+        print(f"Excluded {excluded_count} rows by category: {excluded}")
     if skipped:
         print(f"Skipped {len(skipped)} rows with incomplete macros:")
         for s in skipped:
