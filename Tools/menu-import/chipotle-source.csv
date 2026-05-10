@@ -11,6 +11,7 @@ protein,chipotle.protein.steak,Steak,4 oz,150,21,1,6,1,0,330,
 protein,chipotle.protein.barbacoa,Barbacoa,4 oz,170,24,2,7,1,0,530,
 protein,chipotle.protein.carnitas,Carnitas,4 oz,210,23,0,12,0,0,450,
 protein,chipotle.protein.sofritas,Sofritas,4 oz,150,8,9,10,3,5,560,Plant-based
+protein,chipotle.protein.carne-asada,Carne Asada,4 oz,250,29,1,14,0,0,,Sodium missing from source; refresh from chipotle.com
 veggies,chipotle.veggies.fajita-vegetables,Fajita Vegetables,2 oz,20,1,5,0,1,2,150,
 veggies,chipotle.veggies.supergreens-mix,Supergreens Salad Mix,3 oz,15,1,3,0,2,1,15,Salad base
 veggies,chipotle.veggies.romaine,Romaine Lettuce,1 oz,5,0,1,0,1,0,0,
