@@ -2,11 +2,9 @@ import SwiftUI
 
 struct RootView: View {
     var body: some View {
-        ContentUnavailableView(
-            "Loadout",
-            systemImage: "fork.knife",
-            description: Text("Phase 1: scaffold + core models. UI lands in later phases.")
-        )
+        // Phase 2: shows the design system catalog so the build is reviewable
+        // end-to-end. Phase 3 replaces this with the real Restaurants tab.
+        DesignSystemCatalog()
     }
 }
 
