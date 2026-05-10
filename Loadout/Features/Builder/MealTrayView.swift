@@ -6,6 +6,7 @@ struct MealTrayView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
+    @Environment(SettingsStore.self) private var settings
     @State private var savePrompt = false
     @State private var favoriteName = ""
 
@@ -103,7 +104,7 @@ struct MealTrayView: View {
     private func logToMacroFactor() {
         let restaurantName = store.restaurant.name
         let meal = store.save()
-        let exporter = MacroFactorExporter()
+        let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
         let food = exporter.food(for: meal, restaurantName: restaurantName)
         if let url = try? exporter.shortcutsURL(for: food) {
             openURL(url)

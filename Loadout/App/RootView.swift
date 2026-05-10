@@ -9,6 +9,8 @@ struct RootView: View {
                 .tabItem { Label("Favorites", systemImage: "heart") }
             HistoryView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
+            SettingsView()
+                .tabItem { Label("Settings", systemImage: "gear") }
         }
     }
 }
