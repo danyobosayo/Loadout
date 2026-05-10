@@ -20,7 +20,13 @@ nonisolated struct BundledMenuRepository: MenuRepository {
     }
 
     func availableRestaurants() async throws -> [Restaurant] {
-        try restaurantIds.map { try loadFromBundle(id: $0) }
+        let restaurants = try restaurantIds.map { try loadFromBundle(id: $0) }
+        // Alphabetical by display name per PROJECT.md §7.1. Recency-of-use
+        // sort lands when History persistence ships and we know what's
+        // recent — until then, alphabetical is the stable default.
+        return restaurants.sorted {
+            $0.name.localizedStandardCompare($1.name) == .orderedAscending
+        }
     }
 
     func loadRestaurant(id: String) async throws -> Restaurant {

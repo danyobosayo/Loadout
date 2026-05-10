@@ -30,11 +30,14 @@ struct MenuView: View {
                     HStack(spacing: Spacing.sm) {
                         Text(category.style.emoji)
                             .font(.appBody)
+                            .frame(width: 28, height: 28)
+                            .background(category.style.accent.opacity(0.18), in: Circle())
                         Text(headerText(for: category))
                             .font(.appCaption)
                             .foregroundStyle(.appSecondaryText)
                             .textCase(.uppercase)
                     }
+                    .padding(.bottom, 4)
                 }
             }
         }

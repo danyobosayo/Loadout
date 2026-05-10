@@ -97,27 +97,38 @@ private struct LineItemRow: View {
     let lineItem: LineItem
     @Bindable var store: MealBuilderStore
 
+    private static let presets: [Double] = [0.5, 1, 1.5, 2]
+
+    private var matchesPreset: Bool {
+        Self.presets.contains { abs($0 - lineItem.quantity) < 0.001 }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
             HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(lineItem.displayName)
-                        .font(.appBody)
-                    Text(lineItem.servingDescription)
-                        .font(.appCaption)
-                        .foregroundStyle(.appSecondaryText)
+                Text(lineItem.displayName)
+                    .font(.appBody)
+                if !matchesPreset {
+                    // Quantity is outside the chip presets (e.g., 3 from
+                    // re-tapping the menu row). Surface it next to the
+                    // title so the chip row's empty selection isn't
+                    // mysterious.
+                    Text("×\(lineItem.quantity, format: .number.precision(.fractionLength(0...1)))")
+                        .font(.appCaption.weight(.semibold))
+                        .foregroundStyle(.appAccent)
                 }
                 Spacer()
-                QuantityStepper(
-                    value: Binding(
-                        get: { lineItem.quantity },
-                        set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
-                    ),
-                    step: 0.5,
-                    range: 0...10
-                )
+                Text(lineItem.servingDescription)
+                    .font(.appCaption)
+                    .foregroundStyle(.appSecondaryText)
             }
             MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
+            QuickQuantityChips(
+                value: Binding(
+                    get: { lineItem.quantity },
+                    set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
+                )
+            )
         }
         .padding(.vertical, 4)
         .swipeActions(edge: .trailing) {
