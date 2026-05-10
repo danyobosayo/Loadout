@@ -16,13 +16,23 @@ final class SettingsStore {
         didSet { defaults.set(shortcutName, forKey: Keys.shortcutName) }
     }
 
+    /// First-run flag. Onboarding sets this to true on dismiss; once
+    /// true, the onboarding screen never shows again. Persisting via
+    /// UserDefaults means a delete-and-reinstall replays onboarding,
+    /// which is the expected support path.
+    var hasCompletedOnboarding: Bool {
+        didSet { defaults.set(hasCompletedOnboarding, forKey: Keys.hasCompletedOnboarding) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         self.shortcutName = defaults.string(forKey: Keys.shortcutName)
             ?? MacroFactorExporter.defaultShortcutName
+        self.hasCompletedOnboarding = defaults.bool(forKey: Keys.hasCompletedOnboarding)
     }
 
     private enum Keys {
         static let shortcutName = "loadout.settings.shortcutName"
+        static let hasCompletedOnboarding = "loadout.settings.hasCompletedOnboarding"
     }
 }

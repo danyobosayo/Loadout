@@ -35,4 +35,26 @@ struct SettingsStoreTests {
         let store = SettingsStore(defaults: defaults)
         #expect(store.shortcutName == "Hydrated Shortcut")
     }
+
+    @Test func onboardingDefaultsToIncomplete() {
+        let store = SettingsStore(defaults: Self.makeDefaults())
+        #expect(store.hasCompletedOnboarding == false)
+    }
+
+    @Test func writesOnboardingFlagToBackingDefaults() {
+        let defaults = Self.makeDefaults()
+        let store = SettingsStore(defaults: defaults)
+
+        store.hasCompletedOnboarding = true
+
+        #expect(defaults.bool(forKey: "loadout.settings.hasCompletedOnboarding") == true)
+    }
+
+    @Test func reHydratesOnboardingFlagFromDefaults() {
+        let defaults = Self.makeDefaults()
+        defaults.set(true, forKey: "loadout.settings.hasCompletedOnboarding")
+
+        let store = SettingsStore(defaults: defaults)
+        #expect(store.hasCompletedOnboarding == true)
+    }
 }
