@@ -3,6 +3,7 @@ import SwiftUI
 struct MealTrayView: View {
     @Bindable var store: MealBuilderStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         NavigationStack {
@@ -34,7 +35,7 @@ struct MealTrayView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 if !store.isEmpty {
-                    saveBar
+                    logBar
                 }
             }
         }
@@ -64,14 +65,11 @@ struct MealTrayView: View {
         .listStyle(.insetGrouped)
     }
 
-    private var saveBar: some View {
+    private var logBar: some View {
         Button {
-            // Phase 3b: Save snapshots a BuiltMeal and clears the tray.
-            // Phase 4 wires it to MacroFactor export; favorites/history land later.
-            _ = store.save()
-            dismiss()
+            logToMacroFactor()
         } label: {
-            Text("Save meal")
+            Label("Log to MacroFactor", systemImage: "arrow.up.forward.app.fill")
                 .font(.appHeadline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, Spacing.sm)
@@ -81,6 +79,17 @@ struct MealTrayView: View {
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, Spacing.sm)
         .background(.bar)
+    }
+
+    private func logToMacroFactor() {
+        let restaurantName = store.restaurant.name
+        let meal = store.save()
+        let exporter = MacroFactorExporter()
+        let food = exporter.food(for: meal, restaurantName: restaurantName)
+        if let url = try? exporter.shortcutsURL(for: food) {
+            openURL(url)
+        }
+        dismiss()
     }
 }
 
