@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct LoadoutApp: App {
+    let modelContainer: ModelContainer = {
+        do {
+            return try ModelContainer(for: Item.self)
+        } catch {
+            fatalError("Failed to create ModelContainer: \(error)")
+        }
+    }()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(modelContainer)
     }
 }
