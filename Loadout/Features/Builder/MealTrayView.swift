@@ -108,7 +108,26 @@ struct MealTrayView: View {
         if let url = try? exporter.shortcutsURL(for: food) {
             openURL(url)
         }
+        recordHistory(meal: meal)
         dismiss()
+    }
+
+    private func recordHistory(meal: BuiltMeal) {
+        let logged = LoggedMeal(
+            restaurantId: meal.restaurantId,
+            loggedAt: meal.createdAt,
+            lineItems: meal.lineItems
+        )
+        modelContext.insert(logged)
+        do {
+            try LoggedMealRetention.enforceLimit(in: modelContext)
+            try modelContext.save()
+        } catch {
+            // Logging the meal to MacroFactor still happened — the user
+            // got their value. Failing to persist locally is recoverable
+            // (next log will re-attempt eviction). Don't surface an
+            // error that interrupts the export flow.
+        }
     }
 
     private func saveFavorite() {

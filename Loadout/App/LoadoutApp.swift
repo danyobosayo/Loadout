@@ -7,6 +7,6 @@ struct LoadoutApp: App {
         WindowGroup {
             RootView()
         }
-        .modelContainer(for: [FavoriteMeal.self])
+        .modelContainer(for: [FavoriteMeal.self, LoggedMeal.self])
     }
 }

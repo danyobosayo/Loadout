@@ -7,6 +7,8 @@ struct RootView: View {
                 .tabItem { Label("Menus", systemImage: "fork.knife") }
             FavoritesView()
                 .tabItem { Label("Favorites", systemImage: "heart") }
+            HistoryView()
+                .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
         }
     }
 }
