@@ -249,12 +249,13 @@ Implement Path A for v1. Path B as a settings toggle.
 
 ### Specifics
 - **Numbers are the hero.** Macro totals get the largest, heaviest type on every screen. Item names are secondary.
-- **Color:** system background. One accent color — TBD, propose 3 candidates once design system scaffolds. Red reserved for destructive ("remove"). No category-specific colors (don't tint Chipotle screens orange — that crosses the trademark line and clutters the palette).
+- **Color:** system background. One global app accent (cobalt blue — buttons, interactive state, current-quantity badges). Red reserved for destructive ("remove"). **No restaurant brand tinting** — that crosses the trademark line. **Small functional per-category accents are allowed** (single ~8pt dot on each item row, in the category's tone), but only as wayfinding cues, never as full-screen tints. See `DesignSystem/CategoryStyle.swift` for the palette.
 - **Cards:** soft shadow, ~16pt corner radius, no harsh borders. Match Offsuit's card treatment.
 - **Density:** comfortable, not packed. Builder screen should feel calm even with a 12-item meal.
 - **Motion:** snappy spring animations on add/remove. Numbers tick via `contentTransition(.numericText())`.
 - **Dark mode:** first-class, not an afterthought. Offsuit is dark-mode-default — consider whether we should be too.
-- **Iconography:** SF Symbols throughout. Custom SVGs only if SF Symbols genuinely can't represent the concept.
+- **Iconography:** **emoji on category section headers** (🌾 bases, 🍗 mains, 🌶️ salsa, 🥗 toppings, 🫗 dressings, etc.), no per-item icon rendering. SF Symbols are still used for *interactive UI affordances* (steppers, chevrons, sheet toolbar buttons). This supersedes the original "no illustrations" rule from v0.x — emoji function as a category stamp, not decoration. Per-item `iconName` is still data-resident because it carries through to MacroFactor's `Icon` field on export; we just don't render it in the Loadout UI anymore.
+- **Quantity input:** stepper increments by 0.5 in the meal tray (so 0.5 / 1 / 1.5 / 2 are one tap apart). Tapping a menu row to add stays at +1 — full canonical portion on first tap, fractional adjustment in the tray.
 
 ### Inspiration to mine on Dribbble
 Search terms to seed ideation: *nutrition tracker*, *macro builder*, *meal logger ios*, *Cal AI clone*, *Carbon nutrition*, *food tracking minimal*, *poker app ios minimal*. Save 5–10 references to a `/design/inspiration` folder before scaffolding. Take screenshots of Offsuit's actual screens too — they're the closest thing to a north star we have.

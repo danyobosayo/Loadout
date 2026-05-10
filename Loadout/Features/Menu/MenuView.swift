@@ -20,17 +20,21 @@ struct MenuView: View {
                         } label: {
                             MenuItemRow(
                                 item: item,
-                                categoryIconFallback: category.iconName,
+                                accent: category.style.accent,
                                 quantityInMeal: store.quantity(forMenuItemId: item.id)
                             )
                         }
                         .buttonStyle(.plain)
                     }
                 } header: {
-                    Text(headerText(for: category))
-                        .font(.appCaption)
-                        .foregroundStyle(.appSecondaryText)
-                        .textCase(.uppercase)
+                    HStack(spacing: Spacing.sm) {
+                        Text(category.style.emoji)
+                            .font(.appBody)
+                        Text(headerText(for: category))
+                            .font(.appCaption)
+                            .foregroundStyle(.appSecondaryText)
+                            .textCase(.uppercase)
+                    }
                 }
             }
         }
@@ -104,15 +108,17 @@ struct MenuView: View {
 
 private struct MenuItemRow: View {
     let item: MenuItem
-    let categoryIconFallback: String?
+    let accent: Color
     let quantityInMeal: Double
 
     private var isInMeal: Bool { quantityInMeal > 0 }
 
     var body: some View {
         HStack(alignment: .top, spacing: Spacing.md) {
-            MenuItemIcon(name: item.iconName, categoryFallback: categoryIconFallback, size: 26)
-                .padding(.top, 2)
+            Circle()
+                .fill(accent)
+                .frame(width: 8, height: 8)
+                .padding(.top, 9)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: Spacing.sm) {
                 HStack(alignment: .firstTextBaseline) {
