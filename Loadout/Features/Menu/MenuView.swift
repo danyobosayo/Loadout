@@ -20,6 +20,7 @@ struct MenuView: View {
                         } label: {
                             MenuItemRow(
                                 item: item,
+                                categoryIconFallback: category.iconName,
                                 quantityInMeal: store.quantity(forMenuItemId: item.id)
                             )
                         }
@@ -103,30 +104,36 @@ struct MenuView: View {
 
 private struct MenuItemRow: View {
     let item: MenuItem
+    let categoryIconFallback: String?
     let quantityInMeal: Double
 
     private var isInMeal: Bool { quantityInMeal > 0 }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(item.name)
-                    .font(.appBody)
-                if isInMeal {
-                    Text("×\(quantityInMeal, format: .number.precision(.fractionLength(0...1)))")
-                        .font(.appCaption.weight(.semibold))
-                        .foregroundStyle(.appAccent)
+        HStack(alignment: .top, spacing: Spacing.md) {
+            MenuItemIcon(name: item.iconName, categoryFallback: categoryIconFallback, size: 26)
+                .padding(.top, 2)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(item.name)
+                        .font(.appBody)
+                    if isInMeal {
+                        Text("×\(quantityInMeal, format: .number.precision(.fractionLength(0...1)))")
+                            .font(.appCaption.weight(.semibold))
+                            .foregroundStyle(.appAccent)
+                    }
+                    Spacer()
+                    Text(item.servingDescription)
+                        .font(.appCaption)
+                        .foregroundStyle(.appSecondaryText)
                 }
-                Spacer()
-                Text(item.servingDescription)
-                    .font(.appCaption)
-                    .foregroundStyle(.appSecondaryText)
-            }
-            MacroBar(macros: item.macros, style: .inline)
-            if let notes = item.notes {
-                Text(notes)
-                    .font(.appCaption)
-                    .foregroundStyle(.appSecondaryText)
+                MacroBar(macros: item.macros, style: .inline)
+                if let notes = item.notes {
+                    Text(notes)
+                        .font(.appCaption)
+                        .foregroundStyle(.appSecondaryText)
+                }
             }
         }
         .padding(.vertical, 4)

@@ -20,21 +20,23 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 CSV_PATH = Path(__file__).resolve().parent / "chipotle-source.csv"
 JSON_PATH = ROOT / "Loadout" / "Resources" / "Menus" / "chipotle.json"
 
-# (display name, selection rule) per category id, in Chipotle line order.
-# selectUpTo(1) = at most one of this category in a meal (typical for
-# tortilla/rice/beans/dressing/chips/drinks where doubling up makes no sense
-# at the line). selectMany = any number, with quantity expressing "extra"
-# (proteins, veggies, salsas, toppings).
+# (display name, selection rule, fallback icon) per category id, in Chipotle
+# line order. The fallback icon is a token from MacroFactor's `Icon`
+# vocabulary; it's used by `MenuItemIconResolver` when a row's own `icon`
+# column is empty. selectUpTo(1) = at most one of this category in a meal
+# (typical for tortilla/rice/beans/dressing/chips where doubling up makes
+# no sense at the line). selectMany = any number, with quantity expressing
+# "extra" (proteins, veggies, salsas, toppings).
 CATEGORY_META = {
-    "tortilla": ("Tortilla", {"kind": "selectUpTo", "max": 1}),
-    "rice":     ("Rice",     {"kind": "selectUpTo", "max": 1}),
-    "beans":    ("Beans",    {"kind": "selectUpTo", "max": 1}),
-    "protein":  ("Protein",  {"kind": "selectMany"}),
-    "veggies":  ("Veggies",  {"kind": "selectMany"}),
-    "salsa":    ("Salsa",    {"kind": "selectMany"}),
-    "toppings": ("Toppings", {"kind": "selectMany"}),
-    "dressing": ("Dressing", {"kind": "selectUpTo", "max": 1}),
-    "chips":    ("Chips",    {"kind": "selectUpTo", "max": 1}),
+    "tortilla": ("Tortilla", {"kind": "selectUpTo", "max": 1}, "wheatFlat"),
+    "rice":     ("Rice",     {"kind": "selectUpTo", "max": 1}, "riceWhiteBowl"),
+    "beans":    ("Beans",    {"kind": "selectUpTo", "max": 1}, "beansPan"),
+    "protein":  ("Protein",  {"kind": "selectMany"},           "chicken"),
+    "veggies":  ("Veggies",  {"kind": "selectMany"},           "vegetables"),
+    "salsa":    ("Salsa",    {"kind": "selectMany"},           "salsa"),
+    "toppings": ("Toppings", {"kind": "selectMany"},           "cheeseSlice"),
+    "dressing": ("Dressing", {"kind": "selectUpTo", "max": 1}, "oil"),
+    "chips":    ("Chips",    {"kind": "selectUpTo", "max": 1}, "chipsBaked"),
 }
 
 # Drinks aren't shipped: Loadout's job is fast-food entrée + side macros
@@ -66,12 +68,15 @@ def main() -> None:
             excluded_count += 1
             continue
         if cat_id not in categories:
-            name, rule = CATEGORY_META.get(cat_id, (cat_id.title(), {"kind": "selectMany"}))
+            name, rule, fallback_icon = CATEGORY_META.get(
+                cat_id, (cat_id.title(), {"kind": "selectMany"}, None)
+            )
             categories[cat_id] = {
                 "id": cat_id,
                 "name": name,
                 "selectionRule": rule,
                 "items": [],
+                "iconName": fallback_icon,
             }
 
         macros = {
@@ -91,6 +96,7 @@ def main() -> None:
             "macros":             macros,
             "allergens":          None,
             "notes":              row["notes"] or None,
+            "iconName":           row.get("icon") or None,
         })
 
     restaurant = {

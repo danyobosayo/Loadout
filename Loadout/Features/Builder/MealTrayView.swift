@@ -89,25 +89,30 @@ private struct LineItemRow: View {
     @Bindable var store: MealBuilderStore
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(lineItem.displayName)
-                        .font(.appBody)
-                    Text(lineItem.servingDescription)
-                        .font(.appCaption)
-                        .foregroundStyle(.appSecondaryText)
+        HStack(alignment: .top, spacing: Spacing.md) {
+            MenuItemIcon(name: lineItem.iconName, size: 26)
+                .padding(.top, 2)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(lineItem.displayName)
+                            .font(.appBody)
+                        Text(lineItem.servingDescription)
+                            .font(.appCaption)
+                            .foregroundStyle(.appSecondaryText)
+                    }
+                    Spacer()
+                    QuantityStepper(
+                        value: Binding(
+                            get: { lineItem.quantity },
+                            set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
+                        ),
+                        range: 0...10
+                    )
                 }
-                Spacer()
-                QuantityStepper(
-                    value: Binding(
-                        get: { lineItem.quantity },
-                        set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
-                    ),
-                    range: 0...10
-                )
+                MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
             }
-            MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
         }
         .padding(.vertical, 4)
         .swipeActions(edge: .trailing) {

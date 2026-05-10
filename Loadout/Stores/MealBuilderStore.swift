@@ -44,21 +44,21 @@ final class MealBuilderStore {
         case .selectOne:
             if let existing = firstLineItem(in: category) {
                 lineItems.removeAll { $0.id == existing.id }
-                lineItems.append(.snapshot(of: item))
+                lineItems.append(.snapshot(of: item, in: category))
                 return .replaced(removedMenuItemId: existing.menuItemId)
             }
-            lineItems.append(.snapshot(of: item))
+            lineItems.append(.snapshot(of: item, in: category))
             return .added
 
         case .selectMany:
-            lineItems.append(.snapshot(of: item))
+            lineItems.append(.snapshot(of: item, in: category))
             return .added
 
         case .selectUpTo(let max):
             if lineItems(in: category).count >= max {
                 return .rejectedByLimit(max: max)
             }
-            lineItems.append(.snapshot(of: item))
+            lineItems.append(.snapshot(of: item, in: category))
             return .added
         }
     }
@@ -103,14 +103,15 @@ final class MealBuilderStore {
 }
 
 private extension LineItem {
-    static func snapshot(of item: MenuItem, quantity: Double = 1) -> LineItem {
+    static func snapshot(of item: MenuItem, in category: MenuCategory, quantity: Double = 1) -> LineItem {
         LineItem(
             id: UUID(),
             menuItemId: item.id,
             displayName: item.name,
             servingDescription: item.servingDescription,
             macros: item.macros,
-            quantity: quantity
+            quantity: quantity,
+            iconName: item.iconName ?? category.iconName
         )
     }
 
@@ -121,7 +122,8 @@ private extension LineItem {
             displayName: displayName,
             servingDescription: servingDescription,
             macros: macros,
-            quantity: newQuantity
+            quantity: newQuantity,
+            iconName: iconName
         )
     }
 }

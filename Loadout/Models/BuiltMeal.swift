@@ -23,4 +23,25 @@ nonisolated struct LineItem: Codable, Hashable, Sendable, Identifiable {
     let servingDescription: String
     let macros: Macros
     let quantity: Double
+    // Resolved at snapshot time (item override or category fallback). Nil
+    // is permitted — `MenuItemIcon` shows the universal fallback symbol.
+    let iconName: String?
+
+    init(
+        id: UUID,
+        menuItemId: String,
+        displayName: String,
+        servingDescription: String,
+        macros: Macros,
+        quantity: Double,
+        iconName: String? = nil
+    ) {
+        self.id = id
+        self.menuItemId = menuItemId
+        self.displayName = displayName
+        self.servingDescription = servingDescription
+        self.macros = macros
+        self.quantity = quantity
+        self.iconName = iconName
+    }
 }

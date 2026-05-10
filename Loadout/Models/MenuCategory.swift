@@ -5,6 +5,23 @@ nonisolated struct MenuCategory: Codable, Hashable, Sendable, Identifiable {
     let name: String
     let selectionRule: SelectionRule
     let items: [MenuItem]
+    // Used as the icon for any item in this category that doesn't supply
+    // its own `iconName`. Same vocabulary as `MenuItem.iconName`.
+    let iconName: String?
+
+    init(
+        id: String,
+        name: String,
+        selectionRule: SelectionRule,
+        items: [MenuItem],
+        iconName: String? = nil
+    ) {
+        self.id = id
+        self.name = name
+        self.selectionRule = selectionRule
+        self.items = items
+        self.iconName = iconName
+    }
 }
 
 nonisolated enum SelectionRule: Hashable, Sendable {

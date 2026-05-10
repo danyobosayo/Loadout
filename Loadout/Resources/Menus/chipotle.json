@@ -28,7 +28,8 @@
             "fatGrams": 9.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "wheatFlat"
         },
         {
           "id": "chipotle.tortilla.flour-taco",
@@ -41,7 +42,8 @@
             "fatGrams": 2.5
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "wheatFlat"
         },
         {
           "id": "chipotle.tortilla.crispy-corn",
@@ -54,9 +56,11 @@
             "fatGrams": 3.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "wheatFlat"
         }
-      ]
+      ],
+      "iconName": "wheatFlat"
     },
     {
       "id": "rice",
@@ -77,7 +81,8 @@
             "fatGrams": 4.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "riceWhiteBowl"
         },
         {
           "id": "chipotle.rice.cilantro-lime-brown",
@@ -90,9 +95,11 @@
             "fatGrams": 6.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "riceBrownBowl"
         }
-      ]
+      ],
+      "iconName": "riceWhiteBowl"
     },
     {
       "id": "beans",
@@ -113,7 +120,8 @@
             "fatGrams": 1.5
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "beansPan"
         },
         {
           "id": "chipotle.beans.pinto",
@@ -126,9 +134,11 @@
             "fatGrams": 1.5
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "beansPan"
         }
-      ]
+      ],
+      "iconName": "beansPan"
     },
     {
       "id": "protein",
@@ -148,7 +158,8 @@
             "fatGrams": 7.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "chicken"
         },
         {
           "id": "chipotle.protein.steak",
@@ -161,7 +172,8 @@
             "fatGrams": 6.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "steakBoneIn"
         },
         {
           "id": "chipotle.protein.barbacoa",
@@ -174,7 +186,8 @@
             "fatGrams": 7.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "steakBoneIn"
         },
         {
           "id": "chipotle.protein.carnitas",
@@ -187,7 +200,8 @@
             "fatGrams": 12.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "porkLoin"
         },
         {
           "id": "chipotle.protein.sofritas",
@@ -200,7 +214,8 @@
             "fatGrams": 10.0
           },
           "allergens": null,
-          "notes": "Plant-based"
+          "notes": "Plant-based",
+          "iconName": null
         },
         {
           "id": "chipotle.protein.carne-asada",
@@ -213,9 +228,11 @@
             "fatGrams": 14.0
           },
           "allergens": null,
-          "notes": "Sodium missing from source; refresh from chipotle.com"
+          "notes": "Sodium missing from source; refresh from chipotle.com",
+          "iconName": "steakBoneIn"
         }
-      ]
+      ],
+      "iconName": "chicken"
     },
     {
       "id": "veggies",
@@ -235,7 +252,8 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "bellPepperGreen"
         },
         {
           "id": "chipotle.veggies.supergreens-mix",
@@ -248,7 +266,8 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": "Salad base"
+          "notes": "Salad base",
+          "iconName": "lettuce"
         },
         {
           "id": "chipotle.veggies.romaine",
@@ -261,9 +280,11 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "lettuce"
         }
-      ]
+      ],
+      "iconName": "vegetables"
     },
     {
       "id": "salsa",
@@ -283,7 +304,8 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": "Mild"
+          "notes": "Mild",
+          "iconName": "tomato"
         },
         {
           "id": "chipotle.salsa.roasted-corn",
@@ -296,7 +318,8 @@
             "fatGrams": 1.5
           },
           "allergens": null,
-          "notes": "Medium"
+          "notes": "Medium",
+          "iconName": "corn"
         },
         {
           "id": "chipotle.salsa.tomatillo-green",
@@ -309,7 +332,8 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": "Medium-hot"
+          "notes": "Medium-hot",
+          "iconName": "salsa"
         },
         {
           "id": "chipotle.salsa.tomatillo-red",
@@ -322,9 +346,11 @@
             "fatGrams": 0.0
           },
           "allergens": null,
-          "notes": "Hot"
+          "notes": "Hot",
+          "iconName": "chiliPeppersRed"
         }
-      ]
+      ],
+      "iconName": "salsa"
     },
     {
       "id": "toppings",
@@ -344,7 +370,8 @@
             "fatGrams": 8.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "cheeseSlice"
         },
         {
           "id": "chipotle.toppings.sour-cream",
@@ -357,7 +384,8 @@
             "fatGrams": 9.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "sourCream"
         },
         {
           "id": "chipotle.toppings.guacamole",
@@ -370,7 +398,8 @@
             "fatGrams": 22.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "guacamole"
         },
         {
           "id": "chipotle.toppings.guacamole-large",
@@ -383,7 +412,8 @@
             "fatGrams": 44.0
           },
           "allergens": null,
-          "notes": "Side portion"
+          "notes": "Side portion",
+          "iconName": "guacamole"
         },
         {
           "id": "chipotle.toppings.queso-entree",
@@ -396,7 +426,8 @@
             "fatGrams": 9.0
           },
           "allergens": null,
-          "notes": "Bowl/burrito add-in"
+          "notes": "Bowl/burrito add-in",
+          "iconName": "cheeseSlice"
         },
         {
           "id": "chipotle.toppings.queso-side",
@@ -409,7 +440,8 @@
             "fatGrams": 18.0
           },
           "allergens": null,
-          "notes": "Side portion"
+          "notes": "Side portion",
+          "iconName": "cheeseSlice"
         },
         {
           "id": "chipotle.toppings.queso-large",
@@ -422,9 +454,11 @@
             "fatGrams": 37.0
           },
           "allergens": null,
-          "notes": "Large side"
+          "notes": "Large side",
+          "iconName": "cheeseSlice"
         }
-      ]
+      ],
+      "iconName": "cheeseSlice"
     },
     {
       "id": "dressing",
@@ -445,9 +479,11 @@
             "fatGrams": 16.0
           },
           "allergens": null,
-          "notes": "Salad dressing"
+          "notes": "Salad dressing",
+          "iconName": "sauceBBQWorcestershire"
         }
-      ]
+      ],
+      "iconName": "oil"
     },
     {
       "id": "chips",
@@ -468,7 +504,8 @@
             "fatGrams": 25.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "chipsBaked"
         },
         {
           "id": "chipotle.chips.large",
@@ -481,9 +518,11 @@
             "fatGrams": 38.0
           },
           "allergens": null,
-          "notes": null
+          "notes": null,
+          "iconName": "chipsBaked"
         }
-      ]
+      ],
+      "iconName": "chipsBaked"
     }
   ]
 }
