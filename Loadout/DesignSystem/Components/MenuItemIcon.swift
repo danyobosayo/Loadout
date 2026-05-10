@@ -80,37 +80,56 @@ nonisolated enum MenuItemIconResolver {
     /// `drop.fill`. Custom symbol-set assets dropped into `Assets.xcassets`
     /// override these without touching this table.
     static let sfSymbolByMacroFactorIcon: [String: String] = [
-        // Tortilla / wraps
+        // Tortilla / wraps / bread
         "wheatFlat": "circle",
         "breadPita": "circle",
-        // Rice / grains
+        // Rice / grains / lentils / beans
         "riceWhiteBowl": "leaf.fill",
         "riceBrownBowl": "leaf.fill",
-        // Beans
         "beansPan": "leaf.fill",
+        "lentils": "leaf.fill",
         // Proteins
         "chicken": "fork.knife",
         "chickenGrilled": "fork.knife",
         "steakBoneIn": "fork.knife",
         "porkLoin": "fork.knife",
+        "meatballs": "fork.knife",
         "fish": "fish.fill",
+        "salmonFilet": "fish.fill",
+        "falafel": "circle.fill",
         // Veggies
         "vegetables": "carrot.fill",
         "bellPepperGreen": "carrot.fill",
         "lettuce": "leaf.fill",
-        // Salsa / peppers
+        "cucumber": "carrot.fill",
+        "broccoli": "leaf.fill",
+        "cabbage": "leaf.fill",
+        "onion": "carrot.fill",
+        "garlic": "carrot.fill",
+        "eggplant": "carrot.fill",
+        "avocado": "leaf.fill",
+        "oliveBlack": "circle.fill",
+        // Fruits
+        "strawberry": "leaf.fill",
+        // Salsa / peppers / spice
         "salsa": "flame.fill",
         "tomato": "flame.fill",
         "corn": "leaf.fill",
         "chiliPeppersRed": "flame.fill",
-        // Toppings
+        "spicesGround": "flame.fill",
+        // Dairy / dips / sauces
         "cheeseSlice": "square.fill",
         "sourCream": "drop.fill",
+        "yogurt": "drop.fill",
         "guacamole": "leaf.fill",
+        "hummus": "circle.fill",
         // Dressing / oil / sauce
         "sauceBBQWorcestershire": "drop.fill",
         "oil": "drop.fill",
-        // Chips / snacks
-        "chipsBaked": "popcorn.fill"
+        // Chips / snacks / sweets
+        "chipsBaked": "popcorn.fill",
+        "chipsBakedSeasoned": "popcorn.fill",
+        "cakeSquareChocolate": "square.fill",
+        "biscotti": "rectangle.fill"
     ]
 }
