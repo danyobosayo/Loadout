@@ -83,7 +83,6 @@ struct Macros: Codable, Hashable {
     var proteinGrams: Double
     var carbGrams: Double
     var fatGrams: Double
-    // Stretch: fiberGrams, sodiumMg, sugarGrams
     static func +(lhs: Macros, rhs: Macros) -> Macros { /* ... */ }
     static func *(lhs: Macros, qty: Double) -> Macros { /* ... */ }
 }
@@ -362,7 +361,7 @@ Loadout/
 
 - **Built meal** — a `BuiltMeal`: an ordered set of menu line items + quantities at one restaurant.
 - **Line item** — one menu item + its quantity within a built meal.
-- **Macros** — calories, protein (g), carbs (g), fat (g). Optionally fiber, sodium, sugar.
+- **Macros** — calories, protein (g), carbs (g), fat (g). Strictly these four — no fiber/sodium/sugar/etc. tracking.
 - **Log by JSON** — MacroFactor's official Shortcut action that accepts a JSON payload to log food.
 - **Menu repository** — the abstraction that hands out restaurants/menus to the app, currently backed by bundled JSON.
 
