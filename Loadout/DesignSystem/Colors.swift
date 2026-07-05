@@ -1,42 +1,47 @@
 import SwiftUI
 
-extension Color {
-    // Sourced from Assets.xcassets/AccentColor — change the asset to retint
-    // the entire app. Using a named asset (rather than a literal Color here)
-    // means dark/light variants live in one place and SwiftUI's default
-    // .tint picks it up automatically.
-    static let appAccent = Color.accentColor
+// OBSIDIAN palette — see STYLE_GUIDE.md §1. Loadout is dark-only by
+// design (enforced at RootView with .preferredColorScheme(.dark)), so
+// tokens are literal values, not adaptive assets. Feature views must
+// never use a literal Color — tokens only.
+nonisolated extension Color {
+    // MARK: Canvas
+    static let void            = Color(red: 0.043, green: 0.043, blue: 0.059) // #0B0B0F
+    static let surface         = Color(red: 0.075, green: 0.075, blue: 0.094) // #131318
+    static let surfaceElevated = Color(red: 0.106, green: 0.106, blue: 0.133) // #1B1B22
+    static let hairline        = Color.white.opacity(0.08)
 
-    static let appBackground = Color(uiColor: .systemGroupedBackground)
-    static let appSurface = Color(uiColor: .secondarySystemGroupedBackground)
+    // MARK: Text
+    static let textPrimary   = Color(red: 0.961, green: 0.961, blue: 0.969) // #F5F5F7
+    static let textSecondary = Color(red: 0.612, green: 0.612, blue: 0.659) // #9C9CA8
+    static let textTertiary  = Color(red: 0.369, green: 0.369, blue: 0.408) // #5E5E68
 
-    static let appPrimaryText = Color(uiColor: .label)
-    static let appSecondaryText = Color(uiColor: .secondaryLabel)
+    // MARK: Signature
+    static let volt = Color(red: 0.784, green: 1.0, blue: 0.302) // #C8FF4D
 
-    static let appDestructive = Color.red
+    // MARK: Macro semantics (fixed — never re-themed)
+    static let kcal    = Color.volt
+    static let protein = Color(red: 1.0,   green: 0.478, blue: 0.420) // #FF7A6B
+    static let carbs   = Color(red: 0.337, green: 0.784, blue: 0.961) // #56C8F5
+    static let fat     = Color(red: 1.0,   green: 0.788, blue: 0.302) // #FFC94D
 
-    // Per-category accents — small functional cues (~8pt dots on item
-    // rows). Distinct from `appAccent` (interactive state) and from any
-    // restaurant brand color, which PROJECT.md §9 still forbids. Tuned by
-    // eye for legibility against `appSurface` in both schemes; if dark-
-    // mode contrast needs nuance later, promote each to an asset entry.
-    static let categorySage     = Color(red: 0.45, green: 0.62, blue: 0.40)
-    static let categoryAmber    = Color(red: 0.85, green: 0.55, blue: 0.20)
-    static let categoryOlive    = Color(red: 0.50, green: 0.65, blue: 0.30)
-    static let categoryPaprika  = Color(red: 0.82, green: 0.32, blue: 0.22)
-    static let categoryButter   = Color(red: 0.85, green: 0.70, blue: 0.30)
-    static let categoryWheat    = Color(red: 0.72, green: 0.55, blue: 0.30)
-    static let categoryBurgundy = Color(red: 0.62, green: 0.30, blue: 0.30)
+    // MARK: Feedback
+    static let destructiveRed = Color(red: 1.0, green: 0.365, blue: 0.365) // #FF5D5D
 }
 
-// Lets call sites use the SwiftUI shorthand `.foregroundStyle(.appPrimaryText)`
-// instead of the longer `Color.appPrimaryText`. `.foregroundStyle` resolves
-// dot-syntax against `ShapeStyle`, not `Color`.
-extension ShapeStyle where Self == Color {
-    static var appAccent: Color { .appAccent }
-    static var appBackground: Color { .appBackground }
-    static var appSurface: Color { .appSurface }
-    static var appPrimaryText: Color { .appPrimaryText }
-    static var appSecondaryText: Color { .appSecondaryText }
-    static var appDestructive: Color { .appDestructive }
+
+nonisolated extension ShapeStyle where Self == Color {
+    static var void: Color { .void }
+    static var surface: Color { .surface }
+    static var surfaceElevated: Color { .surfaceElevated }
+    static var hairline: Color { .hairline }
+    static var textPrimary: Color { .textPrimary }
+    static var textSecondary: Color { .textSecondary }
+    static var textTertiary: Color { .textTertiary }
+    static var volt: Color { .volt }
+    static var kcal: Color { .kcal }
+    static var protein: Color { .protein }
+    static var carbs: Color { .carbs }
+    static var fat: Color { .fat }
+    static var destructiveRed: Color { .destructiveRed }
 }

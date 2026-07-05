@@ -1,25 +1,36 @@
 import SwiftUI
 
-extension Font {
-    static let appLargeTitle = Font.system(.largeTitle, weight: .bold)
-    static let appTitle = Font.system(.title2, weight: .semibold)
-    static let appHeadline = Font.system(.headline)
-    static let appBody = Font.system(.body)
-    static let appCaption = Font.system(.caption, weight: .medium)
+// OBSIDIAN type scale — STYLE_GUIDE.md §2.
+// Words: SF Pro. Food numbers: SF Rounded, monospaced digits, always.
+nonisolated extension Font {
+    // MARK: Words
+    static let displayXL    = Font.system(size: 40, weight: .heavy)
+    static let displayTitle = Font.system(size: 28, weight: .bold)
+    static let appHeadline  = Font.system(size: 17, weight: .semibold)
+    static let appBody      = Font.system(size: 16, weight: .regular)
+    static let appCaption   = Font.system(size: 12, weight: .medium)
+    static let microLabel   = Font.system(size: 11, weight: .semibold)
 
-    // SF Rounded for macro numerals — same family Apple uses for the
-    // Activity rings on Apple Watch. Rounded numerals read at-a-glance,
-    // which is the entire job of the totals on every screen.
-    // monospacedDigit so the figure doesn't shift sideways as it ticks
-    // through `.contentTransition(.numericText())`.
-    static let macroNumeric = Font.system(.title3, design: .rounded)
-        .weight(.semibold)
-        .monospacedDigit()
+    // MARK: Numerals (rounded + monospacedDigit so values tick in place
+    // through .contentTransition(.numericText()) without lateral shift)
+    static let numeralHero  = Font.system(size: 44, design: .rounded).weight(.bold).monospacedDigit()
+    static let numeralLarge = Font.system(size: 24, design: .rounded).weight(.semibold).monospacedDigit()
+    static let numeral      = Font.system(size: 17, design: .rounded).weight(.semibold).monospacedDigit()
+}
 
-    static let macroDisplay = Font.system(.largeTitle, design: .rounded)
-        .weight(.bold)
-        .monospacedDigit()
+extension View {
+    /// `microLabel` treatment: the only uppercase style in the app.
+    func microLabelStyle(_ color: Color = .textSecondary) -> some View {
+        self.font(.microLabel)
+            .kerning(1.4)
+            .textCase(.uppercase)
+            .foregroundStyle(color)
+    }
 
-    static let macroLabel = Font.system(.caption, design: .rounded)
-        .weight(.medium)
+    /// Masthead treatment for screen titles.
+    func displayXLStyle() -> some View {
+        self.font(.displayXL)
+            .kerning(-1.0)
+            .foregroundStyle(.textPrimary)
+    }
 }

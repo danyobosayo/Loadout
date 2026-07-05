@@ -13,8 +13,7 @@
       "id": "bases",
       "name": "Bases",
       "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
+        "kind": "selectMany"
       },
       "items": [
         {

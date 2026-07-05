@@ -1,0 +1,553 @@
+{
+  "id": "panda-express",
+  "name": "Panda Express",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://www.pandaexpress.com/nutritioninformation",
+    "fetchedAt": "2026-07-02",
+    "fetchedBy": "web-research",
+    "notes": "Full nutrition table scraped from the official Panda Express (US) nutrition information page on 2026-07-02. Serving sizes are the standard adult portions as listed by Panda Express (side portion for sides, entree portion for entrees); portion weights in oz come directly from the source's 'Portion (oz)' column. Kids/'cub meal' portion variants, pre-configured Cub Meals, beverages, soups, fortune cookie, and apple crisps were excluded. All calorie/protein/carb/fat values are copied verbatim from the official table; no values were estimated."
+  },
+  "categories": [
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panda-express.sides.chow-mein",
+          "name": "Chow Mein",
+          "servingDescription": "1 side (11.0 oz)",
+          "macros": {
+            "calories": 600.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 94.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panda-express.sides.fried-rice",
+          "name": "Fried Rice",
+          "servingDescription": "1 side (11.0 oz)",
+          "macros": {
+            "calories": 620.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 101.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "riceWhiteBowl"
+        },
+        {
+          "id": "panda-express.sides.white-steamed-rice",
+          "name": "White Steamed Rice",
+          "servingDescription": "1 side (11.0 oz)",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 118.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "riceWhiteBowl"
+        },
+        {
+          "id": "panda-express.sides.super-greens",
+          "name": "Super Greens",
+          "servingDescription": "1 side (10.0 oz)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 14.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "lettuce"
+        },
+        {
+          "id": "panda-express.sides.chow-fun",
+          "name": "Chow Fun",
+          "servingDescription": "1 side (8.5 oz)",
+          "macros": {
+            "calories": 410.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 73.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ]
+    },
+    {
+      "id": "entrees",
+      "name": "Entrees",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panda-express.entrees.orange-chicken",
+          "name": "Orange Chicken",
+          "servingDescription": "1 entree (5.92 oz)",
+          "macros": {
+            "calories": 510.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 53.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.hot-orange-chicken",
+          "name": "Hot Orange Chicken",
+          "servingDescription": "1 entree (5.92 oz)",
+          "macros": {
+            "calories": 550.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 59.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.grilled-teriyaki-chicken",
+          "name": "Grilled Teriyaki Chicken",
+          "servingDescription": "1 entree (6.0 oz)",
+          "macros": {
+            "calories": 275.0,
+            "proteinGrams": 33.0,
+            "carbGrams": 14.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chickenGrilled"
+        },
+        {
+          "id": "panda-express.entrees.teriyaki-chicken",
+          "name": "Teriyaki Chicken",
+          "servingDescription": "1 entree (6.0 oz)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 41.0,
+            "carbGrams": 14.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chickenGrilled"
+        },
+        {
+          "id": "panda-express.entrees.black-pepper-chicken",
+          "name": "Black Pepper Chicken",
+          "servingDescription": "1 entree (6.3 oz)",
+          "macros": {
+            "calories": 280.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 15.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.kung-pao-chicken",
+          "name": "Kung Pao Chicken",
+          "servingDescription": "1 entree (6.73 oz)",
+          "macros": {
+            "calories": 320.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 15.0,
+            "fatGrams": 21.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.mushroom-chicken",
+          "name": "Mushroom Chicken",
+          "servingDescription": "1 entree (5.7 oz)",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 10.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.potato-chicken",
+          "name": "Potato Chicken",
+          "servingDescription": "1 entree (5.2 oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 18.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.honey-sesame-chicken-breast",
+          "name": "Honey Sesame Chicken Breast",
+          "servingDescription": "1 entree (5.3 oz)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 35.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.string-bean-chicken-breast",
+          "name": "String Bean Chicken Breast",
+          "servingDescription": "1 entree (5.6 oz)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 13.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.sweet-and-sour-chicken-breast",
+          "name": "Sweet & Sour Chicken Breast",
+          "servingDescription": "1 entree (5.5 oz)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 40.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.sweetfire-chicken-breast",
+          "name": "SweetFire Chicken Breast",
+          "servingDescription": "1 entree (5.8 oz)",
+          "macros": {
+            "calories": 360.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 40.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.entrees.beijing-beef",
+          "name": "Beijing Beef",
+          "servingDescription": "1 entree (5.6 oz)",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 46.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "panda-express.entrees.broccoli-beef",
+          "name": "Broccoli Beef",
+          "servingDescription": "1 entree (5.44 oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 12.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "panda-express.entrees.black-pepper-sirloin-steak",
+          "name": "Black Pepper Sirloin Steak",
+          "servingDescription": "1 entree (5.1 oz)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 12.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "panda-express.entrees.honey-walnut-shrimp",
+          "name": "Honey Walnut Shrimp",
+          "servingDescription": "1 entree (4.39 oz)",
+          "macros": {
+            "calories": 430.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 32.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "salmonFilet"
+        },
+        {
+          "id": "panda-express.entrees.wok-fired-shrimp",
+          "name": "Wok-Fired Shrimp",
+          "servingDescription": "1 entree (6.0 oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 19.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "salmonFilet"
+        },
+        {
+          "id": "panda-express.entrees.steamed-ginger-fish",
+          "name": "Steamed Ginger Fish",
+          "servingDescription": "1 entree (6.0 oz)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 8.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "salmonFilet"
+        },
+        {
+          "id": "panda-express.entrees.eggplant-tofu",
+          "name": "Eggplant Tofu",
+          "servingDescription": "1 entree (6.1 oz)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 23.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "eggplant"
+        },
+        {
+          "id": "panda-express.entrees.super-greens-entree",
+          "name": "Super Greens (Entree)",
+          "servingDescription": "1 entree (7.0 oz)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 10.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "lettuce"
+        }
+      ]
+    },
+    {
+      "id": "appetizers",
+      "name": "Appetizers",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panda-express.appetizers.chicken-egg-roll",
+          "name": "Chicken Egg Roll",
+          "servingDescription": "1 roll (2.75 oz)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 20.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.appetizers.veggie-spring-roll",
+          "name": "Veggie Spring Roll",
+          "servingDescription": "2 rolls (3.5 oz)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 24.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "broccoli"
+        },
+        {
+          "id": "panda-express.appetizers.cream-cheese-rangoon",
+          "name": "Cream Cheese Rangoon",
+          "servingDescription": "3 pieces (2.4 oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 24.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "panda-express.appetizers.chicken-potsticker",
+          "name": "Chicken Potsticker",
+          "servingDescription": "3 pieces (3.3 oz)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 20.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "panda-express.appetizers.apple-pie-roll",
+          "name": "Apple Pie Roll",
+          "servingDescription": "1 roll (1.94 oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 30.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "breadPita"
+        }
+      ]
+    },
+    {
+      "id": "sauces",
+      "name": "Sauces",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panda-express.sauces.soy-sauce",
+          "name": "Soy Sauce",
+          "servingDescription": "1 serving (0.21 oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "panda-express.sauces.sweet-and-sour-sauce",
+          "name": "Sweet & Sour Sauce",
+          "servingDescription": "1 serving (1.8 oz)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 21.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "panda-express.sauces.chili-sauce",
+          "name": "Chili Sauce",
+          "servingDescription": "1 serving (0.25 oz)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chiliPeppersRed"
+        },
+        {
+          "id": "panda-express.sauces.teriyaki-sauce",
+          "name": "Teriyaki Sauce",
+          "servingDescription": "1 serving (1.8 oz)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 16.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "panda-express.sauces.hot-mustard",
+          "name": "Hot Mustard",
+          "servingDescription": "1 serving (0.25 oz)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chiliPeppersRed"
+        },
+        {
+          "id": "panda-express.sauces.potsticker-sauce",
+          "name": "Potsticker Sauce",
+          "servingDescription": "1 serving (0.4 oz)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "sauceBBQWorcestershire"
+        }
+      ]
+    }
+  ]
+}

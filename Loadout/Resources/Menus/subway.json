@@ -1,0 +1,1048 @@
+{
+  "id": "subway",
+  "name": "Subway",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://media.subway.com/dam/urn:aaid:aem:2278372c-147b-42f2-8edc-7d8d94d1f07e/original/as/us-nutrition-en.pdf",
+    "fetchedAt": "2026-07-02",
+    "fetchedBy": "web-research",
+    "notes": "Official Subway 'U.S. Nutrition Information' PDF (January 2026 edition), linked as 'Nutrition Data Tables (USA)' from https://www.subway.com/en-us/menunutrition/nutrition. All build-your-own components use the 6-inch sandwich basis from the 'Breads & Ingredients' tables: breads are per 6-inch roll/wrap; proteins are the 6-inch sandwich meat portion; cheeses, vegetables, and sauces are the 'amount on 6-inch sandwich' portion (per the PDF, double all values for a footlong, and double sauce values for a salad dressing portion). Extras are per stated serving (1 cookie = 45 g, etc.). Excluded because they do not appear in the January 2026 official document: Italian Herbs & Cheese bread, Honey Oat bread, Mozzarella cheese, Light Mayonnaise, Chipotle Southwest sauce, classic Sweet Onion sauce, classic Ranch, and bagged chips (not listed in the PDF). Drinks, kids meals, soups, and curated/pre-built subs are intentionally excluded (components only). Zero-calorie seasonings (salt, pepper, oregano) omitted."
+  },
+  "categories": [
+    {
+      "id": "breads",
+      "name": "Breads",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 1
+      },
+      "items": [
+        {
+          "id": "subway.breads.artisan-italian",
+          "name": "Artisan Italian Bread",
+          "servingDescription": "6-inch roll (71 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 39.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "breadPita"
+        },
+        {
+          "id": "subway.breads.hearty-multigrain",
+          "name": "Hearty Multigrain Bread",
+          "servingDescription": "6-inch roll (71 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 36.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "riceBrownBowl"
+        },
+        {
+          "id": "subway.breads.jalapeno-cheddar",
+          "name": "Jalapeño Cheddar Bread",
+          "servingDescription": "6-inch roll (82 g)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 39.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.breads.artisan-flatbread",
+          "name": "Artisan Flatbread",
+          "servingDescription": "6-inch flatbread (78 g)",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 40.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "breadPita"
+        },
+        {
+          "id": "subway.breads.wrap-12-inch",
+          "name": "12\" Wrap",
+          "servingDescription": "12-inch wrap (102 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 50.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "wheatFlat"
+        },
+        {
+          "id": "subway.breads.wrap-pocket-9-inch",
+          "name": "9\" Wrap (Pocket)",
+          "servingDescription": "9-inch wrap pocket (52 g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 26.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "wheatFlat"
+        },
+        {
+          "id": "subway.breads.mini-artisan-italian",
+          "name": "Mini Artisan Italian Bread",
+          "servingDescription": "Mini roll (47 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 26.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "breadPita"
+        },
+        {
+          "id": "subway.breads.mini-hearty-multigrain",
+          "name": "Mini Hearty Multigrain Bread",
+          "servingDescription": "Mini roll (47 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 24.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "riceBrownBowl"
+        }
+      ]
+    },
+    {
+      "id": "proteins",
+      "name": "Proteins",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "subway.proteins.oven-roasted-turkey",
+          "name": "Oven-Roasted Turkey",
+          "servingDescription": "6-inch sandwich portion (57 g)",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 0.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "subway.proteins.black-forest-ham",
+          "name": "Black Forest Ham",
+          "servingDescription": "6-inch sandwich portion (57 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 2.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "porkLoin"
+        },
+        {
+          "id": "subway.proteins.roast-beef",
+          "name": "Roast Beef",
+          "servingDescription": "6-inch sandwich portion (71 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 2.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "subway.proteins.tuna",
+          "name": "Tuna",
+          "servingDescription": "6-inch sandwich portion (74 g)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 0.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "salmonFilet"
+        },
+        {
+          "id": "subway.proteins.rotisserie-style-chicken",
+          "name": "Rotisserie-Style Chicken",
+          "servingDescription": "6-inch sandwich portion (71 g)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 0.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "subway.proteins.grilled-chicken",
+          "name": "Grilled Chicken",
+          "servingDescription": "6-inch sandwich portion (71 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chickenGrilled"
+        },
+        {
+          "id": "subway.proteins.grilled-chicken-teriyaki-glazed",
+          "name": "Grilled Chicken, Sweet Onion Teriyaki Glazed",
+          "servingDescription": "6-inch sandwich portion (85 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 9.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chickenGrilled"
+        },
+        {
+          "id": "subway.proteins.steak",
+          "name": "Steak (no cheese)",
+          "servingDescription": "6-inch sandwich portion (71 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 2.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "subway.proteins.meatballs",
+          "name": "Meatballs",
+          "servingDescription": "6-inch sandwich portion (139 g)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 13.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "meatballs"
+        },
+        {
+          "id": "subway.proteins.bacon",
+          "name": "Bacon (2 strips)",
+          "servingDescription": "2 strips (15 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "porkLoin"
+        },
+        {
+          "id": "subway.proteins.pepperoni",
+          "name": "Pepperoni (3 slices)",
+          "servingDescription": "3 slices (18 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 1.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "porkLoin"
+        },
+        {
+          "id": "subway.proteins.genoa-salami",
+          "name": "Genoa Salami (3 slices)",
+          "servingDescription": "3 slices (18 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": "Number of salami slices varies by build",
+          "iconName": "porkLoin"
+        },
+        {
+          "id": "subway.proteins.pastrami",
+          "name": "Pastrami",
+          "servingDescription": "6-inch sandwich portion (57 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 1.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "steakBoneIn"
+        },
+        {
+          "id": "subway.proteins.egg-patty",
+          "name": "Egg Patty",
+          "servingDescription": "6-inch sandwich portion (85 g)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 2.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "vegetables"
+        },
+        {
+          "id": "subway.proteins.veggie-patty",
+          "name": "Veggie Patty",
+          "servingDescription": "6-inch sandwich portion (85 g)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 17.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "broccoli"
+        },
+        {
+          "id": "subway.proteins.cold-cut-combo-meats",
+          "name": "Cold Cut Combo Meats",
+          "servingDescription": "6-inch sandwich portion (64 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.proteins.all-american-club-meats",
+          "name": "All-American Club Meats (Ham, Turkey, Bacon)",
+          "servingDescription": "6-inch sandwich portion (72 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 2.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        },
+        {
+          "id": "subway.proteins.subway-club-meats",
+          "name": "Subway Club Meats (Turkey, Ham, Roast Beef)",
+          "servingDescription": "6-inch sandwich portion (92 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 3.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chicken"
+        }
+      ]
+    },
+    {
+      "id": "cheeses",
+      "name": "Cheeses",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "subway.cheeses.american",
+          "name": "American",
+          "servingDescription": "6-inch sandwich portion (23 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 1.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.cheeses.provolone",
+          "name": "Provolone",
+          "servingDescription": "6-inch sandwich portion (25 g)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 1.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.cheeses.pepper-jack",
+          "name": "Pepper Jack",
+          "servingDescription": "6-inch sandwich portion (28 g)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.cheeses.monterey-cheddar-shredded",
+          "name": "Monterey Cheddar, Shredded",
+          "servingDescription": "6-inch sandwich portion (28 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 1.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.cheeses.parmesan-grated",
+          "name": "Parmesan, Grated",
+          "servingDescription": "6-inch sandwich portion (1 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        }
+      ]
+    },
+    {
+      "id": "veggies",
+      "name": "Veggies",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "subway.veggies.lettuce",
+          "name": "Lettuce",
+          "servingDescription": "6-inch sandwich portion (21 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "lettuce"
+        },
+        {
+          "id": "subway.veggies.spinach-baby",
+          "name": "Spinach, Baby",
+          "servingDescription": "6-inch sandwich portion (7 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "lettuce"
+        },
+        {
+          "id": "subway.veggies.tomatoes",
+          "name": "Tomatoes (3 wheels)",
+          "servingDescription": "3 wheels (35 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "tomato"
+        },
+        {
+          "id": "subway.veggies.cucumbers",
+          "name": "Cucumbers (3 slices)",
+          "servingDescription": "3 slices (14 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cucumber"
+        },
+        {
+          "id": "subway.veggies.green-peppers",
+          "name": "Green Peppers (3 strips)",
+          "servingDescription": "3 strips (7 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "broccoli"
+        },
+        {
+          "id": "subway.veggies.onions",
+          "name": "Onions",
+          "servingDescription": "6-inch sandwich portion (7 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "onion"
+        },
+        {
+          "id": "subway.veggies.pickles-crinkle",
+          "name": "Pickles, Crinkle (3 chips)",
+          "servingDescription": "3 chips (12 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cucumber"
+        },
+        {
+          "id": "subway.veggies.jalapeno-peppers",
+          "name": "Jalapeño Peppers (3 rings)",
+          "servingDescription": "3 rings (4 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chiliPeppersRed"
+        },
+        {
+          "id": "subway.veggies.banana-peppers",
+          "name": "Banana Peppers (3 rings)",
+          "servingDescription": "3 rings (4 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.veggies.olives-black",
+          "name": "Olives, Black (3 rings)",
+          "servingDescription": "3 rings (3 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.veggies.green-chiles",
+          "name": "Green Chiles",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "broccoli"
+        },
+        {
+          "id": "subway.veggies.avocado-sliced",
+          "name": "Avocado, Sliced",
+          "servingDescription": "6-inch sandwich portion (28 g)",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "avocado"
+        },
+        {
+          "id": "subway.veggies.avocado-smashed",
+          "name": "Avocado, Smashed",
+          "servingDescription": "6-inch sandwich portion (35 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "avocado"
+        }
+      ]
+    },
+    {
+      "id": "sauces",
+      "name": "Sauces & Condiments",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "subway.sauces.mayonnaise",
+          "name": "Mayonnaise",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.mustard-yellow",
+          "name": "Mustard, Yellow",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.honey-mustard",
+          "name": "Honey Mustard",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.baja-chipotle",
+          "name": "Baja Chipotle",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.sauces.sweet-onion-teriyaki",
+          "name": "Sweet Onion Teriyaki",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 7.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "onion"
+        },
+        {
+          "id": "subway.sauces.peppercorn-ranch",
+          "name": "Peppercorn Ranch",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "corn"
+        },
+        {
+          "id": "subway.sauces.mvp-parmesan-vinaigrette",
+          "name": "MVP Parmesan Vinaigrette",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.sauces.olive-oil-blend",
+          "name": "Olive Oil Blend",
+          "servingDescription": "6-inch sandwich portion (5 g)",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.olive-oil-blend-and-vinegar",
+          "name": "Olive Oil Blend & Vinegar",
+          "servingDescription": "6-inch sandwich portion (9 g)",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.red-wine-vinegar",
+          "name": "Red Wine Vinegar",
+          "servingDescription": "6-inch sandwich portion (4 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.creamy-sriracha",
+          "name": "Creamy Sriracha",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "subway.sauces.buffalo-sauce",
+          "name": "Buffalo Sauce",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "subway.sauces.bbq-sauce",
+          "name": "BBQ Sauce",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 6.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "subway.sauces.hot-honey-sauce",
+          "name": "Hot Honey Sauce",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 8.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "chiliPeppersRed"
+        },
+        {
+          "id": "subway.sauces.roasted-garlic-aioli",
+          "name": "Roasted Garlic Aioli",
+          "servingDescription": "6-inch sandwich portion (14 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "oil"
+        },
+        {
+          "id": "subway.sauces.cheddar-cheese-sauce",
+          "name": "Cheddar Cheese Sauce",
+          "servingDescription": "6-inch sandwich portion (18 g)",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.sauces.giardiniera",
+          "name": "Giardiniera",
+          "servingDescription": "6-inch sandwich portion (28 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": null
+        },
+        {
+          "id": "subway.sauces.subkrunch",
+          "name": "Subkrunch",
+          "servingDescription": "6-inch sandwich portion (11 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 6.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "name": "Extras",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "subway.extras.chocolate-chip-cookie",
+          "name": "Chocolate Chip Cookie",
+          "servingDescription": "1 cookie (45 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 30.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "biscotti"
+        },
+        {
+          "id": "subway.extras.double-chocolate-cookie",
+          "name": "Double Chocolate Cookie",
+          "servingDescription": "1 cookie (45 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 29.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "biscotti"
+        },
+        {
+          "id": "subway.extras.oatmeal-raisin-cookie",
+          "name": "Oatmeal Raisin Cookie",
+          "servingDescription": "1 cookie (45 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 30.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "biscotti"
+        },
+        {
+          "id": "subway.extras.raspberry-cheesecake-cookie",
+          "name": "Naturally Flavored Raspberry Cheesecake Cookie",
+          "servingDescription": "1 cookie (45 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 29.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "cheeseSlice"
+        },
+        {
+          "id": "subway.extras.white-chip-macadamia-nut-cookie",
+          "name": "White Chip Macadamia Nut Cookie",
+          "servingDescription": "1 cookie (45 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 28.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "biscotti"
+        },
+        {
+          "id": "subway.extras.footlong-chocolate-chip-cookie",
+          "name": "Footlong Chocolate Chip Cookie",
+          "servingDescription": "1 footlong cookie (285 g)",
+          "macros": {
+            "calories": 1330.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 181.0,
+            "fatGrams": 61.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": "biscotti"
+        },
+        {
+          "id": "subway.extras.applesauce",
+          "name": "Applesauce",
+          "servingDescription": "1 pouch (90 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 16.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "sauceBBQWorcestershire"
+        },
+        {
+          "id": "subway.extras.hash-browns",
+          "name": "Hash Browns",
+          "servingDescription": "1 serving (108 g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 24.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": "At participating locations",
+          "iconName": "chipsBaked"
+        }
+      ]
+    }
+  ]
+}

@@ -66,8 +66,7 @@
       "id": "rice",
       "name": "Rice",
       "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
+        "kind": "selectMany"
       },
       "items": [
         {
@@ -105,8 +104,7 @@
       "id": "beans",
       "name": "Beans",
       "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
+        "kind": "selectMany"
       },
       "items": [
         {

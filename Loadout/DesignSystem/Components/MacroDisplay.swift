@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// One macro readout: ticking numeral over a color-matched microLabel.
+/// The numeral never teleports — STYLE_GUIDE.md §0 law 2.
 struct MacroDisplay: View {
     enum Style {
-        case hero    // top-of-screen totals
+        case hero    // top-of-tray totals
         case inline  // per-item readouts
     }
 
@@ -12,9 +14,27 @@ struct MacroDisplay: View {
         var label: String {
             switch self {
             case .calories: "kcal"
+            case .protein: "protein"
+            case .carbs: "carbs"
+            case .fat: "fat"
+            }
+        }
+
+        var shortLabel: String {
+            switch self {
+            case .calories: "kcal"
             case .protein: "P"
             case .carbs: "C"
             case .fat: "F"
+            }
+        }
+
+        var color: Color {
+            switch self {
+            case .calories: .kcal
+            case .protein: .protein
+            case .carbs: .carbs
+            case .fat: .fat
             }
         }
 
@@ -26,6 +46,8 @@ struct MacroDisplay: View {
             case .fat: "grams fat"
             }
         }
+
+        var showsGramSuffix: Bool { self != .calories }
     }
 
     let kind: Kind
@@ -33,18 +55,51 @@ struct MacroDisplay: View {
     var style: Style = .hero
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(value, format: .number.precision(.fractionLength(0)))
-                .font(style == .hero ? .macroDisplay : .macroNumeric)
-                .foregroundStyle(.appPrimaryText)
-                .contentTransition(.numericText())
-                .animation(.spring(duration: 0.25), value: value)
-            Text(kind.label)
-                .font(.macroLabel)
-                .foregroundStyle(.appSecondaryText)
-                .textCase(.uppercase)
+        switch style {
+        case .hero: hero
+        case .inline: inline
         }
-        .accessibilityElement(children: .combine)
+    }
+
+    private var hero: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(alignment: .firstTextBaseline, spacing: 1) {
+                Text(value, format: format)
+                    .font(.numeralLarge)
+                    .foregroundStyle(.textPrimary)
+                    .contentTransition(.numericText(value: value))
+                    .animation(Motion.snap, value: value)
+                if kind.showsGramSuffix {
+                    Text("g")
+                        .font(.appCaption)
+                        .foregroundStyle(.textTertiary)
+                }
+            }
+            Text(kind.label)
+                .microLabelStyle(kind.color)
+        }
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(Int(value.rounded())) \(kind.voiceOverUnit)")
+    }
+
+    private var inline: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 3) {
+            Text(kind.shortLabel)
+                .microLabelStyle(kind.color)
+            Text(value, format: format)
+                .font(.numeral)
+                .foregroundStyle(.textPrimary)
+                .contentTransition(.numericText(value: value))
+                .animation(Motion.snap, value: value)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(Int(value.rounded())) \(kind.voiceOverUnit)")
+    }
+
+    private var format: FloatingPointFormatStyle<Double> {
+        // Calories: integer. Grams: one decimal max — STYLE_GUIDE.md §7.
+        kind == .calories
+            ? .number.precision(.fractionLength(0))
+            : .number.precision(.fractionLength(0...1))
     }
 }
