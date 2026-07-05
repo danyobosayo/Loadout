@@ -1,115 +1,264 @@
 import SwiftUI
 import SwiftData
+import UIKit
+import CoreTransferable
+import UniformTypeIdentifiers
 
+/// The tray — hero ring + macro trio, per-item portion editing, and
+/// the export suite: MacroFactor Shortcut, MyFitnessPal Quick Add
+/// (clipboard + app jump), recipe JSON share/copy.
 struct MealTrayView: View {
     @Bindable var store: MealBuilderStore
+    // The format this build started from, if any. Only used to nudge when a
+    // required guided pick is still missing; nil for build-your-own/reopen.
+    var format: OrderFormat?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
     @Environment(SettingsStore.self) private var settings
+
     @State private var savePrompt = false
-    @State private var favoriteName = ""
+    @State private var recipeName = ""
+    @State private var exportNote: String?
+    @State private var noteDismissTask: Task<Void, Never>?
 
     var body: some View {
         NavigationStack {
-            Group {
+            ZStack {
+                Backdrop(tint: store.restaurant.style.hue)
+
                 if store.isEmpty {
-                    ContentUnavailableView(
-                        "No items yet",
-                        systemImage: "tray",
-                        description: Text("Tap items on the menu to start building.")
+                    EmptyStateView(
+                        systemImage: "takeoutbag.and.cup.and.straw",
+                        title: "Tray's empty",
+                        message: "Tap a station item to start building.",
+                        tint: store.restaurant.style.hue
                     )
                 } else {
-                    list
+                    content
                 }
             }
-            .navigationTitle("Your meal")
+            .navigationTitle("Your tray")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundStyle(.textSecondary)
+                    }
+                    .accessibilityLabel("Close tray")
                 }
                 if !store.isEmpty {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            favoriteName = "\(store.restaurant.name) Bowl"
-                            savePrompt = true
-                        } label: {
-                            Label("Save to Favorites", systemImage: "heart")
-                        }
-                    }
                     ToolbarItem(placement: .destructiveAction) {
-                        Button("Clear", role: .destructive) {
-                            store.clear()
+                        Button("Clear") {
+                            Haptics.warning()
+                            withAnimation(Motion.glide) { store.clear() }
                         }
-                        .foregroundStyle(.appDestructive)
+                        .font(.appCaption.weight(.semibold))
+                        .foregroundStyle(.destructiveRed)
                     }
                 }
             }
-            .alert("Save favorite", isPresented: $savePrompt) {
-                TextField("Name", text: $favoriteName)
-                Button("Save", action: saveFavorite)
+            .alert("Save recipe", isPresented: $savePrompt) {
+                TextField("Name", text: $recipeName)
+                Button("Save", action: saveRecipe)
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Give this meal a name so you can rerun it later.")
+                Text("Name it so you can rebuild it in two taps.")
             }
             .safeAreaInset(edge: .bottom) {
-                if !store.isEmpty {
-                    logBar
+                if !store.isEmpty { actionDock }
+            }
+            .overlay(alignment: .bottom) {
+                if let exportNote {
+                    note(exportNote)
+                        .padding(.bottom, 140)
                 }
             }
         }
+        .presentationDetents([.medium, .large])
+        .presentationCornerRadius(Radius.sheet)
+        .presentationBackground(Color.void)
+        .presentationDragIndicator(.visible)
     }
 
-    private var list: some View {
-        List {
-            Section {
-                MacroBar(macros: store.totalMacros, style: .hero)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, Spacing.sm)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets(top: Spacing.sm, leading: Spacing.md, bottom: Spacing.md, trailing: Spacing.md))
-            }
+    // MARK: Content
 
-            Section {
-                ForEach(store.lineItems) { lineItem in
-                    LineItemRow(lineItem: lineItem, store: store)
+    private var content: some View {
+        ScrollView {
+            VStack(spacing: Spacing.lg) {
+                hero
+                    .padding(.top, Spacing.sm)
+
+                VStack(spacing: Spacing.sm) {
+                    ForEach(Array(store.lineItems.enumerated()), id: \.element.id) { index, lineItem in
+                        LineItemCard(lineItem: lineItem, store: store)
+                            .entrance(index)
+                    }
                 }
-            } header: {
-                Text("^[\(store.totalLineItemCount) item](inflect: true)")
-                    .font(.appCaption)
-                    .foregroundStyle(.appSecondaryText)
-                    .textCase(.uppercase)
             }
+            .padding(.horizontal, Spacing.md)
+            .padding(.bottom, Spacing.md)
         }
-        .listStyle(.insetGrouped)
     }
 
-    private var logBar: some View {
-        Button {
-            logToMacroFactor()
-        } label: {
-            Label("Log to MacroFactor", systemImage: "arrow.up.forward.app.fill")
-                .font(.appHeadline)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, Spacing.sm)
+    private var hero: some View {
+        VStack(spacing: Spacing.md) {
+            HStack(spacing: Spacing.lg) {
+                MacroRing(calories: store.totalMacros.calories, size: 124)
+
+                VStack(alignment: .leading, spacing: Spacing.sm + Spacing.xs) {
+                    MacroDisplay(kind: .protein, value: store.totalMacros.proteinGrams, style: .hero)
+                    MacroDisplay(kind: .carbs, value: store.totalMacros.carbGrams, style: .hero)
+                    MacroDisplay(kind: .fat, value: store.totalMacros.fatGrams, style: .hero)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            MacroSegmentBar(macros: store.totalMacros)
         }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
+        .accessibilityElement(children: .combine)
+    }
+
+    // MARK: Action dock
+
+    private var actionDock: some View {
+        VStack(spacing: Spacing.sm) {
+            if !unmetRequired.isEmpty {
+                nudgeBanner
+            }
+
+            Button {
+                logToMacroFactor()
+            } label: {
+                Label("Log to MacroFactor", systemImage: "bolt.fill")
+            }
+            .buttonStyle(.primaryAction)
+
+            HStack(spacing: Spacing.sm) {
+                Button {
+                    recipeName = defaultRecipeName
+                    savePrompt = true
+                } label: {
+                    Label("Save Recipe", systemImage: "bookmark")
+                }
+                .buttonStyle(.ghost)
+
+                exportMenu
+            }
+        }
+        .padding(.horizontal, Spacing.md)
+        .padding(.top, Spacing.sm)
+        .padding(.bottom, Spacing.xs)
+        .background {
+            Rectangle()
+                .fill(Color.void)
+                .overlay(alignment: .top) { Rectangle().fill(Color.hairline).frame(height: 1) }
+                .ignoresSafeArea()
+        }
+    }
+
+    /// Required guided picks the meal is still missing. Empty for
+    /// build-your-own, reopened meals, and fully-answered formats.
+    private var unmetRequired: [FormatPrompt] {
+        guard let format else { return [] }
+        let selected = Set(store.lineItems.map(\.menuItemId))
+        return format.unmetRequiredPrompts(selecting: selected, in: store.restaurant)
+    }
+
+    /// Soft, non-blocking heads-up — you can still log an incomplete meal.
+    private var nudgeBanner: some View {
+        let labels = unmetRequired.map(\.shortLabel).joined(separator: ", ")
+        return HStack(spacing: Spacing.sm) {
+            Image(systemName: "exclamationmark.circle.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(.fat)
+                .accessibilityHidden(true)
+            Text("Still to add: \(labels)")
+                .font(.appCaption.weight(.semibold))
+                .foregroundStyle(.textPrimary)
+            Spacer(minLength: 0)
+        }
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, Spacing.sm)
-        .background(.bar)
+        .background {
+            Capsule()
+                .fill(Color.fat.opacity(0.12))
+                .overlay(Capsule().strokeBorder(Color.fat.opacity(0.32), lineWidth: 1))
+        }
+    }
+
+    private var exportMenu: some View {
+        Menu {
+            Button {
+                copyForMyFitnessPal()
+            } label: {
+                Label("Copy for MyFitnessPal", systemImage: "doc.on.clipboard")
+            }
+            ShareLink(item: recipeShare, preview: SharePreview(defaultRecipeName)) {
+                Label("Share recipe file", systemImage: "square.and.arrow.up")
+            }
+            Button {
+                copyRecipeJSON()
+            } label: {
+                Label("Copy recipe JSON", systemImage: "curlybraces")
+            }
+        } label: {
+            // Manual ghost chrome — Menu doesn't reliably route through
+            // ButtonStyle, so the capsule is applied to the label itself.
+            Label("Export", systemImage: "arrow.up.forward")
+                .font(.appHeadline)
+                .foregroundStyle(.textPrimary)
+                .padding(.vertical, 14)
+                .frame(maxWidth: .infinity)
+                .background {
+                    Capsule()
+                        .fill(Color.white.opacity(0.02))
+                        .overlay(Capsule().strokeBorder(Color.hairline, lineWidth: 1))
+                }
+        }
+    }
+
+    // MARK: Actions
+
+    private var defaultRecipeName: String {
+        // Name after the format when there is one ("Chipotle Burrito",
+        // "CAVA Grain Bowl"); fall back to the generic "… Bowl" for
+        // build-your-own and reopened meals.
+        if let formatName = store.formatName {
+            return "\(store.restaurant.name) \(formatName)"
+        }
+        return "\(store.restaurant.name) Bowl"
+    }
+
+    private var currentPayload: ExportService.RecipePayload {
+        ExportService.recipePayload(
+            name: defaultRecipeName,
+            restaurantId: store.restaurant.id,
+            lineItems: store.lineItems
+        )
+    }
+
+    private var recipeShare: RecipeShareFile {
+        RecipeShareFile(payload: currentPayload)
     }
 
     private func logToMacroFactor() {
         let restaurantName = store.restaurant.name
-        let meal = store.save()
+        // Snapshot only — the tray stays intact. Clearing is the
+        // user's call via the Clear button.
+        let meal = store.snapshotMeal()
         let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
         let food = exporter.food(for: meal, restaurantName: restaurantName)
         if let url = try? exporter.shortcutsURL(for: food) {
             openURL(url)
         }
         recordHistory(meal: meal)
+        Haptics.success()
         dismiss()
     }
 
@@ -124,72 +273,133 @@ struct MealTrayView: View {
             try LoggedMealRetention.enforceLimit(in: modelContext)
             try modelContext.save()
         } catch {
-            // Logging the meal to MacroFactor still happened — the user
-            // got their value. Failing to persist locally is recoverable
-            // (next log will re-attempt eviction). Don't surface an
-            // error that interrupts the export flow.
+            // The MacroFactor handoff already happened — the user got
+            // their value. Local persistence failure is recoverable on
+            // the next log; don't interrupt the flow.
         }
     }
 
-    private func saveFavorite() {
-        let trimmed = favoriteName.trimmingCharacters(in: .whitespacesAndNewlines)
-        let name = trimmed.isEmpty ? "\(store.restaurant.name) Bowl" : trimmed
-        let favorite = FavoriteMeal(
+    private func saveRecipe() {
+        let trimmed = recipeName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = trimmed.isEmpty ? defaultRecipeName : trimmed
+        let recipe = FavoriteMeal(
             name: name,
             restaurantId: store.restaurant.id,
             lineItems: store.lineItems
         )
-        modelContext.insert(favorite)
+        modelContext.insert(recipe)
         try? modelContext.save()
-        // Don't clear or dismiss — saving a favorite is a side action,
-        // the user is probably about to also Log it to MacroFactor.
+        Haptics.success()
+        showNote("Saved to Recipes")
+        // Don't clear or dismiss — saving is a side action; the user is
+        // probably about to also log the meal.
+    }
+
+    private func copyForMyFitnessPal() {
+        UIPasteboard.general.string = ExportService.quickAddText(
+            name: defaultRecipeName,
+            totals: store.totalMacros
+        )
+        Haptics.success()
+        showNote("Copied — paste into Quick Add")
+        openURL(ExportService.myFitnessPalURL)
+    }
+
+    private func copyRecipeJSON() {
+        if let data = try? ExportService.recipeJSON(currentPayload) {
+            UIPasteboard.general.string = String(decoding: data, as: UTF8.self)
+            Haptics.success()
+            showNote("Recipe JSON copied")
+        }
+    }
+
+    private func showNote(_ text: String) {
+        noteDismissTask?.cancel()
+        withAnimation(Motion.snap) { exportNote = text }
+        noteDismissTask = Task {
+            try? await Task.sleep(for: .seconds(1.8))
+            guard !Task.isCancelled else { return }
+            withAnimation(Motion.snap) { exportNote = nil }
+        }
+    }
+
+    private func note(_ text: String) -> some View {
+        Label(text, systemImage: "checkmark.circle.fill")
+            .font(.appCaption.weight(.semibold))
+            .foregroundStyle(.textPrimary)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.sm)
+            .background {
+                Capsule()
+                    .fill(Color.surfaceElevated)
+                    .overlay(Capsule().strokeBorder(Color.volt.opacity(0.35), lineWidth: 1))
+                    .shadow(color: .black.opacity(0.35), radius: 16, y: 6)
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity))
     }
 }
 
-private struct LineItemRow: View {
+// MARK: - Line item card
+
+private struct LineItemCard: View {
     let lineItem: LineItem
     @Bindable var store: MealBuilderStore
 
-    private static let presets: [Double] = [0.5, 1, 1.5, 2]
-
-    private var matchesPreset: Bool {
-        Self.presets.contains { abs($0 - lineItem.quantity) < 0.001 }
+    private var quantityBinding: Binding<Double> {
+        Binding(
+            get: { lineItem.quantity },
+            set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
+        )
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(lineItem.displayName)
-                    .font(.appBody)
-                if !matchesPreset {
-                    // Quantity is outside the chip presets (e.g., 3 from
-                    // re-tapping the menu row). Surface it next to the
-                    // title so the chip row's empty selection isn't
-                    // mysterious.
-                    Text("×\(lineItem.quantity, format: .number.precision(.fractionLength(0...1)))")
-                        .font(.appCaption.weight(.semibold))
-                        .foregroundStyle(.appAccent)
+        Card(elevated: true, padding: Spacing.sm + Spacing.xs) {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(lineItem.displayName)
+                        .font(.appHeadline)
+                        .foregroundStyle(.textPrimary)
+                    Spacer(minLength: Spacing.xs)
+                    Text(lineItem.servingDescription)
+                        .font(.appCaption)
+                        .foregroundStyle(.textTertiary)
+                        .lineLimit(1)
+                    Button {
+                        Haptics.tap()
+                        withAnimation(Motion.glide) {
+                            store.remove(lineItemId: lineItem.id)
+                        }
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 17))
+                            .foregroundStyle(.textTertiary)
+                    }
+                    .buttonStyle(.pressable)
+                    .accessibilityLabel("Remove \(lineItem.displayName)")
                 }
-                Spacer()
-                Text(lineItem.servingDescription)
-                    .font(.appCaption)
-                    .foregroundStyle(.appSecondaryText)
+
+                MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
+
+                HStack {
+                    QuickQuantityChips(value: quantityBinding)
+                    Spacer(minLength: Spacing.sm)
+                    QuantityStepper(value: quantityBinding, step: 0.5, range: 0...20)
+                }
             }
-            MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
-            QuickQuantityChips(
-                value: Binding(
-                    get: { lineItem.quantity },
-                    set: { store.setQuantity(lineItemId: lineItem.id, to: $0) }
-                )
-            )
         }
-        .padding(.vertical, 4)
-        .swipeActions(edge: .trailing) {
-            Button(role: .destructive) {
-                store.remove(lineItemId: lineItem.id)
-            } label: {
-                Label("Remove", systemImage: "trash")
-            }
+    }
+}
+
+// MARK: - Lazy share file
+
+/// Transferable wrapper so the recipe JSON file is only written when
+/// the user actually commits to sharing — not on every body pass.
+private struct RecipeShareFile: Transferable {
+    let payload: ExportService.RecipePayload
+
+    static var transferRepresentation: some TransferRepresentation {
+        FileRepresentation(exportedContentType: .json) { share in
+            SentTransferredFile(try ExportService.writeShareFile(share.payload))
         }
     }
 }

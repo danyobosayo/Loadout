@@ -1,0 +1,53 @@
+{
+  "restaurantId": "cava",
+  "formats": [
+    {
+      "id": "grain-bowl",
+      "name": "Grain Bowl",
+      "blurb": "One grain base, your protein, and toppings.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Choose your grain", "choose": "one", "subsetItemIds": ["cava.bases.brown-rice", "cava.bases.saffron-basmati", "cava.bases.black-lentils"], "required": true },
+        { "categoryId": "mains", "promptCopy": "Choose your protein", "choose": "upTo:2", "required": true }
+      ],
+      "optionalCategoryIds": ["dips", "toppings", "dressings", "sides"]
+    },
+    {
+      "id": "greens-and-grains",
+      "name": "Greens + Grains",
+      "blurb": "The classic split base — half greens, half grain.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Pick your grain half", "choose": "one", "subsetItemIds": ["cava.bases.brown-rice", "cava.bases.saffron-basmati", "cava.bases.black-lentils"], "required": true, "quantityPerPick": 0.5 },
+        { "categoryId": "bases", "promptCopy": "Pick your greens half", "choose": "one", "subsetItemIds": ["cava.bases.super-greens", "cava.bases.arugula", "cava.bases.baby-spinach", "cava.bases.romaine", "cava.bases.power-greens"], "required": true, "quantityPerPick": 0.5 },
+        { "categoryId": "mains", "promptCopy": "Choose your protein", "choose": "upTo:2", "required": true }
+      ],
+      "optionalCategoryIds": ["dips", "toppings", "dressings", "sides"]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "A greens base with protein and a dressing.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Choose your greens", "choose": "one", "subsetItemIds": ["cava.bases.super-greens", "cava.bases.arugula", "cava.bases.baby-spinach", "cava.bases.romaine", "cava.bases.power-greens"], "required": true },
+        { "categoryId": "mains", "promptCopy": "Choose your protein", "choose": "upTo:2", "required": true },
+        { "categoryId": "dressings", "promptCopy": "Choose a dressing", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["dips", "toppings", "sides"]
+    },
+    {
+      "id": "pita",
+      "name": "Pita",
+      "blurb": "A warm pita with protein and up to two dips.",
+      "autoAdd": [
+        { "menuItemId": "cava.sides.whole-pita", "quantity": 1 }
+      ],
+      "prompts": [
+        { "categoryId": "mains", "promptCopy": "Choose your protein", "choose": "upTo:2", "required": true },
+        { "categoryId": "dips", "promptCopy": "Choose your dips & spreads", "choose": "upTo:2", "required": false }
+      ],
+      "optionalCategoryIds": ["bases", "toppings", "dressings", "sides"]
+    }
+  ]
+}

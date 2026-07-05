@@ -1,0 +1,69 @@
+{
+  "restaurantId": "chipotle",
+  "formats": [
+    {
+      "id": "burrito",
+      "name": "Burrito",
+      "blurb": "Everything rolled in a warm flour tortilla.",
+      "autoAdd": [
+        { "menuItemId": "chipotle.tortilla.flour-burrito", "quantity": 1 }
+      ],
+      "prompts": [
+        { "categoryId": "rice", "promptCopy": "Choose your rice", "choose": "one", "required": false },
+        { "categoryId": "beans", "promptCopy": "Choose your beans", "choose": "one", "required": false },
+        { "categoryId": "protein", "promptCopy": "Choose your protein", "choose": "one", "required": true }
+      ],
+      "optionalCategoryIds": ["veggies", "salsa", "toppings", "chips"]
+    },
+    {
+      "id": "bowl",
+      "name": "Burrito Bowl",
+      "blurb": "The same build, served in a bowl. No tortilla.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "rice", "promptCopy": "Choose your rice", "choose": "one", "required": false },
+        { "categoryId": "beans", "promptCopy": "Choose your beans", "choose": "one", "required": false },
+        { "categoryId": "protein", "promptCopy": "Choose your protein", "choose": "one", "required": true }
+      ],
+      "optionalCategoryIds": ["veggies", "salsa", "toppings", "chips"]
+    },
+    {
+      "id": "tacos",
+      "name": "Tacos",
+      "blurb": "Three tacos in your choice of shell.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "tortilla", "promptCopy": "Choose your taco shell (×3)", "choose": "one", "subsetItemIds": ["chipotle.tortilla.flour-taco", "chipotle.tortilla.crispy-corn"], "required": true, "quantityPerPick": 3 },
+        { "categoryId": "protein", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "beans", "promptCopy": "Add beans", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["rice", "veggies", "salsa", "toppings", "chips"]
+    },
+    {
+      "id": "quesadilla",
+      "name": "Quesadilla",
+      "blurb": "Grilled flour tortilla with melted cheese and protein.",
+      "autoAdd": [
+        { "menuItemId": "chipotle.tortilla.flour-burrito", "quantity": 1 },
+        { "menuItemId": "chipotle.toppings.cheese", "quantity": 1 }
+      ],
+      "prompts": [
+        { "categoryId": "protein", "promptCopy": "Choose your protein", "choose": "one", "required": true }
+      ],
+      "optionalCategoryIds": ["veggies", "salsa", "toppings", "chips"]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "Supergreens base with your protein and dressing.",
+      "autoAdd": [
+        { "menuItemId": "chipotle.veggies.supergreens-mix", "quantity": 1 }
+      ],
+      "prompts": [
+        { "categoryId": "protein", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "dressing", "promptCopy": "Choose your dressing", "choose": "one", "subsetItemIds": ["chipotle.dressing.chipotle-honey-vinaigrette"], "required": false }
+      ],
+      "optionalCategoryIds": ["rice", "beans", "veggies", "salsa", "toppings", "chips"]
+    }
+  ]
+}

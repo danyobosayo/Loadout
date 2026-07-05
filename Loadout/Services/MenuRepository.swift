@@ -4,6 +4,10 @@ import SwiftUI
 protocol MenuRepository: Sendable {
     func availableRestaurants() async throws -> [Restaurant]
     func loadRestaurant(id: String) async throws -> Restaurant
+    /// The order formats for a restaurant (Burrito, Grain Bowl…). A
+    /// missing formats file is not an error — it degrades to the
+    /// build-your-own-only experience.
+    func loadFormats(restaurantId: String) async throws -> [OrderFormat]
 }
 
 enum MenuRepositoryError: Error, Equatable {
@@ -14,7 +18,7 @@ nonisolated struct BundledMenuRepository: MenuRepository {
     private let bundle: Bundle
     private let restaurantIds: [String]
 
-    init(bundle: Bundle = .main, restaurantIds: [String] = ["chipotle", "cava"]) {
+    init(bundle: Bundle = .main, restaurantIds: [String] = ["chipotle", "cava", "panda-express", "sweetgreen", "subway"]) {
         self.bundle = bundle
         self.restaurantIds = restaurantIds
     }
@@ -31,6 +35,15 @@ nonisolated struct BundledMenuRepository: MenuRepository {
 
     func loadRestaurant(id: String) async throws -> Restaurant {
         try loadFromBundle(id: id)
+    }
+
+    func loadFormats(restaurantId: String) async throws -> [OrderFormat] {
+        // No formats file → build-your-own only. Never throws on absence.
+        guard let url = bundle.url(forResource: "\(restaurantId).formats", withExtension: "json") else {
+            return []
+        }
+        let data = try Data(contentsOf: url)
+        return try JSONDecoder().decode(RestaurantFormats.self, from: data).formats
     }
 
     private func loadFromBundle(id: String) throws -> Restaurant {

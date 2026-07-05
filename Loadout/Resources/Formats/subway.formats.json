@@ -1,0 +1,54 @@
+{
+  "restaurantId": "subway",
+  "formats": [
+    {
+      "id": "six-inch-sandwich",
+      "name": "6-inch Sandwich",
+      "blurb": "Bread, protein, cheese — then pile it on.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "breads", "promptCopy": "Choose your bread", "choose": "one", "subsetItemIds": ["subway.breads.artisan-italian", "subway.breads.hearty-multigrain", "subway.breads.jalapeno-cheddar", "subway.breads.artisan-flatbread"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "cheeses", "promptCopy": "Add cheese", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["veggies", "sauces", "extras"]
+    },
+    {
+      "id": "footlong",
+      "name": "Footlong",
+      "blurb": "A full footlong — twice the 6-inch.",
+      "portionMultiplier": 2,
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "breads", "promptCopy": "Choose your bread", "choose": "one", "subsetItemIds": ["subway.breads.artisan-italian", "subway.breads.hearty-multigrain", "subway.breads.jalapeno-cheddar", "subway.breads.artisan-flatbread"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "cheeses", "promptCopy": "Add cheese", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["veggies", "sauces", "extras"]
+    },
+    {
+      "id": "wrap",
+      "name": "Wrap",
+      "blurb": "Your fillings rolled in a wrap.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "breads", "promptCopy": "Choose your wrap", "choose": "one", "subsetItemIds": ["subway.breads.wrap-12-inch", "subway.breads.wrap-pocket-9-inch"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "cheeses", "promptCopy": "Add cheese", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["veggies", "sauces", "extras"]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "No bread — greens, protein, and cheese.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "proteins", "promptCopy": "Choose your protein", "choose": "one", "required": true },
+        { "categoryId": "veggies", "promptCopy": "Choose your greens", "choose": "many", "subsetItemIds": ["subway.veggies.lettuce", "subway.veggies.spinach-baby"], "required": true },
+        { "categoryId": "cheeses", "promptCopy": "Add cheese", "choose": "one", "required": false }
+      ],
+      "optionalCategoryIds": ["veggies", "sauces", "extras"]
+    }
+  ]
+}

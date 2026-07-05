@@ -1,0 +1,45 @@
+{
+  "restaurantId": "sweetgreen",
+  "formats": [
+    {
+      "id": "custom-salad-bowl",
+      "name": "Custom Salad Bowl",
+      "blurb": "Greens, protein, toppings, and dressing.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Choose your greens", "choose": "many", "subsetItemIds": ["sweetgreen.bases.arugula", "sweetgreen.bases.baby-spinach", "sweetgreen.bases.chopped-romaine", "sweetgreen.bases.spring-mix", "sweetgreen.bases.shredded-kale"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Add a protein", "choose": "many", "required": true },
+        { "categoryId": "bases", "promptCopy": "Add a warm grain (optional)", "choose": "many", "subsetItemIds": ["sweetgreen.bases.golden-quinoa", "sweetgreen.bases.white-rice", "sweetgreen.bases.wild-rice"], "required": false },
+        { "categoryId": "dressings", "promptCopy": "Pick your dressing", "choose": "many", "required": true }
+      ],
+      "optionalCategoryIds": ["ingredients", "premiums", "sides"]
+    },
+    {
+      "id": "warm-grain-bowl",
+      "name": "Warm Grain Bowl",
+      "blurb": "A warm grain base built up with protein.",
+      "autoAdd": [],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Choose your warm grain", "choose": "many", "subsetItemIds": ["sweetgreen.bases.golden-quinoa", "sweetgreen.bases.white-rice", "sweetgreen.bases.wild-rice"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Add a protein", "choose": "many", "required": true },
+        { "categoryId": "bases", "promptCopy": "Add leafy greens (optional)", "choose": "many", "subsetItemIds": ["sweetgreen.bases.arugula", "sweetgreen.bases.baby-spinach", "sweetgreen.bases.chopped-romaine", "sweetgreen.bases.spring-mix", "sweetgreen.bases.shredded-kale"], "required": false },
+        { "categoryId": "dressings", "promptCopy": "Pick your dressing", "choose": "many", "required": true }
+      ],
+      "optionalCategoryIds": ["ingredients", "premiums", "sides"]
+    },
+    {
+      "id": "wrap",
+      "name": "Wrap",
+      "blurb": "Everything wrapped in a warm tortilla.",
+      "autoAdd": [
+        { "menuItemId": "sweetgreen.bases.tortilla", "quantity": 1 }
+      ],
+      "prompts": [
+        { "categoryId": "bases", "promptCopy": "Choose your greens", "choose": "many", "subsetItemIds": ["sweetgreen.bases.arugula", "sweetgreen.bases.baby-spinach", "sweetgreen.bases.chopped-romaine", "sweetgreen.bases.spring-mix", "sweetgreen.bases.shredded-kale"], "required": true },
+        { "categoryId": "proteins", "promptCopy": "Add a protein", "choose": "many", "required": true },
+        { "categoryId": "dressings", "promptCopy": "Pick your dressing", "choose": "many", "required": true }
+      ],
+      "optionalCategoryIds": ["ingredients", "premiums", "sides"]
+    }
+  ]
+}
