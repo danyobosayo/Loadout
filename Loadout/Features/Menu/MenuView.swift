@@ -494,10 +494,6 @@ private extension MenuView {
                             )
                         }
                     }
-                    if showSplitOffer(prompt) {
-                        splitButton(prompt)
-                            .padding(.top, Spacing.xs)
-                    }
                 }
             }
         }
@@ -522,29 +518,6 @@ private extension MenuView {
             .fill(Color.volt)
             .frame(width: 6, height: 6)
             .accessibilityHidden(true)
-    }
-
-    func splitButton(_ prompt: FormatPrompt) -> some View {
-        Button {
-            splitInHalf(prompt)
-        } label: {
-            HStack(spacing: Spacing.xs) {
-                Text("½")
-                    .font(.system(size: 14, weight: .bold, design: .rounded))
-                Text("Make it half & half")
-                    .font(.appCaption.weight(.semibold))
-            }
-            .foregroundStyle(.volt)
-            .padding(.vertical, Spacing.sm)
-            .frame(maxWidth: .infinity)
-            .background {
-                Capsule()
-                    .fill(Color.volt.opacity(0.10))
-                    .overlay(Capsule().strokeBorder(Color.volt.opacity(0.3), lineWidth: 1))
-            }
-        }
-        .buttonStyle(.pressable)
-        .accessibilityLabel("Make \(prompt.promptCopy) half and half")
     }
 
     // MARK: Guided data
@@ -586,19 +559,12 @@ private extension MenuView {
         return parts.joined(separator: ", ")
     }
 
-    /// Half-and-half applies only to a single, full-portion pick — not
-    /// tacos (×3), Footlong (×2), or the CAVA halves (already ½).
+    /// Tap-to-cycle (with ½ + ½ split) applies to a single full-portion pick
+    /// — not tacos (×3), a Footlong (×2), or the CAVA halves (already ½),
+    /// which toggle at their set quantity instead.
     func canSplit(_ prompt: FormatPrompt) -> Bool {
         guard case .selectOne = prompt.choose else { return false }
         return prompt.quantityPerPick == 1 && (format?.portionMultiplier ?? 1) == 1
-    }
-
-    /// Offer the split only once a single whole item is chosen — nothing to
-    /// split before that, and no offer once a ½ + ½ pair already exists.
-    func showSplitOffer(_ prompt: FormatPrompt) -> Bool {
-        guard canSplit(prompt) else { return false }
-        let selection = guidedSelection(for: prompt)
-        return selection.count == 1 && abs((selection.first?.quantity ?? 0) - 1) < 0.001
     }
 
     // MARK: Guided actions
@@ -619,44 +585,32 @@ private extension MenuView {
         withAnimation(Motion.snap) { expandedPrompt = next?.id }
     }
 
-    /// Halve the current single pick, opening a ½ slot the next pick fills.
-    func splitInHalf(_ prompt: FormatPrompt) {
-        guard let line = guidedSelection(for: prompt).first else { return }
-        Haptics.tap()
-        withAnimation(Motion.snap) { store.halve(lineItemId: line.id) }
-    }
-
-    /// A guided pick routes through the store with the prompt's rule
-    /// override + subset scope, so "choose 1" tightens a selectMany station
-    /// and the CAVA grain/greens halves don't evict each other. Tapping the
-    /// active pick again clears it; a pick into an open ½ split completes it.
+    /// A guided pick. "Choose one" prompts holding a single full portion (not
+    /// tacos ×3 or a Footlong) use the same tap-to-cycle model as the stations
+    /// — tap to add, again to double, or tap another to split ½ + ½ within the
+    /// prompt's subset. Everything else toggles at its set quantity. A
+    /// single-select prompt auto-advances only when it first becomes answered.
     func pick(_ item: MenuItem, prompt: FormatPrompt) {
         guard let category = restaurant.category(id: prompt.categoryId) else { return }
         let scope = prompt.subsetItemIds.map(Set.init)
+        let wasAnswered = isAnswered(prompt)
 
-        // Toggle off an active pick.
-        if let line = store.lineItems.first(where: { $0.menuItemId == item.id }) {
-            Haptics.tap()
-            withAnimation(Motion.snap) { store.setQuantity(lineItemId: line.id, to: 0) }
-            return
-        }
-
-        // Complete an open half-and-half: the scope already holds ½, so add
-        // the second half at ½ (scoped selectMany, not the replacing rule).
-        if canSplit(prompt), abs(store.totalQuantity(in: category, scope: scope) - 0.5) < 0.001 {
+        if canSplit(prompt) {
             Haptics.tap()
             withAnimation(Motion.snap) {
-                apply(store.add(item, in: category, quantity: 0.5, ruleOverride: .selectMany, within: scope), in: category)
+                apply(store.applyPortionTap(item, in: category, policy: .splitBase, scope: scope), in: category)
             }
-            advance(after: prompt)
-            return
+        } else if let line = store.lineItems.first(where: { $0.menuItemId == item.id }) {
+            Haptics.tap()
+            withAnimation(Motion.snap) { store.setQuantity(lineItemId: line.id, to: 0) }
+        } else {
+            let quantity = prompt.quantityPerPick * (format?.portionMultiplier ?? 1)
+            withAnimation(Motion.snap) {
+                apply(store.add(item, in: category, quantity: quantity, ruleOverride: prompt.choose, within: scope), in: category)
+            }
         }
 
-        let quantity = prompt.quantityPerPick * (format?.portionMultiplier ?? 1)
-        withAnimation(Motion.snap) {
-            apply(store.add(item, in: category, quantity: quantity, ruleOverride: prompt.choose, within: scope), in: category)
-        }
-        if case .selectOne = prompt.choose {
+        if case .selectOne = prompt.choose, !wasAnswered, isAnswered(prompt) {
             advance(after: prompt)
         }
     }

@@ -62,19 +62,17 @@ final class OrderFormatFlowUITests: XCTestCase {
                       "Picked rice should show as the collapsed summary")
         attach(app, "02b-accordion-after-pick")
 
-        // Half-and-half: re-open rice, split the pick, fill the other half.
+        // Half-and-half: re-open rice and tap a second rice. In the unified
+        // tap-cycle model a second pick auto-splits both to ½ — no split button.
         let riceHeader = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Choose your rice")).firstMatch
         XCTAssertTrue(riceHeader.waitForExistence(timeout: 5))
         riceHeader.tap()
-        let splitButton = app.buttons["Make Choose your rice half and half"]
-        XCTAssertTrue(splitButton.waitForExistence(timeout: 5),
-                      "A full single pick should offer the half-and-half split")
-        splitButton.tap()
         let brownRice = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Cilantro-Lime Brown Rice")).firstMatch
         XCTAssertTrue(brownRice.waitForExistence(timeout: 5))
         brownRice.tap()
-        XCTAssertTrue(app.staticTexts["Cilantro-Lime White Rice, Cilantro-Lime Brown Rice"].waitForExistence(timeout: 5),
-                      "Both halves should show in the collapsed rice summary")
+        // tortilla + white ½ + brown ½ = 3 line items.
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch.label.contains("3 item"),
+                      "Tapping a second rice should split both to ½ (3 line items in the tray)")
         attach(app, "02c-half-and-half")
 
         // The flour tortilla auto-seeded, so the tray already holds 1 item.

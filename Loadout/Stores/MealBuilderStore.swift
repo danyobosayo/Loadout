@@ -110,28 +110,38 @@ final class MealBuilderStore {
     /// One tap on `item`, resolved by its station's `PortionPolicy`. This is
     /// the tap-to-cycle model that replaces the ½ · 1 · 2 chips — the caller
     /// just re-reads quantities and re-renders.
+    /// - Parameters:
+    ///   - policy: overrides the station's own policy — guided prompts pass
+    ///     the policy their `choose` semantic implies.
+    ///   - scope: limits the base/scoop bookkeeping to a subset of item ids
+    ///     (a guided prompt filtered to grains, greens, …).
     @discardableResult
-    func applyPortionTap(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
-        switch category.portionPolicy {
-        case .splitBase:             return tapSplitBase(item, in: category)
-        case .cappedScoops(let max): return tapScoops(item, in: category, max: max)
+    func applyPortionTap(
+        _ item: MenuItem,
+        in category: MenuCategory,
+        policy: PortionPolicy? = nil,
+        scope: Set<String>? = nil
+    ) -> AddOutcome {
+        switch policy ?? category.portionPolicy {
+        case .splitBase:             return tapSplitBase(item, in: category, scope: scope)
+        case .cappedScoops(let max): return tapScoops(item, in: category, max: max, scope: scope)
         case .freeAddOns:            return tapFreeAddOn(item, in: category)
         }
     }
 
     /// full → ×2 → off for a lone pick; a second distinct pick splits the
     /// base ½ + ½; tapping a half removes it and restores the other to full.
-    private func tapSplitBase(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
-        let selected = lineItems(in: category)
+    private func tapSplitBase(_ item: MenuItem, in category: MenuCategory, scope: Set<String>? = nil) -> AddOutcome {
+        let selected = lineItems(in: category, scope: scope)
         let currentQty = quantity(forMenuItemId: item.id)
 
         if currentQty == 0 {
             switch selected.count {
             case 0:
-                return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+                return add(item, in: category, quantity: 1, ruleOverride: .selectMany, within: scope)
             case 1:
                 setQuantity(lineItemId: selected[0].id, to: 0.5)      // existing → half
-                return add(item, in: category, quantity: 0.5, ruleOverride: .selectMany)
+                return add(item, in: category, quantity: 0.5, ruleOverride: .selectMany, within: scope)
             default:
                 return .rejectedByLimit(max: 2)                        // base full (½ + ½)
             }
@@ -157,14 +167,14 @@ final class MealBuilderStore {
 
     /// +1 scoop until the station total hits `max`; at the cap a new item is
     /// rejected and re-tapping a chosen one zeroes it.
-    private func tapScoops(_ item: MenuItem, in category: MenuCategory, max: Int) -> AddOutcome {
-        let total = totalQuantity(in: category)
+    private func tapScoops(_ item: MenuItem, in category: MenuCategory, max: Int, scope: Set<String>? = nil) -> AddOutcome {
+        let total = totalQuantity(in: category, scope: scope)
         if total < Double(max) {
             if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
                 setQuantity(lineItemId: line.id, to: line.quantity + 1)
                 return .incremented
             }
-            return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+            return add(item, in: category, quantity: 1, ruleOverride: .selectMany, within: scope)
         }
         // At the cap.
         if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
