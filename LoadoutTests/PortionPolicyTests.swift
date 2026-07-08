@@ -98,37 +98,41 @@ struct PortionPolicyTests {
         #expect(qty(s, Self.lemon) == 0)
     }
 
-    @Test func scoopsRetappingAtCapZeroesTheItem() {
+    @Test func scoopsBlockedAtCapReduceWithDecrement() {
         let s = store()
         s.applyPortionTap(Self.tahini, in: Self.dressings)
         s.applyPortionTap(Self.lemon, in: Self.dressings)   // total 2 (at cap)
-        s.applyPortionTap(Self.tahini, in: Self.dressings)  // at cap, chosen → 0
-        #expect(qty(s, Self.tahini) == 0)
+        let outcome = s.applyPortionTap(Self.tahini, in: Self.dressings)  // at cap → blocked
+        #expect(outcome == .rejectedByLimit(max: 2))
+        #expect(qty(s, Self.tahini) == 1)
         #expect(qty(s, Self.lemon) == 1)
+        s.decrementPortion(Self.tahini)                     // reduce with the − control
+        #expect(qty(s, Self.tahini) == 0)
     }
 
-    @Test func scoopsAllowUnevenSplitBelowCap() {
+    @Test func scoopsAllowMultipleOfOneBelowCap() {
         let s = store()
-        s.applyPortionTap(Self.tahini, in: Self.dressings)  // 1... but cap is 2
-        // two of one is possible below/at cap
-        s.applyPortionTap(Self.tahini, in: Self.dressings)  // 2
+        s.applyPortionTap(Self.tahini, in: Self.dressings)  // 1
+        s.applyPortionTap(Self.tahini, in: Self.dressings)  // 2 (two of one, at cap)
         #expect(qty(s, Self.tahini) == 2)
         #expect(s.totalQuantity(in: Self.dressings) == 2)
     }
 
     // MARK: freeAddOns
 
-    @Test func freeAddOnsCycleIndependently() {
+    @Test func freeAddOnsIncrementUncappedWithDecrement() {
         let s = store()
         s.applyPortionTap(Self.olives, in: Self.toppings)   // 1
-        s.applyPortionTap(Self.feta, in: Self.toppings)     // 1 (independent, no split)
-        #expect(qty(s, Self.olives) == 1)
+        s.applyPortionTap(Self.feta, in: Self.toppings)     // feta 1 (independent)
+        s.applyPortionTap(Self.olives, in: Self.toppings)   // olives 2
+        s.applyPortionTap(Self.olives, in: Self.toppings)   // olives 3 (uncapped)
+        #expect(qty(s, Self.olives) == 3)
         #expect(qty(s, Self.feta) == 1)
-        s.applyPortionTap(Self.olives, in: Self.toppings)   // olives ×2
+        s.decrementPortion(Self.olives)                     // − → 2
         #expect(qty(s, Self.olives) == 2)
-        #expect(qty(s, Self.feta) == 1)                     // feta unaffected
-        s.applyPortionTap(Self.olives, in: Self.toppings)   // olives off
+        s.decrementPortion(Self.olives)
+        s.decrementPortion(Self.olives)                     // → 0 (removed)
         #expect(qty(s, Self.olives) == 0)
-        #expect(qty(s, Self.feta) == 1)
+        #expect(qty(s, Self.feta) == 1)                     // feta untouched
     }
 }

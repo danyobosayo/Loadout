@@ -16,8 +16,15 @@ nonisolated enum PortionPolicy: Equatable, Sendable {
     case cappedScoops(max: Int)
 
     /// Toppings / veggies / everything else (default). Each item independently
-    /// cycles full → ×2 → off; no cap, no splitting.
+    /// +1, uncapped, with a − to reduce.
     case freeAddOns
+
+    /// A counting station (tap to add, − to reduce, count shown) as opposed to
+    /// the base cycle. splitBase is the odd one out.
+    var isCounter: Bool {
+        if case .splitBase = self { return false }
+        return true
+    }
 }
 
 nonisolated extension MenuCategory {

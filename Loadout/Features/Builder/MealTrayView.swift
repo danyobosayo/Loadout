@@ -376,7 +376,6 @@ private struct LineItemCard: View {
                 MacroBar(macros: lineItem.macros * lineItem.quantity, style: .inline)
 
                 HStack {
-                    QuickQuantityChips(value: quantityBinding)
                     Spacer(minLength: Spacing.sm)
                     QuantityStepper(value: quantityBinding, step: 0.5, range: 0...20)
                 }

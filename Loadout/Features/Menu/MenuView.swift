@@ -100,34 +100,42 @@ struct MenuView: View {
     // MARK: Stations
 
     private var stationList: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.lg) {
-                if let format, !format.prompts.isEmpty {
-                    guidedSection(format)
-                    if !stationCategories.isEmpty {
-                        addOnsHeader
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.lg) {
+                    if let format, !format.prompts.isEmpty {
+                        guidedSection(format)
+                        if !stationCategories.isEmpty {
+                            addOnsHeader
+                        }
                     }
-                }
-                // Only the stations are scroll targets — the guided section
-                // above scrolls with the content but never drives the rail.
-                LazyVStack(alignment: .leading, spacing: Spacing.lg) {
-                    ForEach(stationCategories) { category in
-                        stationSection(category)
-                            .id(category.id)
+                    // Only the stations are scroll targets — the guided section
+                    // above scrolls with the content but never drives the rail.
+                    LazyVStack(alignment: .leading, spacing: Spacing.lg) {
+                        ForEach(stationCategories) { category in
+                            stationSection(category)
+                                .id(category.id)
+                        }
                     }
+                    .scrollTargetLayout()
                 }
-                .scrollTargetLayout()
+                .padding(.horizontal, Spacing.md)
+                .padding(.top, Spacing.sm)
             }
-            .padding(.horizontal, Spacing.md)
-            .padding(.top, Spacing.sm)
-        }
-        .scrollPosition(id: $scrolledStation, anchor: .top)
-        .contentMargins(.bottom, Metrics.tabBarClearance + Metrics.trayBarClearance, for: .scrollContent)
-        .onChange(of: scrolledStation) { _, newValue in
-            // Scroll → rail sync, muted while a tap navigation is in
-            // flight so the target pill doesn't flash back.
-            guard railNavigation == nil, let newValue else { return }
-            withAnimation(Motion.snap) { railSelection = newValue }
+            .scrollPosition(id: $scrolledStation, anchor: .top)
+            .contentMargins(.bottom, Metrics.tabBarClearance + Metrics.trayBarClearance, for: .scrollContent)
+            .onChange(of: scrolledStation) { _, newValue in
+                // Scroll → rail sync, muted while a tap navigation is in
+                // flight so the target pill doesn't flash back.
+                guard railNavigation == nil, let newValue else { return }
+                withAnimation(Motion.snap) { railSelection = newValue }
+            }
+            .onChange(of: expandedPrompt) { _, prompt in
+                // Expanding a prompt grows its options; pull it to the top so
+                // the choices are in view instead of scrolled off the bottom.
+                guard let prompt else { return }
+                withAnimation(Motion.snap) { proxy.scrollTo(prompt, anchor: .top) }
+            }
         }
     }
 
@@ -163,7 +171,8 @@ struct MenuView: View {
                         quantity: quantity,
                         policy: policy,
                         isDisabled: scoopCapReached && quantity == 0,
-                        onTap: { tapStation(item, in: category) }
+                        onTap: { tapStation(item, in: category) },
+                        onDecrement: { decrementStation(item) }
                     )
                 }
             }
@@ -207,6 +216,13 @@ struct MenuView: View {
         withAnimation(Motion.snap) {
             apply(store.applyPortionTap(item, in: category), in: category)
         }
+    }
+
+    /// The counter policies' − control: reduce a topping/scoop by one without
+    /// opening the tray.
+    private func decrementStation(_ item: MenuItem) {
+        Haptics.tap()
+        withAnimation(Motion.snap) { store.decrementPortion(item) }
     }
 
     private func apply(_ outcome: MealBuilderStore.AddOutcome, in category: MenuCategory) {
@@ -311,10 +327,10 @@ struct MenuView: View {
 
 // MARK: - Item row
 
-/// A station row in the tap-to-cycle model (replaces the ½ · 1 · 2 chips).
-/// The whole card is one tap target; its `PortionPolicy` decides what the
-/// tap does. Current state reads out as a trailing badge (½ / ×2 / scoop
-/// count); a full single portion is just the filled dot.
+/// A station row. `splitBase` stations cycle (tap → full → ×2 → off, tap a
+/// second to split); counter stations (`cappedScoops` / `freeAddOns`) tap to
+/// add and show an inline − with a live count so a misclick doesn't need the
+/// tray.
 private struct MenuItemRow: View {
     let item: MenuItem
     let accent: Color
@@ -322,42 +338,34 @@ private struct MenuItemRow: View {
     let policy: PortionPolicy
     let isDisabled: Bool
     let onTap: () -> Void
+    let onDecrement: () -> Void
 
     private var isInMeal: Bool { quantity > 0 }
     private var isHalf: Bool { abs(quantity - 0.5) < 0.001 }
 
     var body: some View {
+        Group {
+            if policy.isCounter { counterRow } else { cycleRow }
+        }
+        .animation(Motion.snap, value: quantity)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(accessibilityText)
+        .accessibilityHint(accessibilityHint)
+        .accessibilityAddTraits(isInMeal ? [.isSelected] : [])
+    }
+
+    // splitBase: the whole card cycles.
+    private var cycleRow: some View {
         Button(action: onTap) {
             Card(padding: Spacing.sm + Spacing.xs) {
                 HStack(spacing: Spacing.md) {
-                    Circle()
-                        .fill(isInMeal ? accent : accent.opacity(0.35))
-                        .frame(width: 8, height: 8)
-                        .animation(Motion.snap, value: isInMeal)
-                        .accessibilityHidden(true)
-
-                    VStack(alignment: .leading, spacing: 5) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(item.name)
-                                .font(.appHeadline)
-                                .foregroundStyle(.textPrimary)
-                                .lineLimit(2)
-                            Spacer(minLength: Spacing.xs)
-                            Text(item.servingDescription)
-                                .font(.appCaption)
-                                .foregroundStyle(.textTertiary)
-                                .lineLimit(1)
-                        }
-                        MacroStrip(macros: item.macros)
-                    }
-
-                    if let label = badgeLabel {
+                    rowContent
+                    if let label = cycleBadge {
                         Text(label)
                             .font(.system(size: 13, weight: .bold, design: .rounded))
                             .monospacedDigit()
                             .foregroundStyle(isHalf ? accent : Color.void)
-                            .frame(minWidth: 30)
-                            .frame(height: 28)
+                            .frame(minWidth: 30, minHeight: 28)
                             .padding(.horizontal, 7)
                             .background {
                                 if isHalf {
@@ -372,21 +380,57 @@ private struct MenuItemRow: View {
             }
         }
         .buttonStyle(.pressable)
-        .disabled(isDisabled)
-        .opacity(isDisabled ? 0.4 : 1)
-        .animation(Motion.snap, value: quantity)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(accessibilityText)
-        .accessibilityHint(accessibilityHint)
-        .accessibilityAddTraits(isInMeal ? [.isSelected] : [])
     }
 
-    /// ½ and ×2 always show; scoops show their count; a plain full portion
-    /// is just the filled dot (no badge).
-    private var badgeLabel: String? {
+    // counter: tap the row to +1, − to reduce, live count.
+    private var counterRow: some View {
+        Card(padding: Spacing.sm + Spacing.xs) {
+            HStack(spacing: Spacing.md) {
+                Button(action: onTap) {
+                    rowContent
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.pressable)
+                .disabled(isDisabled)
+
+                if isInMeal {
+                    CounterStepper(count: Int(quantity.rounded()), accent: accent, onDecrement: onDecrement)
+                }
+            }
+        }
+        .opacity(isDisabled && !isInMeal ? 0.4 : 1)
+    }
+
+    private var rowContent: some View {
+        HStack(spacing: Spacing.md) {
+            Circle()
+                .fill(isInMeal ? accent : accent.opacity(0.35))
+                .frame(width: 8, height: 8)
+                .animation(Motion.snap, value: isInMeal)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(item.name)
+                        .font(.appHeadline)
+                        .foregroundStyle(.textPrimary)
+                        .lineLimit(2)
+                    Spacer(minLength: Spacing.xs)
+                    Text(item.servingDescription)
+                        .font(.appCaption)
+                        .foregroundStyle(.textTertiary)
+                        .lineLimit(1)
+                }
+                MacroStrip(macros: item.macros)
+            }
+        }
+    }
+
+    /// splitBase badge: ½ / ×2; a plain full portion is just the filled dot.
+    private var cycleBadge: String? {
         guard isInMeal else { return nil }
         if isHalf { return "½" }
-        if case .cappedScoops = policy { return "\(Int(quantity.rounded()))" }
         if abs(quantity - 2) < 0.001 { return "×2" }
         if abs(quantity - 1) < 0.001 { return nil }
         return "×\(quantity.formatted(.number.precision(.fractionLength(0...2))))"
@@ -395,6 +439,7 @@ private struct MenuItemRow: View {
     private var accessibilityText: String {
         var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
         if isHalf { parts.append("half portion") }
+        else if policy.isCounter, isInMeal { parts.append("\(Int(quantity.rounded())) in meal") }
         else if isInMeal { parts.append("\(quantity.formatted()) in meal") }
         return parts.joined(separator: ", ")
     }
@@ -403,8 +448,41 @@ private struct MenuItemRow: View {
         if isDisabled { return "At the limit. Remove another to add this." }
         switch policy {
         case .splitBase: return "Tap to add. Tap again to double, or tap another to split half and half."
-        case .cappedScoops: return "Tap to add a scoop."
-        case .freeAddOns: return "Tap to add. Tap again to double, again to remove."
+        case .cappedScoops: return "Tap to add one; use minus to reduce."
+        case .freeAddOns: return "Tap to add one; use minus to reduce."
+        }
+    }
+}
+
+/// The inline − [count] control shared by counter rows (stations + guided).
+private struct CounterStepper: View {
+    let count: Int
+    let accent: Color
+    let onDecrement: () -> Void
+
+    var body: some View {
+        HStack(spacing: Spacing.sm) {
+            Button(action: onDecrement) {
+                Image(systemName: "minus")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(accent)
+                    .frame(width: 30, height: 30)
+                    .background {
+                        Circle()
+                            .fill(accent.opacity(0.12))
+                            .overlay(Circle().strokeBorder(accent.opacity(0.5), lineWidth: 1))
+                    }
+                    .contentShape(Circle())
+            }
+            .buttonStyle(.pressable)
+            .accessibilityLabel("Remove one")
+
+            Text("\(count)")
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(accent)
+                .frame(minWidth: 16)
+                .contentTransition(.numericText(value: Double(count)))
         }
     }
 }
@@ -432,6 +510,7 @@ private extension MenuView {
         VStack(alignment: .leading, spacing: Spacing.sm) {
             ForEach(format.prompts) { prompt in
                 guidedPromptRow(prompt)
+                    .id(prompt.id)
             }
         }
     }
@@ -488,9 +567,10 @@ private extension MenuView {
                             GuidedItemRow(
                                 item: item,
                                 accent: category?.style.accent ?? .textSecondary,
-                                isSelected: store.quantity(forMenuItemId: item.id) > 0,
-                                resultingQuantity: store.quantity(forMenuItemId: item.id),
-                                onTap: { pick(item, prompt: prompt) }
+                                quantity: store.quantity(forMenuItemId: item.id),
+                                isCounter: promptPolicy(prompt)?.isCounter ?? false,
+                                onTap: { pick(item, prompt: prompt) },
+                                onDecrement: { promptDecrement(item) }
                             )
                         }
                     }
@@ -586,10 +666,10 @@ private extension MenuView {
         guard let category = restaurant.category(id: prompt.categoryId) else { return }
         let scope = prompt.subsetItemIds.map(Set.init)
 
-        if canSplit(prompt) {
+        if let policy = promptPolicy(prompt) {
             Haptics.tap()
             withAnimation(Motion.snap) {
-                apply(store.applyPortionTap(item, in: category, policy: .splitBase, scope: scope), in: category)
+                apply(store.applyPortionTap(item, in: category, policy: policy, scope: scope), in: category)
             }
         } else if let line = store.lineItems.first(where: { $0.menuItemId == item.id }) {
             Haptics.tap()
@@ -601,82 +681,109 @@ private extension MenuView {
             }
         }
     }
+
+    /// The `PortionPolicy` a prompt's `choose` implies, so the guided rows use
+    /// the same tap model as the stations: choose-one → splitBase (tap-cycle +
+    /// split), up-to-N → capped counter, many → free counter. Returns nil for
+    /// fixed-quantity picks (tacos ×3, Footlong ×2, CAVA halves) which just
+    /// toggle at their set quantity.
+    func promptPolicy(_ prompt: FormatPrompt) -> PortionPolicy? {
+        switch prompt.choose {
+        case .selectOne:            return canSplit(prompt) ? .splitBase : nil
+        case .selectUpTo(let max):  return .cappedScoops(max: max)
+        case .selectMany:           return .freeAddOns
+        }
+    }
+
+    func promptDecrement(_ item: MenuItem) {
+        Haptics.tap()
+        withAnimation(Motion.snap) { store.decrementPortion(item) }
+    }
 }
 
 // MARK: - Guided item row
 
-/// A single guided choice — a radio-style option row inside the prompt
-/// accordion (chromeless; the accordion card is the surface). Guided picks
-/// are select/deselect (the format sets the quantity), so there are no
-/// ½ · 1 · 2 chips. A non-unit result (tacos ×3, Footlong ×2, a CAVA half)
-/// surfaces as a small volt chip.
+/// A single guided choice inside the prompt accordion (chromeless — the card
+/// is the surface). Mirrors the stations: `splitBase`-style prompts show a
+/// radio + ½/×2 badge and cycle on tap; counter prompts (up-to-N, many) tap
+/// to add and show an inline − with a live count.
 private struct GuidedItemRow: View {
     let item: MenuItem
     let accent: Color
-    let isSelected: Bool
-    let resultingQuantity: Double
+    let quantity: Double
+    let isCounter: Bool
     let onTap: () -> Void
+    let onDecrement: () -> Void
+
+    private var isSelected: Bool { quantity > 0 }
+    private var isHalf: Bool { abs(quantity - 0.5) < 0.001 }
 
     var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: Spacing.md) {
-                ZStack {
-                    Circle()
-                        .strokeBorder(isSelected ? accent : Color.hairline, lineWidth: 1.5)
-                        .frame(width: 20, height: 20)
-                    if isSelected {
+        HStack(spacing: Spacing.md) {
+            Button(action: onTap) {
+                HStack(spacing: Spacing.md) {
+                    ZStack {
                         Circle()
-                            .fill(accent)
-                            .frame(width: 12, height: 12)
+                            .strokeBorder(isSelected ? accent : Color.hairline, lineWidth: 1.5)
+                            .frame(width: 20, height: 20)
+                        if isSelected {
+                            Circle().fill(accent).frame(width: 12, height: 12)
+                        }
+                    }
+                    .animation(Motion.snap, value: isSelected)
+                    .accessibilityHidden(true)
+
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text(item.name)
+                                .font(.appHeadline)
+                                .foregroundStyle(.textPrimary)
+                                .lineLimit(2)
+                            Spacer(minLength: Spacing.xs)
+                            Text(item.servingDescription)
+                                .font(.appCaption)
+                                .foregroundStyle(.textTertiary)
+                                .lineLimit(1)
+                        }
+                        MacroStrip(macros: item.macros)
+                    }
+
+                    if !isCounter, let label = badgeLabel {
+                        Text(label)
+                            .font(.numeral)
+                            .foregroundStyle(accent)
                     }
                 }
-                .animation(Motion.snap, value: isSelected)
-                .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 5) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(item.name)
-                            .font(.appHeadline)
-                            .foregroundStyle(.textPrimary)
-                            .lineLimit(2)
-                        Spacer(minLength: Spacing.xs)
-                        Text(item.servingDescription)
-                            .font(.appCaption)
-                            .foregroundStyle(.textTertiary)
-                            .lineLimit(1)
-                    }
-                    MacroStrip(macros: item.macros)
-                }
-
-                if let quantityLabel {
-                    Text(quantityLabel)
-                        .font(.numeral)
-                        .foregroundStyle(.volt)
-                }
+                .contentShape(Rectangle())
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.vertical, Spacing.xs)
-            .padding(.horizontal, Spacing.xs)
-            .background {
-                RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
-                    .fill(isSelected ? accent.opacity(0.08) : Color.clear)
+            .buttonStyle(.pressable)
+
+            if isCounter, isSelected {
+                CounterStepper(count: Int(quantity.rounded()), accent: accent, onDecrement: onDecrement)
             }
-            .contentShape(Rectangle())
         }
-        .buttonStyle(.pressable)
+        .padding(.vertical, Spacing.xs)
+        .padding(.horizontal, Spacing.xs)
+        .background {
+            RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+                .fill(isSelected ? accent.opacity(0.08) : Color.clear)
+        }
+        .animation(Motion.snap, value: quantity)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(accessibilityText)
         .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
 
-    private var quantityLabel: String? {
-        guard isSelected, abs(resultingQuantity - 1) > 0.001 else { return nil }
-        if abs(resultingQuantity - 0.5) < 0.001 { return "½" }
-        return "×\(resultingQuantity.formatted(.number.precision(.fractionLength(0...2))))"
+    private var badgeLabel: String? {
+        guard isSelected, abs(quantity - 1) > 0.001 else { return nil }
+        if isHalf { return "½" }
+        return "×\(quantity.formatted(.number.precision(.fractionLength(0...2))))"
     }
 
     private var accessibilityText: String {
         var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
-        if isSelected { parts.append("selected") }
+        if isSelected { parts.append(isCounter ? "\(Int(quantity.rounded())) selected" : "selected") }
         return parts.joined(separator: ", ")
     }
 }

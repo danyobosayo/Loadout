@@ -79,4 +79,58 @@ final class PortionControlUITests: XCTestCase {
         XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("2 item"),
                       "Greens + Grains should hold two ½ bases — tray: \(tray.label)")
     }
+
+    @MainActor
+    func testPandaBiggerPlateCountsEntrees() throws {
+        let app = launchedApp()
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Panda Express,")).firstMatch.tap()
+        let bigger = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Bigger Plate")).firstMatch
+        XCTAssertTrue(bigger.waitForExistence(timeout: 15), "Panda should offer a Bigger Plate")
+        bigger.tap()
+
+        // Entrées is a capped counter (up to 3): 2 orange chicken + 1 mushroom.
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Choose 3 entrées")).firstMatch.tap()
+        let orange = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Orange Chicken,")).firstMatch
+        XCTAssertTrue(orange.waitForExistence(timeout: 8))
+        orange.tap()
+        orange.tap()   // 2 portions orange chicken
+        let mushroom = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Mushroom Chicken,")).firstMatch
+        XCTAssertTrue(mushroom.waitForExistence(timeout: 5))
+        mushroom.tap() // + 1 → total 3
+        attach(app, "04-panda-2-orange-1-mushroom")
+        // 2×orange (1020) + 1×mushroom (220) = 1240.
+        let pandaTray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(pandaTray.waitForExistence(timeout: 5) && pandaTray.label.contains("1240"),
+                      "Two orange chicken + one mushroom should total 1240 — tray: \(pandaTray.label)")
+    }
+
+    @MainActor
+    func testToppingsCountUncapped() throws {
+        let app = launchedApp()
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
+        XCTAssertTrue(byo.waitForExistence(timeout: 15))
+        byo.tap()
+
+        // Scroll down to a Toppings item.
+        let cheese = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Cheese,")).firstMatch
+        var scrolls = 0
+        while !(cheese.exists && cheese.isHittable) && scrolls < 10 {
+            app.swipeUp()
+            scrolls += 1
+        }
+        XCTAssertTrue(cheese.waitForExistence(timeout: 3), "Toppings should be reachable")
+        cheese.tap()
+        cheese.tap()
+        cheese.tap()   // 3 — uncapped (the old cycle wrapped back to 0 at this point)
+        attach(app, "05-toppings-count")
+        // 3 × 110-cal cheese = 330; proves the counter is uncapped, not a
+        // full→×2→off cycle. (The inline − is unit-tested + shown in the
+        // Panda screenshot.)
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("330"),
+                      "Cheese should count up uncapped (3×110=330) — tray: \(tray.label)")
+    }
 }

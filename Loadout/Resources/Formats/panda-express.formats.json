@@ -8,7 +8,7 @@
       "autoAdd": [],
       "prompts": [
         { "categoryId": "sides", "promptCopy": "Choose your side", "choose": "one", "required": true },
-        { "categoryId": "entrees", "promptCopy": "Choose your entrée", "choose": "one", "required": true }
+        { "categoryId": "entrees", "promptCopy": "Choose your entrée", "choose": "upTo:1", "required": true }
       ],
       "optionalCategoryIds": ["appetizers", "sauces"]
     },

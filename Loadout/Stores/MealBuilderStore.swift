@@ -165,36 +165,34 @@ final class MealBuilderStore {
         return .replaced(removedMenuItemId: item.id)
     }
 
-    /// +1 scoop until the station total hits `max`; at the cap a new item is
-    /// rejected and re-tapping a chosen one zeroes it.
+    /// +1 scoop until the station total hits `max`; at the cap a tap is
+    /// rejected. Reduce with `decrementPortion` (the row's − control).
     private func tapScoops(_ item: MenuItem, in category: MenuCategory, max: Int, scope: Set<String>? = nil) -> AddOutcome {
-        let total = totalQuantity(in: category, scope: scope)
-        if total < Double(max) {
-            if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
-                setQuantity(lineItemId: line.id, to: line.quantity + 1)
-                return .incremented
-            }
-            return add(item, in: category, quantity: 1, ruleOverride: .selectMany, within: scope)
+        guard totalQuantity(in: category, scope: scope) < Double(max) else {
+            return .rejectedByLimit(max: max)
         }
-        // At the cap.
         if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
-            setQuantity(lineItemId: line.id, to: 0)                     // free room
-            return .replaced(removedMenuItemId: item.id)
+            setQuantity(lineItemId: line.id, to: line.quantity + 1)
+            return .incremented
         }
-        return .rejectedByLimit(max: max)
+        return add(item, in: category, quantity: 1, ruleOverride: .selectMany, within: scope)
     }
 
-    /// Each item independently cycles full → ×2 → off.
+    /// Each item independently +1, uncapped. Reduce with `decrementPortion`
+    /// (the row's − control) so a misclick doesn't need the tray.
     private func tapFreeAddOn(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
-        let q = quantity(forMenuItemId: item.id)
-        if q == 0 {
-            return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
-        }
-        let next = q == 1 ? 2.0 : 0.0
         if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
-            setQuantity(lineItemId: line.id, to: next)
+            setQuantity(lineItemId: line.id, to: line.quantity + 1)
+            return .incremented
         }
-        return next == 0 ? .replaced(removedMenuItemId: item.id) : .incremented
+        return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+    }
+
+    /// One-step decrement for the counter policies (toppings, scoops, Panda
+    /// entrées). Removes the line at zero. Backs the row's − control.
+    func decrementPortion(_ item: MenuItem) {
+        guard let line = lineItems.first(where: { $0.menuItemId == item.id }) else { return }
+        setQuantity(lineItemId: line.id, to: line.quantity - 1)   // setQuantity removes at ≤ 0
     }
 
     /// Halves an existing line's portion (half white rice, half brown
