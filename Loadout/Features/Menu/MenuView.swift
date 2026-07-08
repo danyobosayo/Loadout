@@ -67,11 +67,6 @@ struct MenuView: View {
         Self.stationCategories(restaurant: restaurant, format: format)
     }
 
-    /// Portion unit for add-on station rows. A size format (Subway Footlong)
-    /// makes "1" mean one footlong serving, so the ½ · 1 · 2 chips set 2× the
-    /// 6-inch macros — keeping the whole footlong build at the right scale.
-    private var portionScale: Double { format?.portionMultiplier ?? 1 }
-
     var body: some View {
         ZStack {
             Backdrop(tint: restaurant.style.hue)
@@ -137,7 +132,15 @@ struct MenuView: View {
     }
 
     private func stationSection(_ category: MenuCategory) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
+        let policy = category.portionPolicy
+        let scoopCapReached: Bool = {
+            if case .cappedScoops(let max) = policy {
+                return store.totalQuantity(in: category) >= Double(max)
+            }
+            return false
+        }()
+
+        return VStack(alignment: .leading, spacing: Spacing.sm) {
             HStack(spacing: Spacing.sm) {
                 Image(category.style.icon)
                     .resizable()
@@ -153,12 +156,14 @@ struct MenuView: View {
 
             VStack(spacing: Spacing.sm) {
                 ForEach(category.items) { item in
+                    let quantity = store.quantity(forMenuItemId: item.id)
                     MenuItemRow(
                         item: item,
                         accent: category.style.accent,
-                        quantity: store.quantity(forMenuItemId: item.id),
-                        portionScale: portionScale,
-                        onSetPortion: { setPortion(item, in: category, to: $0) }
+                        quantity: quantity,
+                        policy: policy,
+                        isDisabled: scoopCapReached && quantity == 0,
+                        onTap: { tapStation(item, in: category) }
                     )
                 }
             }
@@ -166,10 +171,10 @@ struct MenuView: View {
     }
 
     private func headerText(for category: MenuCategory) -> String {
-        switch category.selectionRule {
-        case .selectOne: "\(category.name) · choose 1"
-        case .selectUpTo(let max): "\(category.name) · up to \(max)"
-        case .selectMany: category.name
+        switch category.portionPolicy {
+        case .splitBase: "\(category.name) · tap two to split"
+        case .cappedScoops(let max): "\(category.name) · up to \(max)"
+        case .freeAddOns: category.name
         }
     }
 
@@ -196,18 +201,11 @@ struct MenuView: View {
 
     // MARK: Portion actions
 
-    /// Absolute portion set from the row chips (½ · 1 · 2). Tapping
-    /// the already-active chip removes the item; the row body is a
-    /// shortcut for "1" on items not yet in the meal.
-    private func setPortion(_ item: MenuItem, in category: MenuCategory, to value: Double) {
-        if let line = store.lineItems.first(where: { $0.menuItemId == item.id }) {
-            Haptics.tap()
-            withAnimation(Motion.snap) {
-                let isActive = abs(line.quantity - value) < 0.001
-                store.setQuantity(lineItemId: line.id, to: isActive ? 0 : value)
-            }
-        } else {
-            apply(store.add(item, in: category, quantity: value), in: category)
+    /// One tap on a station row, resolved by the station's `PortionPolicy`:
+    /// cycle full → ×2 → off, an auto ½ + ½ split, or capped scoops.
+    private func tapStation(_ item: MenuItem, in category: MenuCategory) {
+        withAnimation(Motion.snap) {
+            apply(store.applyPortionTap(item, in: category), in: category)
         }
     }
 
@@ -313,28 +311,23 @@ struct MenuView: View {
 
 // MARK: - Item row
 
+/// A station row in the tap-to-cycle model (replaces the ½ · 1 · 2 chips).
+/// The whole card is one tap target; its `PortionPolicy` decides what the
+/// tap does. Current state reads out as a trailing badge (½ / ×2 / scoop
+/// count); a full single portion is just the filled dot.
 private struct MenuItemRow: View {
     let item: MenuItem
     let accent: Color
     let quantity: Double
-    // Multiplier for one portion (Subway Footlong = 2). The ½ · 1 · 2 chips
-    // stay footlong-relative but set `chip × portionScale` of the macros.
-    var portionScale: Double = 1
-    let onSetPortion: (Double) -> Void
+    let policy: PortionPolicy
+    let isDisabled: Bool
+    let onTap: () -> Void
 
-    private static let portions: [Double] = [0.5, 1, 2]
     private var isInMeal: Bool { quantity > 0 }
-    private var isStandardPortion: Bool {
-        Self.portions.contains { abs($0 * portionScale - quantity) < 0.001 }
-    }
+    private var isHalf: Bool { abs(quantity - 0.5) < 0.001 }
 
     var body: some View {
-        Button {
-            // Fast path: tapping the card adds one full portion. Once
-            // in the meal, the chips own all changes — the card body
-            // goes inert so a stray tap can't surprise anyone.
-            if !isInMeal { onSetPortion(portionScale) }
-        } label: {
+        Button(action: onTap) {
             Card(padding: Spacing.sm + Spacing.xs) {
                 HStack(spacing: Spacing.md) {
                     Circle()
@@ -358,68 +351,61 @@ private struct MenuItemRow: View {
                         MacroStrip(macros: item.macros)
                     }
 
-                    portionChips
-                }
-            }
-        }
-        .buttonStyle(.pressable)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(accessibilityText)
-    }
-
-    /// ½ · 1 · 2 — absolute portions. Tap to set, tap again to remove.
-    private var portionChips: some View {
-        HStack(spacing: 4) {
-            // Off-grid quantity (edited in the tray): surface it so the
-            // unselected chips aren't mysterious.
-            if isInMeal && !isStandardPortion {
-                Text("×\(quantity, format: .number.precision(.fractionLength(0...2)))")
-                    .font(.numeral)
-                    .foregroundStyle(.volt)
-            }
-            ForEach(Self.portions, id: \.self) { portion in
-                chip(portion)
-            }
-        }
-    }
-
-    private func chip(_ portion: Double) -> some View {
-        let scaled = portion * portionScale
-        let isActive = abs(quantity - scaled) < 0.001
-        return Button {
-            onSetPortion(scaled)
-        } label: {
-            Text(portion == 0.5 ? "½" : portion.formatted())
-                .font(.system(size: 12, weight: .bold, design: .rounded))
-                .foregroundStyle(isActive ? Color.void : .textSecondary)
-                .frame(width: 28, height: 28)
-                .background {
-                    if isActive {
-                        Circle().fill(Color.volt)
-                    } else {
-                        Circle()
-                            .fill(Color.white.opacity(0.04))
-                            .overlay(Circle().strokeBorder(Color.hairline, lineWidth: 1))
+                    if let label = badgeLabel {
+                        Text(label)
+                            .font(.system(size: 13, weight: .bold, design: .rounded))
+                            .monospacedDigit()
+                            .foregroundStyle(isHalf ? accent : Color.void)
+                            .frame(minWidth: 30)
+                            .frame(height: 28)
+                            .padding(.horizontal, 7)
+                            .background {
+                                if isHalf {
+                                    Capsule().strokeBorder(accent, lineWidth: 1.5)
+                                } else {
+                                    Capsule().fill(accent)
+                                }
+                            }
+                            .transition(.scale.combined(with: .opacity))
                     }
                 }
-                .contentShape(Circle())
+            }
         }
         .buttonStyle(.pressable)
-        .animation(Motion.snap, value: isActive)
-        .accessibilityLabel(
-            isActive
-                ? "Remove \(item.name)"
-                : "Set \(item.name) to \(portion, format: .number.precision(.fractionLength(0...1))) portions"
-        )
-        .accessibilityAddTraits(isActive ? [.isSelected] : [])
+        .disabled(isDisabled)
+        .opacity(isDisabled ? 0.4 : 1)
+        .animation(Motion.snap, value: quantity)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(accessibilityText)
+        .accessibilityHint(accessibilityHint)
+        .accessibilityAddTraits(isInMeal ? [.isSelected] : [])
+    }
+
+    /// ½ and ×2 always show; scoops show their count; a plain full portion
+    /// is just the filled dot (no badge).
+    private var badgeLabel: String? {
+        guard isInMeal else { return nil }
+        if isHalf { return "½" }
+        if case .cappedScoops = policy { return "\(Int(quantity.rounded()))" }
+        if abs(quantity - 2) < 0.001 { return "×2" }
+        if abs(quantity - 1) < 0.001 { return nil }
+        return "×\(quantity.formatted(.number.precision(.fractionLength(0...2))))"
     }
 
     private var accessibilityText: String {
         var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
-        if isInMeal {
-            parts.append("\(quantity.formatted()) in meal")
-        }
+        if isHalf { parts.append("half portion") }
+        else if isInMeal { parts.append("\(quantity.formatted()) in meal") }
         return parts.joined(separator: ", ")
+    }
+
+    private var accessibilityHint: String {
+        if isDisabled { return "At the limit. Remove another to add this." }
+        switch policy {
+        case .splitBase: return "Tap to add. Tap again to double, or tap another to split half and half."
+        case .cappedScoops: return "Tap to add a scoop."
+        case .freeAddOns: return "Tap to add. Tap again to double, again to remove."
+        }
     }
 }
 

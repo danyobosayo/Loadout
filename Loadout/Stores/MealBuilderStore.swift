@@ -105,6 +105,88 @@ final class MealBuilderStore {
         lineItems(in: category, scope: scope).reduce(0) { $0 + $1.quantity }
     }
 
+    // MARK: - Portion tap (policy-driven)
+
+    /// One tap on `item`, resolved by its station's `PortionPolicy`. This is
+    /// the tap-to-cycle model that replaces the ½ · 1 · 2 chips — the caller
+    /// just re-reads quantities and re-renders.
+    @discardableResult
+    func applyPortionTap(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
+        switch category.portionPolicy {
+        case .splitBase:             return tapSplitBase(item, in: category)
+        case .cappedScoops(let max): return tapScoops(item, in: category, max: max)
+        case .freeAddOns:            return tapFreeAddOn(item, in: category)
+        }
+    }
+
+    /// full → ×2 → off for a lone pick; a second distinct pick splits the
+    /// base ½ + ½; tapping a half removes it and restores the other to full.
+    private func tapSplitBase(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
+        let selected = lineItems(in: category)
+        let currentQty = quantity(forMenuItemId: item.id)
+
+        if currentQty == 0 {
+            switch selected.count {
+            case 0:
+                return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+            case 1:
+                setQuantity(lineItemId: selected[0].id, to: 0.5)      // existing → half
+                return add(item, in: category, quantity: 0.5, ruleOverride: .selectMany)
+            default:
+                return .rejectedByLimit(max: 2)                        // base full (½ + ½)
+            }
+        }
+
+        if selected.count == 1 {
+            // The lone pick — cycle its portion.
+            let line = selected[0]
+            let next = line.quantity == 1 ? 2.0 : 0.0
+            setQuantity(lineItemId: line.id, to: next)
+            return next == 0 ? .replaced(removedMenuItemId: item.id) : .incremented
+        }
+
+        // One of two halves — drop it, restore the other to a full portion.
+        if let mine = selected.first(where: { $0.menuItemId == item.id }) {
+            setQuantity(lineItemId: mine.id, to: 0)
+        }
+        if let other = selected.first(where: { $0.menuItemId != item.id }) {
+            setQuantity(lineItemId: other.id, to: 1)
+        }
+        return .replaced(removedMenuItemId: item.id)
+    }
+
+    /// +1 scoop until the station total hits `max`; at the cap a new item is
+    /// rejected and re-tapping a chosen one zeroes it.
+    private func tapScoops(_ item: MenuItem, in category: MenuCategory, max: Int) -> AddOutcome {
+        let total = totalQuantity(in: category)
+        if total < Double(max) {
+            if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
+                setQuantity(lineItemId: line.id, to: line.quantity + 1)
+                return .incremented
+            }
+            return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+        }
+        // At the cap.
+        if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
+            setQuantity(lineItemId: line.id, to: 0)                     // free room
+            return .replaced(removedMenuItemId: item.id)
+        }
+        return .rejectedByLimit(max: max)
+    }
+
+    /// Each item independently cycles full → ×2 → off.
+    private func tapFreeAddOn(_ item: MenuItem, in category: MenuCategory) -> AddOutcome {
+        let q = quantity(forMenuItemId: item.id)
+        if q == 0 {
+            return add(item, in: category, quantity: 1, ruleOverride: .selectMany)
+        }
+        let next = q == 1 ? 2.0 : 0.0
+        if let line = lineItems.first(where: { $0.menuItemId == item.id }) {
+            setQuantity(lineItemId: line.id, to: next)
+        }
+        return next == 0 ? .replaced(removedMenuItemId: item.id) : .incremented
+    }
+
     /// Halves an existing line's portion (half white rice, half brown
     /// rice — or just "light rice"). Snaps to the 0.25 grid with a
     /// floor of 0.25 so repeated taps can't strand a zero-quantity line.
