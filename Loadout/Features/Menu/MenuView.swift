@@ -576,24 +576,15 @@ private extension MenuView {
         }
     }
 
-    /// Move the accordion to the next still-unanswered prompt, or close it
-    /// when the guided picks are all done.
-    func advance(after prompt: FormatPrompt) {
-        guard let prompts = format?.prompts,
-              let idx = prompts.firstIndex(where: { $0.id == prompt.id }) else { return }
-        let next = prompts[(idx + 1)...].first { !isAnswered($0) }
-        withAnimation(Motion.snap) { expandedPrompt = next?.id }
-    }
-
     /// A guided pick. "Choose one" prompts holding a single full portion (not
     /// tacos ×3 or a Footlong) use the same tap-to-cycle model as the stations
     /// — tap to add, again to double, or tap another to split ½ + ½ within the
-    /// prompt's subset. Everything else toggles at its set quantity. A
-    /// single-select prompt auto-advances only when it first becomes answered.
+    /// prompt's subset. Everything else toggles at its set quantity. The prompt
+    /// stays open after a pick (no auto-advance) so portions stay adjustable;
+    /// the user moves on by tapping the next prompt's header.
     func pick(_ item: MenuItem, prompt: FormatPrompt) {
         guard let category = restaurant.category(id: prompt.categoryId) else { return }
         let scope = prompt.subsetItemIds.map(Set.init)
-        let wasAnswered = isAnswered(prompt)
 
         if canSplit(prompt) {
             Haptics.tap()
@@ -608,10 +599,6 @@ private extension MenuView {
             withAnimation(Motion.snap) {
                 apply(store.add(item, in: category, quantity: quantity, ruleOverride: prompt.choose, within: scope), in: category)
             }
-        }
-
-        if case .selectOne = prompt.choose, !wasAnswered, isAnswered(prompt) {
-            advance(after: prompt)
         }
     }
 }

@@ -52,4 +52,31 @@ final class PortionControlUITests: XCTestCase {
         XCTAssertTrue(tray.label.contains("570"),
                       "Second rice should split both to ½ (total 570) — tray: \(tray.label)")
     }
+
+    @MainActor
+    func testCavaGreensAndGrainsBaseIsHalfAndHalf() throws {
+        let app = launchedApp()
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "CAVA,")).firstMatch.tap()
+        let greensGrains = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Greens + Grains")).firstMatch
+        XCTAssertTrue(greensGrains.waitForExistence(timeout: 15), "CAVA should offer Greens + Grains")
+        greensGrains.tap()
+
+        // Grain-half prompt is expanded — pick a grain (lands at ½).
+        let brownRice = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Brown Rice")).firstMatch
+        XCTAssertTrue(brownRice.waitForExistence(timeout: 10))
+        brownRice.tap()
+
+        // No auto-advance: open the greens-half prompt and pick a greens (½).
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Pick your greens half")).firstMatch.tap()
+        let arugula = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Arugula")).firstMatch
+        XCTAssertTrue(arugula.waitForExistence(timeout: 5))
+        arugula.tap()
+        attach(app, "03-greens-and-grains")
+
+        // Two half bases = 2 line items, each ½.
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("2 item"),
+                      "Greens + Grains should hold two ½ bases — tray: \(tray.label)")
+    }
 }

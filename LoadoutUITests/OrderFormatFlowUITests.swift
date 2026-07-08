@@ -53,27 +53,19 @@ final class OrderFormatFlowUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Choose your beans"].exists, "Burrito should guide the beans pick")
         attach(app, "02-guided-burrito")
 
-        // First prompt (rice) is expanded — pick one; it collapses to a
-        // summary and the accordion auto-advances to the next prompt.
+        // Rice is expanded on entry. Tap white (full), then brown — a second
+        // pick auto-splits both to ½. Nothing auto-advances now, so the rice
+        // prompt stays open the whole time.
         let whiteRice = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Cilantro-Lime White Rice")).firstMatch
         XCTAssertTrue(whiteRice.waitForExistence(timeout: 5), "Rice options should be expanded on entry")
         whiteRice.tap()
-        XCTAssertTrue(app.staticTexts["Cilantro-Lime White Rice"].waitForExistence(timeout: 5),
-                      "Picked rice should show as the collapsed summary")
-        attach(app, "02b-accordion-after-pick")
-
-        // Half-and-half: re-open rice and tap a second rice. In the unified
-        // tap-cycle model a second pick auto-splits both to ½ — no split button.
-        let riceHeader = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Choose your rice")).firstMatch
-        XCTAssertTrue(riceHeader.waitForExistence(timeout: 5))
-        riceHeader.tap()
         let brownRice = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Cilantro-Lime Brown Rice")).firstMatch
         XCTAssertTrue(brownRice.waitForExistence(timeout: 5))
         brownRice.tap()
         // tortilla + white ½ + brown ½ = 3 line items.
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch.label.contains("3 item"),
                       "Tapping a second rice should split both to ½ (3 line items in the tray)")
-        attach(app, "02c-half-and-half")
+        attach(app, "02b-rice-half-and-half")
 
         // The flour tortilla auto-seeded, so the tray already holds 1 item.
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
