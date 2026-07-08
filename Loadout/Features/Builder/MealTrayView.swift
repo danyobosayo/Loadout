@@ -16,6 +16,7 @@ struct MealTrayView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
     @Environment(SettingsStore.self) private var settings
+    @Environment(MacroFactorExport.self) private var macroFactorExport
 
     @State private var savePrompt = false
     @State private var recipeName = ""
@@ -254,45 +255,23 @@ struct MealTrayView: View {
         let meal = store.snapshotMeal()
         let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
         let food = exporter.food(for: meal, restaurantName: restaurantName)
-        guard let url = try? exporter.shortcutsURL(for: food) else {
+        guard let url = try? exporter.callbackURL(
+            for: food,
+            success: MacroFactorExport.successURL,
+            error: MacroFactorExport.errorURL,
+            cancel: MacroFactorExport.cancelURL
+        ) else {
             Haptics.warning()
             showNote("Couldn't build the export")
             return
         }
-        // Hand off to the user's Shortcut. We can confirm iOS opened Shortcuts,
-        // but not yet whether MacroFactor actually logged it — that needs the
-        // x-callback round-trip (see MacroFactorIntegration). So we only treat
-        // "Shortcuts opened" as done, and surface a real failure otherwise
-        // instead of the old always-succeed path.
-        UIApplication.shared.open(url) { opened in
-            MainActor.assumeIsolated {
-                guard opened else {
-                    Haptics.warning()
-                    showNote("Couldn't open Shortcuts — is it installed?")
-                    return
-                }
-                recordHistory(meal: meal)
-                Haptics.success()
-                dismiss()
-            }
-        }
-    }
-
-    private func recordHistory(meal: BuiltMeal) {
-        let logged = LoggedMeal(
-            restaurantId: meal.restaurantId,
-            loggedAt: meal.createdAt,
-            lineItems: meal.lineItems
-        )
-        modelContext.insert(logged)
-        do {
-            try LoggedMealRetention.enforceLimit(in: modelContext)
-            try modelContext.save()
-        } catch {
-            // The MacroFactor handoff already happened — the user got
-            // their value. Local persistence failure is recoverable on
-            // the next log; don't interrupt the flow.
-        }
+        // Hold the meal for the callback, hand off, and close the tray. The
+        // Shortcut returns to the app root via loadout:// when it finishes,
+        // and only *then* do we record history + confirm — so this can no
+        // longer silently no-op or fake a success.
+        macroFactorExport.begin(meal: meal)
+        openURL(url)
+        dismiss()
     }
 
     private func saveRecipe() {

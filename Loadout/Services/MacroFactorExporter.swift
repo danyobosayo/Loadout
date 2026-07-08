@@ -81,6 +81,28 @@ nonisolated struct MacroFactorExporter: Sendable {
         return components.url
     }
 
+    /// The x-callback-url form: Shortcuts runs the shortcut, then returns to
+    /// the app via the `x-success` / `x-error` / `x-cancel` URLs — so we can
+    /// report a real "logged" / "couldn't log" instead of guessing. Requires
+    /// the callback scheme to be registered in Info.plist.
+    func callbackURL(for food: MFExport.Food, success: URL, error: URL, cancel: URL) throws -> URL? {
+        let json = try encode(food)
+        guard let jsonString = String(data: json, encoding: .utf8) else { return nil }
+        var components = URLComponents()
+        components.scheme = "shortcuts"
+        components.host = "x-callback-url"
+        components.path = "/run-shortcut"
+        components.queryItems = [
+            URLQueryItem(name: "name", value: shortcutName),
+            URLQueryItem(name: "input", value: "text"),
+            URLQueryItem(name: "text", value: jsonString),
+            URLQueryItem(name: "x-success", value: success.absoluteString),
+            URLQueryItem(name: "x-error", value: error.absoluteString),
+            URLQueryItem(name: "x-cancel", value: cancel.absoluteString)
+        ]
+        return components.url
+    }
+
     private func nutrientDict(for macros: Macros) -> [String: Decimal] {
         [
             MFExport.NutrientKey.energy: ServingParser.decimal(macros.calories),
