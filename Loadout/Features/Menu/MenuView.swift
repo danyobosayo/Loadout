@@ -766,10 +766,11 @@ private struct GuidedItemRow: View {
         .padding(.vertical, Spacing.xs)
         .padding(.horizontal, Spacing.xs)
         .background {
-            let shape = RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
-            shape
-                .fill(isSelected ? accent.opacity(0.1) : Color.clear)
-                .overlay(shape.strokeBorder(isSelected ? accent.opacity(0.55) : Color.clear, lineWidth: 1.5))
+            // No container border here: guided rows sit joined under one prompt
+            // header, so the filled radio (+ a faint tint) carries selection —
+            // a per-row border would fight that grouped look.
+            RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+                .fill(isSelected ? accent.opacity(0.08) : Color.clear)
         }
         .animation(Motion.snap, value: quantity)
         .accessibilityElement(children: .contain)
