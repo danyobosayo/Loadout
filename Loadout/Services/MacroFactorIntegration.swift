@@ -14,13 +14,11 @@ nonisolated enum MacroFactorIntegration {
     /// name in the user's library exactly.
     static let defaultShortcutName = "Loadout to MacroFactor"
 
-    /// One-tap iCloud install link for that Shortcut.
-    ///
-    /// TODO: replace with the real iCloud share link. Build the Shortcut on
-    /// device (Shortcuts → new shortcut → "Receive Text" input → add the
-    /// MacroFactor "Log by JSON" action → name it exactly
-    /// `defaultShortcutName`), then Share → Copy iCloud Link and paste it here.
-    static let installShortcutURL = URL(string: "https://www.icloud.com/shortcuts/REPLACE-WITH-REAL-ID")!
+    /// One-tap iCloud install link for that Shortcut: a single MacroFactor
+    /// "Log by JSON" action fed by Shortcut Input. It installs under the
+    /// name it was shared with — which must equal `defaultShortcutName`
+    /// (or the user's Settings override) for `run-shortcut?name=` to find it.
+    static let installShortcutURL = URL(string: "https://www.icloud.com/shortcuts/369a1616e9644ae5b72d1f1022dfac99")!
 
     /// URL scheme reserved for the x-callback-url success/error round-trip
     /// (so we can report a real "logged / failed" instead of only "sent").
