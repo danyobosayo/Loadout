@@ -103,6 +103,12 @@ final class PortionControlUITests: XCTestCase {
         let pandaTray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(pandaTray.waitForExistence(timeout: 5) && pandaTray.label.contains("1240"),
                       "Two orange chicken + one mushroom should total 1240 — tray: \(pandaTray.label)")
+
+        // Open the tray so the 4-digit ring total is on screen (must fit on
+        // one line, not wrap).
+        pandaTray.tap()
+        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 5))
+        attach(app, "06-tray-ring-4digit")
     }
 
     @MainActor

@@ -32,11 +32,16 @@ struct MacroRing: View {
                 Text(calories, format: .number.precision(.fractionLength(0)))
                     .font(size >= 120 ? .numeralHero : .numeralLarge)
                     .foregroundStyle(.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .contentTransition(.numericText(value: calories))
                     .animation(Motion.snap, value: calories)
                 Text("kcal")
                     .microLabelStyle(.kcal)
             }
+            // Keep the numerals inside the arc so a 4-digit total (1,170)
+            // shrinks to one line instead of wrapping.
+            .frame(maxWidth: size - lineWidth * 2 - Spacing.sm)
         }
         .frame(width: size, height: size)
         .accessibilityElement(children: .ignore)
