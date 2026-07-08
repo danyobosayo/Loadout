@@ -3,11 +3,8 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.menuRepository) private var menuRepository
+    @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
-
-    private static let macroFactorShortcutsURL = URL(
-        string: "https://github.com/MacroFactor/apple-shortcuts"
-    )!
 
     var body: some View {
         @Bindable var settings = settings
@@ -27,7 +24,7 @@ struct SettingsView: View {
                                         Text("Shortcut name")
                                             .font(.appCaption)
                                             .foregroundStyle(.textSecondary)
-                                        TextField("Log by JSON", text: $settings.shortcutName)
+                                        TextField(MacroFactorIntegration.defaultShortcutName, text: $settings.shortcutName)
                                             .font(.appHeadline)
                                             .foregroundStyle(.textPrimary)
                                             .autocorrectionDisabled()
@@ -36,16 +33,32 @@ struct SettingsView: View {
 
                                     Divider().overlay(Color.hairline)
 
-                                    Link(destination: Self.macroFactorShortcutsURL) {
+                                    Link(destination: MacroFactorIntegration.installShortcutURL) {
                                         HStack {
-                                            Label("Install MacroFactor Shortcut", systemImage: "arrow.up.right.square")
+                                            Label("Install the Loadout shortcut", systemImage: "arrow.up.right.square")
                                                 .font(.appBody)
                                                 .foregroundStyle(.volt)
                                             Spacer()
                                         }
                                     }
 
-                                    Text("The name must match the Shortcut installed from MacroFactor. Defaults to \u{201C}Log by JSON\u{201D}.")
+                                    Button {
+                                        testConnection()
+                                    } label: {
+                                        HStack {
+                                            Label("Test connection", systemImage: "checkmark.seal")
+                                                .font(.appBody)
+                                                .foregroundStyle(.textPrimary)
+                                            Spacer()
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundStyle(.textTertiary)
+                                        }
+                                    }
+                                    .buttonStyle(.plain)
+                                    .accessibilityHint("Sends a one-calorie test item to your shortcut so you can confirm it logs to MacroFactor.")
+
+                                    Text("Loadout hands each meal to a Shortcut you install once, which passes it to MacroFactor's \u{201C}Log by JSON\u{201D} action. The name above must match that Shortcut's title. \u{201C}Test connection\u{201D} fires it with a one-calorie test item.")
                                         .font(.appCaption)
                                         .foregroundStyle(.textTertiary)
                                 }
@@ -110,6 +123,29 @@ struct SettingsView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
+    }
+
+    /// Fires the user's Shortcut with a tiny 1-calorie probe so they can
+    /// confirm the hand-off works end to end — MacroFactor logs the test
+    /// item, or Shortcuts reports the shortcut can't be found.
+    private func testConnection() {
+        let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
+        let probe = MFExport.Food(
+            source: MFExport.sourceIdentifier,
+            icon: MFExport.defaultIcon,
+            name: "Loadout connection test",
+            nutrients: [MFExport.NutrientKey.energy: 1],
+            serving: .one,
+            llmPrompt: nil,
+            barcode: nil,
+            brand: nil,
+            beverage: nil,
+            notes: "Test from Loadout Settings",
+            recipe: nil
+        )
+        if let url = try? exporter.shortcutsURL(for: probe) {
+            openURL(url)
+        }
     }
 
     private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {

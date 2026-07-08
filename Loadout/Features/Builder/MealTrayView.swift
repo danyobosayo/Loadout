@@ -254,12 +254,28 @@ struct MealTrayView: View {
         let meal = store.snapshotMeal()
         let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
         let food = exporter.food(for: meal, restaurantName: restaurantName)
-        if let url = try? exporter.shortcutsURL(for: food) {
-            openURL(url)
+        guard let url = try? exporter.shortcutsURL(for: food) else {
+            Haptics.warning()
+            showNote("Couldn't build the export")
+            return
         }
-        recordHistory(meal: meal)
-        Haptics.success()
-        dismiss()
+        // Hand off to the user's Shortcut. We can confirm iOS opened Shortcuts,
+        // but not yet whether MacroFactor actually logged it — that needs the
+        // x-callback round-trip (see MacroFactorIntegration). So we only treat
+        // "Shortcuts opened" as done, and surface a real failure otherwise
+        // instead of the old always-succeed path.
+        UIApplication.shared.open(url) { opened in
+            MainActor.assumeIsolated {
+                guard opened else {
+                    Haptics.warning()
+                    showNote("Couldn't open Shortcuts — is it installed?")
+                    return
+                }
+                recordHistory(meal: meal)
+                Haptics.success()
+                dismiss()
+            }
+        }
     }
 
     private func recordHistory(meal: BuiltMeal) {

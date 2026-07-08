@@ -9,9 +9,9 @@ import Observation
 final class SettingsStore {
     private let defaults: UserDefaults
 
-    /// Name of the user's installed MacroFactor "Log by JSON" Shortcut.
-    /// Default matches MacroFactor's official Shortcut today; users on
-    /// custom installs can rename here to match.
+    /// Name of the Loadout → MacroFactor Shortcut the user installs. Must
+    /// match that shortcut's title exactly (see `MacroFactorIntegration`);
+    /// users who rename it update this to match.
     var shortcutName: String {
         didSet { defaults.set(shortcutName, forKey: Keys.shortcutName) }
     }

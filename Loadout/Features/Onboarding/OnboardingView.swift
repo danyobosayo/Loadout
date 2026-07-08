@@ -5,10 +5,6 @@ struct OnboardingView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
 
-    private static let macroFactorShortcutsURL = URL(
-        string: "https://github.com/MacroFactor/apple-shortcuts"
-    )!
-
     var body: some View {
         ZStack {
             Backdrop(tint: .volt)
@@ -47,7 +43,7 @@ struct OnboardingView: View {
                         index: 3,
                         icon: "bolt.fill",
                         title: "One tap to MacroFactor.",
-                        body: "Loadout hands the meal to the \u{201C}Log by JSON\u{201D} Shortcut. Install once, log forever."
+                        body: "Install the Loadout Shortcut once — it passes each meal straight into MacroFactor's log."
                     )
                     bullet(
                         index: 4,
@@ -62,9 +58,9 @@ struct OnboardingView: View {
 
                 VStack(spacing: Spacing.sm) {
                     Button {
-                        openURL(Self.macroFactorShortcutsURL)
+                        openURL(MacroFactorIntegration.installShortcutURL)
                     } label: {
-                        Label("Install MacroFactor Shortcut", systemImage: "arrow.up.right.square")
+                        Label("Install the Loadout Shortcut", systemImage: "arrow.up.right.square")
                     }
                     .buttonStyle(.primaryAction)
 

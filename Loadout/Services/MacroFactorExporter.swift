@@ -1,15 +1,15 @@
 import Foundation
 
-/// Converts a `BuiltMeal` into a MacroFactor `Log by JSON` payload and
-/// hands it off to a user-installed Shortcut. Per PROJECT.md §8 the
-/// preferred path is `shortcuts://run-shortcut?name=…&input=text&text=…`,
-/// so the user installs MacroFactor's "Log by JSON" Shortcut once and we
-/// pass our JSON as its text input.
+/// Converts a `BuiltMeal` into MacroFactor's `Log by JSON` payload and hands
+/// it off to a user-installed Shortcut via
+/// `shortcuts://run-shortcut?name=…&input=text&text=…`. "Log by JSON" is a
+/// MacroFactor *action*, not an installable shortcut, so the user installs a
+/// wrapper Shortcut (see `MacroFactorIntegration`) that pipes our JSON into
+/// that action.
 nonisolated struct MacroFactorExporter: Sendable {
-    /// Default name of the user's installed Shortcut. Matches MacroFactor's
-    /// official Shortcut today; a settings phase will let the user
-    /// override per their own installed Shortcut name.
-    static let defaultShortcutName = "Log by JSON"
+    /// Default name of the Shortcut the user installs. Overridable in
+    /// Settings for users who rename it. See `MacroFactorIntegration`.
+    static let defaultShortcutName = MacroFactorIntegration.defaultShortcutName
 
     let source: String
     let shortcutName: String

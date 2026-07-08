@@ -270,8 +270,9 @@ struct MacroFactorExportTests {
         let meal = makeMeal(lineItems: [line("X", macros: .zero)])
         let food = exporter.food(for: meal, restaurantName: "Chipotle")
         let url = try #require(try exporter.shortcutsURL(for: food))
-        // "Log by JSON" needs %20 escaping in the query string. This makes
-        // sure URLComponents — not raw concatenation — built the URL.
-        #expect(url.absoluteString.contains("name=Log%20by%20JSON"))
+        // The default name has spaces, which need %20 escaping in the query
+        // string. This makes sure URLComponents — not raw concatenation —
+        // built the URL.
+        #expect(url.absoluteString.contains("name=Loadout%20to%20MacroFactor"))
     }
 }
