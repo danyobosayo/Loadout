@@ -112,6 +112,31 @@ final class PortionControlUITests: XCTestCase {
     }
 
     @MainActor
+    func testSelectedStationRowHighlights() throws {
+        let app = launchedApp()
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "CAVA,")).firstMatch.tap()
+        let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
+        XCTAssertTrue(byo.waitForExistence(timeout: 15))
+        byo.tap()
+
+        // A base at a full single portion (qty 1) shows no badge — the whole
+        // row must still read as selected (accent border + tint, not just the dot).
+        let base = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Saffron Basmati Rice")).firstMatch
+        var scrolls = 0
+        while !(base.exists && base.isHittable) && scrolls < 6 {
+            app.swipeUp()
+            scrolls += 1
+        }
+        XCTAssertTrue(base.waitForExistence(timeout: 5))
+        base.tap()
+        attach(app, "07-selected-base-highlight")
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("1 item"),
+                      "Tapping a base once should select it — tray: \(tray.label)")
+    }
+
+    @MainActor
     func testToppingsCountUncapped() throws {
         let app = launchedApp()
 

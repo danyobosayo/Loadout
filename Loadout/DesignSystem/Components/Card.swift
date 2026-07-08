@@ -7,11 +7,16 @@ import SwiftUI
 struct Card<Content: View>: View {
     var elevated = false
     var padding: CGFloat = Spacing.md
+    /// A selected/active state: swaps the hairline for an accent border and
+    /// tints the fill, so "this is in your meal" reads at the container level
+    /// (not just a brighter dot). Nil keeps the resting hairline card.
+    var highlight: Color? = nil
     private let content: Content
 
-    init(elevated: Bool = false, padding: CGFloat = Spacing.md, @ViewBuilder content: () -> Content) {
+    init(elevated: Bool = false, padding: CGFloat = Spacing.md, highlight: Color? = nil, @ViewBuilder content: () -> Content) {
         self.elevated = elevated
         self.padding = padding
+        self.highlight = highlight
         self.content = content()
     }
 
@@ -21,9 +26,13 @@ struct Card<Content: View>: View {
             .padding(padding)
             .background {
                 let shape = RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-                shape
-                    .fill(elevated ? Color.surfaceElevated : Color.surface)
-                    .overlay(shape.strokeBorder(Color.hairline, lineWidth: 1))
+                ZStack {
+                    shape.fill(elevated ? Color.surfaceElevated : Color.surface)
+                    if let highlight {
+                        shape.fill(highlight.opacity(0.1))
+                    }
+                    shape.strokeBorder(highlight ?? Color.hairline, lineWidth: highlight == nil ? 1 : 1.5)
+                }
             }
     }
 }

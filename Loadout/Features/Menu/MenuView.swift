@@ -357,7 +357,7 @@ private struct MenuItemRow: View {
     // splitBase: the whole card cycles.
     private var cycleRow: some View {
         Button(action: onTap) {
-            Card(padding: Spacing.sm + Spacing.xs) {
+            Card(padding: Spacing.sm + Spacing.xs, highlight: isInMeal ? accent : nil) {
                 HStack(spacing: Spacing.md) {
                     rowContent
                     if let label = cycleBadge {
@@ -384,7 +384,7 @@ private struct MenuItemRow: View {
 
     // counter: tap the row to +1, − to reduce, live count.
     private var counterRow: some View {
-        Card(padding: Spacing.sm + Spacing.xs) {
+        Card(padding: Spacing.sm + Spacing.xs, highlight: isInMeal ? accent : nil) {
             HStack(spacing: Spacing.md) {
                 Button(action: onTap) {
                     rowContent
@@ -766,8 +766,10 @@ private struct GuidedItemRow: View {
         .padding(.vertical, Spacing.xs)
         .padding(.horizontal, Spacing.xs)
         .background {
-            RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
-                .fill(isSelected ? accent.opacity(0.08) : Color.clear)
+            let shape = RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+            shape
+                .fill(isSelected ? accent.opacity(0.1) : Color.clear)
+                .overlay(shape.strokeBorder(isSelected ? accent.opacity(0.55) : Color.clear, lineWidth: 1.5))
         }
         .animation(Motion.snap, value: quantity)
         .accessibilityElement(children: .contain)
