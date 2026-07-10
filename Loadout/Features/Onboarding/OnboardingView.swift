@@ -1,16 +1,40 @@
 import SwiftUI
 
-/// First launch — the pitch, the Shortcut install link, and out.
+/// First launch — the pitch + Shortcut install (step 1), then optional daily
+/// target setup (step 2), then out. One gate: `RootView`'s cover binding flips
+/// `hasCompletedOnboarding` on dismiss, whichever step dismissed.
 struct OnboardingView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @Environment(ProfileStore.self) private var profile
+    @State private var step: Step = .pitch
+
+    private enum Step { case pitch, goal }
 
     var body: some View {
         ZStack {
             Backdrop(tint: .volt)
 
-            VStack(spacing: Spacing.xl) {
-                Spacer()
+            if step == .pitch {
+                pitch
+                    .transition(.opacity.combined(with: .move(edge: .leading)))
+            } else {
+                GoalSetupView(
+                    onSave: { goal in
+                        profile.goal = goal
+                        dismiss()
+                    },
+                    onSkip: { dismiss() }
+                )
+                .transition(.opacity.combined(with: .move(edge: .trailing)))
+            }
+        }
+        .preferredColorScheme(.dark)
+    }
+
+    private var pitch: some View {
+        VStack(spacing: Spacing.xl) {
+            Spacer()
 
                 VStack(spacing: Spacing.md) {
                     Text("L")
@@ -65,7 +89,7 @@ struct OnboardingView: View {
                     .buttonStyle(.primaryAction)
 
                     Button("Continue") {
-                        dismiss()
+                        withAnimation(Motion.glide) { step = .goal }
                     }
                     .buttonStyle(.ghost)
                 }
@@ -73,8 +97,6 @@ struct OnboardingView: View {
                 .padding(.bottom, Spacing.lg)
                 .entrance(5)
             }
-        }
-        .preferredColorScheme(.dark)
     }
 
     private func bullet(index: Int, icon: String, title: String, body: String) -> some View {

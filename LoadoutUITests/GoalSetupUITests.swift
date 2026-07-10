@@ -20,6 +20,29 @@ final class GoalSetupUITests: XCTestCase {
     }
 
     @MainActor
+    func testOnboardingGoalStepCanBeSkipped() throws {
+        let app = XCUIApplication()
+        // Force the flag OFF (arg domain outranks the simulator's persisted
+        // value), so onboarding shows deterministically on every run.
+        app.launchArguments += ["-loadout.settings.hasCompletedOnboarding", "NO"]
+        app.launch()
+
+        // Step 1 — the pitch.
+        XCTAssertTrue(app.buttons["Continue"].waitForExistence(timeout: 8), "Onboarding pitch should show")
+        attach(app, "05-onboarding-pitch")
+        app.buttons["Continue"].tap()
+
+        // Step 2 — the goal setup.
+        XCTAssertTrue(app.staticTexts["Set your macros"].waitForExistence(timeout: 5), "Continue should reveal goal setup")
+        attach(app, "06-onboarding-goal")
+
+        // Skipping still completes onboarding → restaurant list.
+        app.buttons["Skip for now"].tap()
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "CAVA,")).firstMatch.waitForExistence(timeout: 8),
+                      "Skipping should complete onboarding and land on the restaurant list")
+    }
+
+    @MainActor
     func testSetTargetManuallyFromSettings() throws {
         let app = launchedApp()
         app.buttons["Settings"].tap()
