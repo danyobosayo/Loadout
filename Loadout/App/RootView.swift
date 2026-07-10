@@ -237,5 +237,6 @@ private struct FloatingTabBar: View {
         .environment(SettingsStore())
         .environment(MacroFactorExport())
         .environment(ProfileStore())
+        .environment(HealthStore())
         .modelContainer(for: [FavoriteMeal.self, LoggedMeal.self], inMemory: true)
 }

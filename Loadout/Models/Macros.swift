@@ -25,4 +25,15 @@ nonisolated struct Macros: Codable, Hashable, Sendable {
             fatGrams: lhs.fatGrams * quantity
         )
     }
+
+    /// Signed difference — used for "remaining = target − consumed". Values can
+    /// go negative (over budget); the caller decides how to present that.
+    static func - (lhs: Macros, rhs: Macros) -> Macros {
+        Macros(
+            calories: lhs.calories - rhs.calories,
+            proteinGrams: lhs.proteinGrams - rhs.proteinGrams,
+            carbGrams: lhs.carbGrams - rhs.carbGrams,
+            fatGrams: lhs.fatGrams - rhs.fatGrams
+        )
+    }
 }

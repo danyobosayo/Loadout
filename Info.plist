@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Loadout reads today's logged calories and macros from Apple Health so it can show what you have left and help you build a meal that fits.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
