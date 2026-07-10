@@ -221,6 +221,12 @@ final class MealBuilderStore {
         lineItems.removeAll()
     }
 
+    /// Replace the whole tray in one shot — the auto-build solver's suggested
+    /// items land editable, same as a recipe seed.
+    func replace(with items: [LineItem]) {
+        lineItems = items
+    }
+
     /// Snapshot of the tray as a `BuiltMeal` WITHOUT clearing.
     /// Logging must never destroy the work — clearing is an explicit,
     /// separate act.

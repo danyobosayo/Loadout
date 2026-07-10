@@ -51,7 +51,7 @@ struct BudgetFitView: View {
             Text(kind.shortLabel)
                 .microLabelStyle(kind.color)
                 .lineLimit(1)
-                .frame(width: 34, alignment: .leading)
+                .frame(width: 42, alignment: .leading)
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.white.opacity(0.06))

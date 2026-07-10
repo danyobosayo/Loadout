@@ -18,11 +18,9 @@ final class BudgetModeUITests: XCTestCase {
         shot.name = name; shot.lifetime = .keepAlways; add(shot)
     }
 
+    /// Set a daily target (2200 / 180 / 200 / 60) via Settings, clearing prefill.
     @MainActor
-    func testBudgetModeShowsFit() throws {
-        let app = launchedApp()
-
-        // 1. Set a daily target (2200 / 180 / 200 / 60), clearing any prefill.
+    private func setDailyTarget(_ app: XCUIApplication) {
         app.buttons["Settings"].tap()
         app.buttons["dailyTargetCard"].tap()
         XCTAssertTrue(app.staticTexts["Set your macros"].waitForExistence(timeout: 5))
@@ -42,6 +40,33 @@ final class BudgetModeUITests: XCTestCase {
         setField("goalField.Fat", "60")
         if app.buttons["Done"].exists { app.buttons["Done"].tap() }
         app.buttons["Save target"].tap()
+    }
+
+    @MainActor
+    func testFitMyMacrosAutoBuilds() throws {
+        let app = launchedApp()
+        setDailyTarget(app)
+
+        app.buttons["Build"].tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+
+        let fit = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Fit my macros")).firstMatch
+        XCTAssertTrue(fit.waitForExistence(timeout: 15), "Format picker should offer Fit my macros")
+        attach(app, "04-fit-macros-card")
+        fit.tap()
+
+        // Auto-build opens the tray with a suggested meal.
+        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8), "Auto-build should open the tray")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "kcal left")).firstMatch.waitForExistence(timeout: 5),
+                      "Auto-built meal should fit under the budget")
+        app.swipeUp()
+        attach(app, "05-fit-macros-result")
+    }
+
+    @MainActor
+    func testBudgetModeShowsFit() throws {
+        let app = launchedApp()
+        setDailyTarget(app)
 
         // 2. Build a meal.
         app.buttons["Build"].tap()

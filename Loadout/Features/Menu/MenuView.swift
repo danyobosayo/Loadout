@@ -32,8 +32,11 @@ struct MenuView: View {
     @State private var searchText = ""
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    // When set, the builder auto-fills a macro-fitting suggestion on first
+    // appear (the "Fit my macros" path); cleared once it runs.
+    @State private var autoBuild: Bool
 
-    init(restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [], skipTrayAutoOpen: Bool = false) {
+    init(restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [], skipTrayAutoOpen: Bool = false, autoBuild: Bool = false) {
         self.restaurant = restaurant
         self.format = format
         let seededStore = MealBuilderStore(restaurant: restaurant, lineItems: seed, formatName: format?.name)
@@ -51,13 +54,14 @@ struct MenuView: View {
         _railSelection = State(initialValue:
             Self.stationCategories(restaurant: restaurant, format: format).first?.id)
         _expandedPrompt = State(initialValue: format?.prompts.first?.id)
+        _autoBuild = State(initialValue: autoBuild)
     }
 
     /// Route-driven entry from the format picker. A chosen format skips the
     /// tray auto-open (nothing to review yet — the user is about to build);
     /// build-your-own (`format == nil`) is byte-for-byte today's behavior.
     init(route: MenuRoute) {
-        self.init(restaurant: route.restaurant, format: route.format, skipTrayAutoOpen: route.format != nil)
+        self.init(restaurant: route.restaurant, format: route.format, skipTrayAutoOpen: route.format != nil, autoBuild: route.autoBuild)
     }
 
     /// The stations shown in the scroll + rail. Guided formats curate this
@@ -138,6 +142,20 @@ struct MenuView: View {
         .sheet(isPresented: $trayPresented) {
             MealTrayView(store: store, format: format)
         }
+        .task { runAutoBuild() }
+    }
+
+    /// "Fit my macros": solve for the user's budget and drop the suggestion into
+    /// the tray, editable. Runs once, on entry, only when routed with autoBuild.
+    private func runAutoBuild() {
+        guard autoBuild, store.isEmpty, let target = profile.target else { autoBuild = false; return }
+        let budget = health.remaining(against: target) ?? target
+        if let suggestion = MealSolver.solve(restaurant: restaurant, budget: budget) {
+            withAnimation(Motion.snap) { store.replace(with: suggestion.lineItems) }
+            Haptics.success()
+            trayPresented = true
+        }
+        autoBuild = false
     }
 
     // MARK: Stations

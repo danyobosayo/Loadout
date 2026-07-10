@@ -5,6 +5,10 @@ import SwiftUI
 nonisolated struct MenuRoute: Hashable {
     let restaurant: Restaurant
     let format: OrderFormat?
+    /// When true, the builder auto-fills a macro-fitting suggestion on entry
+    /// (the "Fit my macros" path). The solve runs in `MenuView` where the
+    /// profile/health budget is in scope.
+    var autoBuild: Bool = false
 }
 
 /// The counter moment — shown when a restaurant is tapped, before the
@@ -14,7 +18,17 @@ nonisolated struct MenuRoute: Hashable {
 struct FormatPickerView: View {
     let restaurant: Restaurant
     @Environment(\.menuRepository) private var menuRepository
+    @Environment(ProfileStore.self) private var profile
+    @Environment(HealthStore.self) private var health
     @State private var formats: [OrderFormat] = []
+
+    /// The per-meal budget for "Fit my macros": Health remaining when
+    /// connected, else the daily target. Nil until a goal is set.
+    private var budget: (macros: Macros, isRemaining: Bool)? {
+        guard let target = profile.target else { return nil }
+        if let remaining = health.remaining(against: target) { return (remaining, true) }
+        return (target, false)
+    }
 
     var body: some View {
         ZStack {
@@ -25,6 +39,15 @@ struct FormatPickerView: View {
                     masthead
                         .padding(.top, Spacing.sm)
                         .padding(.bottom, Spacing.sm)
+
+                    if let budget, MealSolver.canBuild(budget: budget.macros) {
+                        NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil, autoBuild: true)) {
+                            fitMyMacrosCard(isRemaining: budget.isRemaining, calories: budget.macros.calories)
+                        }
+                        .buttonStyle(.pressable)
+                        .entrance(0)
+                        .padding(.bottom, Spacing.xs)
+                    }
 
                     ForEach(Array(formats.enumerated()), id: \.element.id) { index, format in
                         NavigationLink(value: MenuRoute(restaurant: restaurant, format: format)) {
@@ -63,6 +86,35 @@ struct FormatPickerView: View {
         .entrance(0)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
+    }
+
+    private func fitMyMacrosCard(isRemaining: Bool, calories: Double) -> some View {
+        Card(highlight: .volt) {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: "wand.and.stars")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(.volt)
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(Color.volt.opacity(0.12)))
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Fit my macros")
+                        .font(.appHeadline)
+                        .foregroundStyle(.textPrimary)
+                    Text(isRemaining
+                         ? "Build for your ~\(Int(calories.rounded())) kcal left today"
+                         : "Build toward your daily target")
+                        .font(.appCaption)
+                        .foregroundStyle(.textSecondary)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.textTertiary)
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Fit my macros. Auto-builds a meal for your budget.")
     }
 }
 
