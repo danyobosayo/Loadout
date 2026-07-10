@@ -1,0 +1,83 @@
+{
+  "identifier" : "3A9F1C20",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "14.99",
+      "familyShareable" : false,
+      "internalID" : "PRO0LIFE",
+      "localizations" : [
+        {
+          "description" : "Unlock Loadout Pro forever — one payment.",
+          "displayName" : "Loadout Pro — Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "danielsungsukim.Loadout.pro.lifetime",
+      "referenceName" : "Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_developerTeamID" : "NMEK7A6M9Y",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "5B0E2210",
+      "localizations" : [],
+      "name" : "Loadout Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "PRO0MONT",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Loadout Pro, billed monthly.",
+              "displayName" : "Pro Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "danielsungsukim.Loadout.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "5B0E2210",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "PRO0YEAR",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Loadout Pro, billed yearly — best value.",
+              "displayName" : "Pro Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "danielsungsukim.Loadout.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro Yearly",
+          "subscriptionGroupID" : "5B0E2210",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
