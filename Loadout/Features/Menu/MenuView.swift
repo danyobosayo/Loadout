@@ -26,6 +26,10 @@ struct MenuView: View {
     // Which guided prompt is expanded (accordion). Others show a compact
     // summary. Starts on the first prompt and auto-advances as picks land.
     @State private var expandedPrompt: String?
+    // In-menu search. Non-empty query swaps the guided/station view for a
+    // flat, filtered list across every station — the way to find one item in
+    // a 70-item menu without rail-hopping.
+    @State private var searchText = ""
 
     init(restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [], skipTrayAutoOpen: Bool = false) {
         self.restaurant = restaurant
@@ -67,6 +71,27 @@ struct MenuView: View {
         Self.stationCategories(restaurant: restaurant, format: format)
     }
 
+    private var trimmedQuery: String {
+        searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var isSearching: Bool { !trimmedQuery.isEmpty }
+
+    /// Every station's items filtered by the query (name or serving), across
+    /// the *whole* menu — guided-prompt items included — so search finds
+    /// anything. Each result keeps its real category so taps resolve the right
+    /// portion policy and cap. Empty categories drop out.
+    private var searchResults: [(category: MenuCategory, matches: [MenuItem])] {
+        let q = trimmedQuery.lowercased()
+        return restaurant.categories.compactMap { category in
+            let matches = category.items.filter {
+                $0.name.lowercased().contains(q)
+                    || $0.servingDescription.lowercased().contains(q)
+            }
+            return matches.isEmpty ? nil : (category, matches)
+        }
+    }
+
     var body: some View {
         ZStack {
             Backdrop(tint: restaurant.style.hue, intensity: 0.12)
@@ -76,12 +101,20 @@ struct MenuView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
         .safeAreaInset(edge: .top, spacing: 0) {
-            CategoryRail(
-                categories: stationCategories,
-                selection: railSelection,
-                hue: restaurant.style.hue,
-                onTap: jump(to:)
-            )
+            VStack(spacing: 0) {
+                searchField
+                // The rail is for chapter-hopping the full menu — irrelevant
+                // once the list is filtered to a handful of matches.
+                if !isSearching {
+                    CategoryRail(
+                        categories: stationCategories,
+                        selection: railSelection,
+                        hue: restaurant.style.hue,
+                        onTap: jump(to:)
+                    )
+                }
+            }
+            .background(Color.void)
         }
         .overlay(alignment: .bottom) {
             trayBar
@@ -103,21 +136,26 @@ struct MenuView: View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.lg) {
-                    if let format, !format.prompts.isEmpty {
-                        guidedSection(format)
-                        if !stationCategories.isEmpty {
-                            addOnsHeader
+                    if isSearching {
+                        searchResultsView
+                    } else {
+                        if let format, !format.prompts.isEmpty {
+                            guidedSection(format)
+                            if !stationCategories.isEmpty {
+                                addOnsHeader
+                            }
                         }
-                    }
-                    // Only the stations are scroll targets — the guided section
-                    // above scrolls with the content but never drives the rail.
-                    LazyVStack(alignment: .leading, spacing: Spacing.lg) {
-                        ForEach(stationCategories) { category in
-                            stationSection(category)
-                                .id(category.id)
+                        // Only the stations are scroll targets — the guided
+                        // section above scrolls with the content but never
+                        // drives the rail.
+                        LazyVStack(alignment: .leading, spacing: Spacing.lg) {
+                            ForEach(stationCategories) { category in
+                                stationSection(category)
+                                    .id(category.id)
+                            }
                         }
+                        .scrollTargetLayout()
                     }
-                    .scrollTargetLayout()
                 }
                 .padding(.horizontal, Spacing.md)
                 .padding(.top, Spacing.sm)
@@ -139,7 +177,10 @@ struct MenuView: View {
         }
     }
 
-    private func stationSection(_ category: MenuCategory) -> some View {
+    /// A station's header + rows. `displayItems` narrows which rows show (the
+    /// search subset) while the policy/cap still reason over the *real*
+    /// category, so a filtered dips list still caps correctly.
+    private func stationSection(_ category: MenuCategory, items displayItems: [MenuItem]? = nil) -> some View {
         let policy = category.portionPolicy
         let scoopCapReached: Bool = {
             if case .cappedScoops(let max) = policy {
@@ -163,7 +204,7 @@ struct MenuView: View {
             }
 
             VStack(spacing: Spacing.sm) {
-                ForEach(category.items) { item in
+                ForEach(displayItems ?? category.items) { item in
                     let quantity = store.quantity(forMenuItemId: item.id)
                     MenuItemRow(
                         item: item,
@@ -175,6 +216,64 @@ struct MenuView: View {
                         onDecrement: { decrementStation(item) }
                     )
                 }
+            }
+        }
+    }
+
+    private var searchField: some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(.textTertiary)
+            TextField("Search \(restaurant.name)", text: $searchText)
+                .font(.appBody)
+                .foregroundStyle(.textPrimary)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .submitLabel(.search)
+                .tint(restaurant.style.hue)
+            if !searchText.isEmpty {
+                Button {
+                    Haptics.tap()
+                    searchText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 15))
+                        .foregroundStyle(.textTertiary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Clear search")
+            }
+        }
+        .padding(.horizontal, Spacing.md)
+        .padding(.vertical, Spacing.sm + 2)
+        .background {
+            Capsule()
+                .fill(Color.white.opacity(0.05))
+                .overlay(Capsule().strokeBorder(Color.hairline, lineWidth: 1))
+        }
+        .padding(.horizontal, Spacing.md)
+        .padding(.vertical, Spacing.sm)
+    }
+
+    @ViewBuilder
+    private var searchResultsView: some View {
+        let results = searchResults
+        if results.isEmpty {
+            VStack(spacing: Spacing.sm) {
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 30, weight: .light))
+                    .foregroundStyle(.textTertiary)
+                Text("No matches for “\(trimmedQuery)”")
+                    .font(.appBody)
+                    .foregroundStyle(.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 72)
+        } else {
+            ForEach(results, id: \.category.id) { result in
+                stationSection(result.category, items: result.matches)
             }
         }
     }

@@ -112,6 +112,33 @@ final class PortionControlUITests: XCTestCase {
     }
 
     @MainActor
+    func testInMenuSearch() throws {
+        let app = launchedApp()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
+        XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
+
+        let search = app.textFields.firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 8), "Menu should have a search field")
+        search.tap()
+        search.typeText("rice")
+        let whiteRice = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Cilantro-Lime White Rice")).firstMatch
+        XCTAssertTrue(whiteRice.waitForExistence(timeout: 5), "Search should surface rice from across the menu")
+        attach(app, "10-search-results")
+        whiteRice.tap()
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("1 item"),
+                      "Tapping a search result adds it — tray: \(tray.label)")
+
+        // A no-match query shows an empty state.
+        app.buttons["Clear search"].tap()
+        search.tap()
+        search.typeText("zzzqqq")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "No matches")).firstMatch.waitForExistence(timeout: 5),
+                      "A no-match query should show the empty state")
+    }
+
+    @MainActor
     func testRecipeHasLogAgainAction() throws {
         let app = launchedApp()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
