@@ -30,6 +30,8 @@ struct MenuView: View {
     // flat, filtered list across every station — the way to find one item in
     // a 70-item menu without rail-hopping.
     @State private var searchText = ""
+    @Environment(ProfileStore.self) private var profile
+    @Environment(HealthStore.self) private var health
 
     init(restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [], skipTrayAutoOpen: Bool = false) {
         self.restaurant = restaurant
@@ -69,6 +71,14 @@ struct MenuView: View {
 
     private var stationCategories: [MenuCategory] {
         Self.stationCategories(restaurant: restaurant, format: format)
+    }
+
+    /// Budget Mode context for the tray bar — how the meal-in-progress fits the
+    /// day. Nil when no goal is set.
+    private var budgetFit: BudgetFit? {
+        let target = profile.target
+        let remaining = target.flatMap { health.remaining(against: $0) }
+        return BudgetFit.make(meal: store.totalMacros, target: target, remaining: remaining)
     }
 
     private var trimmedQuery: String {
@@ -383,6 +393,14 @@ struct MenuView: View {
                     if !store.isEmpty {
                         MacroSegmentBar(macros: store.totalMacros)
                             .frame(width: 120)
+                        if let fit = budgetFit {
+                            Text(fit.fitsCalories
+                                 ? "\(Int(fit.caloriesLeftAfter.rounded())) kcal left"
+                                 : "over by \(Int(-fit.caloriesLeftAfter.rounded()))")
+                                .font(.system(size: 10, weight: .semibold))
+                                .monospacedDigit()
+                                .foregroundStyle(fit.fitsCalories ? Color.volt : Color.fat)
+                        }
                     }
                 }
 

@@ -17,6 +17,8 @@ struct MealTrayView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(SettingsStore.self) private var settings
     @Environment(MacroFactorExport.self) private var macroFactorExport
+    @Environment(ProfileStore.self) private var profile
+    @Environment(HealthStore.self) private var health
 
     @State private var savePrompt = false
     @State private var recipeName = ""
@@ -105,6 +107,10 @@ struct MealTrayView: View {
                 hero
                     .padding(.top, Spacing.sm)
 
+                if let fit = budgetFit {
+                    BudgetFitView(fit: fit)
+                }
+
                 VStack(spacing: Spacing.sm) {
                     ForEach(Array(store.lineItems.enumerated()), id: \.element.id) { index, lineItem in
                         LineItemCard(lineItem: lineItem, store: store)
@@ -133,6 +139,14 @@ struct MealTrayView: View {
             MacroSegmentBar(macros: store.totalMacros)
         }
         .accessibilityElement(children: .combine)
+    }
+
+    /// Budget Mode context — how this meal fits the day (Health remaining, or
+    /// the full target). Nil when no goal is set.
+    private var budgetFit: BudgetFit? {
+        let target = profile.target
+        let remaining = target.flatMap { health.remaining(against: $0) }
+        return BudgetFit.make(meal: store.totalMacros, target: target, remaining: remaining)
     }
 
     // MARK: Action dock

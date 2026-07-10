@@ -48,6 +48,7 @@ struct SettingsView: View {
                                 }
                             }
                             .buttonStyle(.pressable)
+                            .accessibilityIdentifier("dailyTargetCard")
                             .accessibilityHint(profile.goal == nil ? "Calculate or enter your daily macros." : "Edit your daily macro target.")
                         }
 
