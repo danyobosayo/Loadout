@@ -257,7 +257,20 @@ struct SettingsView: View {
                 healthRow("Eaten today", consumed)
                 if let target = profile.target, let remaining = health.remaining(against: target) {
                     Divider().overlay(Color.hairline)
-                    healthRow("Left today", remaining)
+                    let over = remaining.calories < 0
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        HStack(spacing: Spacing.xs) {
+                            if over {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundStyle(.fat)
+                            }
+                            Text(over ? "Over budget" : "Left today")
+                                .font(.appCaption)
+                                .foregroundStyle(over ? .fat : .textSecondary)
+                        }
+                        MacroBar(macros: remaining, style: .inline)
+                    }
                 } else {
                     Text("Set a daily target above to see what's left.")
                         .font(.appCaption)

@@ -28,6 +28,8 @@ enum AppTab: String, CaseIterable, Identifiable {
 struct RootView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(MacroFactorExport.self) private var macroFactorExport
+    @Environment(HealthStore.self) private var health
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.modelContext) private var modelContext
     @State private var tab: AppTab = .build
     @State private var bannerDismiss: Task<Void, Never>?
@@ -63,6 +65,16 @@ struct RootView: View {
         }
         .preferredColorScheme(.dark)
         .tint(.volt)
+        // Keep today's Health totals fresh: on launch and whenever the app
+        // returns to the foreground (the user may have logged food elsewhere).
+        .task {
+            if health.status == .connected { await health.refreshToday() }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active, health.status == .connected {
+                Task { await health.refreshToday() }
+            }
+        }
         // The MacroFactor Shortcut returns here via loadout:// when it
         // finishes — so we log to history + confirm only on a real success.
         .onOpenURL { url in handleCallback(url) }

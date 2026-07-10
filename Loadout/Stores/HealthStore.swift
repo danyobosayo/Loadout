@@ -24,6 +24,7 @@ final class HealthStore {
     private(set) var consumedToday: Macros?
 
     private let store: HKHealthStore?
+    private let defaults: UserDefaults
 
     private static let readTypes: Set<HKObjectType> = [
         HKQuantityType(.dietaryEnergyConsumed),
@@ -32,10 +33,14 @@ final class HealthStore {
         HKQuantityType(.dietaryFatTotal),
     ]
 
-    init() {
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
         if HKHealthStore.isHealthDataAvailable() {
             store = HKHealthStore()
-            status = .notConnected
+            // HealthKit hides read-grant status, so we persist that we asked —
+            // otherwise returning users see the Connect CTA (and no readout)
+            // on every cold launch. refreshToday() runs at app launch/foreground.
+            status = defaults.bool(forKey: Keys.connectRequested) ? .connected : .notConnected
         } else {
             store = nil
             status = .unavailable
@@ -54,6 +59,7 @@ final class HealthStore {
         guard let store else { return }
         do {
             try await store.requestAuthorization(toShare: [], read: Self.readTypes)
+            defaults.set(true, forKey: Keys.connectRequested)
             status = .connected
             await refreshToday()
         } catch {
@@ -96,5 +102,9 @@ final class HealthStore {
             }
             store.execute(query)
         }
+    }
+
+    private enum Keys {
+        static let connectRequested = "loadout.health.connectRequested"
     }
 }

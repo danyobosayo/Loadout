@@ -20,15 +20,34 @@ struct MacroRemainingTests {
 
 @MainActor
 struct HealthStoreTests {
+    private func isolatedDefaults() -> (UserDefaults, String) {
+        let suite = "test.health.\(UUID().uuidString)"
+        return (UserDefaults(suiteName: suite)!, suite)
+    }
+
     @Test func remainingIsNilUntilHealthIsRead() {
-        let store = HealthStore()
+        let (defaults, suite) = isolatedDefaults()
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = HealthStore(defaults: defaults)
         let target = Macros(calories: 2000, proteinGrams: 150, carbGrams: 200, fatGrams: 60)
         #expect(store.remaining(against: target) == nil)   // nothing read yet
     }
 
-    @Test func statusReflectsAvailabilityWithoutPrompting() {
-        // Constructing the store must not trigger an authorization prompt.
-        let store = HealthStore()
+    @Test func freshStoreIsNotConnectedWithoutPrompting() {
+        // No persisted flag → not connected, and constructing never prompts.
+        let (defaults, suite) = isolatedDefaults()
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = HealthStore(defaults: defaults)
         #expect(store.status == .notConnected || store.status == .unavailable)
+    }
+
+    @Test func persistedFlagRestoresConnectedOnRelaunch() {
+        let (defaults, suite) = isolatedDefaults()
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set(true, forKey: "loadout.health.connectRequested")
+        let store = HealthStore(defaults: defaults)
+        // On a device with Health available this restores .connected so the
+        // readout repopulates without a re-tap (unavailable on machines without HK).
+        #expect(store.status == .connected || store.status == .unavailable)
     }
 }
