@@ -20,6 +20,16 @@ final class GoalSetupUITests: XCTestCase {
     }
 
     @MainActor
+    func testAppleHealthSectionRenders() throws {
+        let app = launchedApp()
+        app.buttons["Settings"].tap()
+        // Not tapped — tapping triggers the system HealthKit auth modal.
+        let connect = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Connect Apple Health")).firstMatch
+        XCTAssertTrue(connect.waitForExistence(timeout: 8), "Settings should offer to connect Apple Health")
+        attach(app, "07-apple-health")
+    }
+
+    @MainActor
     func testOnboardingGoalStepCanBeSkipped() throws {
         let app = XCUIApplication()
         // Force the flag OFF (arg domain outranks the simulator's persisted

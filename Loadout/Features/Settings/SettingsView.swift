@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(ProfileStore.self) private var profile
+    @Environment(HealthStore.self) private var health
     @Environment(\.menuRepository) private var menuRepository
     @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
@@ -48,6 +49,10 @@ struct SettingsView: View {
                             }
                             .buttonStyle(.pressable)
                             .accessibilityHint(profile.goal == nil ? "Calculate or enter your daily macros." : "Edit your daily macro target.")
+                        }
+
+                        section("Apple Health") {
+                            Card { appleHealthContent }
                         }
 
                         section("MacroFactor") {
@@ -143,6 +148,7 @@ struct SettingsView: View {
             .toolbar(.hidden, for: .navigationBar)
             .task {
                 restaurants = (try? await menuRepository.availableRestaurants()) ?? []
+                if health.status == .connected { await health.refreshToday() }
             }
             .alert("Couldn't open Shortcuts", isPresented: $launchFailed) {
                 Button("OK", role: .cancel) {}
@@ -195,6 +201,80 @@ struct SettingsView: View {
             openURL(url) { accepted in
                 if !accepted { launchFailed = true }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var appleHealthContent: some View {
+        switch health.status {
+        case .unavailable:
+            Text("Apple Health isn't available on this device.")
+                .font(.appCaption)
+                .foregroundStyle(.textTertiary)
+        case .notConnected:
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                Button {
+                    Task { await health.connect() }
+                } label: {
+                    HStack {
+                        Label("Connect Apple Health", systemImage: "heart.text.square")
+                            .font(.appBody)
+                            .foregroundStyle(.volt)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(.textTertiary)
+                    }
+                }
+                .buttonStyle(.plain)
+                Text("Reads today's calories and macros you've logged elsewhere so Loadout can show what you have left. Read-only — it never writes to Health.")
+                    .font(.appCaption)
+                    .foregroundStyle(.textTertiary)
+            }
+        case .connected:
+            connectedHealth
+        }
+    }
+
+    @ViewBuilder
+    private var connectedHealth: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack {
+                Text("Today").microLabelStyle()
+                Spacer()
+                Button {
+                    Task { await health.refreshToday() }
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.textSecondary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Refresh from Health")
+            }
+
+            if let consumed = health.consumedToday {
+                healthRow("Eaten today", consumed)
+                if let target = profile.target, let remaining = health.remaining(against: target) {
+                    Divider().overlay(Color.hairline)
+                    healthRow("Left today", remaining)
+                } else {
+                    Text("Set a daily target above to see what's left.")
+                        .font(.appCaption)
+                        .foregroundStyle(.textTertiary)
+                }
+            } else {
+                Text("Reading today's totals…")
+                    .font(.appCaption)
+                    .foregroundStyle(.textTertiary)
+            }
+        }
+    }
+
+    private func healthRow(_ label: String, _ macros: Macros) -> some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            Text(label).font(.appCaption).foregroundStyle(.textSecondary)
+            MacroBar(macros: macros, style: .inline)
         }
     }
 
