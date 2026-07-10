@@ -20,12 +20,13 @@ struct FormatPickerView: View {
     @Environment(\.menuRepository) private var menuRepository
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    @Environment(ProStore.self) private var pro
     @State private var formats: [OrderFormat] = []
 
     /// The per-meal budget for "Fit my macros": Health remaining when
-    /// connected, else the daily target. Nil until a goal is set.
+    /// connected, else the daily target. Nil unless Pro with a goal set.
     private var budget: (macros: Macros, isRemaining: Bool)? {
-        guard let target = profile.target else { return nil }
+        guard pro.isPro, let target = profile.target else { return nil }
         if let remaining = health.remaining(against: target) { return (remaining, true) }
         return (target, false)
     }

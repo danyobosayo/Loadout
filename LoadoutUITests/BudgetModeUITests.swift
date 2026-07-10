@@ -8,6 +8,8 @@ final class BudgetModeUITests: XCTestCase {
     private func launchedApp() -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-loadout.settings.hasCompletedOnboarding", "YES"]
+        // Budget Mode + Fit my macros are Pro — unlock for these tests.
+        app.launchArguments += ["-loadout.debug.forcePro", "YES"]
         app.launch()
         return app
     }

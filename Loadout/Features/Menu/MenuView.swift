@@ -32,6 +32,7 @@ struct MenuView: View {
     @State private var searchText = ""
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    @Environment(ProStore.self) private var pro
     // When set, the builder auto-fills a macro-fitting suggestion on first
     // appear (the "Fit my macros" path); cleared once it runs.
     @State private var autoBuild: Bool
@@ -80,6 +81,7 @@ struct MenuView: View {
     /// Budget Mode context for the tray bar — how the meal-in-progress fits the
     /// day. Nil when no goal is set.
     private var budgetFit: BudgetFit? {
+        guard pro.isPro else { return nil }               // Budget Mode is Pro
         let target = profile.target
         let remaining = target.flatMap { health.remaining(against: $0) }
         return BudgetFit.make(meal: store.totalMacros, target: target, remaining: remaining)
@@ -148,7 +150,7 @@ struct MenuView: View {
     /// "Fit my macros": solve for the user's budget and drop the suggestion into
     /// the tray, editable. Runs once, on entry, only when routed with autoBuild.
     private func runAutoBuild() {
-        guard autoBuild, store.isEmpty, let target = profile.target else { autoBuild = false; return }
+        guard autoBuild, pro.isPro, store.isEmpty, let target = profile.target else { autoBuild = false; return }
         let budget = health.remaining(against: target) ?? target
         if let suggestion = MealSolver.solve(restaurant: restaurant, budget: budget) {
             withAnimation(Motion.snap) { store.replace(with: suggestion.lineItems) }

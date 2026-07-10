@@ -19,6 +19,7 @@ struct MealTrayView: View {
     @Environment(MacroFactorExport.self) private var macroFactorExport
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    @Environment(ProStore.self) private var pro
 
     @State private var savePrompt = false
     @State private var recipeName = ""
@@ -144,6 +145,7 @@ struct MealTrayView: View {
     /// Budget Mode context — how this meal fits the day (Health remaining, or
     /// the full target). Nil when no goal is set.
     private var budgetFit: BudgetFit? {
+        guard pro.isPro else { return nil }               // Budget Mode is Pro
         let target = profile.target
         let remaining = target.flatMap { health.remaining(against: $0) }
         return BudgetFit.make(meal: store.totalMacros, target: target, remaining: remaining)

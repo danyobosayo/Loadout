@@ -4,11 +4,13 @@ struct SettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    @Environment(ProStore.self) private var pro
     @Environment(\.menuRepository) private var menuRepository
     @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
     @State private var launchFailed = false
     @State private var showGoalSheet = false
+    @State private var showPaywall = false
 
     var body: some View {
         @Bindable var settings = settings
@@ -20,6 +22,30 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: Spacing.lg) {
                         masthead
                             .padding(.top, Spacing.sm)
+
+                        if !pro.isPro {
+                            section("Loadout Pro") {
+                                Button { showPaywall = true } label: {
+                                    Card(highlight: .volt) {
+                                        HStack(spacing: Spacing.md) {
+                                            Image(systemName: "wand.and.stars")
+                                                .font(.system(size: 18, weight: .semibold))
+                                                .foregroundStyle(.volt)
+                                                .frame(width: 40, height: 40)
+                                                .background(Circle().fill(Color.volt.opacity(0.12)))
+                                            VStack(alignment: .leading, spacing: 2) {
+                                                Text("Unlock Loadout Pro").font(.appHeadline).foregroundStyle(.textPrimary)
+                                                Text("Targets, Budget Mode, Health & auto-build").font(.appCaption).foregroundStyle(.textSecondary)
+                                            }
+                                            Spacer()
+                                            Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(.textTertiary)
+                                        }
+                                    }
+                                }
+                                .buttonStyle(.pressable)
+                                .accessibilityIdentifier("unlockPro")
+                            }
+                        }
 
                         section("Daily target") {
                             Button {
@@ -166,6 +192,12 @@ struct SettingsView: View {
                 .presentationBackground(Color.void)
                 .presentationDragIndicator(.visible)
             }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
+                    .presentationDetents([.large])
+                    .presentationCornerRadius(Radius.sheet)
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 
@@ -215,7 +247,7 @@ struct SettingsView: View {
         case .notConnected:
             VStack(alignment: .leading, spacing: Spacing.md) {
                 Button {
-                    Task { await health.connect() }
+                    if pro.isPro { Task { await health.connect() } } else { showPaywall = true }
                 } label: {
                     HStack {
                         Label("Connect Apple Health", systemImage: "heart.text.square")

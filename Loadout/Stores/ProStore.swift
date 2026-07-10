@@ -26,6 +26,15 @@ final class ProStore {
     private var updatesTask: Task<Void, Never>?
 
     init() {
+        #if DEBUG
+        // Test hook: `-loadout.debug.forcePro YES` unlocks Pro without StoreKit,
+        // so UI tests can exercise the Pro surfaces. Never set in production.
+        if UserDefaults.standard.bool(forKey: "loadout.debug.forcePro") {
+            isPro = true
+            isLoading = false
+            return
+        }
+        #endif
         updatesTask = listenForTransactions()
         Task { await refresh() }
     }
