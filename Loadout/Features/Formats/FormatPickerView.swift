@@ -18,7 +18,7 @@ struct FormatPickerView: View {
 
     var body: some View {
         ZStack {
-            Backdrop(tint: restaurant.style.hue)
+            Backdrop(tint: restaurant.style.hue, intensity: 0.12)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.sm + Spacing.xs) {

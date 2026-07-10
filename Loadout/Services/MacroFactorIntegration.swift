@@ -20,9 +20,9 @@ nonisolated enum MacroFactorIntegration {
     /// (or the user's Settings override) for `run-shortcut?name=` to find it.
     static let installShortcutURL = URL(string: "https://www.icloud.com/shortcuts/369a1616e9644ae5b72d1f1022dfac99")!
 
-    /// URL scheme reserved for the x-callback-url success/error round-trip
-    /// (so we can report a real "logged / failed" instead of only "sent").
-    /// TODO(callback): register this scheme in Info.plist and wire the
-    /// callbacks before switching the live invocation to x-callback-url.
+    /// URL scheme for the x-callback-url success/error round-trip, so we
+    /// report a real "logged / failed" instead of only "sent". Registered in
+    /// Info.plist; the round-trip is wired via `MacroFactorExport` +
+    /// `RootView.onOpenURL`.
     static let callbackScheme = "loadout"
 }

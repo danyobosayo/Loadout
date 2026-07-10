@@ -27,7 +27,7 @@ struct MealTrayView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Backdrop(tint: store.restaurant.style.hue)
+                Backdrop(tint: store.restaurant.style.hue, intensity: 0.12)
 
                 if store.isEmpty {
                     EmptyStateView(

@@ -69,7 +69,7 @@ struct MenuView: View {
 
     var body: some View {
         ZStack {
-            Backdrop(tint: restaurant.style.hue)
+            Backdrop(tint: restaurant.style.hue, intensity: 0.12)
             stationList
         }
         .navigationTitle(restaurant.name)
@@ -311,6 +311,16 @@ struct MenuView: View {
                     .fill(Color.surfaceElevated)
                     .overlay(Capsule().strokeBorder(Color.hairline, lineWidth: 1))
                     .shadow(color: .black.opacity(0.35), radius: 16, y: 6)
+            }
+            // A quick pulse each time an item lands, so the tap visibly
+            // "goes in the bag."
+            .keyframeAnimator(initialValue: 1.0, trigger: store.totalLineItemCount) { content, scale in
+                content.scaleEffect(scale)
+            } keyframes: { _ in
+                KeyframeTrack {
+                    CubicKeyframe(1.05, duration: 0.12)
+                    CubicKeyframe(1.0, duration: 0.20)
+                }
             }
             .padding(.horizontal, Spacing.md)
         }
@@ -627,7 +637,9 @@ private extension MenuView {
 
     func chooseHint(_ prompt: FormatPrompt) -> String {
         switch prompt.choose {
-        case .selectOne: return "choose 1"
+        // Surface the half-and-half affordance where most people build —
+        // guided rice/grain/bread prompts, not just the station list.
+        case .selectOne: return canSplit(prompt) ? "tap 2 to split" : "choose 1"
         case .selectUpTo(let max): return "up to \(max)"
         case .selectMany: return "add any"
         }

@@ -192,7 +192,7 @@ private struct ReopenRecipeView: View {
 
     var body: some View {
         ZStack {
-            Backdrop(tint: Restaurant.style(forId: recipe.restaurantId).hue)
+            Backdrop(tint: Restaurant.style(forId: recipe.restaurantId).hue, intensity: 0.12)
             if let restaurant {
                 MenuView(restaurant: restaurant, seed: recipe.lineItems)
             } else if let loadError {

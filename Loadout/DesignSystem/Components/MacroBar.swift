@@ -21,6 +21,10 @@ struct MacroSegmentBar: View {
     let macros: Macros
     var height: CGFloat = 6
 
+    private var energyFromMacros: Double {
+        macros.proteinGrams * 4 + macros.carbGrams * 4 + macros.fatGrams * 9
+    }
+
     private var shares: (p: Double, c: Double, f: Double) {
         let p = macros.proteinGrams * 4
         let c = macros.carbGrams * 4
@@ -31,14 +35,20 @@ struct MacroSegmentBar: View {
 
     var body: some View {
         GeometryReader { geo in
-            HStack(spacing: 2) {
-                Capsule().fill(Color.protein)
-                    .frame(width: max(geo.size.width * shares.p - 2, 0))
-                Capsule().fill(Color.carbs)
-                    .frame(width: max(geo.size.width * shares.c - 2, 0))
-                Capsule().fill(Color.fat)
+            if energyFromMacros < 0.5 {
+                // No macros yet — a neutral hairline instead of the fat
+                // capsule filling the remainder and reading as 100% fat.
+                Capsule().fill(Color.hairline)
+            } else {
+                HStack(spacing: 2) {
+                    Capsule().fill(Color.protein)
+                        .frame(width: max(geo.size.width * shares.p - 2, 0))
+                    Capsule().fill(Color.carbs)
+                        .frame(width: max(geo.size.width * shares.c - 2, 0))
+                    Capsule().fill(Color.fat)
+                }
+                .animation(Motion.glide, value: macros)
             }
-            .animation(Motion.glide, value: macros)
         }
         .frame(height: height)
         .clipShape(Capsule())

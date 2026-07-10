@@ -41,7 +41,7 @@ struct CategoryRail: View {
     private func railPill(_ category: MenuCategory) -> some View {
         let isSelected = selection == category.id
         return Button {
-            Haptics.tap()
+            Haptics.selection()
             onTap(category.id)
         } label: {
             HStack(spacing: 5) {

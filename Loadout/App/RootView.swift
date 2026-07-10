@@ -49,6 +49,10 @@ struct RootView: View {
                 .opacity(tab == .settings ? 1 : 0)
                 .allowsHitTesting(tab == .settings)
         }
+        // A quick crossfade for the content — the springy Motion.snap that
+        // slides the pill would ghost a full-screen opacity switch for ~0.5s.
+        .animation(.easeInOut(duration: 0.18), value: tab)
+        .onAppear { Haptics.prepare() }
         .overlay(alignment: .bottom) {
             FloatingTabBar(selection: $tab)
         }
@@ -197,7 +201,7 @@ private struct FloatingTabBar: View {
         let isSelected = selection == tab
         return Button {
             guard selection != tab else { return }
-            Haptics.tap()
+            Haptics.selection()
             withAnimation(Motion.snap) { selection = tab }
         } label: {
             HStack(spacing: 6) {

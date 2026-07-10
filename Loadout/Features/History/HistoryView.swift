@@ -129,7 +129,7 @@ private struct ReopenLoggedMealView: View {
 
     var body: some View {
         ZStack {
-            Backdrop(tint: Restaurant.style(forId: logged.restaurantId).hue)
+            Backdrop(tint: Restaurant.style(forId: logged.restaurantId).hue, intensity: 0.12)
             if let restaurant {
                 MenuView(restaurant: restaurant, seed: logged.lineItems)
             } else if let loadError {

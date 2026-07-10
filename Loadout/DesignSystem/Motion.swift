@@ -71,18 +71,37 @@ extension View {
 // MARK: - Haptics
 
 /// Fired at store/action boundaries (add, save, limit), not sprinkled
-/// through view bodies — STYLE_GUIDE.md §4.
+/// through view bodies — STYLE_GUIDE.md §4. Generators are kept alive and
+/// re-prepared after each fire so the first tap after idle isn't dropped.
 @MainActor
 enum Haptics {
+    private static let impact = UIImpactFeedbackGenerator(style: .light)
+    private static let selectionGenerator = UISelectionFeedbackGenerator()
+    private static let notification = UINotificationFeedbackGenerator()
+
+    /// Warm the engine where tapping is imminent (call on screen appear).
+    static func prepare() {
+        impact.prepare()
+        selectionGenerator.prepare()
+    }
+
+    /// A light impact — something landed (added a portion, opened a sheet).
     static func tap() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        impact.impactOccurred()
+        impact.prepare()
+    }
+
+    /// Discrete selection — moving between tabs, rail chapters, chips.
+    static func selection() {
+        selectionGenerator.selectionChanged()
+        selectionGenerator.prepare()
     }
 
     static func success() {
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        notification.notificationOccurred(.success)
     }
 
     static func warning() {
-        UINotificationFeedbackGenerator().notificationOccurred(.warning)
+        notification.notificationOccurred(.warning)
     }
 }
