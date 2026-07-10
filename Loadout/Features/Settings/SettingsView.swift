@@ -2,10 +2,12 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(SettingsStore.self) private var settings
+    @Environment(ProfileStore.self) private var profile
     @Environment(\.menuRepository) private var menuRepository
     @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
     @State private var launchFailed = false
+    @State private var showGoalSheet = false
 
     var body: some View {
         @Bindable var settings = settings
@@ -17,6 +19,36 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: Spacing.lg) {
                         masthead
                             .padding(.top, Spacing.sm)
+
+                        section("Daily target") {
+                            Button {
+                                showGoalSheet = true
+                            } label: {
+                                Card {
+                                    if let goal = profile.goal {
+                                        VStack(alignment: .leading, spacing: Spacing.sm) {
+                                            MacroBar(macros: goal.target, style: .inline)
+                                            Text("\(goal.source == .generated ? "Calculated" : "Manual") · updated \(goal.updatedAt.formatted(.dateTime.month(.abbreviated).day()))")
+                                                .font(.appCaption)
+                                                .foregroundStyle(.textSecondary)
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    } else {
+                                        HStack {
+                                            Label("Set your daily target", systemImage: "target")
+                                                .font(.appBody)
+                                                .foregroundStyle(.volt)
+                                            Spacer()
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundStyle(.textTertiary)
+                                        }
+                                    }
+                                }
+                            }
+                            .buttonStyle(.pressable)
+                            .accessibilityHint(profile.goal == nil ? "Calculate or enter your daily macros." : "Edit your daily macro target.")
+                        }
 
                         section("MacroFactor") {
                             Card {
@@ -116,6 +148,16 @@ struct SettingsView: View {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text("Make sure the Shortcuts app is installed, then try again.")
+            }
+            .sheet(isPresented: $showGoalSheet) {
+                GoalSetupView { goal in
+                    profile.goal = goal
+                    showGoalSheet = false
+                }
+                .presentationDetents([.large])
+                .presentationCornerRadius(Radius.sheet)
+                .presentationBackground(Color.void)
+                .presentationDragIndicator(.visible)
             }
         }
     }
