@@ -64,6 +64,14 @@ struct RootView: View {
         .onOpenURL { url in handleCallback(url) }
         .onChange(of: macroFactorExport.lastOutcome) { _, outcome in
             bannerDismiss?.cancel()
+            guard let outcome else { return }
+            // The banner is the key confirmation — speak it, since VoiceOver
+            // users can't see the top overlay flash by.
+            AccessibilityNotification.Announcement(
+                outcome == .logged
+                    ? "Logged to MacroFactor"
+                    : "Couldn't log. Tap the banner to check your shortcut in Settings."
+            ).post()
             // Success flashes and fades; a failure sticks until tapped so the
             // user can actually act on it (it deep-links to Settings).
             guard outcome == .logged else { return }

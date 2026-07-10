@@ -472,7 +472,8 @@ private struct CounterStepper: View {
                             .fill(accent.opacity(0.12))
                             .overlay(Circle().strokeBorder(accent.opacity(0.5), lineWidth: 1))
                     }
-                    .contentShape(Circle())
+                    .frame(width: 44, height: 44)   // 44pt hit target, 30pt visual
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.pressable)
             .accessibilityLabel("Remove one")

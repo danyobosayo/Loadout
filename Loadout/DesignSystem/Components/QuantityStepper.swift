@@ -57,6 +57,7 @@ struct QuantityStepper: View {
                 .foregroundStyle(disabled ? Color.textTertiary : .textPrimary)
                 .frame(width: 30, height: 30)
                 .background(Circle().fill(Color.white.opacity(disabled ? 0.02 : 0.06)))
+                .frame(width: 44, height: 44)   // 44pt hit target, 30pt visual
                 .contentShape(Circle())
         }
         .buttonStyle(.pressable)

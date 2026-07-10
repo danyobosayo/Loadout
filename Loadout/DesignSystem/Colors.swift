@@ -14,7 +14,7 @@ nonisolated extension Color {
     // MARK: Text
     static let textPrimary   = Color(red: 0.961, green: 0.961, blue: 0.969) // #F5F5F7
     static let textSecondary = Color(red: 0.612, green: 0.612, blue: 0.659) // #9C9CA8
-    static let textTertiary  = Color(red: 0.369, green: 0.369, blue: 0.408) // #5E5E68
+    static let textTertiary  = Color(red: 0.471, green: 0.471, blue: 0.522) // #787885 — WCAG AA on void
 
     // MARK: Signature
     static let volt = Color(red: 0.784, green: 1.0, blue: 0.302) // #C8FF4D

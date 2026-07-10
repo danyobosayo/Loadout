@@ -328,6 +328,7 @@ struct MealTrayView: View {
 
     private func showNote(_ text: String) {
         noteDismissTask?.cancel()
+        AccessibilityNotification.Announcement(text).post()   // note is visual-only otherwise
         withAnimation(Motion.snap) { exportNote = text }
         noteDismissTask = Task {
             try? await Task.sleep(for: .seconds(1.8))
@@ -386,6 +387,8 @@ private struct LineItemCard: View {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 17))
                             .foregroundStyle(.textTertiary)
+                            .frame(width: 44, height: 44)   // 44pt hit target
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.pressable)
                     .accessibilityLabel("Remove \(lineItem.displayName)")

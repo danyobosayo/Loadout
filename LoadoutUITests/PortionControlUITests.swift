@@ -112,6 +112,22 @@ final class PortionControlUITests: XCTestCase {
     }
 
     @MainActor
+    func testTrayLineItemLayout() throws {
+        let app = launchedApp()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
+        XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
+        app.buttons["Protein station"].tap()
+        let chicken = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chicken,")).firstMatch
+        XCTAssertTrue(chicken.waitForExistence(timeout: 8))
+        chicken.tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 5))
+        app.swipeUp()   // expand the sheet so a line-item card is visible
+        attach(app, "08-tray-line-item")
+    }
+
+    @MainActor
     func testSelectedStationRowHighlights() throws {
         let app = launchedApp()
 
