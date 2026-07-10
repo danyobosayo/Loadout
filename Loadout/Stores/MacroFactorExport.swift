@@ -30,6 +30,13 @@ final class MacroFactorExport {
         pending = meal
     }
 
+    /// The hand-off never launched (e.g. `openURL` was rejected because
+    /// Shortcuts is unavailable). Drop the held meal so a later stray
+    /// callback can't record it; the caller surfaces its own feedback.
+    func clearPending() {
+        pending = nil
+    }
+
     /// Resolve an incoming `loadout://` callback. Returns the meal to record
     /// to history on success; nil otherwise. Sets `lastOutcome` for the
     /// banner (except on cancel, which is silent).

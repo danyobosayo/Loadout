@@ -5,6 +5,7 @@ struct SettingsView: View {
     @Environment(\.menuRepository) private var menuRepository
     @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
+    @State private var launchFailed = false
 
     var body: some View {
         @Bindable var settings = settings
@@ -111,6 +112,11 @@ struct SettingsView: View {
             .task {
                 restaurants = (try? await menuRepository.availableRestaurants()) ?? []
             }
+            .alert("Couldn't open Shortcuts", isPresented: $launchFailed) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Make sure the Shortcuts app is installed, then try again.")
+            }
         }
     }
 
@@ -144,7 +150,9 @@ struct SettingsView: View {
             recipe: nil
         )
         if let url = try? exporter.shortcutsURL(for: probe) {
-            openURL(url)
+            openURL(url) { accepted in
+                if !accepted { launchFailed = true }
+            }
         }
     }
 

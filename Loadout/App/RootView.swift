@@ -63,8 +63,10 @@ struct RootView: View {
         // finishes — so we log to history + confirm only on a real success.
         .onOpenURL { url in handleCallback(url) }
         .onChange(of: macroFactorExport.lastOutcome) { _, outcome in
-            guard outcome != nil else { return }
             bannerDismiss?.cancel()
+            // Success flashes and fades; a failure sticks until tapped so the
+            // user can actually act on it (it deep-links to Settings).
+            guard outcome == .logged else { return }
             bannerDismiss = Task { @MainActor in
                 try? await Task.sleep(for: .seconds(2.6))
                 guard !Task.isCancelled else { return }
@@ -112,11 +114,38 @@ struct RootView: View {
 
     @ViewBuilder
     private func resultBanner(_ outcome: MacroFactorExport.Outcome) -> some View {
-        let logged = outcome == .logged
-        Label(
-            logged ? "Logged to MacroFactor" : "Couldn't log — check your shortcut in Settings",
-            systemImage: logged ? "checkmark.circle.fill" : "exclamationmark.circle.fill"
-        )
+        if outcome == .logged {
+            bannerChrome(logged: true)
+                .accessibilityAddTraits(.isStaticText)
+        } else {
+            // A failure is tappable and persistent — it takes you to Settings
+            // to fix the shortcut instead of vanishing in 2.6s.
+            Button {
+                Haptics.tap()
+                withAnimation(Motion.snap) {
+                    macroFactorExport.lastOutcome = nil
+                    tab = .settings
+                }
+            } label: {
+                bannerChrome(logged: false)
+            }
+            .buttonStyle(.pressable)
+            .accessibilityHint("Opens Settings to check your shortcut")
+        }
+    }
+
+    private func bannerChrome(logged: Bool) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: logged ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(logged ? Color.volt : Color.fat)
+            Text(logged ? "Logged to MacroFactor" : "Couldn't log — tap to check Settings")
+            if !logged {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundStyle(.textTertiary)
+            }
+        }
         .font(.appCaption.weight(.semibold))
         .foregroundStyle(.textPrimary)
         .padding(.horizontal, Spacing.md)
@@ -129,7 +158,6 @@ struct RootView: View {
         }
         .padding(.top, Spacing.sm)
         .transition(.move(edge: .top).combined(with: .opacity))
-        .accessibilityAddTraits(.isStaticText)
     }
 }
 

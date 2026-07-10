@@ -75,4 +75,12 @@ struct MacroFactorExportCoordinatorTests {
         #expect(resolved == nil)
         #expect(export.pending != nil)         // pending untouched
     }
+
+    @Test func clearPendingDropsMealWithoutBanner() {
+        let export = MacroFactorExport()
+        export.begin(meal: meal())
+        export.clearPending()                  // hand-off never launched
+        #expect(export.pending == nil)         // no stray meal to mis-record
+        #expect(export.lastOutcome == nil)     // and no banner
+    }
 }

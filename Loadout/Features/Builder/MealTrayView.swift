@@ -22,6 +22,7 @@ struct MealTrayView: View {
     @State private var recipeName = ""
     @State private var exportNote: String?
     @State private var noteDismissTask: Task<Void, Never>?
+    @State private var clearConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -56,13 +57,22 @@ struct MealTrayView: View {
                 if !store.isEmpty {
                     ToolbarItem(placement: .destructiveAction) {
                         Button("Clear") {
-                            Haptics.warning()
-                            withAnimation(Motion.glide) { store.clear() }
+                            Haptics.tap()
+                            clearConfirm = true
                         }
                         .font(.appCaption.weight(.semibold))
                         .foregroundStyle(.destructiveRed)
                     }
                 }
+            }
+            .confirmationDialog("Clear the whole tray?", isPresented: $clearConfirm, titleVisibility: .visible) {
+                Button("Clear tray", role: .destructive) {
+                    Haptics.warning()
+                    withAnimation(Motion.glide) { store.clear() }
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This removes every item. It can't be undone.")
             }
             .alert("Save recipe", isPresented: $savePrompt) {
                 TextField("Name", text: $recipeName)
@@ -250,9 +260,10 @@ struct MealTrayView: View {
 
     private func logToMacroFactor() {
         let restaurantName = store.restaurant.name
-        // Snapshot only — the tray stays intact. Clearing is the
-        // user's call via the Clear button.
-        let meal = store.snapshotMeal()
+        // Snapshot only — the tray stays intact. Clearing is the user's call
+        // via the Clear button. Name it after the format ("Chipotle Burrito")
+        // so MacroFactor logs a real title, not a generic "Chipotle Meal".
+        let meal = store.snapshotMeal(named: defaultRecipeName)
         let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
         let food = exporter.food(for: meal, restaurantName: restaurantName)
         guard let url = try? exporter.callbackURL(
@@ -265,13 +276,20 @@ struct MealTrayView: View {
             showNote("Couldn't build the export")
             return
         }
-        // Hold the meal for the callback, hand off, and close the tray. The
-        // Shortcut returns to the app root via loadout:// when it finishes,
-        // and only *then* do we record history + confirm — so this can no
-        // longer silently no-op or fake a success.
+        // Hold the meal for the callback, then hand off. Only close the tray
+        // once iOS confirms it opened the URL — if the open is rejected (no
+        // Shortcuts app), keep the tray up, drop the pending meal, and say so,
+        // instead of dismissing into a silent no-op.
         macroFactorExport.begin(meal: meal)
-        openURL(url)
-        dismiss()
+        openURL(url) { accepted in
+            if accepted {
+                dismiss()
+            } else {
+                macroFactorExport.clearPending()
+                Haptics.warning()
+                showNote("Couldn't open Shortcuts — is it installed?")
+            }
+        }
     }
 
     private func saveRecipe() {
