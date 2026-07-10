@@ -259,36 +259,30 @@ struct MealTrayView: View {
     }
 
     private func logToMacroFactor() {
-        let restaurantName = store.restaurant.name
         // Snapshot only — the tray stays intact. Clearing is the user's call
         // via the Clear button. Name it after the format ("Chipotle Burrito")
         // so MacroFactor logs a real title, not a generic "Chipotle Meal".
         let meal = store.snapshotMeal(named: defaultRecipeName)
-        let exporter = MacroFactorExporter(shortcutName: settings.shortcutName)
-        let food = exporter.food(for: meal, restaurantName: restaurantName)
-        guard let url = try? exporter.callbackURL(
-            for: food,
-            success: MacroFactorExport.successURL,
-            error: MacroFactorExport.errorURL,
-            cancel: MacroFactorExport.cancelURL
-        ) else {
-            Haptics.warning()
-            showNote("Couldn't build the export")
-            return
-        }
-        // Hold the meal for the callback, then hand off. Only close the tray
-        // once iOS confirms it opened the URL — if the open is rejected (no
-        // Shortcuts app), keep the tray up, drop the pending meal, and say so,
-        // instead of dismissing into a silent no-op.
-        macroFactorExport.begin(meal: meal)
-        openURL(url) { accepted in
+        // Only close the tray once iOS confirms it opened the URL — if the open
+        // is rejected (no Shortcuts app), keep the tray up and say so rather
+        // than dismissing into a silent no-op.
+        let built = MacroFactorLog.handOff(
+            meal: meal,
+            restaurantName: store.restaurant.name,
+            shortcutName: settings.shortcutName,
+            coordinator: macroFactorExport,
+            open: openURL
+        ) { accepted in
             if accepted {
                 dismiss()
             } else {
-                macroFactorExport.clearPending()
                 Haptics.warning()
                 showNote("Couldn't open Shortcuts — is it installed?")
             }
+        }
+        if !built {
+            Haptics.warning()
+            showNote("Couldn't build the export")
         }
     }
 

@@ -112,6 +112,34 @@ final class PortionControlUITests: XCTestCase {
     }
 
     @MainActor
+    func testRecipeHasLogAgainAction() throws {
+        let app = launchedApp()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
+        XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
+        app.buttons["Protein station"].tap()
+        let chicken = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chicken,")).firstMatch
+        XCTAssertTrue(chicken.waitForExistence(timeout: 8)); chicken.tap()
+
+        // Save it as a recipe.
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch.tap()
+        let save = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Save Recipe")).firstMatch
+        XCTAssertTrue(save.waitForExistence(timeout: 5)); save.tap()
+        let saveConfirm = app.alerts.buttons["Save"]
+        XCTAssertTrue(saveConfirm.waitForExistence(timeout: 5)); saveConfirm.tap()
+        app.buttons["Close tray"].tap()
+
+        // In Recipes, the card's menu offers one-tap Log again.
+        app.buttons["Recipes"].tap()
+        let menu = app.buttons["Recipe actions"].firstMatch
+        XCTAssertTrue(menu.waitForExistence(timeout: 5), "Saved recipe should show an actions menu")
+        menu.tap()
+        attach(app, "09-recipe-log-again")
+        XCTAssertTrue(app.buttons["Log again"].waitForExistence(timeout: 5),
+                      "Recipe menu should offer Log again")
+    }
+
+    @MainActor
     func testTrayLineItemLayout() throws {
         let app = launchedApp()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()

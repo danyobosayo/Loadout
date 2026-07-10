@@ -10,7 +10,11 @@ struct RecipesView: View {
     @Query(sort: [SortDescriptor(\FavoriteMeal.createdAt, order: .reverse)])
     private var recipes: [FavoriteMeal]
     @Environment(\.modelContext) private var modelContext
+    @Environment(MacroFactorExport.self) private var macroFactorExport
+    @Environment(SettingsStore.self) private var settings
+    @Environment(\.openURL) private var openURL
     @State private var pendingDelete: FavoriteMeal?
+    @State private var launchFailed = false
 
     var body: some View {
         NavigationStack {
@@ -50,7 +54,34 @@ struct RecipesView: View {
                     pendingDelete = nil
                 }
             }
+            .alert("Couldn't open Shortcuts", isPresented: $launchFailed) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Make sure the Shortcuts app is installed, then try again.")
+            }
         }
+    }
+
+    /// Fire the MacroFactor hand-off straight from the saved snapshot — no
+    /// menu load, no tray. Success/failure surfaces via the app-root banner.
+    private func logAgain(_ recipe: FavoriteMeal) {
+        let meal = BuiltMeal(
+            id: UUID(),
+            restaurantId: recipe.restaurantId,
+            name: recipe.name,
+            lineItems: recipe.lineItems,
+            createdAt: .now
+        )
+        let built = MacroFactorLog.handOff(
+            meal: meal,
+            restaurantName: ExportService.displayName(forRestaurantId: recipe.restaurantId),
+            shortcutName: settings.shortcutName,
+            coordinator: macroFactorExport,
+            open: openURL
+        ) { accepted in
+            if !accepted { launchFailed = true }
+        }
+        if !built { launchFailed = true }
     }
 
     private var list: some View {
@@ -62,7 +93,7 @@ struct RecipesView: View {
 
                 ForEach(Array(recipes.enumerated()), id: \.element.id) { index, recipe in
                     NavigationLink(value: recipe) {
-                        RecipeCard(recipe: recipe) {
+                        RecipeCard(recipe: recipe, onLogAgain: { logAgain(recipe) }) {
                             pendingDelete = recipe
                         }
                     }
@@ -91,6 +122,7 @@ struct RecipesView: View {
 
 private struct RecipeCard: View {
     let recipe: FavoriteMeal
+    let onLogAgain: () -> Void
     let onDelete: () -> Void
 
     private var payload: ExportService.RecipePayload {
@@ -147,6 +179,10 @@ private struct RecipeCard: View {
 
     private var menuButton: some View {
         Menu {
+            Button(action: onLogAgain) {
+                Label("Log again", systemImage: "bolt.fill")
+            }
+            Divider()
             ShareLink(item: RecipeShareFile(payload: payload), preview: SharePreview(recipe.name)) {
                 Label("Share recipe file", systemImage: "square.and.arrow.up")
             }

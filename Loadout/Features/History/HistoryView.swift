@@ -7,6 +7,10 @@ struct HistoryView: View {
     @Query(sort: [SortDescriptor(\LoggedMeal.loggedAt, order: .reverse)])
     private var logs: [LoggedMeal]
     @Environment(\.modelContext) private var modelContext
+    @Environment(MacroFactorExport.self) private var macroFactorExport
+    @Environment(SettingsStore.self) private var settings
+    @Environment(\.openURL) private var openURL
+    @State private var launchFailed = false
 
     var body: some View {
         NavigationStack {
@@ -27,7 +31,34 @@ struct HistoryView: View {
             .navigationDestination(for: LoggedMeal.self) { logged in
                 ReopenLoggedMealView(logged: logged)
             }
+            .alert("Couldn't open Shortcuts", isPresented: $launchFailed) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Make sure the Shortcuts app is installed, then try again.")
+            }
         }
+    }
+
+    /// Re-fire the MacroFactor hand-off straight from the logged snapshot —
+    /// no menu load. A success records a fresh History entry via the callback.
+    private func logAgain(_ logged: LoggedMeal) {
+        let meal = BuiltMeal(
+            id: UUID(),
+            restaurantId: logged.restaurantId,
+            name: nil,
+            lineItems: logged.lineItems,
+            createdAt: .now
+        )
+        let built = MacroFactorLog.handOff(
+            meal: meal,
+            restaurantName: ExportService.displayName(forRestaurantId: logged.restaurantId),
+            shortcutName: settings.shortcutName,
+            coordinator: macroFactorExport,
+            open: openURL
+        ) { accepted in
+            if !accepted { launchFailed = true }
+        }
+        if !built { launchFailed = true }
     }
 
     private var list: some View {
@@ -39,7 +70,7 @@ struct HistoryView: View {
 
                 ForEach(Array(logs.enumerated()), id: \.element.id) { index, logged in
                     NavigationLink(value: logged) {
-                        LoggedMealCard(logged: logged) {
+                        LoggedMealCard(logged: logged, onLogAgain: { logAgain(logged) }) {
                             Haptics.warning()
                             withAnimation(Motion.glide) {
                                 modelContext.delete(logged)
@@ -70,6 +101,7 @@ struct HistoryView: View {
 
 private struct LoggedMealCard: View {
     let logged: LoggedMeal
+    let onLogAgain: () -> Void
     let onDelete: () -> Void
 
     var body: some View {
@@ -92,17 +124,34 @@ private struct LoggedMealCard: View {
                         .foregroundStyle(.textSecondary)
                     MacroBar(macros: logged.totalMacros, style: .inline)
                 }
-            }
-        }
-        .contextMenu {
-            Button(role: .destructive, action: onDelete) {
-                Label("Delete from history", systemImage: "trash")
+
+                menuButton
             }
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(
             "\(ExportService.displayName(forRestaurantId: logged.restaurantId)), \(ExportService.summaryLine(logged.totalMacros))"
         )
+    }
+
+    private var menuButton: some View {
+        Menu {
+            Button(action: onLogAgain) {
+                Label("Log again", systemImage: "bolt.fill")
+            }
+            Divider()
+            Button(role: .destructive, action: onDelete) {
+                Label("Delete from history", systemImage: "trash")
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 14, weight: .bold))
+                .foregroundStyle(.textSecondary)
+                .frame(width: 30, height: 30)
+                .background(Circle().fill(Color.white.opacity(0.04)))
+                .contentShape(Circle())
+        }
+        .accessibilityLabel("Log entry actions")
     }
 
     private var identityTile: some View {
