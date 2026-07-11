@@ -4,6 +4,8 @@
 <dict>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Loadout reads today's logged calories and macros from Apple Health so it can show what you have left and help you build a meal that fits.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Loadout can log a meal's calories and macros to Apple Health so they count toward your day.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

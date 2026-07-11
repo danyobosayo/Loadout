@@ -221,6 +221,14 @@ struct MealTrayView: View {
 
     private var exportMenu: some View {
         Menu {
+            if pro.isPro {
+                Button {
+                    logToAppleHealth()
+                } label: {
+                    Label("Log to Apple Health", systemImage: "heart.fill")
+                }
+                Divider()
+            }
             Button {
                 copyForMyFitnessPal()
             } label: {
@@ -316,6 +324,15 @@ struct MealTrayView: View {
         showNote("Saved to Recipes")
         // Don't clear or dismiss — saving is a side action; the user is
         // probably about to also log the meal.
+    }
+
+    private func logToAppleHealth() {
+        let name = defaultRecipeName
+        let macros = store.totalMacros
+        Task {
+            let ok = await health.logMeal(named: name, macros: macros)
+            showNote(ok ? "Logged to Apple Health" : "Couldn't log to Apple Health")
+        }
     }
 
     private func copyForMyFitnessPal() {

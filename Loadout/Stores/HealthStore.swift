@@ -33,6 +33,13 @@ final class HealthStore {
         HKQuantityType(.dietaryFatTotal),
     ]
 
+    private static let writeTypes: Set<HKSampleType> = [
+        HKQuantityType(.dietaryEnergyConsumed),
+        HKQuantityType(.dietaryProtein),
+        HKQuantityType(.dietaryCarbohydrates),
+        HKQuantityType(.dietaryFatTotal),
+    ]
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         if HKHealthStore.isHealthDataAvailable() {
@@ -66,6 +73,45 @@ final class HealthStore {
             // Authorization can throw (user dismissed, missing entitlement) —
             // stay notConnected so the UI can offer to retry.
         }
+    }
+
+    /// Write a meal's macros to Apple Health as one food entry (energy + P/C/F),
+    /// requesting write access on first use. Returns false if unavailable or the
+    /// save failed. A native alternative to the MacroFactor Shortcut hand-off.
+    func logMeal(named name: String, macros: Macros, at date: Date = Date()) async -> Bool {
+        guard let store else { return false }
+        do {
+            try await store.requestAuthorization(toShare: Self.writeTypes, read: Self.readTypes)
+        } catch {
+            return false
+        }
+        let samples: [HKSample] = [
+            sample(.dietaryEnergyConsumed, unit: .kilocalorie(), value: macros.calories, at: date),
+            sample(.dietaryProtein, unit: .gram(), value: macros.proteinGrams, at: date),
+            sample(.dietaryCarbohydrates, unit: .gram(), value: macros.carbGrams, at: date),
+            sample(.dietaryFatTotal, unit: .gram(), value: macros.fatGrams, at: date),
+        ]
+        let food = HKCorrelation(
+            type: HKCorrelationType(.food),
+            start: date, end: date,
+            objects: Set(samples),
+            metadata: [HKMetadataKeyFoodType: name]
+        )
+        do {
+            try await store.save(food)
+            if status == .connected { await refreshToday() }   // reflect it in "eaten today"
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    private func sample(_ id: HKQuantityTypeIdentifier, unit: HKUnit, value: Double, at date: Date) -> HKQuantitySample {
+        HKQuantitySample(
+            type: HKQuantityType(id),
+            quantity: HKQuantity(unit: unit, doubleValue: max(0, value)),
+            start: date, end: date
+        )
     }
 
     /// Re-read today's totals. Call on connect and when the app foregrounds.
