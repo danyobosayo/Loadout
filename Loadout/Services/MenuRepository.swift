@@ -8,6 +8,10 @@ protocol MenuRepository: Sendable {
     /// missing formats file is not an error — it degrades to the
     /// build-your-own-only experience.
     func loadFormats(restaurantId: String) async throws -> [OrderFormat]
+    /// The restaurant's published named meals (Harvest Bowl, Italian B.M.T.).
+    /// Absent for restaurants that don't publish any — Panda sells combos of
+    /// entrées, not named composed dishes — so a missing file is normal.
+    func loadPresets(restaurantId: String) async throws -> [MealPreset]
 }
 
 enum MenuRepositoryError: Error, Equatable {
@@ -44,6 +48,15 @@ nonisolated struct BundledMenuRepository: MenuRepository {
         }
         let data = try Data(contentsOf: url)
         return try JSONDecoder().decode(RestaurantFormats.self, from: data).formats
+    }
+
+    func loadPresets(restaurantId: String) async throws -> [MealPreset] {
+        // No presets file → the section just doesn't render. Never throws on absence.
+        guard let url = bundle.url(forResource: "\(restaurantId).presets", withExtension: "json") else {
+            return []
+        }
+        let data = try Data(contentsOf: url)
+        return try JSONDecoder().decode(RestaurantPresets.self, from: data).presets
     }
 
     private func loadFromBundle(id: String) throws -> Restaurant {

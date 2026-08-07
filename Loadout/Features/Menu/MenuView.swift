@@ -62,7 +62,16 @@ struct MenuView: View {
     /// tray auto-open (nothing to review yet — the user is about to build);
     /// build-your-own (`format == nil`) is byte-for-byte today's behavior.
     init(route: MenuRoute) {
-        self.init(restaurant: route.restaurant, format: route.format, skipTrayAutoOpen: route.format != nil, autoBuild: route.autoBuild)
+        // A seeded route (preset / saved recipe) carries a complete meal, so it
+        // lands in the tray — same as re-opening a recipe. Guided formats still
+        // open on the fillings.
+        self.init(
+            restaurant: route.restaurant,
+            format: route.format,
+            seed: route.seed,
+            skipTrayAutoOpen: route.format != nil,
+            autoBuild: route.autoBuild
+        )
     }
 
     /// The stations shown in the scroll + rail. Guided formats curate this

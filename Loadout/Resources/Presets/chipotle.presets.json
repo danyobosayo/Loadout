@@ -1,0 +1,105 @@
+{
+  "restaurantId": "chipotle",
+  "presets": [
+    {
+      "id": "chipotle.presets.double-high-protein",
+      "name": "Double High Protein Bowl",
+      "blurb": "Double chicken over light rice and black beans. 760 kcal, 81g protein.",
+      "items": [
+        {
+          "menuItemId": "chipotle.protein.chicken",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "chipotle.rice.cilantro-lime-white",
+          "quantity": 0.5
+        },
+        {
+          "menuItemId": "chipotle.beans.black",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.fajita-vegetables",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.salsa.fresh-tomato",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.toppings.cheese",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.romaine",
+          "quantity": 2
+        }
+      ],
+      "sourceNote": "Composition and published figures from chipotle.com/lifestyle-bowls (fetched 2026-08-06). \"Light\" rice is a half portion and \"extra\" lettuce a double — both confirmed by summing to Chipotle's published totals for this bowl. Verified: 760 kcal / 81 g protein, exact."
+    },
+    {
+      "id": "chipotle.presets.high-protein-low-calorie",
+      "name": "High Protein, Low Calorie Bowl",
+      "blurb": "Chicken on supergreens with guac — no rice, no beans. 36g protein.",
+      "items": [
+        {
+          "menuItemId": "chipotle.protein.chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.supergreens-mix",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.fajita-vegetables",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.salsa.fresh-tomato",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.toppings.guacamole",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition and published figures from chipotle.com/lifestyle-bowls (fetched 2026-08-06). \"Light\" rice is a half portion and \"extra\" lettuce a double — both confirmed by summing to Chipotle's published totals for this bowl. Chipotle publishes protein (36 g) but not calories for this bowl; verified against the protein figure."
+    },
+    {
+      "id": "chipotle.presets.high-protein-high-fiber",
+      "name": "High Protein, High Fiber Bowl",
+      "blurb": "Chicken, light brown rice, black beans and corn salsa. 46g protein.",
+      "items": [
+        {
+          "menuItemId": "chipotle.protein.chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.rice.cilantro-lime-brown",
+          "quantity": 0.5
+        },
+        {
+          "menuItemId": "chipotle.beans.black",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.fajita-vegetables",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.salsa.roasted-corn",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.salsa.fresh-tomato",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.veggies.romaine",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition and published figures from chipotle.com/lifestyle-bowls (fetched 2026-08-06). \"Light\" rice is a half portion and \"extra\" lettuce a double — both confirmed by summing to Chipotle's published totals for this bowl. Chipotle publishes protein (46 g) but not calories for this bowl; verified against the protein figure."
+    }
+  ]
+}

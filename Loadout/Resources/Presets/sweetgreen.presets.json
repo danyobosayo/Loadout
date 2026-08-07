@@ -1,0 +1,781 @@
+{
+  "restaurantId": "sweetgreen",
+  "presets": [
+    {
+      "id": "sweetgreen.presets.harvest-bowl",
+      "name": "Harvest Bowl",
+      "blurb": "Roasted chicken, sweet potato, apple and goat cheese over wild rice and kale.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-sweet-potatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.apples",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.goat-cheese",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-almonds",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.wild-rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.balsamic-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.crispy-rice-bowl",
+      "name": "Crispy Rice Bowl",
+      "blurb": "Blackened chicken and crispy rice with cabbage, cucumber and spicy cashew.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.blackened-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-carrots",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cucumbers",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cilantro",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-almonds",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.crispy-rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.wild-rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.arugula",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-squeeze",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.spicy-cashew",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.chicken-pesto-parm",
+      "name": "Chicken Pesto Parm",
+      "blurb": "Roasted chicken, spicy broccoli and parmesan over quinoa and spinach.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.spicy-broccoli",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.shaved-parmesan",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.garlic-breadcrumbs",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.golden-quinoa",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.baby-spinach",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.sweetgreen-hot-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.pesto-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.chicken-avocado-ranch",
+      "name": "Chicken Avocado Ranch",
+      "blurb": "Blackened chicken, avocado and tortilla chips over white rice and romaine.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.blackened-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.avocado",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.apples",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tortilla-chips",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.white-rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.green-goddess-ranch",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.shroomami",
+      "name": "Shroomami",
+      "blurb": "Roasted tofu and warm portobello over wild rice and kale with miso sesame ginger.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-tofu",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.warm-portobello-mix",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cucumbers",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.basil",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-almonds",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.wild-rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.miso-sesame-ginger",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.fish-taco",
+      "name": "Fish Taco",
+      "blurb": "Miso glazed salmon, avocado and tortilla chips over quinoa and arugula.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.miso-glazed-salmon",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.avocado",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cilantro",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tortilla-chips",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.golden-quinoa",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.arugula",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.sweetgreen-hot-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.steak-honey-crunch",
+      "name": "Steak Honey Crunch",
+      "blurb": "Caramelized garlic steak over quinoa and romaine with hot honey mustard.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.caramelized-garlic-steak",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.golden-quinoa",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.garlic-breadcrumbs",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.hot-honey-mustard-sauce",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.chicken-sesame-crunch",
+      "name": "Chicken Sesame Crunch",
+      "blurb": "Roasted chicken with sesame crunch, crispy noodles and citrus sesame vinaigrette.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.napa-cabbage-slaw",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.sesame-crunch",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.crispy-noodles",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-carrots",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.citrus-sesame-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.kale-caesar",
+      "name": "Kale Caesar",
+      "blurb": "Roasted chicken, parmesan and parmesan crisps over kale and romaine.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.shaved-parmesan",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.parmesan-crisps",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-squeeze",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.caesar",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.guacamole-greens",
+      "name": "Guacamole Greens",
+      "blurb": "Roasted chicken, avocado and tortilla chips over spring mix and romaine.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.roasted-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.avocado",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tortilla-chips",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.spring-mix",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-squeeze",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.super-green-goddess",
+      "name": "Super Green Goddess",
+      "blurb": "Chickpeas, sweet potato and spicy broccoli over spinach and kale. No meat.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.ingredients.chickpeas",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-sweet-potatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-carrots",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.spicy-broccoli",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.roasted-almonds",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.baby-spinach",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.green-goddess-ranch",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.bbq-chicken-salad",
+      "name": "BBQ Chicken Salad",
+      "blurb": "Blackened chicken, apples and tortilla chips with honey BBQ and green goddess.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.blackened-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.apples",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tortilla-chips",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.honey-bbq-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.green-goddess-ranch",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.hummus-crunch",
+      "name": "Hummus Crunch",
+      "blurb": "Hummus, feta and chickpeas over romaine and kale with pesto vinaigrette. No meat.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.premiums.hummus",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.feta-crumble",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.chickpeas",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cucumbers",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-cabbage",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.napa-cabbage-slaw",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.basil",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.garlic-breadcrumbs",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.pesto-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.buffalo-chicken",
+      "name": "Buffalo Chicken",
+      "blurb": "Blackened chicken and feta over kale and romaine with hot sauce and caesar.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.blackened-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.shredded-carrots",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cilantro",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.feta-crumble",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.garlic-breadcrumbs",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.shredded-kale",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.chopped-romaine",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.sweetgreen-hot-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.caesar",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06)."
+    },
+    {
+      "id": "sweetgreen.presets.plate-caramelized-garlic-steak",
+      "name": "Caramelized Garlic Steak Plate",
+      "blurb": "Steak with warm sweet potato and spicy broccoli over a double wild rice base.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.caramelized-garlic-steak",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.warm-roasted-sweet-potatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.spicy-broccoli",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.wild-rice",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.pesto-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06). Protein Plates are served with a double grain portion — verified against the published plate totals."
+    },
+    {
+      "id": "sweetgreen.presets.plate-miso-glazed-salmon",
+      "name": "Miso Glazed Salmon Plate",
+      "blurb": "Salmon and avocado over a double white rice base with spicy cashew.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.miso-glazed-salmon",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.avocado",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cucumbers",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.crispy-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.white-rice",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.nori-sesame-seasoning",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.spicy-cashew",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06). Protein Plates are served with a double grain portion — verified against the published plate totals."
+    },
+    {
+      "id": "sweetgreen.presets.plate-hot-honey-chicken",
+      "name": "Hot Honey Chicken Plate",
+      "blurb": "Double blackened chicken over a double quinoa base with hot honey mustard.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.blackened-chicken",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.warm-roasted-sweet-potatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.napa-cabbage-slaw",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.crispy-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.golden-quinoa",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.hot-honey-mustard-sauce",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06). Protein Plates are served with a double grain portion — verified against the published plate totals. This plate also serves a double protein."
+    },
+    {
+      "id": "sweetgreen.presets.plate-steak-mezze",
+      "name": "Steak Mezze Plate",
+      "blurb": "Steak and hummus over a double white rice base with lime cilantro jalapeño.",
+      "items": [
+        {
+          "menuItemId": "sweetgreen.proteins.caramelized-garlic-steak",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.premiums.hummus",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.cucumbers",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.crispy-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.ingredients.pickled-onions",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "sweetgreen.bases.white-rice",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition from sweetgreen.com/menu; totals verified against sweetgreen.com/nutrition (fetched 2026-08-06). Protein Plates are served with a double grain portion — verified against the published plate totals."
+    }
+  ]
+}

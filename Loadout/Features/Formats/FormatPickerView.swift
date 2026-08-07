@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 /// Navigation value for entering the builder. A chosen `format` drives
 /// guided entry; `nil` is the build-your-own path (today's behavior).
@@ -9,19 +10,56 @@ nonisolated struct MenuRoute: Hashable {
     /// (the "Fit my macros" path). The solve runs in `MenuView` where the
     /// profile/health budget is in scope.
     var autoBuild: Bool = false
+    /// A complete meal to land in the tray on entry — a published preset or one
+    /// of the user's saved recipes. Unlike the solver's output this is known at
+    /// the link, so it rides the route directly. Resolve it once into `@State`
+    /// upstream: `LineItem` ids are fresh UUIDs, and regenerating them per body
+    /// pass would churn the route's hash and break the link's identity.
+    var seed: [LineItem] = []
 }
 
 /// The counter moment — shown when a restaurant is tapped, before the
-/// stations. Big format cards ("what are you ordering?") plus a
-/// build-your-own escape hatch for power users. Formats load async; an
-/// empty result just leaves build-your-own, so this never dead-ends.
+/// stations. Three ways in, ordered most-personal to most-manual: the meals
+/// you've saved here, the restaurant's own published meals, then the formats
+/// that scaffold a build. Everything loads async and every section hides when
+/// empty, so this never dead-ends — build-your-own is always the floor.
 struct FormatPickerView: View {
     let restaurant: Restaurant
     @Environment(\.menuRepository) private var menuRepository
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
     @Environment(ProStore.self) private var pro
+    /// The user's recipes saved *at this restaurant*, newest first.
+    @Query private var savedMeals: [FavoriteMeal]
     @State private var formats: [OrderFormat] = []
+    @State private var presets: [ResolvedPreset] = []
+
+    /// Keeping more than a few here would turn the counter moment into a second
+    /// Recipes tab — which is one tap away in the tab bar.
+    private static let savedMealLimit = 3
+
+    init(restaurant: Restaurant) {
+        self.restaurant = restaurant
+        let restaurantId = restaurant.id
+        _savedMeals = Query(
+            filter: #Predicate<FavoriteMeal> { $0.restaurantId == restaurantId },
+            sort: [SortDescriptor(\FavoriteMeal.createdAt, order: .reverse)]
+        )
+    }
+
+    /// A preset with its lines resolved against the live menu. Resolved once on
+    /// load so the `LineItem` UUIDs — and therefore each link's route hash —
+    /// stay stable across body passes.
+    private struct ResolvedPreset: Identifiable {
+        let preset: MealPreset
+        let lineItems: [LineItem]
+        let macros: Macros
+        var id: String { preset.id }
+    }
+
+    private var shownSavedMeals: [FavoriteMeal] {
+        Array(savedMeals.prefix(Self.savedMealLimit))
+    }
 
     /// The per-meal budget for "Fit my macros": Health remaining when
     /// connected, else the daily target. Nil unless Pro with a goal set.
@@ -50,19 +88,59 @@ struct FormatPickerView: View {
                         .padding(.bottom, Spacing.xs)
                     }
 
+                    if !shownSavedMeals.isEmpty {
+                        sectionLabel("Your recipes")
+                        ForEach(Array(shownSavedMeals.enumerated()), id: \.element.id) { index, recipe in
+                            NavigationLink(value: MenuRoute(
+                                restaurant: restaurant, format: nil, seed: recipe.lineItems
+                            )) {
+                                CompleteMealCard(
+                                    name: recipe.name,
+                                    itemCount: recipe.lineItems.count,
+                                    macros: recipe.totalMacros,
+                                    symbol: "bookmark.fill",
+                                    hue: .volt
+                                )
+                            }
+                            .buttonStyle(.pressable)
+                            .entrance(savedMealsEntranceBase + index)
+                        }
+                    }
+
+                    if !presets.isEmpty {
+                        sectionLabel("On the menu")
+                        ForEach(Array(presets.enumerated()), id: \.element.id) { index, resolved in
+                            NavigationLink(value: MenuRoute(
+                                restaurant: restaurant, format: nil, seed: resolved.lineItems
+                            )) {
+                                CompleteMealCard(
+                                    name: resolved.preset.name,
+                                    blurb: resolved.preset.blurb,
+                                    itemCount: resolved.lineItems.count,
+                                    macros: resolved.macros,
+                                    symbol: "star.fill",
+                                    hue: restaurant.style.hue
+                                )
+                            }
+                            .buttonStyle(.pressable)
+                            .entrance(presetsEntranceBase + index)
+                        }
+                    }
+
+                    if !formats.isEmpty { sectionLabel("Build to order") }
                     ForEach(Array(formats.enumerated()), id: \.element.id) { index, format in
                         NavigationLink(value: MenuRoute(restaurant: restaurant, format: format)) {
                             FormatCard(format: format, hue: restaurant.style.hue)
                         }
                         .buttonStyle(.pressable)
-                        .entrance(index + 1)
+                        .entrance(formatsEntranceBase + index)
                     }
 
                     NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil)) {
                         BuildYourOwnCard()
                     }
                     .buttonStyle(.pressable)
-                    .entrance(formats.count + 1)
+                    .entrance(formatsEntranceBase + formats.count)
                     .padding(.top, Spacing.xs)
                 }
                 .padding(.horizontal, Spacing.md)
@@ -74,7 +152,33 @@ struct FormatPickerView: View {
         .toolbarBackground(.hidden, for: .navigationBar)
         .task {
             formats = (try? await menuRepository.loadFormats(restaurantId: restaurant.id)) ?? []
+            let loaded = (try? await menuRepository.loadPresets(restaurantId: restaurant.id)) ?? []
+            // A preset whose lines no longer all resolve would show macros that
+            // undercount the real order — drop it rather than mislead.
+            presets = loaded
+                .filter { $0.isComplete(in: restaurant) }
+                .map {
+                    ResolvedPreset(
+                        preset: $0,
+                        lineItems: $0.lineItems(in: restaurant),
+                        macros: $0.macros(in: restaurant)
+                    )
+                }
         }
+    }
+
+    // The entrance stagger runs continuously down the page, so each section's
+    // base is simply what came before it (0 is the masthead / Fit my macros).
+    private var savedMealsEntranceBase: Int { 1 }
+    private var presetsEntranceBase: Int { savedMealsEntranceBase + shownSavedMeals.count }
+    private var formatsEntranceBase: Int { presetsEntranceBase + presets.count }
+
+    private func sectionLabel(_ text: String) -> some View {
+        Text(text)
+            .microLabelStyle(.textTertiary)
+            .padding(.top, Spacing.sm)
+            .padding(.leading, Spacing.xs)
+            .accessibilityAddTraits(.isHeader)
     }
 
     private var masthead: some View {
@@ -116,6 +220,58 @@ struct FormatPickerView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Fit my macros. Auto-builds a meal for your budget.")
+    }
+}
+
+/// A meal that's already complete — a saved recipe or a published preset. The
+/// macros are the point: they're known before the tap, so they get the same
+/// inline `MacroBar` treatment the Recipes tab uses. Tapping lands in the tray,
+/// where it's logged as-is or edited.
+private struct CompleteMealCard: View {
+    let name: String
+    var blurb: String? = nil
+    let itemCount: Int
+    let macros: Macros
+    let symbol: String
+    let hue: Color
+
+    var body: some View {
+        Card {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: symbol)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(hue)
+                    .frame(width: 46, height: 46)
+                    .background {
+                        RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+                            .fill(hue.opacity(0.14))
+                    }
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(name)
+                        .font(.appHeadline)
+                        .foregroundStyle(.textPrimary)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(blurb ?? "^[\(itemCount) item](inflect: true)")
+                        .font(.appCaption)
+                        .foregroundStyle(.textSecondary)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                    MacroBar(macros: macros, style: .inline)
+                }
+
+                Spacer(minLength: Spacing.sm)
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.textTertiary)
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(name), \(ExportService.summaryLine(macros))")
+        .accessibilityHint("Opens in your tray, ready to log or edit")
     }
 }
 

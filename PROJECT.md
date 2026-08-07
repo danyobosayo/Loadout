@@ -163,6 +163,38 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
 4. Run `swift test --filter MenuDataIntegrityTests` — this validates schema, no negative values, no orphan IDs, etc.
 5. Commit JSON + the script's input spreadsheet for auditability.
 
+### Presets (`Resources/Presets/{id}.presets.json`)
+
+A **preset** is a meal the restaurant actually publishes as a named thing — a
+Sweetgreen Harvest Bowl, a Chipotle Double High Protein Bowl. It carries every
+line item, so its macros are known before the user taps it. Presets are
+*published combos only*; we never invent one. The "personal" slot on the
+restaurant screen is filled by the user's own saved recipes instead.
+
+**Sourcing rule — compose, then verify against the published total.** This is
+what makes a preset trustworthy, and it double-checks the menu data for free:
+
+1. Read the composition from the restaurant's own menu page.
+2. Map each ingredient onto an existing menu item id.
+3. Sum our per-item macros for that composition.
+4. **Compare the sum to the restaurant's published total for that named meal.**
+   An exact match confirms both the composition and our per-item data.
+5. If it doesn't match, the composition is wrong — solve for the discrepancy
+   rather than shipping it. Real cases found so far:
+   - Sweetgreen **Protein Plates** serve a *double* grain base (and Hot Honey
+     Chicken doubles the protein too).
+   - Chipotle **"light" rice** is a half portion; **"extra" lettuce** is a double.
+6. Record where the composition came from in `sourceNote`, and pin the verified
+   totals in `MealPresetTests` so a menu refresh breaks loudly.
+
+**If the composition isn't officially published, don't ship the preset.**
+CAVA is the current example: their nutrition PDF publishes totals for the
+curated bowls, but the ingredient lists aren't retrievable from an official
+source and reconstructions don't sum to those totals — so CAVA ships no presets
+until they can be verified. A missing presets file is normal, not an error;
+Panda Express sells combos of entrées rather than named dishes and ships none
+by design.
+
 ---
 
 ## 7. Core Features (MVP detail)
