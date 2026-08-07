@@ -79,13 +79,20 @@ final class GoalSetupUITests: XCTestCase {
         // Switch to manual entry.
         app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "I have my numbers")).firstMatch.tap()
 
-        let cal = app.textFields["goalField.Calories"]
-        XCTAssertTrue(cal.waitForExistence(timeout: 5))
-        cal.tap(); cal.typeText("2200")
-        app.textFields["goalField.Protein"].tap(); app.textFields["goalField.Protein"].typeText("180")
-        app.textFields["goalField.Carbs"].tap(); app.textFields["goalField.Carbs"].typeText("200")
-        app.textFields["goalField.Fat"].tap(); app.textFields["goalField.Fat"].typeText("60")
-        if app.buttons["Done"].exists { app.buttons["Done"].tap() }   // dismiss keyboard
+        // Dismiss the keyboard between fields: it covers the ones lower in the
+        // sheet, so their tap lands on the keyboard and `typeText` fails on a
+        // field that never took focus.
+        func setField(_ id: String, _ value: String) {
+            let f = app.textFields[id]
+            XCTAssertTrue(f.waitForExistence(timeout: 5), "missing \(id)")
+            f.tap()
+            f.typeText(value)
+            if app.buttons["Done"].exists { app.buttons["Done"].tap() }
+        }
+        setField("goalField.Calories", "2200")
+        setField("goalField.Protein", "180")
+        setField("goalField.Carbs", "200")
+        setField("goalField.Fat", "60")
         attach(app, "02-goal-manual-filled")
 
         app.buttons["Save target"].tap()

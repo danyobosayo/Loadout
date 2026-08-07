@@ -38,29 +38,46 @@ struct GoalSetupView: View {
     @State private var carbText = ""
     @State private var fatText = ""
 
-    @FocusState private var keyboardUp: Bool
+    /// Which field, not merely whether *a* field is focused. A single Bool told
+    /// SwiftUI the keyboard was up but not what to keep on screen, so tapping a
+    /// field low in the sheet left it hidden behind the keypad — you typed
+    /// blind, and the digits landed in whatever you could still see.
+    private enum Field: Hashable {
+        case age, heightFt, heightIn, heightCm, weight, goalWeight
+        case calories, protein, carbs, fat
+    }
+    @FocusState private var focusedField: Field?
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.lg) {
-                header
-                modePicker
-                Group {
-                    if mode == .calculate { calculateSection } else { manualSection }
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.lg) {
+                    header
+                    modePicker
+                    Group {
+                        if mode == .calculate { calculateSection } else { manualSection }
+                    }
+                    disclaimer
                 }
-                disclaimer
+                .padding(.horizontal, Spacing.md)
+                .padding(.top, Spacing.md)
+                .padding(.bottom, 160)
             }
-            .padding(.horizontal, Spacing.md)
-            .padding(.top, Spacing.md)
-            .padding(.bottom, 160)
+            .scrollDismissesKeyboard(.interactively)
+            .onChange(of: focusedField) { _, field in
+                // The action bar sits in a bottom safe-area inset, which stops
+                // SwiftUI's automatic keyboard avoidance from lifting the field
+                // itself — so lift it explicitly.
+                guard let field else { return }
+                withAnimation(Motion.snap) { proxy.scrollTo(field, anchor: .center) }
+            }
         }
-        .scrollDismissesKeyboard(.interactively)
         .safeAreaInset(edge: .bottom) { actionBar }
         .onAppear(perform: prefill)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("Done") { keyboardUp = false }
+                Button("Done") { focusedField = nil }
             }
         }
     }
@@ -114,34 +131,53 @@ struct GoalSetupView: View {
             }
 
             field("Age") {
-                inputBox { intField($ageText, "30", suffix: "yrs", id: "goalField.age") }
+                inputBox { intField($ageText, "30", suffix: "yrs", id: "goalField.age", field: .age) }
             }
 
             unitToggle
 
             field(useMetric ? "Height (cm)" : "Height") {
                 if useMetric {
-                    inputBox { decimalTextField($heightCmText, "175", id: "goalField.heightCm") }
+                    inputBox { decimalTextField($heightCmText, "175", id: "goalField.heightCm", field: .heightCm) }
                 } else {
                     HStack(spacing: Spacing.sm) {
-                        inputBox { decimalTextField($heightFtText, "5", suffix: "ft", id: "goalField.heightFt") }
-                        inputBox { decimalTextField($heightInText, "10", suffix: "in", id: "goalField.heightIn") }
+                        inputBox { decimalTextField($heightFtText, "5", suffix: "ft", id: "goalField.heightFt", field: .heightFt) }
+                        inputBox { decimalTextField($heightInText, "10", suffix: "in", id: "goalField.heightIn", field: .heightIn) }
                     }
                 }
             }
 
             field("Current weight") {
-                inputBox { decimalTextField($weightText, useMetric ? "70" : "160", suffix: useMetric ? "kg" : "lb", id: "goalField.weight") }
+                inputBox { decimalTextField($weightText, useMetric ? "70" : "160", suffix: useMetric ? "kg" : "lb", id: "goalField.weight", field: .weight) }
             }
 
             field("Activity") {
-                Picker(selection: $activity) {
-                    ForEach(ActivityLevel.allCases, id: \.self) { Text("\($0.label) — \($0.detail)").tag($0) }
-                } label: { EmptyView() }
-                .pickerStyle(.menu)
-                .tint(.volt)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, Spacing.xs)
+                // A `.menu` Picker renders the same Text for the collapsed row
+                // and the dropdown, so "Moderately active — Moderate exercise
+                // 3–5 days/week" wrapped in the row and got clipped by the
+                // field below. A Menu lets the row stay short while the choices
+                // keep their explanation.
+                Menu {
+                    Picker(selection: $activity) {
+                        ForEach(ActivityLevel.allCases, id: \.self) {
+                            Text("\($0.label) — \($0.detail)").tag($0)
+                        }
+                    } label: { EmptyView() }
+                } label: {
+                    HStack(spacing: Spacing.sm) {
+                        Text(activity.label)
+                            .font(.appBody)
+                            .foregroundStyle(.volt)
+                            .lineLimit(1)
+                        Spacer(minLength: 0)
+                        Image(systemName: "chevron.up.chevron.down")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(.volt)
+                    }
+                    .padding(.vertical, Spacing.xs)
+                    .contentShape(Rectangle())
+                }
+                .accessibilityLabel("Activity level, \(activity.label)")
             }
 
             field("Goal") {
@@ -153,7 +189,7 @@ struct GoalSetupView: View {
 
             if direction != .maintain {
                 field("Goal weight") {
-                    inputBox { decimalTextField($goalWeightText, useMetric ? "65" : "145", suffix: useMetric ? "kg" : "lb", id: "goalField.goalWeight") }
+                    inputBox { decimalTextField($goalWeightText, useMetric ? "65" : "145", suffix: useMetric ? "kg" : "lb", id: "goalField.goalWeight", field: .goalWeight) }
                 }
                 field("Timeframe") {
                     inputBox {
@@ -224,7 +260,7 @@ struct GoalSetupView: View {
 
     private var macroFields: some View {
         VStack(spacing: Spacing.sm) {
-            macroRow("Calories", $calText, .kcal, "kcal")
+            macroRow("Calories", $calText, .kcal, "kcal", .calories)
             if calText.isEmpty, let derived = derivedCalories {
                 Button {
                     calText = String(derived)
@@ -236,9 +272,9 @@ struct GoalSetupView: View {
                 .buttonStyle(.plain)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            macroRow("Protein", $proteinText, .protein, "g")
-            macroRow("Carbs", $carbText, .carbs, "g")
-            macroRow("Fat", $fatText, .fat, "g")
+            macroRow("Protein", $proteinText, .protein, "g", .protein)
+            macroRow("Carbs", $carbText, .carbs, "g", .carbs)
+            macroRow("Fat", $fatText, .fat, "g", .fat)
         }
     }
 
@@ -297,35 +333,37 @@ struct GoalSetupView: View {
             }
     }
 
-    private func intField(_ text: Binding<String>, _ placeholder: String, suffix: String? = nil, id: String? = nil) -> some View {
+    private func intField(_ text: Binding<String>, _ placeholder: String, suffix: String? = nil, id: String? = nil, field: Field) -> some View {
         HStack {
             TextField(placeholder, text: text)
                 .keyboardType(.numberPad)
                 .font(.numeral)
                 .foregroundStyle(.textPrimary)
-                .focused($keyboardUp)
+                .focused($focusedField, equals: field)
                 .accessibilityIdentifier(id ?? placeholder)
             if let suffix {
                 Text(suffix).font(.appCaption).foregroundStyle(.textTertiary)
             }
         }
+        .id(field)
     }
 
-    private func decimalTextField(_ text: Binding<String>, _ placeholder: String, suffix: String? = nil, id: String? = nil) -> some View {
+    private func decimalTextField(_ text: Binding<String>, _ placeholder: String, suffix: String? = nil, id: String? = nil, field: Field) -> some View {
         HStack {
             TextField(placeholder, text: text)
                 .keyboardType(.decimalPad)
                 .font(.numeral)
                 .foregroundStyle(.textPrimary)
-                .focused($keyboardUp)
+                .focused($focusedField, equals: field)
                 .accessibilityIdentifier(id ?? placeholder)
             if let suffix {
                 Text(suffix).font(.appCaption).foregroundStyle(.textTertiary)
             }
         }
+        .id(field)
     }
 
-    private func macroRow(_ label: String, _ text: Binding<String>, _ color: Color, _ suffix: String) -> some View {
+    private func macroRow(_ label: String, _ text: Binding<String>, _ color: Color, _ suffix: String, _ field: Field) -> some View {
         HStack(spacing: Spacing.sm) {
             HStack(spacing: Spacing.sm) {
                 Circle().fill(color).frame(width: 8, height: 8)
@@ -338,12 +376,13 @@ struct GoalSetupView: View {
                         .keyboardType(.decimalPad)
                         .font(.numeral)
                         .foregroundStyle(.textPrimary)
-                        .focused($keyboardUp)
+                        .focused($focusedField, equals: field)
                         .accessibilityIdentifier("goalField.\(label)")
                     Text(suffix).font(.appCaption).foregroundStyle(.textTertiary)
                 }
             }
         }
+        .id(field)
     }
 
     // MARK: Derived values
@@ -406,7 +445,7 @@ struct GoalSetupView: View {
         proteinText = String(Int(out.target.proteinGrams))
         carbText = String(Int(out.target.carbGrams))
         fatText = String(Int(out.target.fatGrams))
-        keyboardUp = false
+        focusedField = nil
         Haptics.tap()
     }
 

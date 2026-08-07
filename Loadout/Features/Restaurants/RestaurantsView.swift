@@ -39,10 +39,10 @@ struct RestaurantsView: View {
 
     private var list: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.sm + Spacing.xs) {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
                 masthead
                     .padding(.top, Spacing.sm)
-                    .padding(.bottom, Spacing.sm)
+                    .padding(.bottom, Spacing.xs)
 
                 ForEach(Array(restaurants.enumerated()), id: \.element.id) { index, restaurant in
                     NavigationLink(value: restaurant) {
@@ -83,7 +83,10 @@ private struct RestaurantCard: View {
     let restaurant: Restaurant
 
     var body: some View {
-        Card {
+        // Fourteen restaurants: the tile and padding are trimmed from the
+        // default so roughly nine fit a screen instead of six. Type sizes are
+        // untouched — this is density, not legibility.
+        Card(padding: Spacing.sm + Spacing.xs) {
             HStack(spacing: Spacing.md) {
                 identityTile
 
@@ -91,6 +94,8 @@ private struct RestaurantCard: View {
                     Text(restaurant.name)
                         .font(.appHeadline)
                         .foregroundStyle(.textPrimary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     Text("\(restaurant.categories.count) stations · \(itemCount) items")
                         .font(.appCaption)
                         .foregroundStyle(.textSecondary)
@@ -111,9 +116,9 @@ private struct RestaurantCard: View {
         Image(restaurant.style.icon)
             .resizable()
             .scaledToFit()
-            .frame(width: 28, height: 28)
+            .frame(width: 24, height: 24)
             .foregroundStyle(Color.void)
-            .frame(width: 54, height: 54)
+            .frame(width: 44, height: 44)
             .background {
                 RoundedRectangle(cornerRadius: Radius.chip + 4, style: .continuous)
                     .fill(restaurant.style.hue)

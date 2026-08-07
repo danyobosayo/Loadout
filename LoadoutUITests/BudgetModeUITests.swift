@@ -42,6 +42,10 @@ final class BudgetModeUITests: XCTestCase {
             f.tap()
             f.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 8))
             f.typeText(value)
+            // The macro fields sit low in the sheet; an open keyboard can cover
+            // the next one so its tap lands on the keyboard and typeText fails
+            // on a field that never took focus. Dismiss between fields.
+            if app.buttons["Done"].exists { app.buttons["Done"].tap() }
         }
         setField("goalField.Calories", "2200")
         setField("goalField.Protein", "180")

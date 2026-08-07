@@ -85,9 +85,19 @@ Abstract hues and line glyphs owned by us (PROJECT.md §9 forbids brand assets �
 | `.microLabel` | 11 pt, semibold, **uppercase**, tracking +1.4 | "PROTEIN", section labels |
 | `.numeralHero` | 44 pt, rounded, bold, monospaced digits | Tray total calories, ring center |
 | `.numeralLarge` | 24 pt, rounded, semibold, mono digits | Macro trio values |
-| `.numeral` | 17 pt, rounded, semibold, mono digits | Inline macros, steppers |
+| `.numeral` | 17 pt, rounded, semibold, mono digits | Steppers, station-row calories |
+| `.numeralCompact` | 14 pt, rounded, semibold, mono digits | The macro quartet on cards and dense rows |
 
 Rules: numerals never wrap, never truncate, never proportional-width. `microLabel` is the only uppercase style. Word text is never rounded; number text is never SF Pro.
+
+**"Never wrap" is enforced, not hoped for.** Every food number goes through
+`.numeralFitting()` (`lineLimit(1)` + `minimumScaleFactor`), so a number shrinks
+rather than breaking. This is not decorative: four macros across a card that also
+carries an icon tile and a chevron genuinely do not fit at 17 pt, and `817`
+breaking to `81 / 7` reads as a different meal.
+
+`.numeralCompact` sits below the 16 pt body floor on purpose. A dense numeric row
+is scanned, not read, and a smaller whole number beats a larger broken one.
 
 ---
 
@@ -184,7 +194,20 @@ Twenty custom line glyphs (`Assets.xcassets/station.*`) — 24 pt grid, 1.7 pt r
 
 **Empty states** — every list has a designed `EmptyStateView` with one actionable line.
 
-**Numbers formatting** — calories: integer. Grams: one decimal max, trailing `g` in tertiary. Quantities: `×1.5` form.
+**Numbers formatting** — calories: integer. Grams: one decimal in the **hero**
+tray readout, where a meal gets reviewed; **whole grams everywhere inline** —
+cards, station rows, the quartet. Four values across a narrow card is a scanning
+context, and `.7` is both noise and the extra glyph that pushes a row into
+wrapping. Trailing `g` in tertiary. Quantities: `×1.5` form.
+
+**Mastheads shrink, they don't wrap.** `displayXLStyle()` carries
+`lineLimit(2)` + `minimumScaleFactor(0.6)`; "Moe's Southwest Grill" at full size
+would otherwise take three lines and push the menu below the fold.
+
+**Names outrank metadata.** Where an item name shares a row with its serving
+size, the name holds `layoutPriority(1)` and the serving truncates — otherwise
+"Rosemary Parmesan Bread" and "1 Regular sub roll" meet in the middle and run to
+both edges.
 
 ---
 

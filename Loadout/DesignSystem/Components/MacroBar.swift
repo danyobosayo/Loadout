@@ -6,7 +6,10 @@ struct MacroBar: View {
     var style: MacroDisplay.Style = .hero
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: style == .hero ? Spacing.lg : Spacing.md) {
+        // Inline sits on cards that also carry an icon tile and a chevron, so
+        // the quartet has to survive a narrow box: tighter gutters, and each
+        // value shrinks (never wraps) via `numeralFitting`.
+        HStack(alignment: .firstTextBaseline, spacing: style == .hero ? Spacing.lg : Spacing.sm) {
             MacroDisplay(kind: .calories, value: macros.calories, style: style)
             MacroDisplay(kind: .protein, value: macros.proteinGrams, style: style)
             MacroDisplay(kind: .carbs, value: macros.carbGrams, style: style)
@@ -76,8 +79,10 @@ struct MacroStrip: View {
                     .foregroundStyle(.textPrimary)
                     .contentTransition(.numericText(value: macros.calories))
                     .animation(Motion.snap, value: macros.calories)
+                    .numeralFitting()
                 Text("kcal")
                     .microLabelStyle(.kcal)
+                    .fixedSize()
             }
             pair(macros.proteinGrams, "P", .protein)
             pair(macros.carbGrams, "C", .carbs)
@@ -91,13 +96,15 @@ struct MacroStrip: View {
 
     private func pair(_ value: Double, _ letter: String, _ color: Color) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 2) {
-            Text(value, format: .number.precision(.fractionLength(0...1)))
-                .font(.system(size: 13, design: .rounded).weight(.semibold).monospacedDigit())
+            Text(value, format: .number.precision(.fractionLength(0)))
+                .font(.numeralCompact)
                 .foregroundStyle(.textSecondary)
                 .contentTransition(.numericText(value: value))
                 .animation(Motion.snap, value: value)
+                .numeralFitting(0.6)
             Text(letter)
                 .microLabelStyle(color)
+                .fixedSize()
         }
     }
 }

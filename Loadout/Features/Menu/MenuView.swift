@@ -585,16 +585,21 @@ private struct MenuItemRow: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 5) {
-                HStack(alignment: .firstTextBaseline) {
+                HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
                     Text(item.name)
                         .font(.appHeadline)
                         .foregroundStyle(.textPrimary)
                         .lineLimit(2)
-                    Spacer(minLength: Spacing.xs)
+                        .layoutPriority(1)          // the name never gives way
+                    Spacer(minLength: 0)
+                    // Serving size yields first: "Rosemary Parmesan Bread" and
+                    // "1 Regular sub roll" would otherwise meet in the middle
+                    // and run to both edges.
                     Text(item.servingDescription)
                         .font(.appCaption)
                         .foregroundStyle(.textTertiary)
                         .lineLimit(1)
+                        .truncationMode(.tail)
                 }
                 MacroStrip(macros: item.macros)
                 if dietary != .allowed { dietaryNote }

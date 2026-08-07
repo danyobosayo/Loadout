@@ -69,6 +69,7 @@ struct MacroDisplay: View {
                     .foregroundStyle(.textPrimary)
                     .contentTransition(.numericText(value: value))
                     .animation(Motion.snap, value: value)
+                    .numeralFitting()
                 if kind.showsGramSuffix {
                     Text("g")
                         .font(.appCaption)
@@ -86,20 +87,26 @@ struct MacroDisplay: View {
         HStack(alignment: .firstTextBaseline, spacing: 3) {
             Text(kind.shortLabel)
                 .microLabelStyle(kind.color)
+                .fixedSize()
             Text(value, format: format)
-                .font(.numeral)
+                .font(.numeralCompact)
                 .foregroundStyle(.textPrimary)
                 .contentTransition(.numericText(value: value))
                 .animation(Motion.snap, value: value)
+                .numeralFitting(0.6)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(Int(value.rounded())) \(kind.voiceOverUnit)")
     }
 
     private var format: FloatingPointFormatStyle<Double> {
-        // Calories: integer. Grams: one decimal max — STYLE_GUIDE.md §7.
-        kind == .calories
-            ? .number.precision(.fractionLength(0))
-            : .number.precision(.fractionLength(0...1))
+        // Calories are always whole. Grams keep one decimal in the hero
+        // readout, where a meal gets reviewed, but go whole inline: four
+        // values across a card is a scanning context, and ".7" is both noise
+        // and the extra glyph that pushed the row into wrapping.
+        if kind == .calories || style == .inline {
+            return .number.precision(.fractionLength(0))
+        }
+        return .number.precision(.fractionLength(0...1))
     }
 }
