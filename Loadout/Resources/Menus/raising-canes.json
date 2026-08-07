@@ -1,0 +1,194 @@
+{
+  "id": "raising-canes",
+  "name": "Raising Cane's",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://raisingcanes.cdn.prismic.io/raisingcanes/aHquuUMqNJQqIHQh_35074AllergenNutritionInfo_ALL_ENGLISH_DIGITAL.pdf",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCING / PROVENANCE. raisingcanes.com is behind Cloudflare and returns 403 to every non-browser fetch; the /nutrition and /allergens pages also render a blank body in a real browser (no PDF request is ever made — the official allergen page is effectively broken as of this run). I recovered the real document by pulling the Gatsby page payload at https://www.raisingcanes.com/page-data/allergens/page-data.json, which names the PDF Cane's itself embeds. That PDF is hosted on Cane's own Prismic CMS CDN and is titled \"JULY 2025 | Nutritional & Allergen Information (WEB)\". It is a first-party Raising Cane's document, so sourceIsOfficial=true. No aggregator was used at any point.\n\nCOLUMN MAPPING VERIFIED. The PDF's header row extracts out of order, so I confirmed the real data-row order (Name | Serving Size | Calories | Total Fat | Sat Fat | Trans Fat | Cholesterol | Sodium | Carbs | Fiber | Sugar | Protein | Allergen) with an Atwater cross-check on every item. All pass: fries 20x9+50x4+5x4=400 exactly; mayo 10x9=90 exactly; sandwich 41x9+69x4+47x4=833 vs 830; sauce 18x9+6x4=186 vs 190. Macros are verbatim from the PDF, not recomputed or reverse-engineered.\n\n\"< 1 g\" HANDLING. The PDF prints \"< 1 g\" rather than a number for Honey Mustard protein; I recorded 0.5 g (midpoint). That is the only non-verbatim macro value in this menu.\n\nPRESET TOTALS DO NOT EQUAL THE SUM OF THE LINE ITEMS — READ BEFORE VERIFYING. Cane's publishes combos as their own lab-analyzed rows, derived from combo-specific portions, not as the sum of the a la carte rows. The combo rows are internally consistent (Box Combo 72x9+98x4+62x4=1288 vs published 1290; Sandwich Combo 56x9+108x4+51x4=1140 exactly), so both sets of numbers are individually correct — they simply describe different portions. Summing my components will overshoot published calories by roughly 2-8%: Box 1360 vs 1290, 3 Finger 1130 vs 1050, Caniac 1810 vs 1840 (under), Sandwich 1230 vs 1140. Protein tracks much closer (Box 62 vs 62 exact, 3 Finger 48 vs 48 exact, Caniac 88 vs 90, Sandwich 52 vs 51). A recurring -11 g carb / -4.5 g fat offset across three combos suggests a smaller combo fries or toast portion that Cane's does not publish separately. I did not fudge any component to force the sums to reconcile.\n\nCOMBO TOTALS ARE DRINK-FREE. Each published combo figure equals the menu page's LOW end of its calorie range (Box 1290 of \"1290-1720\"), i.e. it assumes a zero-calorie drink. So these totals are directly usable as food-only numbers despite the combos nominally including a fountain drink.\n\nUNRESOLVED CONFLICT ON THE SANDWICH. The nutrition PDF lists Chicken Sandwich at 830 Cal; raisingcanes.com/menu lists \"Sandwich 780 Cal per sandwich\". I used 830 because it is the only figure that comes with a full macro row, and mixing a calorie count from one source with macros from another would be worse. Flagging it as the one item worth re-checking when Cane's next updates the PDF.\n\nSTATION LAYOUT. Cane's has no true build-your-own line, so I mapped it to how you actually order: pick your chicken (fingers by the each, or the sandwich), add sides, add dips. Reused vocabulary ids throughout — mains, sides, dips (3-scoop cap fits Cane's extra-sauce ordering exactly), sauces. No new category ids invented."
+  },
+  "categories": [
+    {
+      "id": "entrees",
+      "name": "Entrées",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "raising-canes.entrees.chicken-finger",
+          "name": "Chicken Finger",
+          "servingDescription": "1 finger — 1.9 oz (55 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 5.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.entrees.chicken-sandwich",
+          "name": "Chicken Sandwich",
+          "servingDescription": "1 sandwich — 10.4 oz (296 g)",
+          "macros": {
+            "calories": 830.0,
+            "proteinGrams": 47.0,
+            "carbGrams": 69.0,
+            "fatGrams": 41.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "raising-canes.sides.crinkle-cut-fries",
+          "name": "Crinkle-Cut Fries",
+          "servingDescription": "1 regular serving — 5.1 oz (144 g)",
+          "macros": {
+            "calories": 400.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 50.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.sides.texas-toast",
+          "name": "Texas Toast",
+          "servingDescription": "1 slice — 1.7 oz (48 g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 23.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.sides.coleslaw",
+          "name": "Coleslaw",
+          "servingDescription": "1 serving — 3.1 oz (87 g)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 10.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "dips",
+      "name": "Dipping Sauces",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 3
+      },
+      "items": [
+        {
+          "id": "raising-canes.dips.canes-sauce",
+          "name": "Cane's Sauce",
+          "servingDescription": "1 dipping cup — 1.5 oz (43 g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 6.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.dips.honey-mustard",
+          "name": "Honey Mustard",
+          "servingDescription": "1 dipping cup — 1.7 oz (48 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 0.5,
+            "carbGrams": 16.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.dips.ketchup",
+          "name": "Ketchup",
+          "servingDescription": "1 Dip N Squeeze cup — 27 g",
+          "macros": {
+            "calories": 35.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 8.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "hummus"
+    },
+    {
+      "id": "sauces",
+      "name": "Condiment Packets",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "raising-canes.sauces.louisiana-hot-sauce",
+          "name": "Louisiana Hot Sauce",
+          "servingDescription": "1 packet — 7 g",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "raising-canes.sauces.kraft-mayonnaise",
+          "name": "Kraft Mayonnaise",
+          "servingDescription": "1 packet — 12.4 g",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "salsa"
+    }
+  ]
+}

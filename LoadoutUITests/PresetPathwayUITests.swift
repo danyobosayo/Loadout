@@ -33,9 +33,7 @@ final class PresetPathwayUITests: XCTestCase {
     @MainActor
     private func openSweetgreen(_ app: XCUIApplication) {
         app.buttons["Build"].tap()
-        let sweetgreen = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Sweetgreen,")).firstMatch
-        XCTAssertTrue(sweetgreen.waitForExistence(timeout: 15), "Restaurant list should offer Sweetgreen")
-        sweetgreen.tap()
+        app.tapRestaurant("Sweetgreen,")
     }
 
     @MainActor
@@ -79,15 +77,36 @@ final class PresetPathwayUITests: XCTestCase {
         attach(app, "03-preset-editable")
     }
 
+    /// The same pathway at one of the newer restaurants, whose menu, formats and
+    /// presets were all sourced in one pass — this is the end-to-end proof that
+    /// a freshly added restaurant is fully wired, not just schema-valid.
+    @MainActor
+    func testPresetsWorkAtANewlyAddedRestaurant() throws {
+        let app = launchedApp()
+        app.buttons["Build"].tap()
+        app.tapRestaurant("Jersey Mike's Subs,")
+
+        XCTAssertTrue(app.staticTexts["On the menu"].waitForExistence(timeout: 10),
+                      "Jersey Mike's should offer its published subs")
+        let sub = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "#7 Turkey and Provolone,")).firstMatch
+        XCTAssertTrue(sub.waitForExistence(timeout: 5), "The #7 should be listed")
+        attach(app, "04-jersey-mikes-presets")
+        sub.tap()
+
+        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8),
+                      "A preset should open the tray directly")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Turkey")).firstMatch.exists,
+                      "The tray should hold the sub's line items")
+        attach(app, "05-jersey-mikes-in-tray")
+    }
+
     /// A restaurant that publishes no named meals shows no section — the file
     /// is absent for Panda by design.
     @MainActor
     func testRestaurantWithoutPresetsShowsNoSection() throws {
         let app = launchedApp()
         app.buttons["Build"].tap()
-        let panda = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Panda Express,")).firstMatch
-        XCTAssertTrue(panda.waitForExistence(timeout: 15))
-        panda.tap()
+        app.tapRestaurant("Panda Express,")
 
         XCTAssertTrue(app.staticTexts["Build to order"].waitForExistence(timeout: 10),
                       "Panda should still offer its formats")

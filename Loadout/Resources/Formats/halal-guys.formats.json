@@ -1,0 +1,58 @@
+{
+  "restaurantId": "halal-guys",
+  "formats": [
+    {
+      "id": "platter",
+      "name": "Platter",
+      "blurb": "Over rice, with white sauce and hot sauce.",
+      "autoAdd": [
+        {
+          "menuItemId": "halal-guys.rice.rice",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "many",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "breads",
+        "veggies",
+        "toppings",
+        "sauces",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "sandwich",
+      "name": "Sandwich",
+      "blurb": "The same fillings, wrapped in pita.",
+      "autoAdd": [
+        {
+          "menuItemId": "halal-guys.breads.pita",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "many",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "veggies",
+        "toppings",
+        "sauces",
+        "sides",
+        "extras"
+      ]
+    }
+  ]
+}

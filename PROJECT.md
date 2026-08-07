@@ -17,7 +17,9 @@ A free, ad-free, privacy-respecting iOS app that lets you build a custom meal at
 ## 2. Goals & Non-Goals
 
 ### Goals (v1)
-- Build custom meals at six restaurants: **Chipotle, CAVA, Panda Express, Sweetgreen, Subway, Starbucks**.
+- Build custom meals at **fourteen restaurants**: Chipotle, CAVA, Panda Express, Sweetgreen,
+  Subway, Chick-fil-A, Starbucks, Panera Bread, Qdoba, Moe's Southwest Grill, Jersey Mike's,
+  The Halal Guys, MOD Pizza, Raising Cane's.
 - Live macro totals (calories, protein, carbs, fat) as items are added/removed.
 - Save meals to **Favorites**.
 - Local **Order History** (last N meals, automatic).
@@ -153,6 +155,10 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
 - **Official sources only.** Each restaurant's own nutrition page or PDF. No MyFitnessPal community entries.
 - **Date every file.** `fetchedAt` is required. Stale data is the #1 risk.
 - **Document assumptions.** If the source lists "Chicken Bowl" combos but not raw line items, reverse-engineer per item and write down the math in `notes`.
+- **Food only.** Drinks are excluded at the JSON-build step even when the source publishes
+  them — they are not what someone opens a macro builder to log. **Starbucks is the one
+  exception**: there the drinks *are* the menu, so they ship as their own stations.
+- **No limited-time or seasonal items.** They go stale fastest and a cached menu can't tell.
 - **Refresh cadence:** quarterly check, or whenever a user reports a discrepancy.
 - **Versioning:** bump `schemaVersion` on breaking changes; bump a per-item `revision` field on macro changes so we can show a "menu updated" indicator if useful.
 
@@ -382,7 +388,7 @@ Loadout/
 - Apple Watch companion (quick log a favorite).
 - Widget on home screen (today's logged meals or quick-log a favorite).
 - Live Activity during meal building.
-- More restaurants (Chick-fil-A, Cane's, Qdoba, Mod Pizza, Halal Guys, etc.).
+- More restaurants still (Wingstop, Shake Shack, Torchy's, Dig, Sweetfin, etc.).
 - Sharing built meals as deep links.
 - Localization (English-only v1).
 - iPad-optimized layout.

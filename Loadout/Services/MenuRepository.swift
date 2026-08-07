@@ -22,7 +22,14 @@ nonisolated struct BundledMenuRepository: MenuRepository {
     private let bundle: Bundle
     private let restaurantIds: [String]
 
-    init(bundle: Bundle = .main, restaurantIds: [String] = ["chipotle", "cava", "panda-express", "sweetgreen", "subway"]) {
+    init(
+        bundle: Bundle = .main,
+        restaurantIds: [String] = [
+            "chipotle", "cava", "panda-express", "sweetgreen", "subway",
+            "chick-fil-a", "starbucks", "panera", "qdoba", "moes",
+            "jersey-mikes", "halal-guys", "mod-pizza", "raising-canes",
+        ]
+    ) {
         self.bundle = bundle
         self.restaurantIds = restaurantIds
     }

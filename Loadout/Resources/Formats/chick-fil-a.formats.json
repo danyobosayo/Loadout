@@ -1,0 +1,101 @@
+{
+  "restaurantId": "chick-fil-a",
+  "formats": [
+    {
+      "id": "sandwich",
+      "name": "Sandwich",
+      "blurb": "A sandwich or wrap, then sides and a sauce.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "entrees",
+          "promptCopy": "Choose your sandwich",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "chick-fil-a.entrees.chick-fil-a-chicken-sandwich",
+            "chick-fil-a.entrees.spicy-chicken-sandwich",
+            "chick-fil-a.entrees.chick-fil-a-deluxe-sandwich",
+            "chick-fil-a.entrees.spicy-deluxe-sandwich",
+            "chick-fil-a.entrees.grilled-chicken-sandwich",
+            "chick-fil-a.entrees.grilled-chicken-club-sandwich",
+            "chick-fil-a.entrees.chick-fil-a-cool-wrap"
+          ]
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dips",
+        "dressings"
+      ]
+    },
+    {
+      "id": "nuggets",
+      "name": "Nuggets & Strips",
+      "blurb": "Pick your count, then sauces to dip.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "entrees",
+          "promptCopy": "Choose your nuggets",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "chick-fil-a.entrees.chick-fil-a-nuggets-8-ct",
+            "chick-fil-a.entrees.chick-fil-a-nuggets-12-ct",
+            "chick-fil-a.entrees.grilled-nuggets-8-ct",
+            "chick-fil-a.entrees.grilled-nuggets-12-ct",
+            "chick-fil-a.entrees.chick-n-strips-3-ct",
+            "chick-fil-a.entrees.chick-n-strips-4-ct"
+          ]
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dips"
+      ]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "A salad base plus the dressing packet.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "mains",
+          "promptCopy": "Choose your salad",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "dressings",
+          "promptCopy": "Choose a dressing",
+          "choose": "upTo:2",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dips"
+      ]
+    },
+    {
+      "id": "breakfast",
+      "name": "Breakfast",
+      "blurb": "Biscuits, burritos and the Egg White Grill.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "breakfast",
+          "promptCopy": "Choose your breakfast",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dips"
+      ]
+    }
+  ]
+}

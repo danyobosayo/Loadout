@@ -1,0 +1,153 @@
+{
+  "restaurantId": "moes",
+  "formats": [
+    {
+      "id": "burrito",
+      "name": "Burrito",
+      "blurb": "Everything rolled in a warm flour tortilla.",
+      "autoAdd": [
+        {
+          "menuItemId": "moes.tortilla.flour-tortilla-12",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "cheeses",
+        "salsa",
+        "veggies",
+        "toppings",
+        "sauces",
+        "dressings",
+        "dips",
+        "chips",
+        "extras"
+      ]
+    },
+    {
+      "id": "bowl",
+      "name": "Bowl",
+      "blurb": "The same build, served in a bowl.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "cheeses",
+        "salsa",
+        "veggies",
+        "toppings",
+        "sauces",
+        "dressings",
+        "dips",
+        "chips",
+        "extras"
+      ]
+    },
+    {
+      "id": "tacos",
+      "name": "Tacos",
+      "blurb": "Three tacos in your choice of shell.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "tortilla",
+          "promptCopy": "Choose your shell",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "moes.tortilla.crispy-corn-shell-6",
+            "moes.tortilla.flour-tortilla-6"
+          ],
+          "quantityPerPick": 3
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "rice",
+        "beans",
+        "cheeses",
+        "salsa",
+        "veggies",
+        "toppings",
+        "sauces",
+        "dips"
+      ]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "A romaine base with your protein.",
+      "autoAdd": [
+        {
+          "menuItemId": "moes.veggies.romaine-lettuce",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "dressings",
+          "promptCopy": "Choose a dressing",
+          "choose": "upTo:2",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "beans",
+        "cheeses",
+        "salsa",
+        "veggies",
+        "toppings",
+        "sauces",
+        "dips"
+      ]
+    }
+  ]
+}

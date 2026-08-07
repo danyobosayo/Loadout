@@ -97,7 +97,7 @@ final class PaywallUITests: XCTestCase {
         app.buttons["Save target"].tap()
 
         app.buttons["Build"].tap()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let fit = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Fit my macros")).firstMatch
         XCTAssertTrue(fit.waitForExistence(timeout: 15), "Fit my macros should be available without a purchase")
         attach(app, "02-unlocked-fit-my-macros")

@@ -1,0 +1,65 @@
+{
+  "restaurantId": "jersey-mikes",
+  "formats": [
+    {
+      "id": "sub",
+      "name": "Sub",
+      "blurb": "Bread, meat and cheese — then Mike's Way it.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "breads",
+          "promptCopy": "Choose your bread",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your meat",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "one",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "veggies",
+        "sauces",
+        "extras",
+        "chips",
+        "sides"
+      ]
+    },
+    {
+      "id": "sub-in-a-tub",
+      "name": "Sub in a Tub",
+      "blurb": "No bread — the whole sub in a bowl.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your meat",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "one",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "veggies",
+        "sauces",
+        "extras",
+        "chips",
+        "sides"
+      ]
+    }
+  ]
+}

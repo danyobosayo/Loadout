@@ -1,0 +1,2357 @@
+{
+  "id": "starbucks",
+  "name": "Starbucks",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://www.starbucks.com/menu",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCING. Every number comes from Starbucks' own US menu system at starbucks.com/menu. The public menu pages are a JS SPA, so I read the same JSON the site itself renders from: the category tree at https://www.starbucks.com/apiproxy/v1/ordering/menu and per-item detail at https://www.starbucks.com/apiproxy/v1/ordering/{productNumber}/{formCode} (same payload behind each item's \"Full nutrition & ingredients\" page, e.g. https://www.starbucks.com/menu/product/407/hot/nutrition). I confirmed by rendering that nutrition page in a browser and matching the on-page values (Orange Cream Cold Brew Grande: 240 cal / 2g protein / 28g carb / 14g fat) to the API payload field-for-field.\n\nMETHOD. Pulled all 284 in-store products (306 total minus At Home Coffee whole bean / VIA), giving 801 size-level nutrition rows with zero missing macros. Calories come from nutrition.calories; protein/carbs/fat from nutrition.additionalFacts ids protein / totalCarbs / totalFat. Serving weights come from nutrition.servingSize. The final menu was generated programmatically from that extract — no hand-typed numbers — then verified two ways: (1) 14 hand-picked items re-checked directly against the raw per-product JSON files, all 14 exact; (2) a global check that every one of the 161 emitted (cal, protein, carb, fat) tuples matches a real source row exactly. 161 unique slugs, no collisions, no negative values.\n\nNOTHING WAS REVERSE-ENGINEERED. Starbucks publishes per-item line values, so all macros are as-published for exactly the serving named. No combo was decomposed and no value was derived or estimated.\n\nPORTION BASIS. Beverages are Grande (16 fl oz), Starbucks' standard size, on the standard recipe (default milk and default syrup pumps for that drink). Exceptions where Grande does not exist and the source's own default size is used instead: Cortado is Short (8 fl oz), Espresso and Iced Espresso are Doppio (1.5 fl oz). Food is one item at the weight Starbucks states; \"1 item (42 g)\" for Rolled & Steel-Cut Oatmeal is the dry oat portion as the source lists it, not the prepared weight. Bottled items are the whole container. Starbucks' own disclaimer applies: values are for the standard recipe and customization changes them.\n\nCATEGORY IDS. Food stations reuse the existing vocabulary (mains, breads, sides, extras) with display names that fit Starbucks. The five drink stations (hot-coffee, cold-coffee, tea, refreshers, frappuccino) are new ids because nothing in the vocabulary honestly describes a beverage station, and the free-add-on portion default is the correct behavior for a drink — a split-base id like proteins or bases would let a latte be halved against another drink, which is wrong. Drink stations are selectOne since a Starbucks order anchors on one beverage.\n\nCAVEAT WORTH KNOWING. Starbucks' edge (Akamai) rate-limits aggressively; it IP-blocked me mid-pull and I had to back off ~10 minutes and refetch at ~1 request per 4s. Anyone re-running this should throttle. Menu snapshot taken 2026-08-07 against the US en-US menu with no store number set, so it reflects the national default menu; individual stores may not carry every item."
+  },
+  "categories": [
+    {
+      "id": "hot-coffee",
+      "name": "Hot Coffee & Espresso",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "starbucks.hot-coffee.pike-place-roast-medium",
+          "name": "Pike Place Roast (Medium)",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.sunsera-blonde-roast",
+          "name": "Sunsera Blonde Roast",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caffe-verona-dark-roast",
+          "name": "Caffè Verona Dark Roast",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.decaf-pike-place-roast",
+          "name": "Decaf Pike Place Roast",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caffe-misto",
+          "name": "Caffè Misto",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 10.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caffe-americano",
+          "name": "Caffè Americano",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caffe-latte",
+          "name": "Caffè Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 19.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.cappuccino",
+          "name": "Cappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 14.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.flat-white",
+          "name": "Flat White",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 18.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caffe-mocha",
+          "name": "Caffè Mocha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 43.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.white-chocolate-mocha",
+          "name": "White Chocolate Mocha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 47.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caramel-macchiato",
+          "name": "Caramel Macchiato",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 35.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.cinnamon-dolce-latte",
+          "name": "Cinnamon Dolce Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 43.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.blonde-vanilla-latte",
+          "name": "Blonde Vanilla Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 37.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.caramel-protein-latte",
+          "name": "Caramel Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 320.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 38.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.vanilla-protein-latte",
+          "name": "Vanilla Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 310.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 36.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.sugar-free-vanilla-protein-latte",
+          "name": "Sugar-Free Vanilla Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 17.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.sugar-free-caramel-protein-latte",
+          "name": "Sugar-Free Caramel Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 17.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.hot-chocolate",
+          "name": "Hot Chocolate",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 43.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.steamed-milk",
+          "name": "Steamed Milk",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 19.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.cortado",
+          "name": "Cortado",
+          "servingDescription": "Short (8 fl oz)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 8.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.hot-coffee.espresso-doppio",
+          "name": "Espresso (Doppio)",
+          "servingDescription": "Doppio (1.5 fl oz)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": null
+    },
+    {
+      "id": "cold-coffee",
+      "name": "Cold Coffee & Espresso",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "starbucks.cold-coffee.cold-brew",
+          "name": "Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.nitro-cold-brew",
+          "name": "Nitro Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.vanilla-sweet-cream-cold-brew",
+          "name": "Vanilla Sweet Cream Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 14.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.vanilla-sweet-cream-nitro-cold-brew",
+          "name": "Vanilla Sweet Cream Nitro Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 4.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.salted-caramel-cream-cold-brew",
+          "name": "Salted Caramel Cream Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 26.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.chocolate-cream-cold-brew",
+          "name": "Chocolate Cream Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 26.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.nondairy-vanilla-sweet-cream-cold-brew",
+          "name": "Nondairy Vanilla Sweet Cream Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 14.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-coffee",
+          "name": "Iced Coffee",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-caffe-americano",
+          "name": "Iced Caffè Americano",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-caffe-latte",
+          "name": "Iced Caffè Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 13.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-flat-white",
+          "name": "Iced Flat White",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 13.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-caffe-mocha",
+          "name": "Iced Caffè Mocha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 350.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 38.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-white-chocolate-mocha",
+          "name": "Iced White Chocolate Mocha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 44.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-caramel-macchiato",
+          "name": "Iced Caramel Macchiato",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 37.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-shaken-espresso",
+          "name": "Iced Shaken Espresso",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 17.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-brown-sugar-oatmilk-shaken-espresso",
+          "name": "Iced Brown Sugar Oatmilk Shaken Espresso",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 27.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-blonde-vanilla-latte",
+          "name": "Iced Blonde Vanilla Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 30.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-cinnamon-dolce-latte",
+          "name": "Iced Cinnamon Dolce Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 38.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-caramel-protein-latte",
+          "name": "Iced Caramel Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 280.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 33.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-vanilla-protein-latte",
+          "name": "Iced Vanilla Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 270.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 31.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-sugar-free-vanilla-protein-latte",
+          "name": "Iced Sugar-Free Vanilla Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 12.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-sugar-free-caramel-protein-latte",
+          "name": "Iced Sugar-Free Caramel Protein Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 12.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.vanilla-protein-cream-cold-brew",
+          "name": "Vanilla Protein Cream Cold Brew",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 23.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.cold-milk",
+          "name": "Cold Milk",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 260.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 25.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.cold-coffee.iced-espresso-doppio",
+          "name": "Iced Espresso (Doppio)",
+          "servingDescription": "Doppio (1.5 fl oz)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": null
+    },
+    {
+      "id": "tea",
+      "name": "Tea, Chai & Matcha",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "starbucks.tea.royal-english-breakfast-tea",
+          "name": "Royal English Breakfast Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.earl-grey-tea",
+          "name": "Earl Grey Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.mint-majesty-tea",
+          "name": "Mint Majesty Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.emperor-s-clouds-and-mist-tea",
+          "name": "Emperor's Clouds & Mist Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.chamomile-mint-blossom-tea",
+          "name": "Chamomile Mint Blossom Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.honey-citrus-mint-tea",
+          "name": "Honey Citrus Mint Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 33.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.london-fog-latte",
+          "name": "London Fog Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 29.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.chai-latte",
+          "name": "Chai Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 31.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-chai-latte",
+          "name": "Iced Chai Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 32.0,
+            "fatGrams": 3.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.matcha-latte",
+          "name": "Matcha Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 31.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-matcha-latte",
+          "name": "Iced Matcha Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 27.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.protein-matcha",
+          "name": "Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 32.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-protein-matcha",
+          "name": "Iced Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 260.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 25.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.caramel-protein-matcha",
+          "name": "Caramel Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 310.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 34.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-caramel-protein-matcha",
+          "name": "Iced Caramel Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 270.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 26.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.sugar-free-vanilla-protein-matcha",
+          "name": "Sugar-Free Vanilla Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 18.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-sugar-free-vanilla-protein-matcha",
+          "name": "Iced Sugar-Free Vanilla Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 12.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.sugar-free-caramel-protein-matcha",
+          "name": "Sugar-Free Caramel Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 18.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-sugar-free-caramel-protein-matcha",
+          "name": "Iced Sugar-Free Caramel Protein Matcha",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 12.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-black-tea",
+          "name": "Iced Black Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-green-tea",
+          "name": "Iced Green Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-passion-tango-tea",
+          "name": "Iced Passion Tango Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-black-tea-lemonade",
+          "name": "Iced Black Tea Lemonade",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 12.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-green-tea-lemonade",
+          "name": "Iced Green Tea Lemonade",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 12.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-passion-tango-tea-lemonade",
+          "name": "Iced Passion Tango Tea Lemonade",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 13.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-peach-green-tea",
+          "name": "Iced Peach Green Tea",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 15.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.tea.iced-london-fog-latte",
+          "name": "Iced London Fog Latte",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 25.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": null
+    },
+    {
+      "id": "refreshers",
+      "name": "Refreshers & Lemonade",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "starbucks.refreshers.strawberry-acai-refresher",
+          "name": "Strawberry Açaí Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 23.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.mango-dragonfruit-refresher",
+          "name": "Mango Dragonfruit Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 22.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.passionfruit-guava-refresher",
+          "name": "Passionfruit Guava Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 24.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.blue-coconut-refresher",
+          "name": "Blue Coconut Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 28.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.mango-strawberry-refresher",
+          "name": "Mango Strawberry Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 31.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.tropical-butterfly-refresher",
+          "name": "Tropical Butterfly Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 22.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.strawberry-acai-lemonade-refresher",
+          "name": "Strawberry Açaí Lemonade Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 35.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.mango-dragonfruit-lemonade-refresher",
+          "name": "Mango Dragonfruit Lemonade Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 34.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.blue-coconut-lemonade-refresher",
+          "name": "Blue Coconut Lemonade Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 40.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.mango-strawberry-lemonade-refresher",
+          "name": "Mango Strawberry Lemonade Refresher",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 42.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.pink-drink",
+          "name": "Pink Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 28.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.dragon-drink",
+          "name": "Dragon Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 27.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.butterfly-drink",
+          "name": "Butterfly Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 26.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.ocean-drink",
+          "name": "Ocean Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 33.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.mango-dream",
+          "name": "Mango Dream",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 35.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.cannon-ball-drink",
+          "name": "Cannon Ball Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 38.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.pink-cannon-ball-drink",
+          "name": "Pink Cannon Ball Drink",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 31.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.refreshers.lemonade",
+          "name": "Lemonade",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 28.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": null
+    },
+    {
+      "id": "frappuccino",
+      "name": "Frappuccino Blended Beverages",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "starbucks.frappuccino.coffee-frappuccino",
+          "name": "Coffee Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 46.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.caramel-frappuccino",
+          "name": "Caramel Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 380.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 55.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.mocha-frappuccino",
+          "name": "Mocha Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 54.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.caramel-ribbon-crunch-frappuccino",
+          "name": "Caramel Ribbon Crunch Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 65.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.mocha-cookie-crumble-frappuccino",
+          "name": "Mocha Cookie Crumble Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 480.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 62.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.vanilla-bean-creme-frappuccino",
+          "name": "Vanilla Bean Crème Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 380.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 53.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.strawberry-creme-frappuccino",
+          "name": "Strawberry Crème Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 51.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.frappuccino.matcha-creme-frappuccino",
+          "name": "Matcha Crème Frappuccino",
+          "servingDescription": "Grande (16 fl oz)",
+          "macros": {
+            "calories": 320.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 46.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": null
+    },
+    {
+      "id": "food",
+      "name": "Food",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "starbucks.food.bacon-gouda-and-egg-sandwich",
+          "name": "Bacon, Gouda & Egg Sandwich",
+          "servingDescription": "1 item (120 g)",
+          "macros": {
+            "calories": 360.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 35.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.double-smoked-bacon-cheddar-and-egg-sandwich",
+          "name": "Double-Smoked Bacon, Cheddar & Egg Sandwich",
+          "servingDescription": "1 item (148 g)",
+          "macros": {
+            "calories": 500.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 43.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.sausage-cheddar-and-egg-sandwich",
+          "name": "Sausage, Cheddar & Egg Sandwich",
+          "servingDescription": "1 item (157 g)",
+          "macros": {
+            "calories": 480.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 34.0,
+            "fatGrams": 29.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.turkey-bacon-cheddar-and-egg-white-sandwich",
+          "name": "Turkey Bacon, Cheddar & Egg White Sandwich",
+          "servingDescription": "1 item (142 g)",
+          "macros": {
+            "calories": 260.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 30.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.egg-pesto-and-mozzarella-sandwich",
+          "name": "Egg, Pesto & Mozzarella Sandwich",
+          "servingDescription": "1 item (146 g)",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 36.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.impossible-breakfast-sandwich",
+          "name": "Impossible Breakfast Sandwich",
+          "servingDescription": "1 item (150 g)",
+          "macros": {
+            "calories": 420.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 36.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.bacon-sausage-and-egg-wrap",
+          "name": "Bacon, Sausage & Egg Wrap",
+          "servingDescription": "1 item (214 g)",
+          "macros": {
+            "calories": 640.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 57.0,
+            "fatGrams": 33.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.spinach-feta-and-egg-white-wrap",
+          "name": "Spinach, Feta & Egg White Wrap",
+          "servingDescription": "1 item (159 g)",
+          "macros": {
+            "calories": 290.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 34.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.bacon-and-gruyere-egg-bites",
+          "name": "Bacon & Gruyère Egg Bites",
+          "servingDescription": "1 item (130 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 9.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.egg-white-and-roasted-red-pepper-egg-bites",
+          "name": "Egg White & Roasted Red Pepper Egg Bites",
+          "servingDescription": "1 item (130 g)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 11.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.truffle-mushroom-and-brie-egg-bites",
+          "name": "Truffle, Mushroom & Brie Egg Bites",
+          "servingDescription": "1 item (130 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 12.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.potato-cheddar-and-chive-bakes",
+          "name": "Potato, Cheddar & Chive Bakes",
+          "servingDescription": "1 item (130 g)",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 14.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.rolled-and-steel-cut-oatmeal",
+          "name": "Rolled & Steel-Cut Oatmeal",
+          "servingDescription": "1 item (42 g)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 28.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.crispy-grilled-cheese-on-sourdough",
+          "name": "Crispy Grilled Cheese on Sourdough",
+          "servingDescription": "1 item (143 g)",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 47.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.ham-and-swiss-on-baguette",
+          "name": "Ham & Swiss on Baguette",
+          "servingDescription": "1 item (176 g)",
+          "macros": {
+            "calories": 510.0,
+            "proteinGrams": 25.0,
+            "carbGrams": 43.0,
+            "fatGrams": 25.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.tomato-and-mozzarella-on-focaccia",
+          "name": "Tomato & Mozzarella on Focaccia",
+          "servingDescription": "1 item (153 g)",
+          "macros": {
+            "calories": 360.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 47.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.jalapeno-chicken-pocket",
+          "name": "Jalapeño Chicken Pocket",
+          "servingDescription": "1 item (84 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 23.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.spicy-falafel-pocket",
+          "name": "Spicy Falafel Pocket",
+          "servingDescription": "1 item (94 g)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 34.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.cheese-and-fruit-protein-box",
+          "name": "Cheese & Fruit Protein Box",
+          "servingDescription": "1 item (225 g)",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 22.0,
+            "carbGrams": 36.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.eggs-and-cheddar-protein-box",
+          "name": "Eggs & Cheddar Protein Box",
+          "servingDescription": "1 item (247 g)",
+          "macros": {
+            "calories": 460.0,
+            "proteinGrams": 22.0,
+            "carbGrams": 40.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.cheese-trio-protein-box",
+          "name": "Cheese Trio Protein Box",
+          "servingDescription": "1 item (135 g)",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 59.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.ellenos-muesli-yogurt",
+          "name": "Ellenos Muesli Yogurt",
+          "servingDescription": "1 item (198 g)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 38.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.ellenos-muesli-yogurt-no-added-sugar",
+          "name": "Ellenos Muesli Yogurt (No Added Sugar)",
+          "servingDescription": "1 item (198 g)",
+          "macros": {
+            "calories": 280.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 28.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.food.mush-chocolate-peanut-butter-protein-overnight-oats",
+          "name": "MUSH Chocolate Peanut Butter Protein Overnight Oats",
+          "servingDescription": "1 item (156 g)",
+          "macros": {
+            "calories": 290.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 40.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "breads",
+      "name": "Bakery",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "starbucks.breads.butter-croissant",
+          "name": "Butter Croissant",
+          "servingDescription": "1 item (62 g)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 26.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.chocolate-croissant",
+          "name": "Chocolate Croissant",
+          "servingDescription": "1 item (80 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 34.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.ham-and-swiss-croissant",
+          "name": "Ham & Swiss Croissant",
+          "servingDescription": "1 item (102 g)",
+          "macros": {
+            "calories": 330.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 31.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.cheese-danish",
+          "name": "Cheese Danish",
+          "servingDescription": "1 item (80 g)",
+          "macros": {
+            "calories": 290.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 33.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.cinnamon-pull-apart",
+          "name": "Cinnamon Pull-Apart",
+          "servingDescription": "1 item (82 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 38.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.plain-bagel",
+          "name": "Plain Bagel",
+          "servingDescription": "1 item (100 g)",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 51.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.everything-bagel",
+          "name": "Everything Bagel",
+          "servingDescription": "1 item (102 g)",
+          "macros": {
+            "calories": 270.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 52.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.blueberry-streusel-muffin",
+          "name": "Blueberry Streusel Muffin",
+          "servingDescription": "1 item (105 g)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 47.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.banana-walnut-and-pecan-loaf",
+          "name": "Banana, Walnut & Pecan Loaf",
+          "servingDescription": "1 item (113 g)",
+          "macros": {
+            "calories": 380.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 46.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.iced-lemon-loaf",
+          "name": "Iced Lemon Loaf",
+          "servingDescription": "1 item (115 g)",
+          "macros": {
+            "calories": 410.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 59.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.cinnamon-coffee-cake",
+          "name": "Cinnamon Coffee Cake",
+          "servingDescription": "1 item (100 g)",
+          "macros": {
+            "calories": 380.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 57.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.breads.petite-vanilla-bean-scone",
+          "name": "Petite Vanilla Bean Scone",
+          "servingDescription": "1 item (33 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 20.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "wheatFlat"
+    },
+    {
+      "id": "sides",
+      "name": "Treats",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "starbucks.sides.chocolate-chip-cookie",
+          "name": "Chocolate Chip Cookie",
+          "servingDescription": "1 item (80 g)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 47.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.double-chocolate-brownie",
+          "name": "Double Chocolate Brownie",
+          "servingDescription": "1 item (104 g)",
+          "macros": {
+            "calories": 480.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 55.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.berry-blondie",
+          "name": "Berry Blondie",
+          "servingDescription": "1 item (78 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 44.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.birthday-cake-pop",
+          "name": "Birthday Cake Pop",
+          "servingDescription": "1 item (38 g)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 21.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.chocolate-cake-pop",
+          "name": "Chocolate Cake Pop",
+          "servingDescription": "1 item (38 g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 21.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.madeleines",
+          "name": "Madeleines",
+          "servingDescription": "1 item (51 g)",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 26.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.marshmallow-dream-bar",
+          "name": "Marshmallow Dream Bar",
+          "servingDescription": "1 item (60 g)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 44.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.sides.vanilla-biscotti-with-almonds",
+          "name": "Vanilla Biscotti with Almonds",
+          "servingDescription": "1 item (42 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 25.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "extras",
+      "name": "Snacks & Grab-and-Go",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "starbucks.extras.perfect-bar-peanut-butter",
+          "name": "Perfect Bar Peanut Butter",
+          "servingDescription": "1 item (71 g)",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 27.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.perfect-bar-dark-chocolate-chip-peanut-butter",
+          "name": "Perfect Bar Dark Chocolate Chip Peanut Butter",
+          "servingDescription": "1 item (65 g)",
+          "macros": {
+            "calories": 330.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 24.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.kind-salted-caramel-and-dark-chocolate-nut-bar",
+          "name": "KIND Salted Caramel & Dark Chocolate Nut Bar",
+          "servingDescription": "1 item (40 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 16.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.kind-almond-coconut-cashew-chai",
+          "name": "KIND Almond Coconut Cashew Chai",
+          "servingDescription": "1 item (40 g)",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 18.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.all-in-madagascar-vanilla-honey-and-almonds-bar",
+          "name": "All In Madagascar Vanilla, Honey & Almonds Bar",
+          "servingDescription": "1 item (40 g)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 21.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.that-s-it-apple-blueberry-bar",
+          "name": "That's It Apple + Blueberry Bar",
+          "servingDescription": "1 item (35 g)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 26.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.khloud-white-cheddar-protein-popcorn",
+          "name": "Khloud White Cheddar Protein Popcorn",
+          "servingDescription": "1 item (30 g)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 11.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.khloud-sweet-and-salty-kettle-corn-protein-popcorn",
+          "name": "Khloud Sweet & Salty Kettle Corn Protein Popcorn",
+          "servingDescription": "1 item (30 g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 12.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.country-archer-hickory-smoke-turkey-jerky",
+          "name": "Country Archer Hickory Smoke Turkey Jerky",
+          "servingDescription": "1 item (28 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 5.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.siete-sea-salt-kettle-cooked-potato-chips",
+          "name": "Siete Sea Salt Kettle Cooked Potato Chips",
+          "servingDescription": "1 item (42.5 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 27.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.organic-valley-mozzarella-string-cheese",
+          "name": "Organic Valley Mozzarella String Cheese",
+          "servingDescription": "1 item (28 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.skinnydipped-dark-chocolate-cocoa-almonds",
+          "name": "SkinnyDipped Dark Chocolate Cocoa Almonds",
+          "servingDescription": "1 item (28 g)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 15.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.avocado-spread",
+          "name": "Avocado Spread",
+          "servingDescription": "1 item (57 g)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 5.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.koia-cacao-bean-nutrition-shake",
+          "name": "Koia Cacao Bean Nutrition Shake",
+          "servingDescription": "1 item (11 fl oz)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 12.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.koia-vanilla-bean-nutrition-shake",
+          "name": "Koia Vanilla Bean Nutrition Shake",
+          "servingDescription": "1 item (11 fl oz)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 12.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.horizon-organic-lowfat-milk",
+          "name": "Horizon Organic Lowfat Milk",
+          "servingDescription": "1 item (8 fl oz)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 13.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "starbucks.extras.horizon-organic-lowfat-chocolate-milk",
+          "name": "Horizon Organic Lowfat Chocolate Milk",
+          "servingDescription": "1 item (8 fl oz)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 23.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chipsBaked"
+    }
+  ]
+}

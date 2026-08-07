@@ -1,0 +1,53 @@
+{
+  "restaurantId": "chick-fil-a",
+  "presets": [
+    {
+      "id": "chick-fil-a.presets.cobb-salad",
+      "name": "Cobb Salad",
+      "blurb": "Chick-fil-A's signature Cobb Salad as published — mixed greens with chicken, bacon, cheese and a hard-boiled egg, served with Avocado Lime Ranch.",
+      "items": [
+        {
+          "menuItemId": "chick-fil-a.mains.cobb-salad-base",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.chick-fil-a.com/nutrition-allergens (fetched 2026-08-07). Verified against the published 830 kcal (ours 830), 41g protein (ours 41)."
+    },
+    {
+      "id": "chick-fil-a.presets.market-salad",
+      "name": "Market Salad",
+      "blurb": "Grilled filet over mixed greens with apples, berries, blue cheese, granola and almonds, served with Zesty Apple Cider Vinaigrette.",
+      "items": [
+        {
+          "menuItemId": "chick-fil-a.mains.market-salad-base",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.chick-fil-a.com/nutrition-allergens (fetched 2026-08-07). Verified against the published 550 kcal (ours 550), 28g protein (ours 28)."
+    },
+    {
+      "id": "chick-fil-a.presets.side-salad-with-dressing",
+      "name": "Side Salad",
+      "blurb": "The counter Side Salad as Chick-fil-A publishes it — greens, cheese and grape tomatoes with an Avocado Lime Ranch packet.",
+      "items": [
+        {
+          "menuItemId": "chick-fil-a.sides.side-salad",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.chick-fil-a.com/nutrition-allergens (fetched 2026-08-07). Verified against the published 470 kcal (ours 470), 6g protein (ours 6)."
+    }
+  ]
+}

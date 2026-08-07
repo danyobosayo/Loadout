@@ -1,0 +1,113 @@
+{
+  "restaurantId": "moes",
+  "presets": [
+    {
+      "id": "moes.presets.homewrecker",
+      "name": "Homewrecker Burrito",
+      "blurb": "Moe's OG burrito: fresh guacamole, rice, beans, shredded cheese, romaine, pico de gallo and sour cream in a 12\" flour tortilla. Moe's publishes 810 cal as the base WITHOUT protein — add your protein on top.",
+      "items": [
+        {
+          "menuItemId": "moes.tortilla.flour-tortilla-12",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.toppings.guacamole",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.rice.seasoned-rice-burrito",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.beans.black-beans",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.cheeses.oaxaca-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.veggies.romaine-lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.salsa.pico-de-gallo",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.toppings.sour-cream",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://assets.ctfassets.net/zqt8tllj2cy0/229Bgcvw5c0RwcUkhyghXG/d3722a14b4b1dd925316a8936200f5bd/MOES_1906368_Nutrition_Chart_2026_R4.pdf (fetched 2026-08-07). Verified against the published 810 kcal (ours 805)."
+    },
+    {
+      "id": "moes.presets.homewrecker-bowl",
+      "name": "Homewrecker Bowl",
+      "blurb": "The OG burrito in a bowl: guacamole, rice, beans, shredded cheese, romaine, pico de gallo and sour cream. Moe's publishes 650 cal as the base WITHOUT protein — add your protein on top.",
+      "items": [
+        {
+          "menuItemId": "moes.rice.seasoned-rice",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.beans.black-beans",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.toppings.guacamole",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.cheeses.oaxaca-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.veggies.romaine-lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.salsa.pico-de-gallo",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.toppings.sour-cream",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://assets.ctfassets.net/zqt8tllj2cy0/229Bgcvw5c0RwcUkhyghXG/d3722a14b4b1dd925316a8936200f5bd/MOES_1906368_Nutrition_Chart_2026_R4.pdf (fetched 2026-08-07). Verified against the published 650 kcal (ours 645), 23g protein (ours 21)."
+    },
+    {
+      "id": "moes.presets.moe-protein-bowl",
+      "name": "Moe Protein Bowl",
+      "blurb": "Rice, beans, Moe's Famous Queso, pico de gallo, Oaxaca cheese and a double portion of protein. Moe's advertises 'up to 61g of protein' — reached with White Meat Chicken Double, which is what this build uses.",
+      "items": [
+        {
+          "menuItemId": "moes.rice.seasoned-rice",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.beans.black-beans",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.toppings.queso-add-on",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.salsa.pico-de-gallo",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.cheeses.oaxaca-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "moes.protein.white-meat-chicken-double",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://assets.ctfassets.net/zqt8tllj2cy0/229Bgcvw5c0RwcUkhyghXG/d3722a14b4b1dd925316a8936200f5bd/MOES_1906368_Nutrition_Chart_2026_R4.pdf (fetched 2026-08-07). Verified against the published 870 kcal (ours 850), 61g protein (ours 60)."
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "id": "chick-fil-a",
+  "name": "Chick-fil-A",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://www.chick-fil-a.com/nutrition-allergens",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCING: All numbers come from chick-fil-a.com — the /nutrition-allergens guide plus individual /menu/... item pages, which are server-rendered (not JS-gated) and expose full macro panels. Note the lead URL chick-fil-a.com/nutrition is a 404; the live path is /nutrition-allergens.\n\nCROSS-VALIDATION: I pulled 7 items from BOTH the aggregate nutrition guide and their individual item pages (Spicy Chicken Sandwich, Deluxe Sandwich, Chicken Biscuit, Hash Brown Scramble Bowl, Egg White Grill, Hash Browns, Fruit Cup). All 7 agreed exactly on all four macros, which is why I was willing to take Spicy Deluxe Sandwich and Grilled Chicken Club from the guide page alone — those two are the only items here not confirmed on their own item page.\n\nREVERSE-ENGINEERED ITEMS (3): Chick-fil-A's salad pages state literally \"Nutrition values are per Salad (includes toppings and dressing)\" and show an \"Includes\" line itemizing the dressing's calories. So the published salad totals are COMPOSED numbers, not line items. I subtracted the dressing packet to get dressing-free bases:\n  - Side Salad: 470/6/14/42 minus Avocado Lime Ranch (310/1/3/32) = 160/5/11/10\n  - Cobb Salad: 830/41/31/60 minus Avocado Lime Ranch (310/1/3/32) = 520/40/28/28\n  - Market Salad: 550/28/42/31 minus Zesty Apple Cider Vinaigrette (230/0/16/19) = 320/28/26/12\nTwo of these three (Side Salad 160/5/11/10 and Cobb 520/40/28/28) land exactly on Chick-fil-A's own separately-published dressing-free values, which is what gave me confidence the subtraction is the right model rather than a coincidence. The three salads are therefore also shipped as presets, where component sums reproduce the published totals exactly.\n\nCOOL WRAP CAVEAT — read before trusting: the Cool Wrap's published 660/43/32/45 is listed under a plain \"Amount per serving\" header with NO \"Includes\" dressing breakdown, unlike the salads. Subtracting Avocado Lime Ranch from it would yield 350/42/29/13, which happens to match the known dressing-free wrap — but because the page does not declare dressing is inside the total, I did NOT decompose it and shipped the published 660 as-is. Consequence: if a user adds a dressing to a Cool Wrap in the builder, they may double-count. Treat Cool Wrap as \"as served\" and consider suppressing the dressings station for it.\n\nPORTION BASIS: Dipping sauces are 1 oz containers; salad dressings are 2 oz packets (both per the source). Waffle Fries are the medium serving (the only size the item page publishes). Nuggets/Strips are per stated piece count. Chick-fil-A does not publish gram weights on these pages, so serving descriptions use the count/size language the source itself uses.\n\nCATEGORY IDS: Reused existing vocabulary throughout — entrees, mains (salad bases), sides, dips (1 oz dipping sauces, so the 3-scoop cap applies naturally), dressings (2 oz packets, 2-cap). I invented ONE new id, \"breakfast\", because it is a genuinely separate daypart station and nothing in the vocabulary honestly covers biscuits/burritos/parfaits."
+  },
+  "categories": [
+    {
+      "id": "entrees",
+      "name": "Entrées",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.entrees.chick-fil-a-chicken-sandwich",
+          "name": "Chick-fil-A Chicken Sandwich",
+          "servingDescription": "1 sandwich",
+          "macros": {
+            "calories": 420.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 41.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.spicy-chicken-sandwich",
+          "name": "Spicy Chicken Sandwich",
+          "servingDescription": "1 sandwich",
+          "macros": {
+            "calories": 450.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 45.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-fil-a-deluxe-sandwich",
+          "name": "Chick-fil-A Deluxe Sandwich",
+          "servingDescription": "1 sandwich",
+          "macros": {
+            "calories": 490.0,
+            "proteinGrams": 32.0,
+            "carbGrams": 43.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.spicy-deluxe-sandwich",
+          "name": "Spicy Deluxe Sandwich",
+          "servingDescription": "1 sandwich",
+          "macros": {
+            "calories": 540.0,
+            "proteinGrams": 34.0,
+            "carbGrams": 47.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.grilled-chicken-sandwich",
+          "name": "Grilled Chicken Sandwich",
+          "servingDescription": "1 sandwich on multigrain bun",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 45.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.grilled-chicken-club-sandwich",
+          "name": "Chick-fil-A Grilled Chicken Club",
+          "servingDescription": "1 sandwich",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 37.0,
+            "carbGrams": 45.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-fil-a-cool-wrap",
+          "name": "Chick-fil-A Cool Wrap",
+          "servingDescription": "1 wrap, as served (see notes on dressing)",
+          "macros": {
+            "calories": 660.0,
+            "proteinGrams": 43.0,
+            "carbGrams": 32.0,
+            "fatGrams": 45.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-fil-a-nuggets-8-ct",
+          "name": "Chick-fil-A Nuggets (8 ct)",
+          "servingDescription": "8 nuggets",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 11.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-fil-a-nuggets-12-ct",
+          "name": "Chick-fil-A Nuggets (12 ct)",
+          "servingDescription": "12 nuggets",
+          "macros": {
+            "calories": 380.0,
+            "proteinGrams": 40.0,
+            "carbGrams": 16.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.grilled-nuggets-8-ct",
+          "name": "Grilled Nuggets (8 ct)",
+          "servingDescription": "8 grilled nuggets",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 25.0,
+            "carbGrams": 1.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.grilled-nuggets-12-ct",
+          "name": "Grilled Nuggets (12 ct)",
+          "servingDescription": "12 grilled nuggets",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 38.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-n-strips-3-ct",
+          "name": "Chick-fil-A Chick-n-Strips (3 ct)",
+          "servingDescription": "3 strips",
+          "macros": {
+            "calories": 310.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 16.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.chick-n-strips-4-ct",
+          "name": "Chick-fil-A Chick-n-Strips (4 ct)",
+          "servingDescription": "4 strips",
+          "macros": {
+            "calories": 410.0,
+            "proteinGrams": 39.0,
+            "carbGrams": 22.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.entrees.grilled-filet",
+          "name": "Grilled Filet",
+          "servingDescription": "1 grilled chicken breast filet",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    },
+    {
+      "id": "mains",
+      "name": "Salads",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.mains.cobb-salad-base",
+          "name": "Cobb Salad (no dressing)",
+          "servingDescription": "1 salad, dressing not included",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 40.0,
+            "carbGrams": 28.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.mains.market-salad-base",
+          "name": "Market Salad (no dressing)",
+          "servingDescription": "1 salad, dressing not included",
+          "macros": {
+            "calories": 320.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 26.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    },
+    {
+      "id": "breakfast",
+      "name": "Breakfast",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.breakfast.egg-white-grill",
+          "name": "Egg White Grill",
+          "servingDescription": "1 sandwich on English muffin",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 29.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.chick-fil-a-chicken-biscuit",
+          "name": "Chick-fil-A Chicken Biscuit",
+          "servingDescription": "1 biscuit sandwich",
+          "macros": {
+            "calories": 460.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 45.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.spicy-chicken-biscuit",
+          "name": "Spicy Chicken Biscuit",
+          "servingDescription": "1 biscuit sandwich",
+          "macros": {
+            "calories": 450.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 44.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.chicken-egg-cheese-biscuit",
+          "name": "Chicken, Egg & Cheese Biscuit",
+          "servingDescription": "1 biscuit sandwich",
+          "macros": {
+            "calories": 550.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 48.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.bacon-egg-cheese-biscuit",
+          "name": "Bacon, Egg & Cheese Biscuit",
+          "servingDescription": "1 biscuit sandwich",
+          "macros": {
+            "calories": 420.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 38.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.sausage-egg-cheese-biscuit",
+          "name": "Sausage, Egg & Cheese Biscuit",
+          "servingDescription": "1 biscuit sandwich",
+          "macros": {
+            "calories": 620.0,
+            "proteinGrams": 22.0,
+            "carbGrams": 38.0,
+            "fatGrams": 42.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.chick-n-minis-4-ct",
+          "name": "Chick-fil-A Chick-n-Minis (4 ct)",
+          "servingDescription": "4 mini sandwiches",
+          "macros": {
+            "calories": 360.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 41.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.hash-brown-scramble-bowl",
+          "name": "Hash Brown Scramble Bowl",
+          "servingDescription": "1 bowl, default nugget build",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 19.0,
+            "fatGrams": 30.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.hash-brown-scramble-burrito",
+          "name": "Hash Brown Scramble Burrito",
+          "servingDescription": "1 burrito, default nugget build",
+          "macros": {
+            "calories": 700.0,
+            "proteinGrams": 34.0,
+            "carbGrams": 51.0,
+            "fatGrams": 40.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.breakfast.berry-parfait",
+          "name": "Berry Parfait",
+          "servingDescription": "1 parfait",
+          "macros": {
+            "calories": 270.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 35.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "wheatFlat"
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.sides.waffle-potato-fries-medium",
+          "name": "Chick-fil-A Waffle Potato Fries",
+          "servingDescription": "1 medium serving",
+          "macros": {
+            "calories": 420.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 45.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.mac-and-cheese",
+          "name": "Mac & Cheese",
+          "servingDescription": "1 side serving",
+          "macros": {
+            "calories": 450.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 28.0,
+            "fatGrams": 29.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.kale-crunch-side",
+          "name": "Kale Crunch Side",
+          "servingDescription": "1 side serving",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 13.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.side-salad",
+          "name": "Side Salad (no dressing)",
+          "servingDescription": "1 side salad, dressing not included",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 11.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.chicken-noodle-soup",
+          "name": "Chicken Noodle Soup",
+          "servingDescription": "1 cup",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 27.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.waffle-potato-chips",
+          "name": "Original Flavor Waffle Potato Chips",
+          "servingDescription": "1 bag",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 25.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.hash-browns",
+          "name": "Hash Browns",
+          "servingDescription": "1 small serving",
+          "macros": {
+            "calories": 270.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 23.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.sides.fruit-cup-medium",
+          "name": "Fruit Cup",
+          "servingDescription": "1 medium cup",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 16.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "dips",
+      "name": "Dipping Sauces",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.dips.chick-fil-a-sauce",
+          "name": "Chick-fil-A Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 6.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.barbeque-sauce",
+          "name": "Barbeque Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 11.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.polynesian-sauce",
+          "name": "Polynesian Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 14.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.honey-mustard-sauce",
+          "name": "Honey Mustard Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 11.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.garden-herb-ranch-sauce",
+          "name": "Garden Herb Ranch Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.zesty-buffalo-sauce",
+          "name": "Zesty Buffalo Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.sweet-spicy-sriracha-sauce",
+          "name": "Sweet & Spicy Sriracha Sauce",
+          "servingDescription": "1 oz container",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 11.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dips.honey-roasted-bbq-sauce",
+          "name": "Honey Roasted BBQ Sauce",
+          "servingDescription": "1 packet",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "hummus"
+    },
+    {
+      "id": "dressings",
+      "name": "Salad Dressings",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+          "name": "Avocado Lime Ranch Dressing",
+          "servingDescription": "1 packet (2 oz)",
+          "macros": {
+            "calories": 310.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 32.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+          "name": "Zesty Apple Cider Vinaigrette",
+          "servingDescription": "1 packet (2 oz)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 16.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "chick-fil-a.dressings.light-italian-dressing",
+          "name": "Light Italian Dressing",
+          "servingDescription": "1 packet (2 oz)",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "oil"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "restaurantId": "qdoba",
+  "formats": [
+    {
+      "id": "burrito",
+      "name": "Burrito",
+      "blurb": "Everything rolled in a warm flour tortilla.",
+      "autoAdd": [
+        {
+          "menuItemId": "qdoba.tortilla.flour-tortilla-12-5",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "veggies",
+        "salsa",
+        "cheeses",
+        "dips",
+        "toppings",
+        "dressings",
+        "chips",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "bowl",
+      "name": "Bowl",
+      "blurb": "The same build, no tortilla.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "veggies",
+        "salsa",
+        "cheeses",
+        "dips",
+        "toppings",
+        "dressings",
+        "chips",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "tacos",
+      "name": "Tacos",
+      "blurb": "Three tacos in your choice of shell.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "tortilla",
+          "promptCopy": "Choose your shell",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "qdoba.tortilla.crispy-taco-shell",
+            "qdoba.tortilla.crunchy-tortilla-shell",
+            "qdoba.tortilla.flour-tortilla-5-5"
+          ],
+          "quantityPerPick": 3
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "rice",
+        "beans",
+        "veggies",
+        "salsa",
+        "cheeses",
+        "dips",
+        "toppings",
+        "dressings"
+      ]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "A romaine base with your protein.",
+      "autoAdd": [
+        {
+          "menuItemId": "qdoba.veggies.romaine-lettuce-salad-base",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "dressings",
+          "promptCopy": "Choose a dressing",
+          "choose": "upTo:2",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "beans",
+        "salsa",
+        "cheeses",
+        "dips",
+        "toppings",
+        "veggies"
+      ]
+    },
+    {
+      "id": "signature",
+      "name": "Signature Entrées",
+      "blurb": "Qdoba's own named bowls and burritos.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "entrees",
+          "promptCopy": "Choose your entrée",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "chips",
+        "sides",
+        "extras"
+      ]
+    }
+  ]
+}

@@ -31,6 +31,21 @@ nonisolated extension Restaurant {
         "cava":          RestaurantStyle(hue: Color(red: 0.62, green: 0.48, blue: 1.00), icon: "restaurant.cava"),       // iris
         "panda-express": RestaurantStyle(hue: Color(red: 0.29, green: 0.87, blue: 0.61), icon: "restaurant.panda"),      // jade
         "sweetgreen":    RestaurantStyle(hue: Color(red: 1.00, green: 0.72, blue: 0.29), icon: "restaurant.sweetgreen"), // citrine
-        "subway":        RestaurantStyle(hue: Color(red: 0.29, green: 0.66, blue: 1.00), icon: "restaurant.subway")      // ocean
+        "subway":        RestaurantStyle(hue: Color(red: 0.29, green: 0.66, blue: 1.00), icon: "restaurant.subway"),     // ocean
+
+        // The second wave has no bespoke glyph yet, so each borrows the station
+        // glyph that best describes what you build there. Hues stay deliberately
+        // off-brand (PROJECT.md §12) — Chick-fil-A gets aqua, not red; Starbucks
+        // clay, not green — and are spread apart so the identity tiles stay
+        // distinguishable side by side in Recipes and History.
+        "chick-fil-a":   RestaurantStyle(hue: Color(red: 0.25, green: 0.82, blue: 0.85), icon: "station.protein"),  // aqua
+        "starbucks":     RestaurantStyle(hue: Color(red: 0.88, green: 0.56, blue: 0.38), icon: "station.drop"),     // clay
+        "panera":        RestaurantStyle(hue: Color(red: 0.85, green: 0.45, blue: 0.80), icon: "station.cookie"),   // orchid
+        "qdoba":         RestaurantStyle(hue: Color(red: 0.68, green: 0.90, blue: 0.35), icon: "station.wrap"),     // lime
+        "moes":          RestaurantStyle(hue: Color(red: 1.00, green: 0.55, blue: 0.55), icon: "station.beans"),    // coral
+        "jersey-mikes":  RestaurantStyle(hue: Color(red: 0.55, green: 0.65, blue: 0.85), icon: "station.bread"),    // steel
+        "halal-guys":    RestaurantStyle(hue: Color(red: 1.00, green: 0.45, blue: 0.68), icon: "station.rice"),     // rose
+        "mod-pizza":     RestaurantStyle(hue: Color(red: 0.95, green: 0.86, blue: 0.48), icon: "station.slice"),    // butter
+        "raising-canes": RestaurantStyle(hue: Color(red: 0.80, green: 0.70, blue: 0.55), icon: "station.takeout")   // sand
     ]
 }

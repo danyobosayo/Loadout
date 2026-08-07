@@ -1,0 +1,142 @@
+{
+  "restaurantId": "mod-pizza",
+  "formats": [
+    {
+      "id": "pizza",
+      "name": "Build a Pizza",
+      "blurb": "MOD-size crust, sauce, cheese — then pile it on.",
+      "autoAdd": [
+        {
+          "menuItemId": "mod-pizza.crusts.mod-crust",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "sauces",
+          "promptCopy": "Choose your sauce",
+          "choose": "many",
+          "required": false
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "many",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "meats",
+        "veggies",
+        "dressings",
+        "dips",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "mini",
+      "name": "Mini Pizza",
+      "blurb": "The smaller crust, same build.",
+      "autoAdd": [
+        {
+          "menuItemId": "mod-pizza.crusts.mini-crust",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "sauces",
+          "promptCopy": "Choose your sauce",
+          "choose": "many",
+          "required": false
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "many",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "meats",
+        "veggies",
+        "dressings",
+        "dips",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "mega",
+      "name": "Mega Dough Pizza",
+      "blurb": "Twice the dough, same build.",
+      "autoAdd": [
+        {
+          "menuItemId": "mod-pizza.crusts.mega-thick-crust",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "sauces",
+          "promptCopy": "Choose your sauce",
+          "choose": "many",
+          "required": false
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "many",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "meats",
+        "veggies",
+        "dressings",
+        "dips",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "alt-crust",
+      "name": "Gluten-Friendly or Cauliflower",
+      "blurb": "Pick the alternative crust first.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "crusts",
+          "promptCopy": "Choose your crust",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "mod-pizza.crusts.gluten-friendly-crust",
+            "mod-pizza.crusts.cauliflower-crust"
+          ]
+        },
+        {
+          "categoryId": "sauces",
+          "promptCopy": "Choose your sauce",
+          "choose": "many",
+          "required": false
+        },
+        {
+          "categoryId": "cheeses",
+          "promptCopy": "Choose your cheese",
+          "choose": "many",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "meats",
+        "veggies",
+        "dressings",
+        "dips",
+        "sides",
+        "extras"
+      ]
+    }
+  ]
+}

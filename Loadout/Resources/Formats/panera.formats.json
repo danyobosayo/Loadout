@@ -1,0 +1,87 @@
+{
+  "restaurantId": "panera",
+  "formats": [
+    {
+      "id": "sandwich-salad",
+      "name": "Sandwich or Salad",
+      "blurb": "One of Panera's sandwiches, melts or salads.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "mains",
+          "promptCopy": "Choose your sandwich or salad",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dressings",
+        "sauces",
+        "breads"
+      ]
+    },
+    {
+      "id": "soup-mac",
+      "name": "Soup & Mac",
+      "blurb": "Cup, bowl or bread bowl.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "entrees",
+          "promptCopy": "Choose your soup or mac",
+          "choose": "many",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "breads"
+      ]
+    },
+    {
+      "id": "you-pick-two",
+      "name": "You Pick Two",
+      "blurb": "Half a sandwich or salad, plus a soup or mac.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "mains",
+          "promptCopy": "Choose your first half",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "entrees",
+          "promptCopy": "Choose your second half",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "dressings",
+        "sauces",
+        "breads"
+      ]
+    },
+    {
+      "id": "bakery",
+      "name": "Bakery",
+      "blurb": "Breads, bagels and pastries.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "breads",
+          "promptCopy": "Choose your bakery item",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "sides",
+        "sauces"
+      ]
+    }
+  ]
+}

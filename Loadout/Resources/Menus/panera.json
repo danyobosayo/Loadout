@@ -1,0 +1,1712 @@
+{
+  "id": "panera",
+  "name": "Panera Bread",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://www.panerabread.com/content/dam/panerabread/documents/c6-26-nutrition-guide.pdf",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCE: Panera's own \"Panera Bread® Nutrition Guide\", Effective 6/17/2026, Edition 1 (c6-26-nutrition-guide.pdf), linked from panerabread.com/en-us/menu/nutritious-eating/allergen-and-nutrition-information.html. NOTE the lead URL in the task (nutrition-and-allergens.html) is a 404 — the live nav points to the allergen-and-nutrition-information.html path above, which is where I got the current PDF link.\n\nACCESS: panerabread.com is behind Akamai bot protection; plain fetches returned 403. The PDF was retrieved with a full browser header set including a same-origin Referer. Everything below comes from that official PDF — no aggregator was used.\n\nEXTRACTION + VERIFICATION: The PDF has 36 pages of tables with columns Serving Size / Calories / Calories-from-Fat / Fat / Sat Fat / Trans / Cholesterol / Sodium / Carbs / Fiber / Sugars / Protein. I parsed all 576 data rows and ran a checksum on every one: calories-from-fat vs fat x 9. All 576 rows passed, which confirms no column drift or misalignment in the numbers I used. I then cross-checked calories against Panera's live menu pages (soups, salads, sandwiches, market bowls, sides): every soup, market bowl, side, and 15 of 18 sandwiches matched the PDF exactly.\n\nFOUR KNOWN DISCREPANCIES (PDF vs live site, all 10 kcal, site lower). I used the PDF because it is the only source publishing full macros; the site publishes calories only: Bacon Turkey Bravo whole PDF 860 / site 850; Turkey & Cheddar whole PDF 840 / site 830; Fuji Apple Chicken Salad whole PDF 710 / site 700; Fuji Apple Chicken Salad Stuffer PDF 700 / site 690. Likely a recipe tweak landing on the site ahead of the PDF. Treat those four as +/-10 kcal.\n\nONE PDF GAP RESOLVED BY COLUMN POSITION: the Kettle Cooked Potato Chips row has a blank Fiber cell, so it carries only 10 of 11 values. I measured character offsets against known-complete rows to confirm the blank is Fiber and that carbs=17, sugars=<1, protein=2. Fiber is simply not published for that item; the four macros I report are the stated ones.\n\nPORTIONS: All macros are per one of the stated serving description, exactly as the guide states it (1 Sandwich, 1 Salad, 1 Bowl, 1 Cup, 1 1/2 Cups, 1 dressing cup, 2 oz slice, etc.). Nothing was reverse-engineered or divided — every number is printed in the guide.\n\nCATEGORY DESIGN: \"mains\" holds only whole sandwiches, whole salads, and Market Bowls — every one of which Panera separately publishes a matching half portion, so the split-base rule maps cleanly onto Panera's You Pick Two. Panera's published halves are rounded independently and can differ from exactly half the whole by up to ~10 kcal (e.g. Fuji Apple whole 710, published half 350). \"entrees\" holds items with no published half: Soups & Mac in all three published sizes, Salad Stuffers, and the two Asiago Bagel Stacks — these are deliberately kept out of \"mains\" so the split rule never invents a half portion Panera does not publish. Bread bowls and Salad Stuffers are modeled as whole items rather than presets because their published totals do NOT equal soup + bread bowl or half-salad + roll (Panera uses less soup and hollows the loaf; e.g. Broccoli Cheddar bowl 420 + Sourdough Soup Bowl 650 = 1070 but the published bread bowl is 930)."
+  },
+  "categories": [
+    {
+      "id": "mains",
+      "name": "Sandwiches, Salads & Market Bowls",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "panera.mains.chicken-bacon-rancher",
+          "name": "Chicken Bacon Rancher on Black Pepper Focaccia",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 1010.0,
+            "proteinGrams": 52.0,
+            "carbGrams": 87.0,
+            "fatGrams": 51.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.mediterranean-veggie",
+          "name": "Mediterranean Veggie on Tomato Basil",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 83.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.toasted-italiano",
+          "name": "Toasted Italiano on Baguette",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 1330.0,
+            "proteinGrams": 58.0,
+            "carbGrams": 130.0,
+            "fatGrams": 64.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.bacon-turkey-bravo",
+          "name": "Bacon Turkey Bravo on Tomato Basil",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 860.0,
+            "proteinGrams": 47.0,
+            "carbGrams": 80.0,
+            "fatGrams": 39.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.chipotle-chicken-avo-melt",
+          "name": "Chipotle Chicken Avo Melt on Black Pepper Focaccia Round",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 1000.0,
+            "proteinGrams": 43.0,
+            "carbGrams": 90.0,
+            "fatGrams": 52.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.ciabatta-cheesesteak",
+          "name": "Ciabatta Cheesesteak",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 1160.0,
+            "proteinGrams": 52.0,
+            "carbGrams": 117.0,
+            "fatGrams": 54.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.cranberry-walnut-chicken-salad-sandwich",
+          "name": "Cranberry Walnut Chicken Salad on Country Rustic",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 690.0,
+            "proteinGrams": 32.0,
+            "carbGrams": 68.0,
+            "fatGrams": 33.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.grilled-cheese",
+          "name": "Grilled Cheese on Classic White Loaf",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 810.0,
+            "proteinGrams": 32.0,
+            "carbGrams": 74.0,
+            "fatGrams": 42.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.grilled-chicken-avo-blt",
+          "name": "Grilled Chicken & Avo BLT on Country Rustic Sourdough",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 940.0,
+            "proteinGrams": 48.0,
+            "carbGrams": 66.0,
+            "fatGrams": 55.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.smokehouse-bbq-chicken",
+          "name": "Smokehouse BBQ Chicken on Artisan Ciabatta",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 820.0,
+            "proteinGrams": 45.0,
+            "carbGrams": 113.0,
+            "fatGrams": 21.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.spicy-fiesta-chicken",
+          "name": "Spicy Fiesta Chicken on Ciabatta",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 940.0,
+            "proteinGrams": 51.0,
+            "carbGrams": 112.0,
+            "fatGrams": 32.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.toasted-frontega-chicken",
+          "name": "Toasted Frontega Chicken on Black Pepper Focaccia",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 860.0,
+            "proteinGrams": 40.0,
+            "carbGrams": 87.0,
+            "fatGrams": 39.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.tomato-basil-blt",
+          "name": "Tomato Basil BLT on Tomato Basil Miche",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 780.0,
+            "proteinGrams": 23.0,
+            "carbGrams": 71.0,
+            "fatGrams": 45.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.tuna-salad-sandwich",
+          "name": "Tuna Salad on Country Rustic Sourdough",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 590.0,
+            "proteinGrams": 24.0,
+            "carbGrams": 60.0,
+            "fatGrams": 29.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.turkey-cheddar-sandwich",
+          "name": "Turkey & Cheddar on Country Rustic Sourdough",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 840.0,
+            "proteinGrams": 40.0,
+            "carbGrams": 63.0,
+            "fatGrams": 47.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.toasted-caprese-focaccia",
+          "name": "Toasted Caprese Focaccia",
+          "servingDescription": "1 Sandwich (whole)",
+          "macros": {
+            "calories": 740.0,
+            "proteinGrams": 30.0,
+            "carbGrams": 97.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.asian-sesame-chicken-salad",
+          "name": "Asian Sesame Chicken Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 530.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 35.0,
+            "fatGrams": 31.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.caesar-salad",
+          "name": "Caesar Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 530.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 22.0,
+            "fatGrams": 44.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.caesar-salad-with-chicken",
+          "name": "Caesar Salad with Chicken",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 670.0,
+            "proteinGrams": 35.0,
+            "carbGrams": 27.0,
+            "fatGrams": 47.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.fuji-apple-chicken-salad",
+          "name": "Fuji Apple Chicken Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 710.0,
+            "proteinGrams": 28.0,
+            "carbGrams": 49.0,
+            "fatGrams": 44.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.greek-salad",
+          "name": "Greek Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 630.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 17.0,
+            "fatGrams": 59.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.greek-salad-with-chicken",
+          "name": "Greek Salad with Chicken",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 760.0,
+            "proteinGrams": 30.0,
+            "carbGrams": 22.0,
+            "fatGrams": 62.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.green-goddess-chicken-cobb-salad",
+          "name": "Green Goddess Chicken Cobb Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 580.0,
+            "proteinGrams": 40.0,
+            "carbGrams": 30.0,
+            "fatGrams": 34.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.ranch-parm-blt-salad",
+          "name": "Ranch Parm BLT Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 750.0,
+            "proteinGrams": 23.0,
+            "carbGrams": 28.0,
+            "fatGrams": 62.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.southwest-chicken-ranch-salad",
+          "name": "Southwest Chicken Ranch Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 810.0,
+            "proteinGrams": 30.0,
+            "carbGrams": 40.0,
+            "fatGrams": 59.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.farmhouse-crunch-salad",
+          "name": "Farmhouse Crunch Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 790.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 49.0,
+            "fatGrams": 61.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.shrimply-baja-salad",
+          "name": "Shrimply Baja Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 880.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 34.0,
+            "fatGrams": 70.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.ultimate-garden-steak-salad",
+          "name": "Ultimate Garden Steak Salad",
+          "servingDescription": "1 Salad (whole)",
+          "macros": {
+            "calories": 800.0,
+            "proteinGrams": 33.0,
+            "carbGrams": 53.0,
+            "fatGrams": 52.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.all-in-veggie-market-bowl",
+          "name": "All-In Veggie Market Bowl",
+          "servingDescription": "1 Bowl (whole)",
+          "macros": {
+            "calories": 910.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 101.0,
+            "fatGrams": 49.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.carnitas-elote-market-bowl",
+          "name": "Carnitas Elote Market Bowl",
+          "servingDescription": "1 Bowl (whole)",
+          "macros": {
+            "calories": 1100.0,
+            "proteinGrams": 44.0,
+            "carbGrams": 86.0,
+            "fatGrams": 63.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.mains.sesame-ginger-chicken-market-bowl",
+          "name": "Sesame Ginger Chicken Market Bowl",
+          "servingDescription": "1 Bowl (whole)",
+          "macros": {
+            "calories": 930.0,
+            "proteinGrams": 38.0,
+            "carbGrams": 95.0,
+            "fatGrams": 44.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    },
+    {
+      "id": "entrees",
+      "name": "Soups, Mac, Stuffers & Bagel Stacks",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panera.entrees.broccoli-cheddar-soup-cup",
+          "name": "Broccoli Cheddar Soup - Cup",
+          "servingDescription": "1 Cup",
+          "macros": {
+            "calories": 280.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 17.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.broccoli-cheddar-soup-bowl",
+          "name": "Broccoli Cheddar Soup - Bowl",
+          "servingDescription": "1 1/2 Cups",
+          "macros": {
+            "calories": 420.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 25.0,
+            "fatGrams": 31.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.broccoli-cheddar-soup-bread-bowl",
+          "name": "Broccoli Cheddar Soup - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 930.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 152.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.creamy-tomato-soup-cup",
+          "name": "Vegetarian Creamy Tomato Soup with Croissant Croutons - Cup",
+          "servingDescription": "1 Cup",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 21.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.creamy-tomato-soup-bowl",
+          "name": "Vegetarian Creamy Tomato Soup with Croissant Croutons - Bowl",
+          "servingDescription": "1 1/2 Cups",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 30.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.creamy-tomato-soup-bread-bowl",
+          "name": "Vegetarian Creamy Tomato Soup with Croissant Croutons - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 880.0,
+            "proteinGrams": 24.0,
+            "carbGrams": 157.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bistro-french-onion-soup-cup",
+          "name": "Bistro French Onion Soup - Cup",
+          "servingDescription": "1 Cup",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 22.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bistro-french-onion-soup-bowl",
+          "name": "Bistro French Onion Soup - Bowl",
+          "servingDescription": "1 1/2 Cups",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 33.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bistro-french-onion-soup-bread-bowl",
+          "name": "Bistro French Onion Soup - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 850.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 158.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.chicken-noodle-soup-cup",
+          "name": "Homestyle Chicken Noodle Soup - Cup",
+          "servingDescription": "1 cup",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 14.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.chicken-noodle-soup-bowl",
+          "name": "Homestyle Chicken Noodle Soup - Bowl",
+          "servingDescription": "1 bowl",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 21.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.chicken-noodle-soup-bread-bowl",
+          "name": "Homestyle Chicken Noodle Soup - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 770.0,
+            "proteinGrams": 30.0,
+            "carbGrams": 150.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.cream-of-chicken-wild-rice-cup",
+          "name": "Cream of Chicken & Wild Rice Soup - Cup",
+          "servingDescription": "1 Cup",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 19.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.cream-of-chicken-wild-rice-bowl",
+          "name": "Cream of Chicken & Wild Rice Soup - Bowl",
+          "servingDescription": "1 1/2 Cups",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 29.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.cream-of-chicken-wild-rice-bread-bowl",
+          "name": "Cream of Chicken & Wild Rice Soup - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 850.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 155.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.black-bean-soup-cup",
+          "name": "Vegetarian Black Bean Soup - Cup",
+          "servingDescription": "1 Cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 27.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.black-bean-soup-bowl",
+          "name": "Vegetarian Black Bean Soup - Bowl",
+          "servingDescription": "1 1/2 Cups",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 41.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.black-bean-soup-bread-bowl",
+          "name": "Vegetarian Black Bean Soup - Bread Bowl",
+          "servingDescription": "1 bread bowl with soup",
+          "macros": {
+            "calories": 740.0,
+            "proteinGrams": 26.0,
+            "carbGrams": 163.0,
+            "fatGrams": 3.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.mac-and-cheese-cup",
+          "name": "Mac & Cheese - Cup",
+          "servingDescription": "About 1 Cup",
+          "macros": {
+            "calories": 490.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 34.0,
+            "fatGrams": 32.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.mac-and-cheese-bowl",
+          "name": "Mac & Cheese - Bowl",
+          "servingDescription": "About 2 Cups",
+          "macros": {
+            "calories": 980.0,
+            "proteinGrams": 32.0,
+            "carbGrams": 68.0,
+            "fatGrams": 64.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.mac-and-cheese-bread-bowl",
+          "name": "Mac & Cheese - Bread Bowl",
+          "servingDescription": "1 bread bowl with mac & cheese",
+          "macros": {
+            "calories": 1140.0,
+            "proteinGrams": 37.0,
+            "carbGrams": 170.0,
+            "fatGrams": 34.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bacon-mac-and-cheese-cup",
+          "name": "Bacon Mac & Cheese - Cup",
+          "servingDescription": "About 1 Cup",
+          "macros": {
+            "calories": 530.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 34.0,
+            "fatGrams": 35.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bacon-mac-and-cheese-bowl",
+          "name": "Bacon Mac & Cheese - Bowl",
+          "servingDescription": "About 2 Cups",
+          "macros": {
+            "calories": 1050.0,
+            "proteinGrams": 36.0,
+            "carbGrams": 68.0,
+            "fatGrams": 71.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.bacon-mac-and-cheese-bread-bowl",
+          "name": "Bacon Mac & Cheese - Bread Bowl",
+          "servingDescription": "1 bread bowl with mac & cheese",
+          "macros": {
+            "calories": 1170.0,
+            "proteinGrams": 39.0,
+            "carbGrams": 170.0,
+            "fatGrams": 38.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.ultimate-garden-steak-salad-stuffer",
+          "name": "Ultimate Garden Steak Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 790.0,
+            "proteinGrams": 25.0,
+            "carbGrams": 70.0,
+            "fatGrams": 46.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.farmhouse-crunch-salad-stuffer",
+          "name": "Farmhouse Crunch Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 790.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 69.0,
+            "fatGrams": 51.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.shrimply-baja-salad-stuffer",
+          "name": "Shrimply Baja Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 850.0,
+            "proteinGrams": 22.0,
+            "carbGrams": 61.0,
+            "fatGrams": 56.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.southwest-chicken-ranch-salad-stuffer",
+          "name": "Southwest Chicken Ranch Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 800.0,
+            "proteinGrams": 24.0,
+            "carbGrams": 65.0,
+            "fatGrams": 50.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.green-goddess-chicken-cobb-salad-stuffer",
+          "name": "Green Goddess Chicken Cobb Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 600.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 61.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.asian-sesame-chicken-salad-stuffer",
+          "name": "Asian Sesame Chicken Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 580.0,
+            "proteinGrams": 22.0,
+            "carbGrams": 64.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.ranch-parm-blt-salad-stuffer",
+          "name": "Ranch Parm BLT Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 780.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 59.0,
+            "fatGrams": 51.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.fuji-apple-chicken-salad-stuffer",
+          "name": "Fuji Apple Chicken Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 700.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 74.0,
+            "fatGrams": 34.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.caesar-salad-stuffer",
+          "name": "Caesar Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 650.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 55.0,
+            "fatGrams": 41.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.caesar-salad-stuffer-with-chicken",
+          "name": "Caesar Salad Stuffer with Chicken",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 720.0,
+            "proteinGrams": 27.0,
+            "carbGrams": 57.0,
+            "fatGrams": 42.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.greek-salad-stuffer",
+          "name": "Greek Salad Stuffer",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 700.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 51.0,
+            "fatGrams": 50.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.greek-salad-stuffer-with-chicken",
+          "name": "Greek Salad Stuffer with Chicken",
+          "servingDescription": "1 Stuffer",
+          "macros": {
+            "calories": 770.0,
+            "proteinGrams": 23.0,
+            "carbGrams": 53.0,
+            "fatGrams": 51.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.chicken-roma-asiago-bagel-stack",
+          "name": "Chicken Roma Asiago Bagel Stack",
+          "servingDescription": "1 Sandwich",
+          "macros": {
+            "calories": 610.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 59.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.entrees.spicy-steak-asiago-bagel-stack",
+          "name": "Spicy Steak Asiago Bagel Stack",
+          "servingDescription": "1 Sandwich",
+          "macros": {
+            "calories": 630.0,
+            "proteinGrams": 39.0,
+            "carbGrams": 62.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panera.sides.side-apple",
+          "name": "Apple",
+          "servingDescription": "1 Apple",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 22.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.side-banana",
+          "name": "Banana",
+          "servingDescription": "1 Banana",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 23.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.french-baguette-side",
+          "name": "French Baguette - Side Portion",
+          "servingDescription": "3 1/2 inch slice",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 41.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.kettle-cooked-potato-chips",
+          "name": "Kettle Cooked Potato Chips",
+          "servingDescription": "1 package",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 17.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.greek-yogurt-with-berries-parfait",
+          "name": "Greek Yogurt with Mixed Berries Parfait",
+          "servingDescription": "1 Parfait",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 29.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.fruit-cup",
+          "name": "Fruit Cup",
+          "servingDescription": "1 container",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 15.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sides.pickle-spear",
+          "name": "Pickle Spear",
+          "servingDescription": "1 Spear",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "breads",
+      "name": "Bread Choice",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "panera.breads.bread-portion-croissant",
+          "name": "Bread Portion - Croissant",
+          "servingDescription": "1 Croissant",
+          "macros": {
+            "calories": 260.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 32.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.bread-portion-italian-style-roll",
+          "name": "Bread Portion - Italian Style Roll",
+          "servingDescription": "1/2 Roll",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 42.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.artisan-ciabatta",
+          "name": "Artisan Ciabatta",
+          "servingDescription": "2 oz (about 2 3/4 inch slice / 57g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 30.0,
+            "fatGrams": 1.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.black-pepper-focaccia",
+          "name": "Black Pepper Focaccia",
+          "servingDescription": "2 oz (about 1 3/4 inch slice / 57g)",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 30.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.classic-white-loaf",
+          "name": "Classic White Loaf",
+          "servingDescription": "2.2 oz (about 3/4 inch slice / 62g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 32.0,
+            "fatGrams": 3.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.country-rustic-sourdough",
+          "name": "Country Rustic Sourdough",
+          "servingDescription": "2 oz (about 2/3 inch slice / 57g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 30.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.french-baguette-slice",
+          "name": "French Baguette",
+          "servingDescription": "2 oz (about 2 3/4 inch slice / 57g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 32.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.tomato-basil-miche",
+          "name": "Tomato Basil Miche",
+          "servingDescription": "2 oz (about 1/2 inch slice / 57g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 30.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.italian-style-roll",
+          "name": "Italian Style Roll",
+          "servingDescription": "2 oz (about 2.5 inch slice / 57g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 28.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.whole-grain-lahvash",
+          "name": "Whole Grain Lahvash",
+          "servingDescription": "1 Lahvash",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 25.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.breads.sourdough-soup-bowl",
+          "name": "Sourdough Soup Bowl",
+          "servingDescription": "1 Bread Bowl",
+          "macros": {
+            "calories": 650.0,
+            "proteinGrams": 21.0,
+            "carbGrams": 136.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "wheatFlat"
+    },
+    {
+      "id": "dressings",
+      "name": "Salad Dressings",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 2
+      },
+      "items": [
+        {
+          "id": "panera.dressings.asian-sesame-vinaigrette-half",
+          "name": "Asian Sesame Vinaigrette - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 5.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.asian-sesame-vinaigrette-whole",
+          "name": "Asian Sesame Vinaigrette - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 9.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.caesar-dressing-half",
+          "name": "Caesar Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.caesar-dressing-whole",
+          "name": "Caesar Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 320.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 4.0,
+            "fatGrams": 33.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.creamy-garden-herb-half",
+          "name": "Creamy Garden Herb Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.creamy-garden-herb-whole",
+          "name": "Creamy Garden Herb Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 330.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 4.0,
+            "fatGrams": 34.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.farmhouse-ranch-half",
+          "name": "Farmhouse Ranch Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.farmhouse-ranch-whole",
+          "name": "Farmhouse Ranch Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 5.0,
+            "fatGrams": 35.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.greek-dressing-half",
+          "name": "Greek Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.greek-dressing-whole",
+          "name": "Greek Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 440.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 48.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.green-goddess-dressing-half",
+          "name": "Green Goddess Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 4.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.green-goddess-dressing-whole",
+          "name": "Green Goddess Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 7.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.sesame-ginger-dressing-half",
+          "name": "Sesame Ginger Dressing - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 6.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.sesame-ginger-dressing-whole",
+          "name": "Sesame Ginger Dressing - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 340.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 13.0,
+            "fatGrams": 32.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.white-balsamic-apple-vinaigrette-half",
+          "name": "White Balsamic with Apple Vinaigrette - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 10.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.white-balsamic-apple-vinaigrette-whole",
+          "name": "White Balsamic with Apple Vinaigrette - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 21.0,
+            "fatGrams": 24.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.zesty-smoky-lemon-vinaigrette-half",
+          "name": "Zesty Smoky Lemon Vinaigrette - Half Portion",
+          "servingDescription": "1 dressing cup",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 4.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.dressings.zesty-smoky-lemon-vinaigrette-whole",
+          "name": "Zesty Smoky Lemon Vinaigrette - Whole Portion",
+          "servingDescription": "2 dressing cups",
+          "macros": {
+            "calories": 350.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 7.0,
+            "fatGrams": 36.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "oil"
+    },
+    {
+      "id": "sauces",
+      "name": "Sandwich Sauces & Spreads",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "panera.sauces.apple-cider-vinegar-bbq-sauce",
+          "name": "Apple Cider Vinegar BBQ Sauce",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 20.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 5.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.balsamic-glaze",
+          "name": "Balsamic Glaze",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 20.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 5.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.chipotle-aioli",
+          "name": "Chipotle Aioli",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.creamy-basil-pesto",
+          "name": "Creamy Basil Pesto",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.farmhouse-ranch-sandwich-portion",
+          "name": "Farmhouse Ranch Dressing - Sandwich Portion",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.garlic-aioli",
+          "name": "Garlic Aioli",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.greek-dressing-sandwich-portion",
+          "name": "Greek Dressing - Sandwich Portion",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.green-goddess-sandwich-portion",
+          "name": "Green Goddess Dressing - Sandwich Portion",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.hummus",
+          "name": "Hummus",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 4.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.mayonnaise",
+          "name": "Mayonnaise",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.green-chile-salsa-verde",
+          "name": "Green Chile Salsa Verde",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "panera.sauces.signature-sauce",
+          "name": "Signature Sauce",
+          "servingDescription": "1 sandwich portion",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 4.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "salsa"
+    }
+  ]
+}

@@ -15,7 +15,9 @@ struct MealPresetTests {
     // entrées rather than named dishes, so it ships no presets — that's the
     // graceful-degradation case, covered separately below.
     // `nonisolated` so the `@Test(arguments:)` macro can read it off the actor.
-    nonisolated static let restaurantsWithPresets = ["sweetgreen", "chipotle"]
+    nonisolated static let restaurantsWithPresets = [
+        "sweetgreen", "chipotle", "chick-fil-a", "moes", "jersey-mikes",
+    ]
 
     @Test(arguments: restaurantsWithPresets)
     func everyPresetLineResolvesAgainstTheMenu(restaurantId: String) async throws {

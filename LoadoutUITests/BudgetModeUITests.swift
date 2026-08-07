@@ -57,7 +57,7 @@ final class BudgetModeUITests: XCTestCase {
         setDailyTarget(app)
 
         app.buttons["Build"].tap()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
 
         let fit = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Fit my macros")).firstMatch
         XCTAssertTrue(fit.waitForExistence(timeout: 15), "Format picker should offer Fit my macros")
@@ -79,7 +79,7 @@ final class BudgetModeUITests: XCTestCase {
 
         // 2. Build a meal.
         app.buttons["Build"].tap()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
         app.buttons["Protein station"].tap()

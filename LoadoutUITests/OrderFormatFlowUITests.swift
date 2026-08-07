@@ -40,9 +40,7 @@ final class OrderFormatFlowUITests: XCTestCase {
         let app = launchedApp()
 
         // Build tab lists restaurants — open Chipotle.
-        let chipotle = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch
-        XCTAssertTrue(chipotle.waitForExistence(timeout: 15), "Chipotle card should appear on the Build tab")
-        chipotle.tap()
+        app.tapRestaurant("Chipotle,")
 
         // Format picker: format cards + the build-your-own escape hatch.
         XCTAssertTrue(app.staticTexts["Build your own"].waitForExistence(timeout: 10),
@@ -94,7 +92,7 @@ final class OrderFormatFlowUITests: XCTestCase {
     func testFootlongScalesPortions() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Subway,")).firstMatch.tap()
+        app.tapRestaurant("Subway,")
         let footlong = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Footlong.")).firstMatch
         XCTAssertTrue(footlong.waitForExistence(timeout: 15), "Subway should offer a Footlong format")
         footlong.tap()
@@ -126,9 +124,7 @@ final class OrderFormatFlowUITests: XCTestCase {
     func testBuildYourOwnBypassesGuidance() throws {
         let app = launchedApp()
 
-        let chipotle = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch
-        XCTAssertTrue(chipotle.waitForExistence(timeout: 15))
-        chipotle.tap()
+        app.tapRestaurant("Chipotle,")
 
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 10))

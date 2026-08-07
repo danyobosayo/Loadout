@@ -1,0 +1,995 @@
+{
+  "id": "qdoba",
+  "name": "Qdoba Mexican Eats",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://assets.ctfassets.net/0tc4847zqy12/bQFJBCmsAk4ww4qzdfAOm/27c88d608796913d6a47899ecffb6a3c/Nutrition_8.5.26.pdf",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCE: Qdoba's own \"Nutrition Facts 2026\" PDF (file Nutrition_8.5.26.pdf, i.e. revised 2026-08-05 — current as of retrieval), linked as the \"NUTRITION\" download from https://www.qdoba.com/nutrition-allergens. The PDF is served from Qdoba's Contentful CDN (assets.ctfassets.net), which is why sourceUrl is a ctfassets.net host rather than qdoba.com — it is still Qdoba's own published document, reached only by following the link on their official nutrition page. www.qdoba.com itself is behind Cloudflare and returns 403 to non-browser fetches; I loaded the nutrition page in a real browser to obtain the current PDF link, then downloaded and text-extracted the PDF directly (pypdf).\n\nPORTION BASIS: Every number is per one of the stated serving, exactly as the PDF lists it — no scaling, no reverse-engineering, no derived values anywhere in this menu. The PDF's column order is: Allergens, Serving Size (g), Calories, Calories from Fat, Total Fat, Saturated Fat, Trans Fat, Cholesterol, Total Carbohydrate, Dietary Fiber, Sugar, Protein, Sodium, Potassium. I mapped Total Fat / Total Carbohydrate / Protein and validated the mapping by Atwater cross-check (cal ~= 4C + 4P + 9F) on ~35 rows; all reconciled within normal rounding/fiber tolerance except the items called out below.\n\nWHERE THE SOURCE LISTS TWO SIZES, I kept one canonical unit and let the app's portion mechanics cover the other: guacamole, Three Cheese Queso and Queso Diablo use the 2 oz scoop (the 4 oz rows are exact 2x, and `dips` caps at 3 scoops); chorizo uses 3.0 oz and bacon 2 oz (the 1.5 oz / 1 oz rows are exact halves, covered by the split-base half-portion rule).\n\nKNOWN SOURCE DEFECTS, reported as published and flagged rather than silently corrected:\n1. Salsa Verde (1 oz) is published with Total Carbohydrate 0 g but Dietary Fiber 1 g — internally impossible. I report carbs = 0 as published. Impact is negligible (10 cal item), but do not treat that 0 as verified.\n2. Seasoned Potatoes (2 oz) is published as 100 cal with 12 C / 1 P / 0 F; those macros only account for ~52 cal. Their own \"Calories from Fat\" column is also 0, so there is no fat figure to recover. Reported as published; the fat value is likely understated.\n3. Brisket Birria (3.5 oz) has \"Calories from Fat\" printed as 140, equal to its total calories — a typo — but its Total Fat of 7 g is consistent with the 140 cal total, so the macros I use are sound.\n\nSIGNATURE EATS AS ENTREES: The `entrees` category holds Qdoba's published complete named entrees at their exact published totals. These are whole meals, not counter stations — they are included because the macros are fully official and directly loggable. They should NOT be combined with build-your-own components (that would double count).\n\nPRESETS ARE INTENTIONALLY EMPTY — see the reasoning: Qdoba publishes the TOTALS for its Signature Eats but nowhere publishes the component/portion breakdown of any of them. I attempted reconciliation and it does not converge. Example: Keto Bowl - Chicken (published 340 g / 400 cal / 26 F / 11 C / 33 P); chicken + shredded cheese + guac + sour cream sums to 212 g / 430 cal / 34 F / 28 P — wrong on weight, fat and protein. Example: Chicken Queso Bowl (published 468 g / 750 cal / 33 F / 74 C / 43 P); the closest plausible build (rice + black beans + chicken + 4 oz queso + pico) gives 695 cal and no arrangement of published line items lands on 750/33/74/43. The signature builds evidently use in-house portions that differ from the standard line-item servings. Double Protein Bowl - Chicken is the one partial exception — its published cholesterol of 180 mg is exactly 2x the 90 mg of a 3.5 oz chicken portion, confirming double chicken — but the remainder still misses by ~10 cal / 2 g fat / 2 g protein, which is a real defect for a macro app. Rather than ship a component list Qdoba never published and that fails the sum check, I returned zero presets, per the brief's explicit allowance. If presets are wanted later, the honest path is Qdoba's in-app ordering builder, not this PDF."
+  },
+  "categories": [
+    {
+      "id": "tortilla",
+      "name": "Tortillas & Shells",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "qdoba.tortilla.flour-tortilla-5-5",
+          "name": "Flour Tortilla (5.5\")",
+          "servingDescription": "1 tortilla, 5.5 in (24 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 12.0,
+            "fatGrams": 1.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.tortilla.flour-tortilla-10",
+          "name": "Flour Tortilla (10\")",
+          "servingDescription": "1 tortilla, 10 in (71 g)",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 36.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.tortilla.flour-tortilla-12-5",
+          "name": "Flour Tortilla (12.5\")",
+          "servingDescription": "1 tortilla, 12.5 in (102 g)",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 52.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.tortilla.crispy-taco-shell",
+          "name": "Crispy Taco Shell",
+          "servingDescription": "1 shell (13 g)",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 8.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.tortilla.crunchy-tortilla-shell",
+          "name": "Crunchy Tortilla Shell",
+          "servingDescription": "1 fried tortilla bowl (73 g)",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 41.0,
+            "fatGrams": 22.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "wheatFlat"
+    },
+    {
+      "id": "rice",
+      "name": "Rice",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.rice.cilantro-lime-rice",
+          "name": "Cilantro Lime Rice",
+          "servingDescription": "4 oz (113 g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 38.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.rice.seasoned-brown-rice",
+          "name": "Seasoned Brown Rice",
+          "servingDescription": "4 oz (113 g)",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 36.0,
+            "fatGrams": 1.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "riceWhiteBowl"
+    },
+    {
+      "id": "beans",
+      "name": "Beans",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.beans.black-beans",
+          "name": "Black Beans",
+          "servingDescription": "4 oz (113 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 24.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.beans.pinto-beans",
+          "name": "Pinto Beans",
+          "servingDescription": "4 oz (113 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 23.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "beansPan"
+    },
+    {
+      "id": "protein",
+      "name": "Protein",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.protein.grilled-adobo-chicken",
+          "name": "Grilled Adobo Chicken",
+          "servingDescription": "3.5 oz (99 g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 2.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.grilled-steak",
+          "name": "Grilled Steak",
+          "servingDescription": "3.5 oz (99 g)",
+          "macros": {
+            "calories": 360.0,
+            "proteinGrams": 20.0,
+            "carbGrams": 5.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.brisket-birria",
+          "name": "Brisket Birria",
+          "servingDescription": "3.5 oz (99 g)",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 3.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.pork-carnitas",
+          "name": "Pork Carnitas",
+          "servingDescription": "3.5 oz (99 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 0.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.ground-beef",
+          "name": "Ground Beef",
+          "servingDescription": "3.5 oz (99 g)",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 4.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.chorizo",
+          "name": "Chorizo",
+          "servingDescription": "3 oz (85 g)",
+          "macros": {
+            "calories": 260.0,
+            "proteinGrams": 14.0,
+            "carbGrams": 5.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.plant-based-impossible",
+          "name": "Plant-Based Impossible",
+          "servingDescription": "3.1 oz (88 g) — select locations only",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 8.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.scrambled-eggs",
+          "name": "Scrambled Eggs",
+          "servingDescription": "6 oz (170 g)",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 2.0,
+            "fatGrams": 16.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.bacon",
+          "name": "Bacon",
+          "servingDescription": "2 oz (57 g) — select locations",
+          "macros": {
+            "calories": 230.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 2.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chicken"
+    },
+    {
+      "id": "veggies",
+      "name": "Veggies & Add-Ins",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.veggies.fajita-veggies",
+          "name": "Fajita Veggies",
+          "servingDescription": "2 oz (57 g)",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.veggies.seasoned-potatoes",
+          "name": "Seasoned Potatoes",
+          "servingDescription": "2 oz (57 g)",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 12.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.veggies.romaine-lettuce",
+          "name": "Romaine Lettuce",
+          "servingDescription": "0.25 oz (7 g) — topping portion",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.veggies.romaine-lettuce-salad-base",
+          "name": "Romaine Lettuce (Salad Base)",
+          "servingDescription": "3.5 oz (99 g) — full salad bed",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.veggies.pickled-red-onion",
+          "name": "Pickled Red Onion",
+          "servingDescription": "0.8 oz (23 g)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.veggies.chopped-cilantro",
+          "name": "Chopped Cilantro",
+          "servingDescription": "0.12 oz (3 g)",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "vegetables"
+    },
+    {
+      "id": "salsa",
+      "name": "Salsa",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.salsa.pico-de-gallo",
+          "name": "Pico de Gallo",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.salsa.salsa-roja",
+          "name": "Salsa Roja",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.salsa.salsa-verde",
+          "name": "Salsa Verde",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.salsa.roasted-tomato-salsa",
+          "name": "Roasted Tomato Salsa",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.salsa.chile-corn-salsa",
+          "name": "Chile Corn Salsa",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 5.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.salsa.habanero-salsa",
+          "name": "Habanero Salsa",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "salsa"
+    },
+    {
+      "id": "cheeses",
+      "name": "Cheese",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.cheeses.shredded-cheese",
+          "name": "Shredded Cheese",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 1.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.cheeses.cotija-cheese",
+          "name": "Cotija Cheese",
+          "servingDescription": "0.25 oz (7 g)",
+          "macros": {
+            "calories": 25.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 0.0,
+            "fatGrams": 2.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "cheeseSlice"
+    },
+    {
+      "id": "dips",
+      "name": "Queso & Guac",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 3
+      },
+      "items": [
+        {
+          "id": "qdoba.dips.hand-crafted-guacamole",
+          "name": "Hand Crafted Guacamole",
+          "servingDescription": "2 oz scoop (57 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 5.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.three-cheese-queso",
+          "name": "Three Cheese Queso",
+          "servingDescription": "2 oz scoop (57 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 3.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.queso-diablo",
+          "name": "Queso Diablo",
+          "servingDescription": "2 oz scoop (57 g)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 3.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "hummus"
+    },
+    {
+      "id": "toppings",
+      "name": "Toppings",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.toppings.sour-cream",
+          "name": "Sour Cream",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.toppings.tortilla-strips",
+          "name": "Tortilla Strips",
+          "servingDescription": "0.5 oz (14 g)",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 8.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "vegetables"
+    },
+    {
+      "id": "dressings",
+      "name": "Dressings & Cremas",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 2
+      },
+      "items": [
+        {
+          "id": "qdoba.dressings.citrus-vinaigrette",
+          "name": "Citrus Vinaigrette",
+          "servingDescription": "1.5 oz (43 g) — US formulation",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 7.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dressings.picante-ranch-dressing",
+          "name": "Picante Ranch Dressing",
+          "servingDescription": "1.5 oz (43 g)",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dressings.chile-crema",
+          "name": "Chile Crema",
+          "servingDescription": "1 oz (28 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "oil"
+    },
+    {
+      "id": "chips",
+      "name": "Chips",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.chips.tortilla-chips",
+          "name": "Tortilla Chips",
+          "servingDescription": "4 oz (113 g) — regular side",
+          "macros": {
+            "calories": 560.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 75.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.chips.tortilla-chips-small",
+          "name": "Tortilla Chips (Small)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 280.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 37.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chipsBaked"
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.sides.side-black-beans-with-cheese",
+          "name": "Side of Black Beans with Cheese",
+          "servingDescription": "1 side (77 g)",
+          "macros": {
+            "calories": 150.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 13.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "extras",
+      "name": "Desserts",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "qdoba.extras.double-chocolate-brownie",
+          "name": "Double Chocolate Brownie",
+          "servingDescription": "1 brownie (91 g) — US",
+          "macros": {
+            "calories": 390.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 49.0,
+            "fatGrams": 19.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.extras.chocolate-chunk-cookie",
+          "name": "Chocolate Chunk Cookie",
+          "servingDescription": "1 cookie (57 g) — US",
+          "macros": {
+            "calories": 250.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 33.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chipsBaked"
+    },
+    {
+      "id": "entrees",
+      "name": "Signature Eats (Complete Entrées)",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "qdoba.entrees.chicken-queso-bowl",
+          "name": "Chicken Queso Bowl",
+          "servingDescription": "1 bowl as served (468 g)",
+          "macros": {
+            "calories": 750.0,
+            "proteinGrams": 43.0,
+            "carbGrams": 74.0,
+            "fatGrams": 33.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.chicken-queso-burrito",
+          "name": "Chicken Queso Burrito",
+          "servingDescription": "1 burrito as served (569 g)",
+          "macros": {
+            "calories": 1050.0,
+            "proteinGrams": 51.0,
+            "carbGrams": 126.0,
+            "fatGrams": 40.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.cholula-hot-sweet-chicken-bowl",
+          "name": "Cholula Hot & Sweet Chicken Bowl",
+          "servingDescription": "1 bowl as served (418 g)",
+          "macros": {
+            "calories": 610.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 77.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.cholula-hot-sweet-chicken-burrito",
+          "name": "Cholula Hot & Sweet Chicken Burrito",
+          "servingDescription": "1 burrito as served (520 g)",
+          "macros": {
+            "calories": 910.0,
+            "proteinGrams": 39.0,
+            "carbGrams": 130.0,
+            "fatGrams": 27.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.citrus-lime-chicken-salad",
+          "name": "Citrus Lime Chicken Salad",
+          "servingDescription": "1 salad as served (421 g)",
+          "macros": {
+            "calories": 540.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 49.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.double-protein-bowl-chicken",
+          "name": "Double Protein Bowl - Chicken",
+          "servingDescription": "1 bowl as served (546 g)",
+          "macros": {
+            "calories": 700.0,
+            "proteinGrams": 51.0,
+            "carbGrams": 41.0,
+            "fatGrams": 38.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.double-protein-bowl-steak",
+          "name": "Double Protein Bowl - Steak",
+          "servingDescription": "1 bowl as served (553 g)",
+          "macros": {
+            "calories": 1040.0,
+            "proteinGrams": 52.0,
+            "carbGrams": 47.0,
+            "fatGrams": 72.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.fajita-vegan-bowl",
+          "name": "Fajita Vegan Bowl",
+          "servingDescription": "1 bowl as served (482 g)",
+          "macros": {
+            "calories": 530.0,
+            "proteinGrams": 17.0,
+            "carbGrams": 79.0,
+            "fatGrams": 17.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.impossible-taco-salad",
+          "name": "Impossible Taco Salad",
+          "servingDescription": "1 salad as served (400 g) — select locations only",
+          "macros": {
+            "calories": 520.0,
+            "proteinGrams": 31.0,
+            "carbGrams": 46.0,
+            "fatGrams": 23.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.keto-bowl-chicken",
+          "name": "Keto Bowl - Chicken",
+          "servingDescription": "1 bowl as served (340 g)",
+          "macros": {
+            "calories": 400.0,
+            "proteinGrams": 33.0,
+            "carbGrams": 11.0,
+            "fatGrams": 26.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.keto-bowl-steak",
+          "name": "Keto Bowl - Steak",
+          "servingDescription": "1 bowl as served (340 g)",
+          "macros": {
+            "calories": 490.0,
+            "proteinGrams": 25.0,
+            "carbGrams": 13.0,
+            "fatGrams": 38.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.keto-bowl-brisket-birria",
+          "name": "Keto Bowl - Brisket Birria",
+          "servingDescription": "1 bowl as served (340 g)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 25.0,
+            "carbGrams": 13.0,
+            "fatGrams": 25.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.southwest-steak-burrito",
+          "name": "Southwest Steak Burrito",
+          "servingDescription": "1 burrito as served (498 g)",
+          "macros": {
+            "calories": 1220.0,
+            "proteinGrams": 43.0,
+            "carbGrams": 134.0,
+            "fatGrams": 58.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.street-style-chicken-tacos",
+          "name": "Street Style Chicken Tacos (3, Flour)",
+          "servingDescription": "3 tacos as served (311 g)",
+          "macros": {
+            "calories": 550.0,
+            "proteinGrams": 29.0,
+            "carbGrams": 46.0,
+            "fatGrams": 28.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.entrees.street-style-pork-carnitas-tacos",
+          "name": "Street Style Pork Carnitas Tacos (3, Flour)",
+          "servingDescription": "3 tacos as served (238 g)",
+          "macros": {
+            "calories": 370.0,
+            "proteinGrams": 23.0,
+            "carbGrams": 38.0,
+            "fatGrams": 13.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chickenGrilled"
+    }
+  ]
+}

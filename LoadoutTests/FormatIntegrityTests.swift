@@ -7,7 +7,11 @@ import Testing
 /// here instead of silently dropping a seed/prompt at runtime.
 struct FormatIntegrityTests {
     private static let repository = BundledMenuRepository()
-    private static let restaurantIds = ["chipotle", "cava", "panda-express", "sweetgreen", "subway"]
+    private static let restaurantIds = [
+        "chipotle", "cava", "panda-express", "sweetgreen", "subway",
+        "chick-fil-a", "starbucks", "panera", "qdoba", "moes",
+        "jersey-mikes", "halal-guys", "mod-pizza", "raising-canes",
+    ]
 
     private static func load(_ id: String) async throws -> (restaurant: Restaurant, formats: [OrderFormat]) {
         async let restaurant = repository.loadRestaurant(id: id)

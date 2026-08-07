@@ -33,7 +33,7 @@ final class PortionControlUITests: XCTestCase {
     func testTapCycleAndHalfAndHalf() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15))
         byo.tap()
@@ -67,7 +67,7 @@ final class PortionControlUITests: XCTestCase {
     func testCavaGreensAndGrainsBaseIsHalfAndHalf() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "CAVA,")).firstMatch.tap()
+        app.tapRestaurant("CAVA,")
         let greensGrains = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Greens + Grains")).firstMatch
         XCTAssertTrue(greensGrains.waitForExistence(timeout: 15), "CAVA should offer Greens + Grains")
         greensGrains.tap()
@@ -94,7 +94,7 @@ final class PortionControlUITests: XCTestCase {
     func testPandaBiggerPlateCountsEntrees() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Panda Express,")).firstMatch.tap()
+        app.tapRestaurant("Panda Express,")
         let bigger = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Bigger Plate")).firstMatch
         XCTAssertTrue(bigger.waitForExistence(timeout: 15), "Panda should offer a Bigger Plate")
         bigger.tap()
@@ -124,7 +124,7 @@ final class PortionControlUITests: XCTestCase {
     @MainActor
     func testInMenuSearch() throws {
         let app = launchedApp()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
 
@@ -151,7 +151,7 @@ final class PortionControlUITests: XCTestCase {
     @MainActor
     func testRecipeHasLogAgainAction() throws {
         let app = launchedApp()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
         app.buttons["Protein station"].tap()
@@ -179,7 +179,7 @@ final class PortionControlUITests: XCTestCase {
     @MainActor
     func testTrayLineItemLayout() throws {
         let app = launchedApp()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15)); byo.tap()
         app.buttons["Protein station"].tap()
@@ -196,7 +196,7 @@ final class PortionControlUITests: XCTestCase {
     func testSelectedStationRowHighlights() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "CAVA,")).firstMatch.tap()
+        app.tapRestaurant("CAVA,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15))
         byo.tap()
@@ -221,7 +221,7 @@ final class PortionControlUITests: XCTestCase {
     func testToppingsCountUncapped() throws {
         let app = launchedApp()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chipotle,")).firstMatch.tap()
+        app.tapRestaurant("Chipotle,")
         let byo = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Build your own")).firstMatch
         XCTAssertTrue(byo.waitForExistence(timeout: 15))
         byo.tap()

@@ -46,6 +46,20 @@ nonisolated extension MenuCategory {
         // Subway
         "breads":     CategoryStyle(icon: "station.bread", accent: .carbs),
         "cheeses":    CategoryStyle(icon: "station.cheese", accent: .fat),
-        "extras":     CategoryStyle(icon: "station.cookie", accent: .fat)
+        "extras":     CategoryStyle(icon: "station.cookie", accent: .fat),
+        // Chick-fil-A
+        "breakfast":  CategoryStyle(icon: "station.bread", accent: .carbs),
+        // Starbucks — drinks are the menu here, so they get their own stations.
+        "hot-coffee":  CategoryStyle(icon: "station.drop", accent: Color(red: 0.72, green: 0.52, blue: 0.38)),
+        "cold-coffee": CategoryStyle(icon: "station.drop", accent: .carbs),
+        "tea":         CategoryStyle(icon: "station.drop", accent: Color(red: 0.55, green: 0.85, blue: 0.55)),
+        "refreshers":  CategoryStyle(icon: "station.sparkle", accent: .protein),
+        "frappuccino": CategoryStyle(icon: "station.sparkle", accent: .fat),
+        "food":        CategoryStyle(icon: "station.roll", accent: .carbs),
+        // MOD Pizza — `crusts` and `meats` rather than bases/proteins so they
+        // don't inherit the split-base tap model: you never order half a crust,
+        // and pepperoni *and* sausage on one pizza has to be legal.
+        "crusts":     CategoryStyle(icon: "station.wrap", accent: .carbs),
+        "meats":      CategoryStyle(icon: "station.protein", accent: .protein)
     ]
 }

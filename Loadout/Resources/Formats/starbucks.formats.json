@@ -1,0 +1,118 @@
+{
+  "restaurantId": "starbucks",
+  "formats": [
+    {
+      "id": "hot-drink",
+      "name": "Hot Coffee",
+      "blurb": "Brewed coffee, lattes and hot espresso.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "hot-coffee",
+          "promptCopy": "Choose your drink",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "cold-drink",
+      "name": "Cold Coffee",
+      "blurb": "Cold brew, iced lattes and shaken espresso.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "cold-coffee",
+          "promptCopy": "Choose your drink",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "tea-matcha",
+      "name": "Tea, Chai & Matcha",
+      "blurb": "Hot and iced tea, chai and matcha.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "tea",
+          "promptCopy": "Choose your drink",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "refresher",
+      "name": "Refresher",
+      "blurb": "Refreshers and lemonade.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "refreshers",
+          "promptCopy": "Choose your drink",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "frappuccino",
+      "name": "Frappuccino",
+      "blurb": "Blended, whipped and cold.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "frappuccino",
+          "promptCopy": "Choose your Frappuccino",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    },
+    {
+      "id": "food-only",
+      "name": "Just Food",
+      "blurb": "Skip the drink — sandwiches, bakery and snacks.",
+      "autoAdd": [],
+      "prompts": [],
+      "optionalCategoryIds": [
+        "food",
+        "breads",
+        "sides",
+        "extras"
+      ]
+    }
+  ]
+}

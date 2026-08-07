@@ -1,0 +1,481 @@
+{
+  "restaurantId": "jersey-mikes",
+  "presets": [
+    {
+      "id": "jersey-mikes.presets.7-turkey-and-provolone-regular",
+      "name": "#7 Turkey and Provolone",
+      "blurb": "Turkey and provolone on a Regular white sub, made Mike's Way with onions, lettuce, tomatoes, olive oil blend, red wine vinegar and spices.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.turkey",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.provolone",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 820 kcal (ours 817), 45g protein (ours 45)."
+    },
+    {
+      "id": "jersey-mikes.presets.3-ham-and-provolone-regular",
+      "name": "#3 Ham and Provolone",
+      "blurb": "Ham and provolone on a Regular white sub, made Mike's Way.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.ham",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.provolone",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 820 kcal (ours 817), 38g protein (ours 38)."
+    },
+    {
+      "id": "jersey-mikes.presets.6-roast-beef-and-provolone-regular",
+      "name": "#6 Roast Beef and Provolone",
+      "blurb": "Top round roast beef and provolone on a Regular white sub, made Mike's Way. The highest-protein sub on the menu.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.roast-beef",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.provolone",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 910 kcal (ours 913), 57g protein (ours 57)."
+    },
+    {
+      "id": "jersey-mikes.presets.10-tuna-fish-regular",
+      "name": "#10 Tuna Fish",
+      "blurb": "House-made tuna salad on a Regular white sub, made Mike's Way. No cheese by default.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.tuna-salad",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 1060 kcal (ours 1062), 33g protein (ours 33)."
+    },
+    {
+      "id": "jersey-mikes.presets.chicken-salad-sub-regular",
+      "name": "Chicken Salad Sub",
+      "blurb": "House-made chicken salad on a Regular white sub, made Mike's Way. No cheese by default.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.chicken-salad",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 950 kcal (ours 953), 33g protein (ours 33)."
+    },
+    {
+      "id": "jersey-mikes.presets.pepperoni-and-cheese-regular",
+      "name": "Pepperoni & Cheese",
+      "blurb": "Pepperoni and provolone on a Regular white sub, made Mike's Way.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.pepperoni",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.provolone",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 1000 kcal (ours 1004), 34g protein (ours 33)."
+    },
+    {
+      "id": "jersey-mikes.presets.salami-and-cheese-regular",
+      "name": "Salami and Cheese",
+      "blurb": "Hard salami and provolone on a Regular white sub, made Mike's Way.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.hard-salami",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.provolone",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.lettuce",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.tomatoes",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.olive-oil-blend",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.red-wine-vinegar",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.oregano",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.salt",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 1040 kcal (ours 1038), 36g protein (ours 36)."
+    },
+    {
+      "id": "jersey-mikes.presets.17-mikes-famous-philly-regular",
+      "name": "#17 Mike's Famous Philly",
+      "blurb": "Grilled Philly steak with white American cheese, grilled onions and pepper strips on a Regular white sub.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.philly-steak",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.white-american-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.grilled-onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.red-green-pepper-strips",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 750 kcal (ours 748), 46g protein (ours 46)."
+    },
+    {
+      "id": "jersey-mikes.presets.16-mikes-chicken-philly-regular",
+      "name": "#16 Mike's Chicken Philly",
+      "blurb": "Grilled chicken with white American cheese, grilled onions and pepper strips on a Regular white sub.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.philly-chicken",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.white-american-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.grilled-onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.red-green-pepper-strips",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 680 kcal (ours 684), 48g protein (ours 48)."
+    },
+    {
+      "id": "jersey-mikes.presets.43-chipotle-cheese-steak-regular",
+      "name": "#43 Chipotle Cheese Steak",
+      "blurb": "Philly steak with white American cheese, grilled onions, pepper strips and chipotle mayo on a Regular white sub.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.philly-steak",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.white-american-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.grilled-onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.red-green-pepper-strips",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.chipotle-mayo",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 1040 kcal (ours 1037), 46g protein (ours 46)."
+    },
+    {
+      "id": "jersey-mikes.presets.42-chipotle-chicken-cheese-steak-regular",
+      "name": "#42 Chipotle Chicken Cheese Steak",
+      "blurb": "Grilled chicken with white American cheese, grilled onions, pepper strips and chipotle mayo on a Regular white sub.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.philly-chicken",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.white-american-cheese",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.grilled-onions",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.red-green-pepper-strips",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.chipotle-mayo",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 970 kcal (ours 973), 49g protein (ours 49)."
+    },
+    {
+      "id": "jersey-mikes.presets.20-grilled-pastrami-reuben-regular",
+      "name": "#20 Grilled Pastrami Reuben",
+      "blurb": "Grilled pastrami with Swiss, sauerkraut and Thousand Island on a Regular white sub.",
+      "items": [
+        {
+          "menuItemId": "jersey-mikes.breads.white-bread",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.protein.pastrami",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.cheeses.swiss",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.veggies.sauerkraut",
+          "quantity": 1.0
+        },
+        {
+          "menuItemId": "jersey-mikes.sauces.thousand-island",
+          "quantity": 1.0
+        }
+      ],
+      "sourceNote": "Composition from https://www.jerseymikes.com/menu/nutrition (fetched 2026-08-07). Verified against the published 720 kcal (ours 723), 42g protein (ours 42)."
+    }
+  ]
+}

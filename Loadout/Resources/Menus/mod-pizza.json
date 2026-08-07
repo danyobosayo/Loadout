@@ -1,0 +1,1267 @@
+{
+  "id": "mod-pizza",
+  "name": "MOD Pizza",
+  "schemaVersion": 1,
+  "dataSource": {
+    "url": "https://web.archive.org/web/20260709051247/https://modpizza.com/nutrition/",
+    "fetchedAt": "2026-08-07",
+    "fetchedBy": "research agent, verified against the official source",
+    "notes": "SOURCE / WHY THE URL IS AN ARCHIVE SNAPSHOT. MOD Pizza's live nutrition page (modpizza.com/nutrition/, \"Updated July, 2026\") publishes CALORIES ONLY — no protein, carbs, or fat. It states \"Additional nutrition information is available upon request.\" Their ordering platform (orders.modpizza.com, Koala-powered, last_synced_at 2026-08-07) likewise carries only calories; an 8MB menu payload contains zero occurrences of \"protein\". So there is currently no live MOD source for macros. However, the SAME official page carried a full macro table (calories, cal-from-fat, total fat, sat fat, trans fat, cholesterol, sodium, carbohydrate, fiber, sugars, protein) until MOD stripped those columns in the July 2026 refresh. Every number here comes from the last macro-bearing revision of MOD's own page (\"Updated June, 2026\"), captured 2026-07-09. This is MOD's own published content retrieved through a mirror — not a third-party aggregator, not a recipe site, not MyFitnessPal. No number was estimated, scaled, or reverse-engineered; each item is a verbatim row.\n\nINDEPENDENT CROSS-VALIDATION. I did not take the snapshot on trust. MOD's live ordering system exposes per-topping calories at Light/Regular/Extra for each crust size, and at MOD (11\") size one \"Regular\" portion equals exactly one serving unit used here. I compared ~47 items: mozzarella 90, asiago 110, cheddar 110, parmesan 130, gorgonzola 100, feta 70, plant-based cheese 80, grilled chicken 70, ground beef 210, mild Italian sausage 240, spicy chicken sausage 90, plant-based sausage 90, pepperoni 50, salami 90, crispy bacon 140, canadian bacon 50, anchovies 30, plus every sauce and veggie — all matched the snapshot exactly. Only two disagreed (see DRIFT). The 9 signature-pizza calorie totals also match the live calorie-only page exactly (Caspian 970, Calexico 860, Dillon James 830, Jasper 790, Lucy Sunshine 820, Dominic 700, Tristan 890, Mad Dog 980, The Maddy 710), confirming the snapshot describes the current menu. Finally, all 83 items pass an Atwater check (4/4/9 vs stated calories) with no outliers.\n\nPORTION BASIS — IMPORTANT FOR THE BUILDER. Serving units are exactly as MOD states them: crusts are a whole crust; cheese, meat and veggies are per 1/4 cup; sauces, finishes and dressings are per 1 tbsp; oregano/sea salt are per 1 tsp; dips are a 3 tbsp side cup. Verified against the ordering system: one standard (\"Regular\") topping portion on an 11\" MOD pizza = exactly 1x these values, and on a 6\" Mini = exactly 0.5x. So quantity 1 per topping models a normal 11\" build correctly, and \"Light\" is roughly 0.5x.\n\nCRUST CONFLICT — RESOLVED AGAINST THE LIVE STATIC PAGE. The live July 2026 page lists crusts at 200 / 467 / 933 / 650 / 520. I did NOT use those. The June snapshot and the live ordering system independently agree on 210 / 490 / 980, and the ordering system's crust upcharge modifiers reproduce the other two exactly (490 + 220 gluten-friendly = 710; 490 + 100 cauliflower = 590). Two current official sources outvote the third, and only the 210/490/980 set has macros attached, so mixing bases would have broken internal consistency.\n\nKNOWN DRIFT (2 items, both minor). Ricotta: snapshot 90 cal, but the live page and ordering system both say 100. Roasted broccoli: snapshot 15 cal, live page 15, ordering system 20. In both cases I kept the snapshot's complete, Atwater-consistent macro row rather than splicing a calorie figure onto macros from a different revision. Protein is unaffected either way.\n\nRESIDUAL RISK. The macro revision has been withdrawn from publication, and calorie agreement does not strictly prove protein/carb/fat agreement — hence \"medium\" rather than \"high\". Calories should be treated as high-confidence; macros as well-corroborated but sourced from a superseded revision."
+  },
+  "categories": [
+    {
+      "id": "crusts",
+      "name": "Crusts",
+      "selectionRule": {
+        "kind": "selectOne"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.crusts.mini-crust",
+          "name": "Mini Crust (6\" thin)",
+          "servingDescription": "whole 6-inch mini thin crust",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 38.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.crusts.mod-crust",
+          "name": "MOD Crust (11\" thin)",
+          "servingDescription": "whole 11-inch thin crust",
+          "macros": {
+            "calories": 490.0,
+            "proteinGrams": 16.0,
+            "carbGrams": 88.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.crusts.mega-thick-crust",
+          "name": "Mega Thick Crust (11\")",
+          "servingDescription": "whole 11-inch mega thick crust",
+          "macros": {
+            "calories": 980.0,
+            "proteinGrams": 32.0,
+            "carbGrams": 176.0,
+            "fatGrams": 12.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.crusts.gluten-friendly-crust",
+          "name": "Gluten-Friendly Crust (11\")",
+          "servingDescription": "whole 11-inch gluten-friendly crust",
+          "macros": {
+            "calories": 710.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 156.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.crusts.cauliflower-crust",
+          "name": "Cauliflower Crust (11\")",
+          "servingDescription": "whole 11-inch cauliflower crust",
+          "macros": {
+            "calories": 590.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 87.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "wheatFlat"
+    },
+    {
+      "id": "sauces",
+      "name": "Sauces & Finishes",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.sauces.signature-tomato-sauce",
+          "name": "Signature Tomato Sauce",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.spicy-calabrian-tomato-sauce",
+          "name": "Spicy Calabrian Chili Tomato Sauce",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.creamy-alfredo-sauce",
+          "name": "Creamy Alfredo Sauce",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.garlic-rub",
+          "name": "Garlic Rub",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.garlic-pesto",
+          "name": "Garlic Pesto",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.extra-virgin-olive-oil",
+          "name": "Extra Virgin Olive Oil",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.sweet-bbq-sauce",
+          "name": "Sweet BBQ Sauce",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 8.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.balsamic-fig-glaze",
+          "name": "Balsamic Fig Glaze",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 8.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.hot-buffalo-sauce",
+          "name": "Hot Buffalo Sauce",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.mikes-hot-honey",
+          "name": "Mike's Hot Honey",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 18.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.sauces.sriracha-ranch",
+          "name": "Sriracha Ranch",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 35.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 3.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "salsa"
+    },
+    {
+      "id": "cheeses",
+      "name": "Cheese",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.cheeses.mozzarella",
+          "name": "Mozzarella",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 1.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.asiago",
+          "name": "Asiago",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.cheddar",
+          "name": "Cheddar",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 110.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 1.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.parmesan",
+          "name": "Parmesan",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 2.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.gorgonzola",
+          "name": "Gorgonzola",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.feta",
+          "name": "Feta",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 2.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.ricotta",
+          "name": "Ricotta",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 4.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.cheeses.plant-based-cheese",
+          "name": "Plant-Based Cheese",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 8.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "cheeseSlice"
+    },
+    {
+      "id": "meats",
+      "name": "Meats",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.meats.grilled-chicken",
+          "name": "Grilled Chicken",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 1.0,
+            "fatGrams": 2.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.seasoned-ground-beef",
+          "name": "Seasoned Ground Beef",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 210.0,
+            "proteinGrams": 18.0,
+            "carbGrams": 3.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.mild-italian-sausage",
+          "name": "Mild Italian Sausage",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 240.0,
+            "proteinGrams": 13.0,
+            "carbGrams": 0.0,
+            "fatGrams": 20.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.spicy-chicken-sausage",
+          "name": "Spicy Chicken Sausage",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 11.0,
+            "carbGrams": 1.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.plant-based-italian-sausage",
+          "name": "Plant-Based Italian Sausage",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 2.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.pepperoni",
+          "name": "Pepperoni",
+          "servingDescription": "per 1/4 cup (5 slices)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 0.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.salami",
+          "name": "Salami",
+          "servingDescription": "per 1/4 cup (5 slices)",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.crispy-bacon",
+          "name": "Crispy Bacon",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 1.0,
+            "fatGrams": 11.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.canadian-bacon",
+          "name": "Canadian Bacon",
+          "servingDescription": "per 1/4 cup (5 slices)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 2.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.anchovies",
+          "name": "Anchovies",
+          "servingDescription": "per 1/4 cup (6 fillets)",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 0.0,
+            "fatGrams": 1.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.meats.scrambled-egg",
+          "name": "Scrambled Egg (limited locations)",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 80.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chicken"
+    },
+    {
+      "id": "veggies",
+      "name": "Veggies & Good Stuff",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.veggies.artichokes",
+          "name": "Artichokes",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 8.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.arugula",
+          "name": "Arugula",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.banana-peppers",
+          "name": "Banana Peppers (limited locations)",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.fresh-basil",
+          "name": "Basil - Fresh Chopped",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.black-olives",
+          "name": "Black Olives",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.roasted-broccoli",
+          "name": "Broccoli - Roasted",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.chickpeas",
+          "name": "Chickpeas",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 9.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.cilantro",
+          "name": "Cilantro",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.roasted-corn",
+          "name": "Corn - Roasted",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 8.0,
+            "fatGrams": 1.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.cucumbers",
+          "name": "Cucumbers",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.chopped-garlic",
+          "name": "Garlic - Chopped",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.roasted-garlic",
+          "name": "Garlic - Roasted",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 11.0,
+            "fatGrams": 1.5
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.green-bell-peppers",
+          "name": "Green Bell Peppers",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.jalapenos",
+          "name": "Jalapenos",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.mama-lils-sweet-hot-peppas",
+          "name": "Mama Lil's Sweet Hot Peppas",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 10.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.mushrooms",
+          "name": "Mushrooms",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.oregano",
+          "name": "Oregano",
+          "servingDescription": "per 1 tsp",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.pineapple",
+          "name": "Pineapple",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 10.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.red-onion",
+          "name": "Red Onion",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.roasted-red-peppers",
+          "name": "Red Peppers - Roasted",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 15.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.romaine",
+          "name": "Romaine",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.fresh-rosemary",
+          "name": "Rosemary - Fresh Chopped",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.sea-salt",
+          "name": "Sea Salt",
+          "servingDescription": "per 1 tsp",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.sea-salt-and-pepper",
+          "name": "Sea Salt & Pepper",
+          "servingDescription": "per 1 tsp",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.serrano-peppers",
+          "name": "Serrano Peppers (limited locations)",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.spinach",
+          "name": "Spinach",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.mixed-spring-greens",
+          "name": "Mixed Spring Greens",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.sliced-tomatoes",
+          "name": "Vine-Ripened Tomatoes - Sliced",
+          "servingDescription": "per 1/4 cup (5 slices)",
+          "macros": {
+            "calories": 20.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 4.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.veggies.diced-tomatoes",
+          "name": "Vine-Ripened Tomatoes - Diced",
+          "servingDescription": "per 1/4 cup",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "vegetables"
+    },
+    {
+      "id": "dressings",
+      "name": "Salad Dressing",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 2
+      },
+      "items": [
+        {
+          "id": "mod-pizza.dressings.balsamic-vinaigrette",
+          "name": "Balsamic Vinaigrette",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.caesar-dressing",
+          "name": "Caesar Dressing",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 10.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.greek-vinaigrette",
+          "name": "Greek Vinaigrette",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 5.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.sherry-dijon-vinaigrette",
+          "name": "Sherry Dijon Vinaigrette",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.zesty-tomato-vinaigrette",
+          "name": "Zesty Tomato Vinaigrette",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 45.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 3.0,
+            "fatGrams": 4.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.ranch-dressing",
+          "name": "Ranch",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.oil-and-vinegar",
+          "name": "Oil and Vinegar",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 7.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dressings.red-wine-vinegar",
+          "name": "Red Wine Vinegar",
+          "servingDescription": "per 1 tbsp",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "oil"
+    },
+    {
+      "id": "dips",
+      "name": "Dipping Sauce (side cup)",
+      "selectionRule": {
+        "kind": "selectUpTo",
+        "max": 3
+      },
+      "items": [
+        {
+          "id": "mod-pizza.dips.dip-red-sauce",
+          "name": "Red Sauce Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 20.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 5.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-bbq-sauce",
+          "name": "BBQ Sauce Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 23.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-garlic-pesto",
+          "name": "Garlic Pesto Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 140.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 2.0,
+            "fatGrams": 14.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-ranch",
+          "name": "Ranch Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 160.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 18.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-sri-rancha",
+          "name": "Sri-Rancha Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 100.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 6.0,
+            "fatGrams": 9.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-hot-buffalo",
+          "name": "Hot Buffalo Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 0.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 0.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-balsamic-fig-glaze",
+          "name": "Balsamic Fig Glaze Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 24.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.dips.dip-mikes-hot-honey",
+          "name": "Mike's Hot Honey Dip",
+          "servingDescription": "per 3 tbsp side cup",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 54.0,
+            "fatGrams": 0.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "hummus"
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.sides.cheesy-garlic-bread",
+          "name": "Cheesy Garlic Bread",
+          "servingDescription": "whole order",
+          "macros": {
+            "calories": 1340.0,
+            "proteinGrams": 50.0,
+            "carbGrams": 179.0,
+            "fatGrams": 43.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "breadPita"
+    },
+    {
+      "id": "extras",
+      "name": "Sweets",
+      "selectionRule": {
+        "kind": "selectMany"
+      },
+      "items": [
+        {
+          "id": "mod-pizza.extras.no-name-cake",
+          "name": "No Name Cake",
+          "servingDescription": "1 cake",
+          "macros": {
+            "calories": 300.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 42.0,
+            "fatGrams": 15.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "mod-pizza.extras.mega-cookie",
+          "name": "Mega Cookie - Chocolate Chip",
+          "servingDescription": "1 whole mega cookie (shareable)",
+          "macros": {
+            "calories": 1610.0,
+            "proteinGrams": 19.0,
+            "carbGrams": 190.0,
+            "fatGrams": 79.0
+          },
+          "allergens": null,
+          "notes": null,
+          "iconName": null
+        }
+      ],
+      "iconName": "chipsBaked"
+    }
+  ]
+}
