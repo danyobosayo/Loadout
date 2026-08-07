@@ -7,8 +7,19 @@ final class GoalSetupUITests: XCTestCase {
 
     @MainActor
     private func launchedApp() -> XCUIApplication {
+        // Layout-dependent assertions: the simulator is shared, so never
+        // inherit another class's rotation.
+        XCUIDevice.shared.orientation = .portrait
         let app = XCUIApplication()
         app.launchArguments += ["-loadout.settings.hasCompletedOnboarding", "YES"]
+        // These assert the *no target yet* state. UI test classes share the
+        // simulator's defaults, and classes that run earlier alphabetically
+        // (BudgetModeUITests) save one — so wipe it rather than inherit it.
+        app.launchArguments += ["-loadout.debug.resetProfile", "YES"]
+        // Start with no saved recipes: a recipe left by an earlier test
+        // class shows up in "Your recipes" on the restaurant screen and
+        // pushes the cards these tests tap below the fold.
+        app.launchArguments += ["-loadout.debug.resetLibrary", "YES"]
         app.launch()
         return app
     }
@@ -92,10 +103,16 @@ final class GoalSetupUITests: XCTestCase {
         app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Set your daily target")).firstMatch.tap()
         XCTAssertTrue(app.staticTexts["Set your macros"].waitForExistence(timeout: 5))
 
+        // These fields sit low in the sheet, so an open keyboard can cover the
+        // next one and its tap lands on the keyboard instead — `typeText` then
+        // fails hard on a field that never took focus. Dismissing between
+        // fields keeps every tap on a settled, unobscured layout.
         func fill(_ id: String, _ text: String) {
             let f = app.textFields[id]
             XCTAssertTrue(f.waitForExistence(timeout: 5), "missing field \(id)")
-            f.tap(); f.typeText(text)
+            f.tap()
+            f.typeText(text)
+            if app.buttons["Done"].exists { app.buttons["Done"].tap() }
         }
         // Default: unspecified / moderate / lose → goal weight + timeframe show.
         fill("goalField.age", "30")

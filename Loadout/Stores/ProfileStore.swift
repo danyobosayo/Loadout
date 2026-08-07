@@ -21,6 +21,18 @@ final class ProfileStore {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+        #if DEBUG
+        // Test hook: `-loadout.debug.resetProfile YES` starts with no goal.
+        // The goal persists as `Data`, which a launch argument can't override
+        // the way the `hasCompletedOnboarding` bool does — so a UI test class
+        // that asserts the no-target state needs an explicit wipe, or a target
+        // saved by an earlier class leaks in through the simulator's defaults.
+        if defaults.bool(forKey: "loadout.debug.resetProfile") {
+            defaults.removeObject(forKey: Keys.macroGoal)
+            self.goal = nil
+            return
+        }
+        #endif
         // Assigning in init doesn't fire `didSet`, so this doesn't re-persist.
         // A decode failure silently resets to nil — a lost goal is re-enterable;
         // a crash loop is not.

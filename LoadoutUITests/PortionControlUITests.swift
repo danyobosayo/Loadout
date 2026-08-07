@@ -7,8 +7,18 @@ final class PortionControlUITests: XCTestCase {
 
     @MainActor
     private func launchedApp() -> XCUIApplication {
+        // Layout-dependent assertions: the simulator is shared, so never
+        // inherit another class's rotation.
+        XCUIDevice.shared.orientation = .portrait
         let app = XCUIApplication()
         app.launchArguments += ["-loadout.settings.hasCompletedOnboarding", "YES"]
+        // A target leaked from an earlier test class would add Budget Mode and
+        // the "Fit my macros" card to the screens these tests walk. Start clean.
+        app.launchArguments += ["-loadout.debug.resetProfile", "YES"]
+        // Start with no saved recipes: a recipe left by an earlier test
+        // class shows up in "Your recipes" on the restaurant screen and
+        // pushes the cards these tests tap below the fold.
+        app.launchArguments += ["-loadout.debug.resetLibrary", "YES"]
         app.launch()
         return app
     }

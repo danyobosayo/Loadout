@@ -6,10 +6,17 @@ final class BudgetModeUITests: XCTestCase {
 
     @MainActor
     private func launchedApp() -> XCUIApplication {
+        // Layout-dependent assertions: the simulator is shared, so never
+        // inherit another class's rotation.
+        XCUIDevice.shared.orientation = .portrait
         let app = XCUIApplication()
         app.launchArguments += ["-loadout.settings.hasCompletedOnboarding", "YES"]
         // Budget Mode + Fit my macros are Pro — unlock for these tests.
         app.launchArguments += ["-loadout.debug.forcePro", "YES"]
+        // Start with no saved recipes: a recipe left by an earlier test
+        // class shows up in "Your recipes" on the restaurant screen and
+        // pushes the cards these tests tap below the fold.
+        app.launchArguments += ["-loadout.debug.resetLibrary", "YES"]
         app.launch()
         return app
     }

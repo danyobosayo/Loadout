@@ -54,7 +54,7 @@ struct RootView: View {
         // A quick crossfade for the content — the springy Motion.snap that
         // slides the pill would ghost a full-screen opacity switch for ~0.5s.
         .animation(.easeInOut(duration: 0.18), value: tab)
-        .onAppear { Haptics.prepare() }
+        .onAppear { Haptics.prepare(); resetLibraryIfRequested() }
         .overlay(alignment: .bottom) {
             FloatingTabBar(selection: $tab)
         }
@@ -107,6 +107,20 @@ struct RootView: View {
         )) {
             OnboardingView()
         }
+    }
+
+    /// Test hook: `-loadout.debug.resetLibrary YES` launches with no saved
+    /// recipes or history. UI test classes share one simulator, so a recipe
+    /// saved by an earlier class otherwise appears in the "Your recipes"
+    /// section of the restaurant screen and shifts every layout a later class
+    /// walks. Wiping through the context keeps the production container path
+    /// untouched.
+    private func resetLibraryIfRequested() {
+        #if DEBUG
+        guard UserDefaults.standard.bool(forKey: "loadout.debug.resetLibrary") else { return }
+        try? modelContext.delete(model: FavoriteMeal.self)
+        try? modelContext.delete(model: LoggedMeal.self)
+        #endif
     }
 
     private func handleCallback(_ url: URL) {

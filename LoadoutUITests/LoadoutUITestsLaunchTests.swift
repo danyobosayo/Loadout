@@ -9,12 +9,22 @@ import XCTest
 
 final class LoadoutUITestsLaunchTests: XCTestCase {
 
+    /// Off deliberately. The Xcode template defaults this to `true`, which
+    /// re-runs `testLaunch` in landscape — and leaves the *shared* simulator
+    /// rotated for every test class that runs after this one alphabetically.
+    /// Loadout is a portrait iPhone app (PROJECT.md §2), so the landscape pass
+    /// verified nothing and silently broke the layout-dependent suites.
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
+        false
     }
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+    }
+
+    override func tearDownWithError() throws {
+        // Belt and braces: never hand the next class a rotated device.
+        XCUIDevice.shared.orientation = .portrait
     }
 
     @MainActor
