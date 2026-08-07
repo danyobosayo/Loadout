@@ -36,6 +36,17 @@ final class SettingsStore {
         self.shortcutName = defaults.string(forKey: Keys.shortcutName)
             ?? MacroFactorExporter.defaultShortcutName
         self.hasCompletedOnboarding = defaults.bool(forKey: Keys.hasCompletedOnboarding)
+        #if DEBUG
+        // Same hook as ProfileStore: how you like to eat is part of the user
+        // profile, and a UI test class that switches on a dietary restriction
+        // would otherwise leave every later class rendering diet warnings on
+        // half the menu.
+        if defaults.bool(forKey: "loadout.debug.resetProfile") {
+            defaults.removeObject(forKey: Keys.autoBuild)
+            self.autoBuild = .default
+            return
+        }
+        #endif
         // A decode failure falls back to the default rather than crashing —
         // losing a preference is recoverable in two taps.
         if let data = defaults.data(forKey: Keys.autoBuild) {

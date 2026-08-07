@@ -270,6 +270,7 @@ struct MenuView: View {
                         quantity: quantity,
                         policy: policy,
                         isDisabled: scoopCapReached && quantity == 0,
+                        dietary: item.verdict(for: settings.autoBuild.restrictions),
                         onTap: { tapStation(item, in: category) },
                         onDecrement: { decrementStation(item) }
                     )
@@ -506,6 +507,10 @@ private struct MenuItemRow: View {
     let quantity: Double
     let policy: PortionPolicy
     let isDisabled: Bool
+    /// How this item sits against the user's dietary restrictions. Shown, never
+    /// enforced — the menu marks a conflict and still lets you tap it, because
+    /// only the person ordering knows how strict their rule is today.
+    var dietary: DietaryVerdict = .allowed
     let onTap: () -> Void
     let onDecrement: () -> Void
 
@@ -592,8 +597,21 @@ private struct MenuItemRow: View {
                         .lineLimit(1)
                 }
                 MacroStrip(macros: item.macros)
+                if dietary != .allowed { dietaryNote }
             }
         }
+    }
+
+    @ViewBuilder
+    private var dietaryNote: some View {
+        let excluded = dietary == .excluded
+        HStack(spacing: 4) {
+            Image(systemName: excluded ? "exclamationmark.triangle.fill" : "questionmark.circle")
+                .font(.system(size: 9, weight: .bold))
+            Text(excluded ? "Doesn't fit your diet settings" : "Not checked for your diet settings")
+                .font(.appCaption)
+        }
+        .foregroundStyle(excluded ? Color.destructiveRed : Color.textTertiary)
     }
 
     /// splitBase badge: ½ / ×2; a plain full portion is just the filled dot.
@@ -607,6 +625,11 @@ private struct MenuItemRow: View {
 
     private var accessibilityText: String {
         var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
+        switch dietary {
+        case .excluded: parts.append("does not fit your diet settings")
+        case .unknown:  parts.append("not checked for your diet settings")
+        case .allowed:  break
+        }
         if isHalf { parts.append("half portion") }
         else if policy.isCounter, isInMeal { parts.append("\(Int(quantity.rounded())) in meal") }
         else if isInMeal { parts.append("\(quantity.formatted()) in meal") }

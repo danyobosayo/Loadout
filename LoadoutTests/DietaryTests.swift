@@ -101,6 +101,60 @@ struct DietaryTests {
         }
     }
 
+    // MARK: Auto-build honours restrictions
+
+    /// The whole point of flagging: auto-build must never hand you something
+    /// your restriction rules out. Unknown items are excluded too — nobody is
+    /// reading a label on your behalf here.
+    @Test(arguments: [
+        DietaryRestriction.vegetarian, .vegan, .porkFree, .glutenFree, .dairyFree,
+    ])
+    func autoBuildNeverSuggestsARestrictedItem(_ restriction: DietaryRestriction) async throws {
+        let budget = Macros(calories: 2200, proteinGrams: 180, carbGrams: 200, fatGrams: 60)
+        for id in Self.restaurants {
+            let restaurant = try await repository.loadRestaurant(id: id)
+            let prefs = AutoBuildPreferences(focus: .balanced, restrictions: [restriction])
+            guard let suggestion = MealSolver.solve(
+                restaurant: restaurant, budget: budget, preferences: prefs
+            ) else { continue }   // no compliant meal is a valid outcome
+            for pick in suggestion.picks {
+                #expect(
+                    pick.item.verdict(for: restriction) == .allowed,
+                    "\(id)/\(restriction.rawValue) suggested \(pick.item.name)"
+                )
+            }
+        }
+    }
+
+    /// Restrictions stack with each other and with the station exclusions.
+    @Test func restrictionsStackWithSauceExclusion() async throws {
+        let restaurant = try await repository.loadRestaurant(id: "sweetgreen")
+        let budget = Macros(calories: 2200, proteinGrams: 180, carbGrams: 200, fatGrams: 60)
+        let prefs = AutoBuildPreferences(
+            focus: .protein, exclusions: [.sauces], restrictions: [.vegan, .glutenFree]
+        )
+        let suggestion = try #require(MealSolver.solve(restaurant: restaurant, budget: budget, preferences: prefs))
+        for pick in suggestion.picks {
+            #expect(!AutoBuildExclusion.sauces.excludedCategoryIds.contains(pick.categoryId))
+            #expect(pick.item.verdict(for: .vegan) == .allowed, "\(pick.item.name) isn't vegan")
+            #expect(pick.item.verdict(for: .glutenFree) == .allowed, "\(pick.item.name) has gluten")
+        }
+    }
+
+    /// Vegan at a chicken-finger shop has no valid answer, and returning
+    /// nothing beats returning something wrong.
+    @Test func impossibleRestrictionsYieldNoSuggestionRatherThanABadOne() async throws {
+        let restaurant = try await repository.loadRestaurant(id: "raising-canes")
+        let budget = Macros(calories: 2200, proteinGrams: 180, carbGrams: 200, fatGrams: 60)
+        let prefs = AutoBuildPreferences(restrictions: [.vegan])
+        let suggestion = MealSolver.solve(restaurant: restaurant, budget: budget, preferences: prefs)
+        if let suggestion {
+            for pick in suggestion.picks {
+                #expect(pick.item.verdict(for: .vegan) == .allowed, "\(pick.item.name) isn't vegan")
+            }
+        }
+    }
+
     /// A spot-check that the shipped data actually says what it should — if a
     /// menu refresh wipes the flags, these fail rather than silently clearing
     /// every restriction.

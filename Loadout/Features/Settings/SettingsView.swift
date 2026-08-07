@@ -289,11 +289,50 @@ struct SettingsView: View {
                 .accessibilityIdentifier("autoBuildExclusion.\(exclusion.rawValue)")
             }
 
-            Text("Applies when you tap Fit my macros. Dietary restrictions will join the skip list.")
+            Divider().overlay(Color.hairline)
+
+            Text("Diet")
+                .microLabelStyle()
+
+            ForEach(DietaryRestriction.allCases.filter { !$0.isAllergen }) { restriction in
+                restrictionToggle(restriction)
+            }
+
+            Text("Allergens")
+                .microLabelStyle()
+                .padding(.top, Spacing.xs)
+
+            ForEach(DietaryRestriction.allCases.filter(\.isAllergen)) { restriction in
+                restrictionToggle(restriction)
+            }
+
+            Text("""
+                 Auto-build skips anything that doesn't clear these, including \
+                 items we haven't been able to check. Allergen data comes from \
+                 each restaurant's published guide and is best effort — kitchens \
+                 share surfaces and suppliers change. Always confirm a severe \
+                 allergy with the restaurant.
+                 """)
                 .font(.appCaption)
                 .foregroundStyle(.textTertiary)
                 .fixedSize(horizontal: false, vertical: true)
         }
+    }
+
+    private func restrictionToggle(_ restriction: DietaryRestriction) -> some View {
+        @Bindable var settings = settings
+        return Toggle(isOn: Binding(
+            get: { settings.autoBuild.restrictions.contains(restriction) },
+            set: { isOn in
+                Haptics.tap()
+                if isOn { settings.autoBuild.restrictions.insert(restriction) }
+                else { settings.autoBuild.restrictions.remove(restriction) }
+            }
+        )) {
+            Text(restriction.title).font(.appBody).foregroundStyle(.textPrimary)
+        }
+        .tint(.volt)
+        .accessibilityIdentifier("dietaryRestriction.\(restriction.rawValue)")
     }
 
     private func focusRow(_ focus: AutoBuildFocus, selected: Bool) -> some View {

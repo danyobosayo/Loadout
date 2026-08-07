@@ -104,7 +104,11 @@ nonisolated enum MealSolver {
             weights: Weights(focus: preferences.focus, budgetIsBinding: budgetIsBinding)
         )
 
-        let candidates = candidateList(restaurant, excluding: preferences.exclusions)
+        let candidates = candidateList(
+            restaurant,
+            excluding: preferences.exclusions,
+            restrictions: preferences.restrictions
+        )
         guard !candidates.isEmpty else { return nil }
 
         // Seeds: highest ABSOLUTE protein among real items that fit alone under
@@ -417,23 +421,29 @@ nonisolated enum MealSolver {
 
     private static func candidateList(
         _ restaurant: Restaurant,
-        excluding exclusions: Set<AutoBuildExclusion>
+        excluding exclusions: Set<AutoBuildExclusion>,
+        restrictions: Set<DietaryRestriction>
     ) -> [Candidate] {
         let blocked = exclusions.reduce(into: Set<String>()) { $0.formUnion($1.excludedCategoryIds) }
         return restaurant.categories
             .filter { !blocked.contains($0.id) }
             .flatMap { category in
-                category.items.map { item in
-                    Candidate(
-                        item: item,
-                        categoryId: category.id,
-                        iconName: item.iconName ?? category.iconName,
-                        policy: category.portionPolicy,
-                        selectionRule: category.selectionRule,
-                        variantGroup: variantGroup(item, categoryId: category.id),
-                        isCompleteMeal: category.isCompleteMeal
-                    )
-                }
+                // An item we haven't flagged is dropped too, not waved through:
+                // auto-build is the one place where "we don't know" has to mean
+                // "not this one", because nobody is reading the label.
+                category.items
+                    .filter { restrictions.isEmpty || $0.verdict(for: restrictions) == .allowed }
+                    .map { item in
+                        Candidate(
+                            item: item,
+                            categoryId: category.id,
+                            iconName: item.iconName ?? category.iconName,
+                            policy: category.portionPolicy,
+                            selectionRule: category.selectionRule,
+                            variantGroup: variantGroup(item, categoryId: category.id),
+                            isCompleteMeal: category.isCompleteMeal
+                        )
+                    }
             }
             .sorted { $0.item.id < $1.item.id }
     }

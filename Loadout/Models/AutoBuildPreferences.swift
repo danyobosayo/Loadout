@@ -6,16 +6,25 @@ import Foundation
 /// differently: exactly **one focus** (they pull the objective in competing
 /// directions, so they can't combine), plus **any number of exclusions** (each
 /// just removes items from consideration, so they stack freely). Dietary
-/// restrictions will land as more exclusions — same mechanism, no rework.
+/// restrictions are the third kind: also stackable, but filtering per item
+/// rather than per station.
 nonisolated struct AutoBuildPreferences: Codable, Hashable, Sendable {
     var focus: AutoBuildFocus
     var exclusions: Set<AutoBuildExclusion>
+    /// Dietary restrictions, which are exclusions by another name — they just
+    /// filter per *item* rather than per station.
+    var restrictions: Set<DietaryRestriction>
 
-    static let `default` = AutoBuildPreferences(focus: .balanced, exclusions: [])
+    static let `default` = AutoBuildPreferences(focus: .balanced, exclusions: [], restrictions: [])
 
-    init(focus: AutoBuildFocus = .balanced, exclusions: Set<AutoBuildExclusion> = []) {
+    init(
+        focus: AutoBuildFocus = .balanced,
+        exclusions: Set<AutoBuildExclusion> = [],
+        restrictions: Set<DietaryRestriction> = []
+    ) {
         self.focus = focus
         self.exclusions = exclusions
+        self.restrictions = restrictions
     }
 
     // Decoded leniently so a preference written by a newer build (an unknown
@@ -26,15 +35,18 @@ nonisolated struct AutoBuildPreferences: Codable, Hashable, Sendable {
         focus = (try? c.decode(AutoBuildFocus.self, forKey: .focus)) ?? .balanced
         let raw = (try? c.decode([String].self, forKey: .exclusions)) ?? []
         exclusions = Set(raw.compactMap(AutoBuildExclusion.init(rawValue:)))
+        let rawRestrictions = (try? c.decode([String].self, forKey: .restrictions)) ?? []
+        restrictions = Set(rawRestrictions.compactMap(DietaryRestriction.init(rawValue:)))
     }
 
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(focus, forKey: .focus)
         try c.encode(exclusions.map(\.rawValue).sorted(), forKey: .exclusions)
+        try c.encode(restrictions.map(\.rawValue).sorted(), forKey: .restrictions)
     }
 
-    private enum CodingKeys: String, CodingKey { case focus, exclusions }
+    private enum CodingKeys: String, CodingKey { case focus, exclusions, restrictions }
 }
 
 /// The one dial that shapes the objective. Pick-one by nature: "as much protein
