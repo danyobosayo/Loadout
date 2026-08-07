@@ -26,9 +26,10 @@
             "carbGrams": 48.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.saffron-basmati",
@@ -40,9 +41,10 @@
             "carbGrams": 54.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "riceWhiteBowl"
+          "iconName": "riceWhiteBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.black-lentils",
@@ -54,9 +56,10 @@
             "carbGrams": 37.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lentils"
+          "iconName": "lentils",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.super-greens",
@@ -68,9 +71,10 @@
             "carbGrams": 6.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Salad base",
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.arugula",
@@ -82,9 +86,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.baby-spinach",
@@ -96,9 +101,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.romaine",
@@ -110,9 +116,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.bases.power-greens",
@@ -124,9 +131,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "lettuce"
@@ -149,9 +157,12 @@
             "carbGrams": 1.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "yogurt"
+          "iconName": "yogurt",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dips.hummus",
@@ -163,9 +174,12 @@
             "carbGrams": 4.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "hummus"
+          "iconName": "hummus",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dips.roasted-eggplant",
@@ -177,9 +191,10 @@
             "carbGrams": 2.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "eggplant"
+          "iconName": "eggplant",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dips.crazy-feta",
@@ -191,9 +206,12 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dips.harissa",
@@ -205,9 +223,10 @@
             "carbGrams": 5.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dips.red-pepper-hummus",
@@ -219,9 +238,12 @@
             "carbGrams": 5.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "hummus"
+          "iconName": "hummus",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "hummus"
@@ -243,9 +265,12 @@
             "carbGrams": 2.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "meatballs"
+          "iconName": "meatballs",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "cava.mains.grilled-chicken",
@@ -257,9 +282,12 @@
             "carbGrams": 3.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chickenGrilled"
+          "iconName": "chickenGrilled",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "cava.mains.falafel",
@@ -271,9 +299,12 @@
             "carbGrams": 24.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": "Vegan",
-          "iconName": "falafel"
+          "iconName": "falafel",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.mains.grilled-steak",
@@ -285,9 +316,12 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "cava.mains.harissa-honey-chicken",
@@ -299,9 +333,13 @@
             "carbGrams": 7.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "honey",
+            "meat"
+          ]
         },
         {
           "id": "cava.mains.roasted-vegetables",
@@ -313,9 +351,10 @@
             "carbGrams": 14.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Vegan",
-          "iconName": "vegetables"
+          "iconName": "vegetables",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.mains.spicy-lamb-meatballs",
@@ -327,9 +366,12 @@
             "carbGrams": 3.0,
             "fatGrams": 21.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "meatballs"
+          "iconName": "meatballs",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "cava.mains.glazed-salmon",
@@ -341,9 +383,12 @@
             "carbGrams": 5.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "fish"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chickenGrilled"
@@ -365,9 +410,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.pita-crisps",
@@ -379,9 +425,12 @@
             "carbGrams": 6.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.sumac-slaw",
@@ -393,9 +442,10 @@
             "carbGrams": 3.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cabbage"
+          "iconName": "cabbage",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.tomato-onion",
@@ -407,9 +457,10 @@
             "carbGrams": 2.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.persian-cucumber",
@@ -421,9 +472,10 @@
             "carbGrams": 1.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.tomato-cucumber",
@@ -435,9 +487,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.kalamata-olives",
@@ -449,9 +502,10 @@
             "carbGrams": 2.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oliveBlack"
+          "iconName": "oliveBlack",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.fiery-broccoli",
@@ -463,9 +517,10 @@
             "carbGrams": 2.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.pickled-onions",
@@ -477,9 +532,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "onion"
+          "iconName": "onion",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.salt-brined-pickles",
@@ -491,9 +547,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.crumbled-feta",
@@ -505,9 +562,12 @@
             "carbGrams": 0.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.fire-roasted-corn",
@@ -519,9 +579,10 @@
             "carbGrams": 5.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "corn"
+          "iconName": "corn",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.toppings.avocado",
@@ -533,9 +594,10 @@
             "carbGrams": 6.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "avocado"
+          "iconName": "avocado",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -558,9 +620,10 @@
             "carbGrams": 7.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.yogurt-dill",
@@ -572,9 +635,12 @@
             "carbGrams": 1.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "yogurt"
+          "iconName": "yogurt",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.lemon-herb-tahini",
@@ -586,9 +652,12 @@
             "carbGrams": 4.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.strawberry-sesame",
@@ -600,9 +669,14 @@
             "carbGrams": 3.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "strawberry"
+          "iconName": "strawberry",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "cava.dressings.greek-vinaigrette",
@@ -614,9 +688,10 @@
             "carbGrams": 1.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.skhug",
@@ -628,9 +703,10 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Spicy",
-          "iconName": "spicesGround"
+          "iconName": "spicesGround",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.hot-harissa-vinaigrette",
@@ -642,9 +718,10 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Spicy",
-          "iconName": "spicesGround"
+          "iconName": "spicesGround",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.dressings.garlic-dressing",
@@ -656,9 +733,10 @@
             "carbGrams": 0.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "garlic"
+          "iconName": "garlic",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "oil"
@@ -680,9 +758,12 @@
             "carbGrams": 54.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.side-pita",
@@ -694,9 +775,12 @@
             "carbGrams": 14.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.pita-chips",
@@ -708,9 +792,12 @@
             "carbGrams": 41.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.sumac-pita-chips",
@@ -722,9 +809,13 @@
             "carbGrams": 43.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chipsBakedSeasoned"
+          "iconName": "chipsBakedSeasoned",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.greyston-blondie",
@@ -736,9 +827,15 @@
             "carbGrams": 22.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "cakeSquareChocolate"
+          "iconName": "cakeSquareChocolate",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.greyston-brownie",
@@ -750,9 +847,14 @@
             "carbGrams": 17.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "cakeSquareChocolate"
+          "iconName": "cakeSquareChocolate",
+          "dietaryMarkers": []
         },
         {
           "id": "cava.sides.whisked-apricot-honey",
@@ -764,9 +866,16 @@
             "carbGrams": 34.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": "DMV regional",
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "cava.sides.whisked-dark-chocolate",
@@ -778,9 +887,15 @@
             "carbGrams": 31.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "breadPita"

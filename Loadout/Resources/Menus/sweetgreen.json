@@ -26,9 +26,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.baby-spinach",
@@ -40,9 +41,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.chopped-romaine",
@@ -54,9 +56,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.spring-mix",
@@ -68,9 +71,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.shredded-kale",
@@ -82,9 +86,10 @@
             "carbGrams": 6.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.golden-quinoa",
@@ -96,9 +101,10 @@
             "carbGrams": 16.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Warm base",
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.white-rice",
@@ -110,9 +116,10 @@
             "carbGrams": 27.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Warm base",
-          "iconName": "riceWhiteBowl"
+          "iconName": "riceWhiteBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.wild-rice",
@@ -124,9 +131,10 @@
             "carbGrams": 31.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Warm base",
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.bases.tortilla",
@@ -138,9 +146,12 @@
             "carbGrams": 51.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": "Olive oil tortilla wrap base",
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -161,9 +172,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "strawberry"
+          "iconName": "strawberry",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.basil",
@@ -175,9 +187,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.chickpeas",
@@ -189,9 +202,10 @@
             "carbGrams": 7.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.cilantro",
@@ -203,9 +217,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.corn-salsa",
@@ -217,9 +232,10 @@
             "carbGrams": 7.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "corn"
+          "iconName": "corn",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.crispy-onions",
@@ -231,9 +247,12 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "onion"
+          "iconName": "onion",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.crispy-rice",
@@ -245,9 +264,12 @@
             "carbGrams": 14.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "treenut"
+          ],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.crispy-noodles",
@@ -259,9 +281,12 @@
             "carbGrams": 21.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.cucumbers",
@@ -273,9 +298,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.garlic-breadcrumbs",
@@ -287,9 +313,12 @@
             "carbGrams": 6.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.nori-sesame-seasoning",
@@ -301,9 +330,12 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "spicesGround"
+          "iconName": "spicesGround",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.pickled-onions",
@@ -315,9 +347,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.shredded-carrots",
@@ -329,9 +362,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.roasted-almonds",
@@ -343,9 +377,12 @@
             "carbGrams": 3.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "treenut"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.roasted-sweet-potatoes",
@@ -357,9 +394,10 @@
             "carbGrams": 11.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Cold topping portion; see premiums for Warm Roasted Sweet Potatoes",
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.sesame-crunch",
@@ -371,9 +409,12 @@
             "carbGrams": 6.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.shredded-cabbage",
@@ -385,9 +426,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cabbage"
+          "iconName": "cabbage",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.spicy-broccoli",
@@ -399,9 +441,10 @@
             "carbGrams": 2.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.toasted-sunflower-seeds",
@@ -413,9 +456,10 @@
             "carbGrams": 7.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "spicesGround"
+          "iconName": "spicesGround",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.tomatoes",
@@ -427,9 +471,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.ingredients.tortilla-chips",
@@ -441,9 +486,12 @@
             "carbGrams": 10.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -464,9 +512,10 @@
             "carbGrams": 8.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "avocado"
+          "iconName": "avocado",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.apple-kimchi-sauce",
@@ -478,9 +527,13 @@
             "carbGrams": 11.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "cabbage"
+          "iconName": "cabbage",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.crumbled-bacon",
@@ -492,9 +545,13 @@
             "carbGrams": 0.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "sweetgreen.premiums.feta-crumble",
@@ -506,9 +563,12 @@
             "carbGrams": 2.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.goat-cheese",
@@ -520,9 +580,12 @@
             "carbGrams": 0.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.hard-boiled-egg",
@@ -534,9 +597,12 @@
             "carbGrams": 1.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.hummus",
@@ -548,9 +614,12 @@
             "carbGrams": 7.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "hummus"
+          "iconName": "hummus",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.napa-cabbage-slaw",
@@ -562,9 +631,10 @@
             "carbGrams": 6.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cabbage"
+          "iconName": "cabbage",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.parmesan-crisps",
@@ -576,9 +646,12 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.shaved-parmesan",
@@ -590,9 +663,12 @@
             "carbGrams": 0.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.summer-tomatoes",
@@ -604,9 +680,10 @@
             "carbGrams": 2.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Seasonal (summer 2026)",
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.summer-vegetable-medley",
@@ -618,9 +695,10 @@
             "carbGrams": 3.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Seasonal (summer 2026)",
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.white-cheddar",
@@ -632,9 +710,12 @@
             "carbGrams": 1.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.warm-portobello-mix",
@@ -646,9 +727,10 @@
             "carbGrams": 3.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
-          "iconName": "eggplant"
+          "iconName": "eggplant",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.premiums.warm-roasted-sweet-potatoes",
@@ -660,9 +742,10 @@
             "carbGrams": 14.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -683,9 +766,12 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "sweetgreen.proteins.roasted-chicken",
@@ -697,9 +783,12 @@
             "carbGrams": 0.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "sweetgreen.proteins.caramelized-garlic-steak",
@@ -711,9 +800,12 @@
             "carbGrams": 2.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "sweetgreen.proteins.miso-glazed-salmon",
@@ -725,9 +817,13 @@
             "carbGrams": 2.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "fish",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.proteins.roasted-tofu",
@@ -739,9 +835,12 @@
             "carbGrams": 3.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "eggplant"
+          "iconName": "eggplant",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -762,9 +861,12 @@
             "carbGrams": 5.0,
             "fatGrams": 22.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "sweetgreen.dressings.balsamic-vinegar",
@@ -776,9 +878,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.citrus-sesame-vinaigrette",
@@ -790,9 +893,12 @@
             "carbGrams": 8.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.caesar",
@@ -804,9 +910,14 @@
             "carbGrams": 1.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.charred-jalapeno-ranch",
@@ -818,9 +929,13 @@
             "carbGrams": 3.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.crushed-red-pepper",
@@ -832,9 +947,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.extra-virgin-olive-oil",
@@ -846,9 +962,10 @@
             "carbGrams": 0.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.tomato-vinaigrette",
@@ -860,9 +977,10 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Fresh tomato vinaigrette; seasonal (summer 2026)",
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.garlic-aioli",
@@ -874,9 +992,12 @@
             "carbGrams": 2.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.green-goddess-ranch",
@@ -888,9 +1009,13 @@
             "carbGrams": 1.0,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.honey-bbq-sauce",
@@ -902,9 +1027,12 @@
             "carbGrams": 6.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "sweetgreen.dressings.hot-honey-mustard-sauce",
@@ -916,9 +1044,12 @@
             "carbGrams": 9.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "sweetgreen.dressings.kbbq-dressing",
@@ -930,9 +1061,15 @@
             "carbGrams": 14.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": [
+            "alcohol"
+          ]
         },
         {
           "id": "sweetgreen.dressings.lemon-squeeze",
@@ -944,9 +1081,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
@@ -958,9 +1096,10 @@
             "carbGrams": 2.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.lime-squeeze",
@@ -972,9 +1111,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.miso-sesame-ginger",
@@ -986,9 +1126,13 @@
             "carbGrams": 2.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "spicesGround"
+          "iconName": "spicesGround",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.pesto-vinaigrette",
@@ -1002,7 +1146,8 @@
           },
           "allergens": null,
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": null
         },
         {
           "id": "sweetgreen.dressings.spicy-cashew",
@@ -1014,9 +1159,13 @@
             "carbGrams": 4.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "treenut"
+          ],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.sweetgreen-hot-sauce",
@@ -1028,9 +1177,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.dressings.umami-seasoning",
@@ -1042,9 +1192,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ]
     },
@@ -1065,9 +1216,12 @@
             "carbGrams": 18.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": "Locally sourced side bread; ingredients vary by market",
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.sides.rosemary-focaccia",
@@ -1079,9 +1233,12 @@
             "carbGrams": 34.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "sweetgreen.sides.hummus-focaccia",
@@ -1093,9 +1250,13 @@
             "carbGrams": 37.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "hummus"
+          "iconName": "hummus",
+          "dietaryMarkers": []
         }
       ]
     }

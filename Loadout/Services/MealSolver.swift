@@ -23,6 +23,10 @@ nonisolated enum MealSolver {
         let categoryId: String
         let iconName: String?
         var quantity: Double
+        /// See `MealSolver.variantGroup` — sizes of one dish share a key so the
+        /// solver never suggests two of them together.
+        var variantGroup: String = ""
+        var isCompleteMeal: Bool = false
     }
 
     struct Suggestion: Sendable {
@@ -120,7 +124,7 @@ nonisolated enum MealSolver {
         // chosen *for* the meal rather than left out of it.
         var builds: [[String: Pick]] = [greedy(from: seededBase([:], candidates, objective), objective: objective, candidates: candidates)]
         for seed in seeds {
-            var start = [seed.item.id: Pick(item: seed.item, categoryId: seed.categoryId, iconName: seed.iconName, quantity: 1)]
+            var start = [seed.item.id: Pick(item: seed.item, categoryId: seed.categoryId, iconName: seed.iconName, quantity: 1, variantGroup: seed.variantGroup, isCompleteMeal: seed.isCompleteMeal)]
             start = seededBase(start, candidates, objective)
             builds.append(greedy(from: start, objective: objective, candidates: candidates))
         }
@@ -157,13 +161,13 @@ nonisolated enum MealSolver {
         }
         guard let best else { return build }
         var seeded = build
-        seeded[best.item.id] = Pick(item: best.item, categoryId: best.categoryId, iconName: best.iconName, quantity: 1)
+        seeded[best.item.id] = Pick(item: best.item, categoryId: best.categoryId, iconName: best.iconName, quantity: 1, variantGroup: best.variantGroup, isCompleteMeal: best.isCompleteMeal)
         return seeded
     }
 
     private static func score(withOneMore c: Candidate, added build: [String: Pick], _ objective: Objective) -> Double {
         var trial = build
-        trial[c.item.id, default: Pick(item: c.item, categoryId: c.categoryId, iconName: c.iconName, quantity: 0)].quantity += 1
+        trial[c.item.id, default: Pick(item: c.item, categoryId: c.categoryId, iconName: c.iconName, quantity: 0, variantGroup: c.variantGroup, isCompleteMeal: c.isCompleteMeal)].quantity += 1
         return score(trial, objective)
     }
 
@@ -189,7 +193,7 @@ nonisolated enum MealSolver {
                 }
             }
             guard let cand = bestCandidate else { break }
-            build[cand.item.id, default: Pick(item: cand.item, categoryId: cand.categoryId, iconName: cand.iconName, quantity: 0)].quantity += 1
+            build[cand.item.id, default: Pick(item: cand.item, categoryId: cand.categoryId, iconName: cand.iconName, quantity: 0, variantGroup: cand.variantGroup, isCompleteMeal: cand.isCompleteMeal)].quantity += 1
             currentScore = bestScore
         }
         return build
@@ -317,6 +321,25 @@ nonisolated enum MealSolver {
     /// vessels like a Chipotle tortilla).
     private static func allowed(_ c: Candidate, in build: [String: Pick]) -> Bool {
         let currentQty = build[c.item.id]?.quantity ?? 0
+        // Never two sizes of the same dish in one suggestion.
+        if currentQty == 0,
+           build.values.contains(where: {
+               $0.variantGroup == c.variantGroup && $0.item.id != c.item.id
+           }) {
+            return false
+        }
+        // A whole dish already contains its own rice and protein. Allow only
+        // one, and only alongside genuine accompaniments — otherwise Qdoba
+        // suggests a Chicken Queso Bowl *and* a side of carnitas and rice.
+        let hasCompleteMeal = build.values.contains { $0.isCompleteMeal }
+        if c.isCompleteMeal {
+            if hasCompleteMeal && currentQty == 0 { return false }
+            if build.values.contains(where: { !$0.isCompleteMeal && !accompanimentCategoryIds.contains($0.categoryId) }) {
+                return false
+            }
+        } else if hasCompleteMeal, !accompanimentCategoryIds.contains(c.categoryId) {
+            return false
+        }
         let inCategory = build.values.filter { $0.categoryId == c.categoryId }
         let distinct = inCategory.count
         let categoryTotal = inCategory.reduce(0) { $0 + $1.quantity }
@@ -361,6 +384,35 @@ nonisolated enum MealSolver {
         let iconName: String?
         let policy: PortionPolicy
         let selectionRule: SelectionRule
+        /// Items that are the same dish at different sizes share this. A person
+        /// may well order a medium *and* a large fry, so the builder allows it —
+        /// but a suggestion that hands you a cup of chicken noodle soup next to
+        /// a bowl of chicken noodle soup is just a bad suggestion.
+        let variantGroup: String
+        /// This item is a whole dish, not a component (see `MenuCategory`).
+        let isCompleteMeal: Bool
+    }
+
+    /// Stations that legitimately sit *alongside* a whole dish. Everything else
+    /// is a component the dish already contains.
+    private static let accompanimentCategoryIds: Set<String> =
+        ["sides", "dips", "extras", "chips", "sauces", "dressings", "dressing", "appetizers"]
+
+    /// "Homestyle Chicken Noodle Soup - Bowl" and "- Cup" collapse to the same
+    /// key; "Waffle Potato Fries (large)" and "(medium)" likewise. Purely
+    /// name-based because size is a naming convention in this data, not a field.
+    private static func variantGroup(_ item: MenuItem, categoryId: String) -> String {
+        var name = item.name.lowercased()
+        // Trailing "- Bowl" / "(large)" / ", 12 oz" style size suffixes.
+        let patterns = [
+            #"\s*[-–]\s*(cup|bowl|bread bowl|half|whole|small|medium|large|regular|giant|mini|kids?)\b.*$"#,
+            #"\s*\((tall|grande|venti|trenta|short|small|medium|large|regular|giant|mini|kids?)[^)]*\)\s*$"#,
+            #",\s*\d+(\.\d+)?\s*(oz|ct|pc|piece|inch)\b.*$"#,
+        ]
+        for pattern in patterns {
+            name = name.replacingOccurrences(of: pattern, with: "", options: [.regularExpression])
+        }
+        return "\(categoryId)|\(name.trimmingCharacters(in: .whitespaces))"
     }
 
     private static func candidateList(
@@ -377,7 +429,9 @@ nonisolated enum MealSolver {
                         categoryId: category.id,
                         iconName: item.iconName ?? category.iconName,
                         policy: category.portionPolicy,
-                        selectionRule: category.selectionRule
+                        selectionRule: category.selectionRule,
+                        variantGroup: variantGroup(item, categoryId: category.id),
+                        isCompleteMeal: category.isCompleteMeal
                     )
                 }
             }

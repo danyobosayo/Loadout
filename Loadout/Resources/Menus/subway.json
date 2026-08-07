@@ -27,9 +27,12 @@
             "carbGrams": 39.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.hearty-multigrain",
@@ -41,9 +44,13 @@
             "carbGrams": 36.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.jalapeno-cheddar",
@@ -55,9 +62,13 @@
             "carbGrams": 39.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": "At participating locations",
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.artisan-flatbread",
@@ -69,9 +80,14 @@
             "carbGrams": 40.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.wrap-12-inch",
@@ -83,9 +99,13 @@
             "carbGrams": 50.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.wrap-pocket-9-inch",
@@ -97,9 +117,13 @@
             "carbGrams": 26.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.mini-artisan-italian",
@@ -111,9 +135,12 @@
             "carbGrams": 26.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.breads.mini-hearty-multigrain",
@@ -125,9 +152,13 @@
             "carbGrams": 24.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -148,9 +179,14 @@
             "carbGrams": 0.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.black-forest-ham",
@@ -162,9 +198,13 @@
             "carbGrams": 2.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.roast-beef",
@@ -176,9 +216,12 @@
             "carbGrams": 2.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.tuna",
@@ -190,9 +233,14 @@
             "carbGrams": 0.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.proteins.rotisserie-style-chicken",
@@ -204,9 +252,14 @@
             "carbGrams": 0.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.grilled-chicken",
@@ -218,9 +271,14 @@
             "carbGrams": 1.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "chickenGrilled"
+          "iconName": "chickenGrilled",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.grilled-chicken-teriyaki-glazed",
@@ -232,9 +290,16 @@
             "carbGrams": 9.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chickenGrilled"
+          "iconName": "chickenGrilled",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.steak",
@@ -246,9 +311,14 @@
             "carbGrams": 2.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.meatballs",
@@ -260,9 +330,17 @@
             "carbGrams": 13.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "meatballs"
+          "iconName": "meatballs",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.bacon",
@@ -274,9 +352,13 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.pepperoni",
@@ -288,9 +370,13 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.genoa-salami",
@@ -302,9 +388,14 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Number of salami slices varies by build",
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "alcohol",
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.pastrami",
@@ -316,9 +407,12 @@
             "carbGrams": 1.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.egg-patty",
@@ -330,9 +424,13 @@
             "carbGrams": 2.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "vegetables"
+          "iconName": "vegetables",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.proteins.veggie-patty",
@@ -344,9 +442,12 @@
             "carbGrams": 17.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": "At participating locations",
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.proteins.cold-cut-combo-meats",
@@ -358,9 +459,12 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "subway.proteins.all-american-club-meats",
@@ -372,9 +476,15 @@
             "carbGrams": 2.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "subway.proteins.subway-club-meats",
@@ -386,9 +496,15 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         }
       ]
     },
@@ -409,9 +525,13 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.cheeses.provolone",
@@ -423,9 +543,12 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.cheeses.pepper-jack",
@@ -437,9 +560,13 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.cheeses.monterey-cheddar-shredded",
@@ -451,9 +578,12 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.cheeses.parmesan-grated",
@@ -465,9 +595,12 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -488,9 +621,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.spinach-baby",
@@ -502,9 +636,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.tomatoes",
@@ -516,9 +651,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.cucumbers",
@@ -530,9 +666,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.green-peppers",
@@ -544,9 +681,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.onions",
@@ -558,9 +696,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "onion"
+          "iconName": "onion",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.pickles-crinkle",
@@ -572,9 +711,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "cucumber"
+          "iconName": "cucumber",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.jalapeno-peppers",
@@ -586,9 +726,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.banana-peppers",
@@ -600,9 +741,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.olives-black",
@@ -614,9 +756,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.green-chiles",
@@ -628,9 +771,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.avocado-sliced",
@@ -642,9 +786,10 @@
             "carbGrams": 2.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "avocado"
+          "iconName": "avocado",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.veggies.avocado-smashed",
@@ -656,9 +801,10 @@
             "carbGrams": 3.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "avocado"
+          "iconName": "avocado",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -679,9 +825,13 @@
             "carbGrams": 0.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.mustard-yellow",
@@ -693,9 +843,10 @@
             "carbGrams": 1.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.honey-mustard",
@@ -707,9 +858,16 @@
             "carbGrams": 3.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": [
+            "alcohol",
+            "honey"
+          ]
         },
         {
           "id": "subway.sauces.baja-chipotle",
@@ -721,9 +879,14 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.sweet-onion-teriyaki",
@@ -735,9 +898,14 @@
             "carbGrams": 7.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "onion"
+          "iconName": "onion",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.peppercorn-ranch",
@@ -749,9 +917,14 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "corn"
+          "iconName": "corn",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.mvp-parmesan-vinaigrette",
@@ -763,9 +936,13 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.olive-oil-blend",
@@ -777,9 +954,10 @@
             "carbGrams": 0.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.olive-oil-blend-and-vinegar",
@@ -791,9 +969,10 @@
             "carbGrams": 0.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.red-wine-vinegar",
@@ -805,9 +984,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.creamy-sriracha",
@@ -819,9 +999,13 @@
             "carbGrams": 2.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.buffalo-sauce",
@@ -833,9 +1017,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.bbq-sauce",
@@ -847,9 +1032,10 @@
             "carbGrams": 6.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.hot-honey-sauce",
@@ -861,9 +1047,12 @@
             "carbGrams": 8.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "subway.sauces.roasted-garlic-aioli",
@@ -875,9 +1064,13 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "oil"
+          "iconName": "oil",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.cheddar-cheese-sauce",
@@ -889,9 +1082,13 @@
             "carbGrams": 1.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.giardiniera",
@@ -903,9 +1100,12 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": "At participating locations",
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "subway.sauces.subkrunch",
@@ -917,9 +1117,10 @@
             "carbGrams": 6.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ]
     },
@@ -940,9 +1141,17 @@
             "carbGrams": 30.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.double-chocolate-cookie",
@@ -954,9 +1163,17 @@
             "carbGrams": 29.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.oatmeal-raisin-cookie",
@@ -968,9 +1185,16 @@
             "carbGrams": 30.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.raspberry-cheesecake-cookie",
@@ -982,9 +1206,17 @@
             "carbGrams": 29.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.white-chip-macadamia-nut-cookie",
@@ -996,9 +1228,17 @@
             "carbGrams": 28.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.footlong-chocolate-chip-cookie",
@@ -1010,9 +1250,15 @@
             "carbGrams": 181.0,
             "fatGrams": 61.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "biscotti"
+          "iconName": "biscotti",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.applesauce",
@@ -1024,9 +1270,10 @@
             "carbGrams": 16.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "At participating locations",
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "subway.extras.hash-browns",
@@ -1038,9 +1285,12 @@
             "carbGrams": 24.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": "At participating locations",
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         }
       ]
     }

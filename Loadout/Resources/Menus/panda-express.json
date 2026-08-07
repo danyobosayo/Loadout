@@ -26,9 +26,14 @@
             "carbGrams": 94.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sides.fried-rice",
@@ -40,9 +45,15 @@
             "carbGrams": 101.0,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "riceWhiteBowl"
+          "iconName": "riceWhiteBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sides.white-steamed-rice",
@@ -54,9 +65,10 @@
             "carbGrams": 118.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "riceWhiteBowl"
+          "iconName": "riceWhiteBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sides.super-greens",
@@ -68,9 +80,13 @@
             "carbGrams": 14.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sides.chow-fun",
@@ -82,9 +98,14 @@
             "carbGrams": 73.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ]
     },
@@ -105,9 +126,17 @@
             "carbGrams": 53.0,
             "fatGrams": 24.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.hot-orange-chicken",
@@ -119,9 +148,17 @@
             "carbGrams": 59.0,
             "fatGrams": 27.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.grilled-teriyaki-chicken",
@@ -133,9 +170,16 @@
             "carbGrams": 14.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chickenGrilled"
+          "iconName": "chickenGrilled",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.teriyaki-chicken",
@@ -147,9 +191,16 @@
             "carbGrams": 14.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chickenGrilled"
+          "iconName": "chickenGrilled",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.black-pepper-chicken",
@@ -161,9 +212,16 @@
             "carbGrams": 15.0,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.kung-pao-chicken",
@@ -175,9 +233,17 @@
             "carbGrams": 15.0,
             "fatGrams": 21.0
           },
-          "allergens": null,
+          "allergens": [
+            "peanut",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.mushroom-chicken",
@@ -189,9 +255,16 @@
             "carbGrams": 10.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.potato-chicken",
@@ -203,9 +276,15 @@
             "carbGrams": 18.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.honey-sesame-chicken-breast",
@@ -217,9 +296,16 @@
             "carbGrams": 35.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "honey",
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.string-bean-chicken-breast",
@@ -231,9 +317,16 @@
             "carbGrams": 13.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.sweet-and-sour-chicken-breast",
@@ -245,9 +338,15 @@
             "carbGrams": 40.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.sweetfire-chicken-breast",
@@ -259,9 +358,14 @@
             "carbGrams": 40.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.beijing-beef",
@@ -273,9 +377,15 @@
             "carbGrams": 46.0,
             "fatGrams": 27.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.broccoli-beef",
@@ -287,9 +397,16 @@
             "carbGrams": 12.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.black-pepper-sirloin-steak",
@@ -301,9 +418,15 @@
             "carbGrams": 12.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.entrees.honey-walnut-shrimp",
@@ -315,9 +438,19 @@
             "carbGrams": 32.0,
             "fatGrams": 28.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "shellfish",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "panda-express.entrees.wok-fired-shrimp",
@@ -329,9 +462,14 @@
             "carbGrams": 19.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "shellfish",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.entrees.steamed-ginger-fish",
@@ -343,9 +481,14 @@
             "carbGrams": 8.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "fish",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "salmonFilet"
+          "iconName": "salmonFilet",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.entrees.eggplant-tofu",
@@ -357,9 +500,14 @@
             "carbGrams": 23.0,
             "fatGrams": 24.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "eggplant"
+          "iconName": "eggplant",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.entrees.super-greens-entree",
@@ -371,9 +519,13 @@
             "carbGrams": 10.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -394,9 +546,18 @@
             "carbGrams": 20.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.appetizers.veggie-spring-roll",
@@ -408,9 +569,13 @@
             "carbGrams": 24.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "broccoli"
+          "iconName": "broccoli",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.appetizers.cream-cheese-rangoon",
@@ -422,9 +587,14 @@
             "carbGrams": 24.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.appetizers.chicken-potsticker",
@@ -436,9 +606,16 @@
             "carbGrams": 20.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panda-express.appetizers.apple-pie-roll",
@@ -450,9 +627,12 @@
             "carbGrams": 30.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "breadPita"
+          "iconName": "breadPita",
+          "dietaryMarkers": []
         }
       ]
     },
@@ -473,9 +653,13 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sauces.sweet-and-sour-sauce",
@@ -487,9 +671,10 @@
             "carbGrams": 21.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sauces.chili-sauce",
@@ -501,9 +686,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sauces.teriyaki-sauce",
@@ -515,9 +701,14 @@
             "carbGrams": 16.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sauces.hot-mustard",
@@ -529,9 +720,12 @@
             "carbGrams": 0.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         },
         {
           "id": "panda-express.sauces.potsticker-sauce",
@@ -543,9 +737,14 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": []
         }
       ]
     }

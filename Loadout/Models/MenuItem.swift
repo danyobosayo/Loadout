@@ -6,6 +6,10 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     let servingDescription: String
     let macros: Macros
     let allergens: [Allergen]?
+    /// Animal/derived content beyond the allergen list — what vegetarian, vegan
+    /// and no-pork are derived from. `nil` means unflagged, NOT "contains
+    /// nothing"; see `MenuItem.verdict(for:)`.
+    let dietaryMarkers: [DietaryMarker]?
     let notes: String?
     // Token from the MacroFactor `Icon` vocabulary (e.g., "chicken",
     // "riceWhiteBowl", "salsa"). Used by `MenuItemIcon` to render the row
@@ -19,6 +23,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         servingDescription: String,
         macros: Macros,
         allergens: [Allergen]? = nil,
+        dietaryMarkers: [DietaryMarker]? = nil,
         notes: String? = nil,
         iconName: String? = nil
     ) {
@@ -27,6 +32,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         self.servingDescription = servingDescription
         self.macros = macros
         self.allergens = allergens
+        self.dietaryMarkers = dietaryMarkers
         self.notes = notes
         self.iconName = iconName
     }

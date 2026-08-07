@@ -26,9 +26,12 @@
             "carbGrams": 38.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.crusts.mod-crust",
@@ -40,9 +43,12 @@
             "carbGrams": 88.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.crusts.mega-thick-crust",
@@ -54,9 +60,12 @@
             "carbGrams": 176.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.crusts.gluten-friendly-crust",
@@ -68,9 +77,12 @@
             "carbGrams": 156.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.crusts.cauliflower-crust",
@@ -82,9 +94,13 @@
             "carbGrams": 87.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "wheatFlat"
@@ -106,9 +122,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.spicy-calabrian-tomato-sauce",
@@ -120,9 +137,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.creamy-alfredo-sauce",
@@ -134,9 +152,13 @@
             "carbGrams": 1.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.garlic-rub",
@@ -148,9 +170,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.garlic-pesto",
@@ -162,9 +185,12 @@
             "carbGrams": 1.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.extra-virgin-olive-oil",
@@ -176,9 +202,10 @@
             "carbGrams": 0.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.sweet-bbq-sauce",
@@ -190,9 +217,10 @@
             "carbGrams": 8.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.balsamic-fig-glaze",
@@ -204,9 +232,10 @@
             "carbGrams": 8.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.hot-buffalo-sauce",
@@ -218,9 +247,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.sauces.mikes-hot-honey",
@@ -232,9 +262,12 @@
             "carbGrams": 18.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "mod-pizza.sauces.sriracha-ranch",
@@ -246,9 +279,14 @@
             "carbGrams": 2.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -270,9 +308,12 @@
             "carbGrams": 1.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.asiago",
@@ -284,9 +325,12 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.cheddar",
@@ -298,9 +342,12 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.parmesan",
@@ -312,9 +359,12 @@
             "carbGrams": 2.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.gorgonzola",
@@ -326,9 +376,12 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.feta",
@@ -340,9 +393,12 @@
             "carbGrams": 2.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.ricotta",
@@ -354,9 +410,12 @@
             "carbGrams": 4.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.cheeses.plant-based-cheese",
@@ -368,9 +427,12 @@
             "carbGrams": 8.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "treenut"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "cheeseSlice"
@@ -392,9 +454,12 @@
             "carbGrams": 1.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "mod-pizza.meats.seasoned-ground-beef",
@@ -406,9 +471,12 @@
             "carbGrams": 3.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "mod-pizza.meats.mild-italian-sausage",
@@ -420,9 +488,13 @@
             "carbGrams": 0.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "mod-pizza.meats.spicy-chicken-sausage",
@@ -434,9 +506,12 @@
             "carbGrams": 1.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "mod-pizza.meats.plant-based-italian-sausage",
@@ -448,9 +523,10 @@
             "carbGrams": 2.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.meats.pepperoni",
@@ -462,9 +538,13 @@
             "carbGrams": 0.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "mod-pizza.meats.salami",
@@ -476,9 +556,13 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "mod-pizza.meats.crispy-bacon",
@@ -490,9 +574,13 @@
             "carbGrams": 1.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "mod-pizza.meats.canadian-bacon",
@@ -504,9 +592,13 @@
             "carbGrams": 2.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "mod-pizza.meats.anchovies",
@@ -518,9 +610,12 @@
             "carbGrams": 0.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [
+            "fish"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.meats.scrambled-egg",
@@ -532,9 +627,13 @@
             "carbGrams": 2.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chicken"
@@ -556,9 +655,10 @@
             "carbGrams": 8.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.arugula",
@@ -570,9 +670,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.banana-peppers",
@@ -584,9 +685,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.fresh-basil",
@@ -598,9 +700,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.black-olives",
@@ -612,9 +715,10 @@
             "carbGrams": 2.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.roasted-broccoli",
@@ -626,9 +730,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.chickpeas",
@@ -640,9 +745,10 @@
             "carbGrams": 9.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.cilantro",
@@ -654,9 +760,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.roasted-corn",
@@ -668,9 +775,10 @@
             "carbGrams": 8.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.cucumbers",
@@ -682,9 +790,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.chopped-garlic",
@@ -696,9 +805,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.roasted-garlic",
@@ -710,9 +820,10 @@
             "carbGrams": 11.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.green-bell-peppers",
@@ -724,9 +835,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.jalapenos",
@@ -738,9 +850,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.mama-lils-sweet-hot-peppas",
@@ -752,9 +865,10 @@
             "carbGrams": 10.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.mushrooms",
@@ -766,9 +880,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.oregano",
@@ -780,9 +895,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.pineapple",
@@ -794,9 +910,10 @@
             "carbGrams": 10.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.red-onion",
@@ -808,9 +925,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.roasted-red-peppers",
@@ -822,9 +940,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.romaine",
@@ -836,9 +955,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.fresh-rosemary",
@@ -850,9 +970,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.sea-salt",
@@ -864,9 +985,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.sea-salt-and-pepper",
@@ -878,9 +1000,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.serrano-peppers",
@@ -892,9 +1015,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.spinach",
@@ -906,9 +1030,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.mixed-spring-greens",
@@ -920,9 +1045,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.sliced-tomatoes",
@@ -934,9 +1060,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.veggies.diced-tomatoes",
@@ -948,9 +1075,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -973,9 +1101,12 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dressings.caesar-dressing",
@@ -987,9 +1118,18 @@
             "carbGrams": 1.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "soy",
+            "treenut"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "alcohol"
+          ]
         },
         {
           "id": "mod-pizza.dressings.greek-vinaigrette",
@@ -1001,9 +1141,13 @@
             "carbGrams": 2.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dressings.sherry-dijon-vinaigrette",
@@ -1015,9 +1159,14 @@
             "carbGrams": 2.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "alcohol"
+          ]
         },
         {
           "id": "mod-pizza.dressings.zesty-tomato-vinaigrette",
@@ -1029,9 +1178,12 @@
             "carbGrams": 3.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dressings.ranch-dressing",
@@ -1043,9 +1195,14 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dressings.oil-and-vinegar",
@@ -1057,9 +1214,10 @@
             "carbGrams": 0.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dressings.red-wine-vinegar",
@@ -1071,9 +1229,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "oil"
@@ -1096,9 +1255,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-bbq-sauce",
@@ -1110,9 +1270,10 @@
             "carbGrams": 23.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-garlic-pesto",
@@ -1124,9 +1285,12 @@
             "carbGrams": 2.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-ranch",
@@ -1138,9 +1302,14 @@
             "carbGrams": 3.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-sri-rancha",
@@ -1152,9 +1321,14 @@
             "carbGrams": 6.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-hot-buffalo",
@@ -1166,9 +1340,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-balsamic-fig-glaze",
@@ -1180,9 +1355,10 @@
             "carbGrams": 24.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.dips.dip-mikes-hot-honey",
@@ -1194,9 +1370,12 @@
             "carbGrams": 54.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         }
       ],
       "iconName": "hummus"
@@ -1218,9 +1397,13 @@
             "carbGrams": 179.0,
             "fatGrams": 43.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "breadPita"
@@ -1242,9 +1425,16 @@
             "carbGrams": 42.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "mod-pizza.extras.mega-cookie",
@@ -1256,9 +1446,15 @@
             "carbGrams": 190.0,
             "fatGrams": 79.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"

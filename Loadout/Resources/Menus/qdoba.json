@@ -26,9 +26,12 @@
             "carbGrams": 12.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.tortilla.flour-tortilla-10",
@@ -40,9 +43,12 @@
             "carbGrams": 36.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.tortilla.flour-tortilla-12-5",
@@ -54,9 +60,12 @@
             "carbGrams": 52.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.tortilla.crispy-taco-shell",
@@ -68,9 +77,12 @@
             "carbGrams": 8.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.tortilla.crunchy-tortilla-shell",
@@ -82,9 +94,12 @@
             "carbGrams": 41.0,
             "fatGrams": 22.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "wheatFlat"
@@ -106,9 +121,10 @@
             "carbGrams": 38.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.rice.seasoned-brown-rice",
@@ -120,7 +136,38 @@
             "carbGrams": 36.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "qdoba.rice.cilantro-lime-rice-kids-2oz",
+          "name": "Cilantro Lime Rice (kids, 2 oz)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 19.0,
+            "fatGrams": 1.5
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.rice.seasoned-brown-rice-kids-2oz",
+          "name": "Seasoned Brown Rice (kids, 2 oz)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 18.0,
+            "fatGrams": 1.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -144,9 +191,10 @@
             "carbGrams": 24.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.beans.pinto-beans",
@@ -158,7 +206,38 @@
             "carbGrams": 23.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "qdoba.beans.black-beans-kids-2oz",
+          "name": "Black Beans (kids, 2 oz)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 12.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.beans.pinto-beans-kids-2oz",
+          "name": "Pinto Beans (kids, 2 oz)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 70.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 12.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -182,9 +261,12 @@
             "carbGrams": 2.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.protein.grilled-steak",
@@ -196,9 +278,12 @@
             "carbGrams": 5.0,
             "fatGrams": 28.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.protein.brisket-birria",
@@ -210,9 +295,12 @@
             "carbGrams": 3.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.protein.pork-carnitas",
@@ -224,9 +312,13 @@
             "carbGrams": 0.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "qdoba.protein.ground-beef",
@@ -238,9 +330,12 @@
             "carbGrams": 4.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.protein.chorizo",
@@ -252,9 +347,13 @@
             "carbGrams": 5.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "qdoba.protein.plant-based-impossible",
@@ -266,9 +365,12 @@
             "carbGrams": 8.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.protein.scrambled-eggs",
@@ -280,9 +382,13 @@
             "carbGrams": 2.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.protein.bacon",
@@ -294,7 +400,99 @@
             "carbGrams": 2.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
+        },
+        {
+          "id": "qdoba.protein.bacon-1oz",
+          "name": "Bacon (1 oz)",
+          "servingDescription": "1 oz (28 g) — select locations",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 1.0,
+            "fatGrams": 8.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.chorizo-1-5oz",
+          "name": "Chorizo (1.5 oz)",
+          "servingDescription": "1.5 oz (43 g)",
+          "macros": {
+            "calories": 130.0,
+            "proteinGrams": 7.0,
+            "carbGrams": 2.0,
+            "fatGrams": 10.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.grilled-adobo-chicken-kids",
+          "name": "Grilled Adobo Chicken (kids, 1.75 oz)",
+          "servingDescription": "1.75 oz (50 g) — kids portion",
+          "macros": {
+            "calories": 90.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 1.0,
+            "fatGrams": 6.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [
+            "meat"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.grilled-steak-kids",
+          "name": "Grilled Steak (kids, 1.75 oz)",
+          "servingDescription": "1.75 oz (50 g) — kids portion",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 2.0,
+            "fatGrams": 14.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [
+            "meat"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.protein.pork-carnitas-kids",
+          "name": "Pork Carnitas (kids, 2 oz)",
+          "servingDescription": "2 oz (57 g) — kids portion",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 8.0,
+            "carbGrams": 0.0,
+            "fatGrams": 2.5
+          },
+          "allergens": [],
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ],
           "notes": null,
           "iconName": null
         }
@@ -318,9 +516,10 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.veggies.seasoned-potatoes",
@@ -332,9 +531,12 @@
             "carbGrams": 12.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.veggies.romaine-lettuce",
@@ -346,9 +548,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.veggies.romaine-lettuce-salad-base",
@@ -360,9 +563,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.veggies.pickled-red-onion",
@@ -374,9 +578,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.veggies.chopped-cilantro",
@@ -388,9 +593,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -412,9 +618,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.salsa.salsa-roja",
@@ -426,9 +633,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.salsa.salsa-verde",
@@ -440,9 +648,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.salsa.roasted-tomato-salsa",
@@ -454,9 +663,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.salsa.chile-corn-salsa",
@@ -468,9 +678,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.salsa.habanero-salsa",
@@ -482,9 +693,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -506,9 +718,12 @@
             "carbGrams": 1.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.cheeses.cotija-cheese",
@@ -520,7 +735,27 @@
             "carbGrams": 0.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "qdoba.cheeses.shredded-cheese-kids-0-5oz",
+          "name": "Shredded Cheese (kids, 0.5 oz)",
+          "servingDescription": "0.5 oz (14 g) — kids portion",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 3.0,
+            "carbGrams": 0.0,
+            "fatGrams": 4.5
+          },
+          "allergens": [
+            "milk"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -545,9 +780,10 @@
             "carbGrams": 5.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.dips.three-cheese-queso",
@@ -559,9 +795,12 @@
             "carbGrams": 3.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.dips.queso-diablo",
@@ -573,7 +812,91 @@
             "carbGrams": 3.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "qdoba.dips.hand-crafted-guacamole-4oz",
+          "name": "Hand Crafted Guacamole (4 oz)",
+          "servingDescription": "4 oz (113 g) — double scoop",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 9.0,
+            "fatGrams": 15.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.hand-smashed-guac-kids-1oz",
+          "name": "Hand Smashed Guac (kids, 1 oz)",
+          "servingDescription": "1 oz (28 g) — kids portion",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 2.0,
+            "fatGrams": 4.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.three-cheese-queso-4oz",
+          "name": "Three Cheese Queso (4 oz)",
+          "servingDescription": "4 oz (113 g) — double scoop",
+          "macros": {
+            "calories": 170.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 5.0,
+            "fatGrams": 17.0
+          },
+          "allergens": [
+            "milk"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.three-cheese-queso-kids-1oz",
+          "name": "Three Cheese Queso (kids, 1 oz)",
+          "servingDescription": "1 oz (28 g) — kids portion",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 1.0,
+            "fatGrams": 4.0
+          },
+          "allergens": [
+            "milk"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "qdoba.dips.queso-diablo-4oz",
+          "name": "Queso Diablo (4 oz)",
+          "servingDescription": "4 oz (113 g) — double scoop",
+          "macros": {
+            "calories": 180.0,
+            "proteinGrams": 5.0,
+            "carbGrams": 6.0,
+            "fatGrams": 15.0
+          },
+          "allergens": [
+            "milk"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -597,9 +920,12 @@
             "carbGrams": 3.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.toppings.tortilla-strips",
@@ -611,9 +937,10 @@
             "carbGrams": 8.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -636,9 +963,12 @@
             "carbGrams": 7.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "qdoba.dressings.picante-ranch-dressing",
@@ -650,9 +980,13 @@
             "carbGrams": 3.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.dressings.chile-crema",
@@ -664,9 +998,12 @@
             "carbGrams": 1.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "oil"
@@ -688,9 +1025,12 @@
             "carbGrams": 75.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.chips.tortilla-chips-small",
@@ -702,9 +1042,12 @@
             "carbGrams": 37.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"
@@ -726,9 +1069,12 @@
             "carbGrams": 13.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "breadPita"
@@ -750,9 +1096,17 @@
             "carbGrams": 49.0,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.extras.chocolate-chunk-cookie",
@@ -764,9 +1118,17 @@
             "carbGrams": 33.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"
@@ -788,9 +1150,14 @@
             "carbGrams": 74.0,
             "fatGrams": 33.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.chicken-queso-burrito",
@@ -802,9 +1169,15 @@
             "carbGrams": 126.0,
             "fatGrams": 40.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.cholula-hot-sweet-chicken-bowl",
@@ -816,9 +1189,15 @@
             "carbGrams": 77.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey",
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.cholula-hot-sweet-chicken-burrito",
@@ -830,9 +1209,16 @@
             "carbGrams": 130.0,
             "fatGrams": 27.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey",
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.citrus-lime-chicken-salad",
@@ -844,9 +1230,13 @@
             "carbGrams": 49.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey",
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.double-protein-bowl-chicken",
@@ -858,9 +1248,12 @@
             "carbGrams": 41.0,
             "fatGrams": 38.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.double-protein-bowl-steak",
@@ -872,9 +1265,12 @@
             "carbGrams": 47.0,
             "fatGrams": 72.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.fajita-vegan-bowl",
@@ -886,9 +1282,10 @@
             "carbGrams": 79.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.entrees.impossible-taco-salad",
@@ -900,9 +1297,14 @@
             "carbGrams": 46.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "qdoba.entrees.keto-bowl-chicken",
@@ -914,9 +1316,14 @@
             "carbGrams": 11.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.keto-bowl-steak",
@@ -928,9 +1335,14 @@
             "carbGrams": 13.0,
             "fatGrams": 38.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.keto-bowl-brisket-birria",
@@ -942,9 +1354,14 @@
             "carbGrams": 13.0,
             "fatGrams": 25.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.southwest-steak-burrito",
@@ -956,9 +1373,15 @@
             "carbGrams": 134.0,
             "fatGrams": 58.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.street-style-chicken-tacos",
@@ -970,9 +1393,15 @@
             "carbGrams": 46.0,
             "fatGrams": 28.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "qdoba.entrees.street-style-pork-carnitas-tacos",
@@ -984,12 +1413,20 @@
             "carbGrams": 38.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         }
       ],
-      "iconName": "chickenGrilled"
+      "iconName": "chickenGrilled",
+      "isCompleteMeal": true
     }
   ]
 }

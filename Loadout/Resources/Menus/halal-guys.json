@@ -26,9 +26,14 @@
             "carbGrams": 3.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "halal-guys.protein.beef-gyro",
@@ -40,9 +45,15 @@
             "carbGrams": 14.0,
             "fatGrams": 52.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "halal-guys.protein.falafel",
@@ -54,9 +65,13 @@
             "carbGrams": 62.0,
             "fatGrams": 38.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.protein.bbq-chicken",
@@ -68,9 +83,14 @@
             "carbGrams": 7.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "halal-guys.protein.chicken-wings-platter",
@@ -82,7 +102,92 @@
             "carbGrams": 8.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
+        },
+        {
+          "id": "halal-guys.protein.chicken-small",
+          "name": "Chicken (small platter / sandwich portion, 4 oz)",
+          "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
+          "macros": {
+            "calories": 182.0,
+            "proteinGrams": 33.0,
+            "carbGrams": 2.0,
+            "fatGrams": 5.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [
+            "meat"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.protein.beef-gyro-small",
+          "name": "Beef Gyro (small platter / sandwich portion, 4 oz)",
+          "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
+          "macros": {
+            "calories": 414.0,
+            "proteinGrams": 15.0,
+            "carbGrams": 9.0,
+            "fatGrams": 35.0
+          },
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
+          "dietaryMarkers": [
+            "meat"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.protein.falafel-small",
+          "name": "Falafel (small platter / sandwich portion)",
+          "servingDescription": "Small platter or sandwich portion, 113 g (oz column lists 5 oz on the small platter and 4 oz on the sandwich for the same 113 g)",
+          "macros": {
+            "calories": 412.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 38.0,
+            "fatGrams": 23.0
+          },
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.protein.chicken-wings-9oz",
+          "name": "Chicken Wings (9 oz platter portion)",
+          "servingDescription": "Platter portion, 9 oz (252 g); source lists this under the Platters Small heading despite it exceeding the 5 oz regular platter portion",
+          "macros": {
+            "calories": 733.0,
+            "proteinGrams": 75.0,
+            "carbGrams": 15.0,
+            "fatGrams": 41.0
+          },
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
+          "dietaryMarkers": [
+            "meat"
+          ],
           "notes": null,
           "iconName": null
         }
@@ -106,7 +211,44 @@
             "carbGrams": 50.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "halal-guys.rice.rice-side-6oz",
+          "name": "Seasoned Rice (6 oz side)",
+          "servingDescription": "Side portion, 6 oz (170 g)",
+          "macros": {
+            "calories": 286.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 60.0,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.rice.rice-small-platter",
+          "name": "Seasoned Rice (small platter portion, 4 oz)",
+          "servingDescription": "Small platter portion, 4 oz (113 g)",
+          "macros": {
+            "calories": 190.0,
+            "proteinGrams": 4.0,
+            "carbGrams": 40.0,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -131,9 +273,15 @@
             "carbGrams": 42.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.breads.pita-side",
@@ -145,7 +293,33 @@
             "carbGrams": 21.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "halal-guys.breads.pita-mini",
+          "name": "Pita (1 oz piece)",
+          "servingDescription": "1 piece, 28 g (oz column on source lists this as 1 oz); the piece served with a small platter or sandwich",
+          "macros": {
+            "calories": 65.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 13.0,
+            "fatGrams": 1.0
+          },
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -169,9 +343,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.veggies.tomatoes",
@@ -183,7 +358,53 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "halal-guys.veggies.lettuce-small-platter",
+          "name": "Lettuce (small platter portion, 3 oz)",
+          "servingDescription": "Small platter portion, 3 oz (71 g)",
+          "macros": {
+            "calories": 10.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.veggies.lettuce-sandwich",
+          "name": "Lettuce (sandwich portion, 2 oz)",
+          "servingDescription": "Sandwich portion, 2 oz (57 g)",
+          "macros": {
+            "calories": 8.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 2.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "halal-guys.veggies.tomatoes-small",
+          "name": "Tomatoes (small platter / sandwich portion, 1 oz)",
+          "servingDescription": "Small platter or sandwich portion, 1 oz (28 g)",
+          "macros": {
+            "calories": 5.0,
+            "proteinGrams": 0.0,
+            "carbGrams": 1.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -207,9 +428,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.toppings.green-peppers",
@@ -221,9 +443,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.toppings.jalapenos",
@@ -235,9 +458,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.toppings.olives",
@@ -249,9 +473,10 @@
             "carbGrams": 2.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -273,9 +498,12 @@
             "carbGrams": 11.0,
             "fatGrams": 28.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sauces.hot-sauce",
@@ -287,9 +515,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sauces.bbq-sauce",
@@ -301,9 +530,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sauces.tahini-sauce",
@@ -315,9 +545,13 @@
             "carbGrams": 3.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -339,9 +573,12 @@
             "carbGrams": 29.0,
             "fatGrams": 24.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sides.tahini-side",
@@ -353,9 +590,13 @@
             "carbGrams": 6.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sides.french-fries",
@@ -367,9 +608,13 @@
             "carbGrams": 121.0,
             "fatGrams": 35.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "halal-guys.sides.chicken-wings-4pc",
@@ -381,9 +626,16 @@
             "carbGrams": 7.0,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         }
       ],
       "iconName": "breadPita"
@@ -405,9 +657,20 @@
             "carbGrams": 56.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "sesame",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         }
       ],
       "iconName": "chipsBaked"

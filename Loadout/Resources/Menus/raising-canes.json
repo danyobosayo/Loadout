@@ -26,9 +26,16 @@
             "carbGrams": 5.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "raising-canes.entrees.chicken-sandwich",
@@ -40,9 +47,19 @@
             "carbGrams": 69.0,
             "fatGrams": 41.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         }
       ],
       "iconName": "chickenGrilled"
@@ -64,9 +81,14 @@
             "carbGrams": 50.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "raising-canes.sides.texas-toast",
@@ -78,9 +100,15 @@
             "carbGrams": 23.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "raising-canes.sides.coleslaw",
@@ -92,9 +120,12 @@
             "carbGrams": 10.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "breadPita"
@@ -117,9 +148,14 @@
             "carbGrams": 6.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "raising-canes.dips.honey-mustard",
@@ -131,9 +167,15 @@
             "carbGrams": 16.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "raising-canes.dips.ketchup",
@@ -145,9 +187,10 @@
             "carbGrams": 8.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "hummus"
@@ -169,9 +212,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "raising-canes.sauces.kraft-mayonnaise",
@@ -183,9 +227,12 @@
             "carbGrams": 0.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"

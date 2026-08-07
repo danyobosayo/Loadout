@@ -27,9 +27,12 @@
             "carbGrams": 50.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.tortilla.flour-taco",
@@ -41,9 +44,12 @@
             "carbGrams": 13.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.tortilla.crispy-corn",
@@ -55,9 +61,10 @@
             "carbGrams": 10.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "wheatFlat"
+          "iconName": "wheatFlat",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "wheatFlat"
@@ -79,9 +86,10 @@
             "carbGrams": 40.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "riceWhiteBowl"
+          "iconName": "riceWhiteBowl",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.rice.cilantro-lime-brown",
@@ -93,9 +101,10 @@
             "carbGrams": 36.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "riceBrownBowl"
+          "iconName": "riceBrownBowl",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "riceWhiteBowl"
@@ -117,9 +126,10 @@
             "carbGrams": 22.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "beansPan"
+          "iconName": "beansPan",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.beans.pinto",
@@ -131,9 +141,10 @@
             "carbGrams": 21.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "beansPan"
+          "iconName": "beansPan",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "beansPan"
@@ -155,9 +166,12 @@
             "carbGrams": 0.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chicken"
+          "iconName": "chicken",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "chipotle.protein.steak",
@@ -169,9 +183,12 @@
             "carbGrams": 1.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "chipotle.protein.barbacoa",
@@ -183,9 +200,12 @@
             "carbGrams": 2.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "chipotle.protein.carnitas",
@@ -197,9 +217,13 @@
             "carbGrams": 0.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "porkLoin"
+          "iconName": "porkLoin",
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "chipotle.protein.sofritas",
@@ -211,9 +235,12 @@
             "carbGrams": 9.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": "Plant-based",
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.protein.carne-asada",
@@ -225,9 +252,12 @@
             "carbGrams": 1.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Sodium missing from source; refresh from chipotle.com",
-          "iconName": "steakBoneIn"
+          "iconName": "steakBoneIn",
+          "dietaryMarkers": [
+            "meat"
+          ]
         }
       ],
       "iconName": "chicken"
@@ -249,9 +279,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "bellPepperGreen"
+          "iconName": "bellPepperGreen",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.veggies.supergreens-mix",
@@ -263,9 +294,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Salad base",
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.veggies.romaine",
@@ -277,9 +309,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "lettuce"
+          "iconName": "lettuce",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -301,9 +334,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Mild",
-          "iconName": "tomato"
+          "iconName": "tomato",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.salsa.roasted-corn",
@@ -315,9 +349,10 @@
             "carbGrams": 16.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Medium",
-          "iconName": "corn"
+          "iconName": "corn",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.salsa.tomatillo-green",
@@ -329,9 +364,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Medium-hot",
-          "iconName": "salsa"
+          "iconName": "salsa",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.salsa.tomatillo-red",
@@ -343,9 +379,10 @@
             "carbGrams": 4.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Hot",
-          "iconName": "chiliPeppersRed"
+          "iconName": "chiliPeppersRed",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -367,9 +404,12 @@
             "carbGrams": 1.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.sour-cream",
@@ -381,9 +421,12 @@
             "carbGrams": 2.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": "sourCream"
+          "iconName": "sourCream",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.guacamole",
@@ -395,9 +438,10 @@
             "carbGrams": 8.0,
             "fatGrams": 22.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "guacamole"
+          "iconName": "guacamole",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.guacamole-large",
@@ -409,9 +453,10 @@
             "carbGrams": 16.0,
             "fatGrams": 44.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Side portion",
-          "iconName": "guacamole"
+          "iconName": "guacamole",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.queso-entree",
@@ -423,9 +468,12 @@
             "carbGrams": 4.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": "Bowl/burrito add-in",
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.queso-side",
@@ -437,9 +485,12 @@
             "carbGrams": 7.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": "Side portion",
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.toppings.queso-large",
@@ -451,9 +502,12 @@
             "carbGrams": 14.0,
             "fatGrams": 37.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": "Large side",
-          "iconName": "cheeseSlice"
+          "iconName": "cheeseSlice",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "cheeseSlice"
@@ -476,9 +530,12 @@
             "carbGrams": 18.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": "Salad dressing",
-          "iconName": "sauceBBQWorcestershire"
+          "iconName": "sauceBBQWorcestershire",
+          "dietaryMarkers": [
+            "honey"
+          ]
         }
       ],
       "iconName": "oil"
@@ -501,9 +558,10 @@
             "carbGrams": 73.0,
             "fatGrams": 25.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         },
         {
           "id": "chipotle.chips.large",
@@ -515,9 +573,10 @@
             "carbGrams": 110.0,
             "fatGrams": 38.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": "chipsBaked"
+          "iconName": "chipsBaked",
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"

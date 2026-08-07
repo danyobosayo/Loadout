@@ -26,9 +26,12 @@
             "carbGrams": 58.7,
             "fatGrams": 2.9
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.breads.wheat-bread",
@@ -40,9 +43,14 @@
             "carbGrams": 59.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "jersey-mikes.breads.rosemary-parmesan-bread",
@@ -54,9 +62,13 @@
             "carbGrams": 59.7,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.breads.seeded-italian-bread",
@@ -68,9 +80,13 @@
             "carbGrams": 49.8,
             "fatGrams": 3.1
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.breads.gluten-free-bread",
@@ -82,7 +98,171 @@
             "carbGrams": 39.5,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "jersey-mikes.breads.white-bread-mini",
+          "name": "White Bread (Mini)",
+          "servingDescription": "1 Mini sub roll",
+          "macros": {
+            "calories": 204.0,
+            "proteinGrams": 7.7,
+            "carbGrams": 38.7,
+            "fatGrams": 1.9
+          },
+          "allergens": [
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.white-bread-giant",
+          "name": "White Bread (Giant)",
+          "servingDescription": "1 Giant sub roll",
+          "macros": {
+            "calories": 618.0,
+            "proteinGrams": 23.2,
+            "carbGrams": 117.3,
+            "fatGrams": 5.8
+          },
+          "allergens": [
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.wheat-bread-mini",
+          "name": "Wheat Bread (Mini)",
+          "servingDescription": "1 Mini sub roll",
+          "macros": {
+            "calories": 203.0,
+            "proteinGrams": 7.8,
+            "carbGrams": 38.9,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "wheat"
+          ],
+          "dietaryMarkers": [
+            "honey"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.wheat-bread-giant",
+          "name": "Wheat Bread (Giant)",
+          "servingDescription": "1 Giant sub roll",
+          "macros": {
+            "calories": 615.0,
+            "proteinGrams": 23.7,
+            "carbGrams": 118.0,
+            "fatGrams": 6.1
+          },
+          "allergens": [
+            "wheat"
+          ],
+          "dietaryMarkers": [
+            "honey"
+          ],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.rosemary-parmesan-bread-mini",
+          "name": "Rosemary Parmesan Bread (Mini)",
+          "servingDescription": "1 Mini sub roll",
+          "macros": {
+            "calories": 224.0,
+            "proteinGrams": 9.1,
+            "carbGrams": 39.4,
+            "fatGrams": 3.3
+          },
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.rosemary-parmesan-bread-giant",
+          "name": "Rosemary Parmesan Bread (Giant)",
+          "servingDescription": "1 Giant sub roll",
+          "macros": {
+            "calories": 679.0,
+            "proteinGrams": 27.6,
+            "carbGrams": 119.3,
+            "fatGrams": 10.0
+          },
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.seeded-italian-bread-mini",
+          "name": "Seeded Italian Bread (Mini)",
+          "servingDescription": "1 Mini sub roll",
+          "macros": {
+            "calories": 178.0,
+            "proteinGrams": 6.7,
+            "carbGrams": 32.8,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.seeded-italian-bread-giant",
+          "name": "Seeded Italian Bread (Giant)",
+          "servingDescription": "1 Giant sub roll",
+          "macros": {
+            "calories": 538.0,
+            "proteinGrams": 20.2,
+            "carbGrams": 99.5,
+            "fatGrams": 6.2
+          },
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "jersey-mikes.breads.gluten-free-bread-giant",
+          "name": "Gluten Free Bread (Giant)",
+          "servingDescription": "1 Giant gluten free roll",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 12.0,
+            "carbGrams": 79.0,
+            "fatGrams": 14.0
+          },
+          "allergens": [
+            "egg"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -106,9 +286,12 @@
             "carbGrams": 0.6,
             "fatGrams": 1.2
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.ham",
@@ -120,9 +303,13 @@
             "carbGrams": 2.0,
             "fatGrams": 4.2
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "jersey-mikes.protein.roast-beef",
@@ -134,9 +321,12 @@
             "carbGrams": 0.0,
             "fatGrams": 6.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.philly-chicken",
@@ -148,9 +338,12 @@
             "carbGrams": 3.6,
             "fatGrams": 5.7
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.philly-steak",
@@ -162,9 +355,12 @@
             "carbGrams": 4.7,
             "fatGrams": 14.3
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.tuna-salad",
@@ -176,9 +372,14 @@
             "carbGrams": 1.9,
             "fatGrams": 43.6
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.protein.chicken-salad",
@@ -190,9 +391,14 @@
             "carbGrams": 3.2,
             "fatGrams": 30.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.pastrami",
@@ -204,9 +410,12 @@
             "carbGrams": 6.1,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "jersey-mikes.protein.hard-salami",
@@ -218,9 +427,13 @@
             "carbGrams": 2.9,
             "fatGrams": 28.5
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "jersey-mikes.protein.pepperoni",
@@ -232,9 +445,13 @@
             "carbGrams": 2.8,
             "fatGrams": 26.6
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         }
       ],
       "iconName": "chicken"
@@ -256,9 +473,12 @@
             "carbGrams": 0.7,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.cheeses.swiss",
@@ -270,9 +490,12 @@
             "carbGrams": 0.6,
             "fatGrams": 7.4
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.cheeses.white-american-cheese",
@@ -284,9 +507,13 @@
             "carbGrams": 3.1,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "cheeseSlice"
@@ -308,9 +535,10 @@
             "carbGrams": 2.5,
             "fatGrams": 0.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.tomatoes",
@@ -322,9 +550,10 @@
             "carbGrams": 2.2,
             "fatGrams": 0.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.onions",
@@ -336,9 +565,10 @@
             "carbGrams": 0.8,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.grilled-onions",
@@ -350,9 +580,10 @@
             "carbGrams": 3.3,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.dill-pickles",
@@ -364,9 +595,10 @@
             "carbGrams": 1.3,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.banana-peppers",
@@ -378,9 +610,10 @@
             "carbGrams": 0.9,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.jalapeno-peppers",
@@ -392,9 +625,10 @@
             "carbGrams": 0.8,
             "fatGrams": 0.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.hot-chopped-pepper-relish",
@@ -406,9 +640,10 @@
             "carbGrams": 1.3,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.mushrooms",
@@ -420,9 +655,10 @@
             "carbGrams": 0.4,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.grilled-portabella-mushrooms",
@@ -434,9 +670,10 @@
             "carbGrams": 1.1,
             "fatGrams": 0.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.red-green-pepper-strips",
@@ -448,9 +685,10 @@
             "carbGrams": 4.3,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.green-bell-peppers",
@@ -462,9 +700,10 @@
             "carbGrams": 1.5,
             "fatGrams": 0.1
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.veggies.sauerkraut",
@@ -476,9 +715,10 @@
             "carbGrams": 4.2,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -500,9 +740,10 @@
             "carbGrams": 0.0,
             "fatGrams": 28.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.red-wine-vinegar",
@@ -514,9 +755,12 @@
             "carbGrams": 0.6,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "alcohol"
+          ]
         },
         {
           "id": "jersey-mikes.sauces.oregano",
@@ -528,9 +772,10 @@
             "carbGrams": 0.3,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.salt",
@@ -542,9 +787,10 @@
             "carbGrams": 0.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.mayo",
@@ -556,9 +802,12 @@
             "carbGrams": 0.7,
             "fatGrams": 29.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.yellow-mustard",
@@ -570,9 +819,10 @@
             "carbGrams": 1.9,
             "fatGrams": 1.8
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.spicy-brown-mustard",
@@ -584,9 +834,10 @@
             "carbGrams": 1.7,
             "fatGrams": 1.6
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.honey-mustard",
@@ -598,9 +849,12 @@
             "carbGrams": 2.2,
             "fatGrams": 1.7
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         },
         {
           "id": "jersey-mikes.sauces.chipotle-mayo",
@@ -612,9 +866,12 @@
             "carbGrams": 1.7,
             "fatGrams": 31.7
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.buffalo-sauce",
@@ -626,9 +883,10 @@
             "carbGrams": 1.6,
             "fatGrams": 0.8
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.blue-cheese-dressing",
@@ -640,9 +898,14 @@
             "carbGrams": 2.0,
             "fatGrams": 21.9
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.ranch",
@@ -654,9 +917,13 @@
             "carbGrams": 2.0,
             "fatGrams": 19.8
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.thousand-island",
@@ -668,9 +935,12 @@
             "carbGrams": 4.7,
             "fatGrams": 15.4
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.bbq-sauce",
@@ -682,9 +952,10 @@
             "carbGrams": 28.7,
             "fatGrams": 0.2
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sauces.hot-honey",
@@ -696,9 +967,12 @@
             "carbGrams": 23.4,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "honey"
+          ]
         }
       ],
       "iconName": "salsa"
@@ -720,9 +994,13 @@
             "carbGrams": 0.0,
             "fatGrams": 5.3
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "jersey-mikes.extras.avocado",
@@ -734,9 +1012,10 @@
             "carbGrams": 3.6,
             "fatGrams": 6.2
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.extras.extra-cheese",
@@ -748,9 +1027,13 @@
             "carbGrams": 0.7,
             "fatGrams": 9.1
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.extras.extra-pepperoni",
@@ -762,9 +1045,13 @@
             "carbGrams": 0.7,
             "fatGrams": 8.6
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         }
       ],
       "iconName": "chipsBaked"
@@ -786,9 +1073,10 @@
             "carbGrams": 23.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.lays-bbq",
@@ -800,9 +1088,10 @@
             "carbGrams": 24.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.lays-sour-cream-and-onion",
@@ -814,9 +1103,12 @@
             "carbGrams": 23.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.baked-lays",
@@ -828,9 +1120,12 @@
             "carbGrams": 24.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.doritos-nacho",
@@ -842,9 +1137,12 @@
             "carbGrams": 28.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.doritos-cool-ranch",
@@ -856,9 +1154,12 @@
             "carbGrams": 31.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.sunchips-original",
@@ -870,9 +1171,12 @@
             "carbGrams": 28.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.sunchips-harvest-cheddar",
@@ -884,9 +1188,13 @@
             "carbGrams": 27.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.ruffles-cheddar-sour-cream",
@@ -898,9 +1206,12 @@
             "carbGrams": 23.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.miss-vickies-jalapeno",
@@ -912,9 +1223,12 @@
             "carbGrams": 22.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.miss-vickies-sea-salt-vinegar",
@@ -926,9 +1240,12 @@
             "carbGrams": 23.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.cheetos",
@@ -940,9 +1257,12 @@
             "carbGrams": 26.0,
             "fatGrams": 21.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.chips.fritos",
@@ -954,9 +1274,10 @@
             "carbGrams": 32.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"
@@ -978,9 +1299,12 @@
             "carbGrams": 33.8,
             "fatGrams": 19.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sides.french-fries-6oz",
@@ -992,9 +1316,12 @@
             "carbGrams": 40.5,
             "fatGrams": 22.8
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sides.chocolate-chunk-cookie",
@@ -1006,9 +1333,15 @@
             "carbGrams": 37.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sides.gf-snickerdoodle-cookie",
@@ -1020,9 +1353,13 @@
             "carbGrams": 34.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "jersey-mikes.sides.brownie",
@@ -1034,9 +1371,15 @@
             "carbGrams": 62.3,
             "fatGrams": 27.8
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "breadPita"

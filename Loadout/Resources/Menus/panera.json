@@ -26,9 +26,18 @@
             "carbGrams": 87.0,
             "fatGrams": 51.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.mediterranean-veggie",
@@ -40,9 +49,14 @@
             "carbGrams": 83.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.toasted-italiano",
@@ -54,9 +68,18 @@
             "carbGrams": 130.0,
             "fatGrams": 64.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.bacon-turkey-bravo",
@@ -68,9 +91,18 @@
             "carbGrams": 80.0,
             "fatGrams": 39.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.chipotle-chicken-avo-melt",
@@ -82,9 +114,17 @@
             "carbGrams": 90.0,
             "fatGrams": 52.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.ciabatta-cheesesteak",
@@ -96,9 +136,17 @@
             "carbGrams": 117.0,
             "fatGrams": 54.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.cranberry-walnut-chicken-salad-sandwich",
@@ -110,9 +158,17 @@
             "carbGrams": 68.0,
             "fatGrams": 33.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.grilled-cheese",
@@ -124,9 +180,15 @@
             "carbGrams": 74.0,
             "fatGrams": 42.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.grilled-chicken-avo-blt",
@@ -138,9 +200,18 @@
             "carbGrams": 66.0,
             "fatGrams": 55.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.smokehouse-bbq-chicken",
@@ -152,9 +223,16 @@
             "carbGrams": 113.0,
             "fatGrams": 21.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.spicy-fiesta-chicken",
@@ -166,9 +244,17 @@
             "carbGrams": 112.0,
             "fatGrams": 32.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.toasted-frontega-chicken",
@@ -180,9 +266,17 @@
             "carbGrams": 87.0,
             "fatGrams": 39.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.tomato-basil-blt",
@@ -194,9 +288,17 @@
             "carbGrams": 71.0,
             "fatGrams": 45.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.tuna-salad-sandwich",
@@ -208,9 +310,15 @@
             "carbGrams": 60.0,
             "fatGrams": 29.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.turkey-cheddar-sandwich",
@@ -222,9 +330,17 @@
             "carbGrams": 63.0,
             "fatGrams": 47.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.toasted-caprese-focaccia",
@@ -236,9 +352,14 @@
             "carbGrams": 97.0,
             "fatGrams": 27.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.asian-sesame-chicken-salad",
@@ -250,9 +371,16 @@
             "carbGrams": 35.0,
             "fatGrams": 31.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.caesar-salad",
@@ -264,9 +392,15 @@
             "carbGrams": 22.0,
             "fatGrams": 44.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.caesar-salad-with-chicken",
@@ -278,9 +412,17 @@
             "carbGrams": 27.0,
             "fatGrams": 47.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.fuji-apple-chicken-salad",
@@ -292,9 +434,15 @@
             "carbGrams": 49.0,
             "fatGrams": 44.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "treenut"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.greek-salad",
@@ -306,9 +454,12 @@
             "carbGrams": 17.0,
             "fatGrams": 59.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.greek-salad-with-chicken",
@@ -320,9 +471,14 @@
             "carbGrams": 22.0,
             "fatGrams": 62.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.green-goddess-chicken-cobb-salad",
@@ -334,9 +490,16 @@
             "carbGrams": 30.0,
             "fatGrams": 34.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.ranch-parm-blt-salad",
@@ -348,9 +511,17 @@
             "carbGrams": 28.0,
             "fatGrams": 62.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.southwest-chicken-ranch-salad",
@@ -362,9 +533,15 @@
             "carbGrams": 40.0,
             "fatGrams": 59.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.farmhouse-crunch-salad",
@@ -376,9 +553,18 @@
             "carbGrams": 49.0,
             "fatGrams": 61.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "sesame",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.shrimply-baja-salad",
@@ -390,9 +576,16 @@
             "carbGrams": 34.0,
             "fatGrams": 70.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "shellfish",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.ultimate-garden-steak-salad",
@@ -404,9 +597,16 @@
             "carbGrams": 53.0,
             "fatGrams": 52.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.mains.all-in-veggie-market-bowl",
@@ -418,9 +618,14 @@
             "carbGrams": 101.0,
             "fatGrams": 49.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.mains.carnitas-elote-market-bowl",
@@ -432,9 +637,16 @@
             "carbGrams": 86.0,
             "fatGrams": 63.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.mains.sesame-ginger-chicken-market-bowl",
@@ -446,12 +658,24 @@
             "carbGrams": 95.0,
             "fatGrams": 44.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "sesame",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         }
       ],
-      "iconName": "chickenGrilled"
+      "iconName": "chickenGrilled",
+      "isCompleteMeal": true
     },
     {
       "id": "entrees",
@@ -470,9 +694,13 @@
             "carbGrams": 17.0,
             "fatGrams": 20.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.broccoli-cheddar-soup-bowl",
@@ -484,9 +712,13 @@
             "carbGrams": 25.0,
             "fatGrams": 31.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.broccoli-cheddar-soup-bread-bowl",
@@ -498,9 +730,14 @@
             "carbGrams": 152.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.creamy-tomato-soup-cup",
@@ -512,9 +749,13 @@
             "carbGrams": 21.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.creamy-tomato-soup-bowl",
@@ -526,9 +767,13 @@
             "carbGrams": 30.0,
             "fatGrams": 23.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.creamy-tomato-soup-bread-bowl",
@@ -540,9 +785,14 @@
             "carbGrams": 157.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.bistro-french-onion-soup-cup",
@@ -554,9 +804,16 @@
             "carbGrams": 22.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.bistro-french-onion-soup-bowl",
@@ -568,9 +825,16 @@
             "carbGrams": 33.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.bistro-french-onion-soup-bread-bowl",
@@ -582,9 +846,17 @@
             "carbGrams": 158.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.chicken-noodle-soup-cup",
@@ -596,9 +868,15 @@
             "carbGrams": 14.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.chicken-noodle-soup-bowl",
@@ -610,9 +888,15 @@
             "carbGrams": 21.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.chicken-noodle-soup-bread-bowl",
@@ -624,9 +908,16 @@
             "carbGrams": 150.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.cream-of-chicken-wild-rice-cup",
@@ -638,9 +929,15 @@
             "carbGrams": 19.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.cream-of-chicken-wild-rice-bowl",
@@ -652,9 +949,15 @@
             "carbGrams": 29.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.cream-of-chicken-wild-rice-bread-bowl",
@@ -666,9 +969,16 @@
             "carbGrams": 155.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.black-bean-soup-cup",
@@ -680,9 +990,12 @@
             "carbGrams": 27.0,
             "fatGrams": 1.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.black-bean-soup-bowl",
@@ -694,9 +1007,12 @@
             "carbGrams": 41.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.black-bean-soup-bread-bowl",
@@ -708,9 +1024,14 @@
             "carbGrams": 163.0,
             "fatGrams": 3.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.mac-and-cheese-cup",
@@ -722,9 +1043,14 @@
             "carbGrams": 34.0,
             "fatGrams": 32.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.mac-and-cheese-bowl",
@@ -736,9 +1062,14 @@
             "carbGrams": 68.0,
             "fatGrams": 64.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.mac-and-cheese-bread-bowl",
@@ -750,9 +1081,15 @@
             "carbGrams": 170.0,
             "fatGrams": 34.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.bacon-mac-and-cheese-cup",
@@ -764,9 +1101,17 @@
             "carbGrams": 34.0,
             "fatGrams": 35.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.entrees.bacon-mac-and-cheese-bowl",
@@ -778,9 +1123,17 @@
             "carbGrams": 68.0,
             "fatGrams": 71.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.entrees.bacon-mac-and-cheese-bread-bowl",
@@ -792,9 +1145,18 @@
             "carbGrams": 170.0,
             "fatGrams": 38.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.entrees.ultimate-garden-steak-salad-stuffer",
@@ -806,9 +1168,16 @@
             "carbGrams": 70.0,
             "fatGrams": 46.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.farmhouse-crunch-salad-stuffer",
@@ -820,9 +1189,18 @@
             "carbGrams": 69.0,
             "fatGrams": 51.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "peanut",
+            "sesame",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.shrimply-baja-salad-stuffer",
@@ -834,9 +1212,16 @@
             "carbGrams": 61.0,
             "fatGrams": 56.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "shellfish",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.southwest-chicken-ranch-salad-stuffer",
@@ -848,9 +1233,16 @@
             "carbGrams": 65.0,
             "fatGrams": 50.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.green-goddess-chicken-cobb-salad-stuffer",
@@ -862,9 +1254,17 @@
             "carbGrams": 61.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.entrees.asian-sesame-chicken-salad-stuffer",
@@ -876,9 +1276,16 @@
             "carbGrams": 64.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.ranch-parm-blt-salad-stuffer",
@@ -890,9 +1297,17 @@
             "carbGrams": 59.0,
             "fatGrams": 51.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "panera.entrees.fuji-apple-chicken-salad-stuffer",
@@ -904,9 +1319,16 @@
             "carbGrams": 74.0,
             "fatGrams": 34.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.caesar-salad-stuffer",
@@ -918,9 +1340,15 @@
             "carbGrams": 55.0,
             "fatGrams": 41.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.caesar-salad-stuffer-with-chicken",
@@ -932,9 +1360,17 @@
             "carbGrams": 57.0,
             "fatGrams": 42.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.greek-salad-stuffer",
@@ -946,9 +1382,13 @@
             "carbGrams": 51.0,
             "fatGrams": 50.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.entrees.greek-salad-stuffer-with-chicken",
@@ -960,9 +1400,15 @@
             "carbGrams": 53.0,
             "fatGrams": 51.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.chicken-roma-asiago-bagel-stack",
@@ -974,9 +1420,18 @@
             "carbGrams": 59.0,
             "fatGrams": 27.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "panera.entrees.spicy-steak-asiago-bagel-stack",
@@ -988,9 +1443,18 @@
             "carbGrams": 62.0,
             "fatGrams": 26.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         }
       ],
       "iconName": "chickenGrilled"
@@ -1012,9 +1476,10 @@
             "carbGrams": 22.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.side-banana",
@@ -1026,9 +1491,10 @@
             "carbGrams": 23.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.french-baguette-side",
@@ -1040,9 +1506,13 @@
             "carbGrams": 41.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.kettle-cooked-potato-chips",
@@ -1054,9 +1524,10 @@
             "carbGrams": 17.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.greek-yogurt-with-berries-parfait",
@@ -1068,9 +1539,13 @@
             "carbGrams": 29.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "treenut"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.fruit-cup",
@@ -1082,9 +1557,10 @@
             "carbGrams": 15.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sides.pickle-spear",
@@ -1096,7 +1572,26 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "panera.sides.french-baguette-breakfast-portion",
+          "name": "French Baguette - Breakfast Portion (quarter baguette)",
+          "servingDescription": "1/4 Baguette",
+          "macros": {
+            "calories": 290.0,
+            "proteinGrams": 9.0,
+            "carbGrams": 61.0,
+            "fatGrams": 1.0
+          },
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -1120,9 +1615,17 @@
             "carbGrams": 32.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "sesame",
+            "soy",
+            "treenut",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.bread-portion-italian-style-roll",
@@ -1134,9 +1637,12 @@
             "carbGrams": 42.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.artisan-ciabatta",
@@ -1148,9 +1654,13 @@
             "carbGrams": 30.0,
             "fatGrams": 1.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.black-pepper-focaccia",
@@ -1162,9 +1672,13 @@
             "carbGrams": 30.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.classic-white-loaf",
@@ -1176,9 +1690,14 @@
             "carbGrams": 32.0,
             "fatGrams": 3.5
           },
-          "allergens": null,
+          "allergens": [
+            "milk",
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.country-rustic-sourdough",
@@ -1190,9 +1709,13 @@
             "carbGrams": 30.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.french-baguette-slice",
@@ -1204,9 +1727,13 @@
             "carbGrams": 32.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.tomato-basil-miche",
@@ -1218,9 +1745,13 @@
             "carbGrams": 30.0,
             "fatGrams": 0.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.italian-style-roll",
@@ -1232,9 +1763,12 @@
             "carbGrams": 28.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.whole-grain-lahvash",
@@ -1246,9 +1780,14 @@
             "carbGrams": 25.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.breads.sourdough-soup-bowl",
@@ -1260,9 +1799,13 @@
             "carbGrams": 136.0,
             "fatGrams": 2.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "wheatFlat"
@@ -1285,9 +1828,12 @@
             "carbGrams": 5.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.asian-sesame-vinaigrette-whole",
@@ -1299,9 +1845,12 @@
             "carbGrams": 9.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.caesar-dressing-half",
@@ -1313,9 +1862,14 @@
             "carbGrams": 2.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.caesar-dressing-whole",
@@ -1327,9 +1881,14 @@
             "carbGrams": 4.0,
             "fatGrams": 33.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "fish",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.creamy-garden-herb-half",
@@ -1341,9 +1900,13 @@
             "carbGrams": 2.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.creamy-garden-herb-whole",
@@ -1355,9 +1918,13 @@
             "carbGrams": 4.0,
             "fatGrams": 34.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.farmhouse-ranch-half",
@@ -1369,9 +1936,13 @@
             "carbGrams": 3.0,
             "fatGrams": 17.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.farmhouse-ranch-whole",
@@ -1383,9 +1954,13 @@
             "carbGrams": 5.0,
             "fatGrams": 35.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.greek-dressing-half",
@@ -1397,9 +1972,10 @@
             "carbGrams": 1.0,
             "fatGrams": 24.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.greek-dressing-whole",
@@ -1411,9 +1987,10 @@
             "carbGrams": 1.0,
             "fatGrams": 48.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.green-goddess-dressing-half",
@@ -1425,9 +2002,12 @@
             "carbGrams": 4.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.green-goddess-dressing-whole",
@@ -1439,9 +2019,12 @@
             "carbGrams": 7.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.sesame-ginger-dressing-half",
@@ -1453,9 +2036,14 @@
             "carbGrams": 6.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.sesame-ginger-dressing-whole",
@@ -1467,9 +2055,14 @@
             "carbGrams": 13.0,
             "fatGrams": 32.0
           },
-          "allergens": null,
+          "allergens": [
+            "sesame",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.white-balsamic-apple-vinaigrette-half",
@@ -1481,9 +2074,10 @@
             "carbGrams": 10.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.white-balsamic-apple-vinaigrette-whole",
@@ -1495,9 +2089,10 @@
             "carbGrams": 21.0,
             "fatGrams": 24.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.zesty-smoky-lemon-vinaigrette-half",
@@ -1509,9 +2104,13 @@
             "carbGrams": 4.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.dressings.zesty-smoky-lemon-vinaigrette-whole",
@@ -1523,9 +2122,13 @@
             "carbGrams": 7.0,
             "fatGrams": 36.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "oil"
@@ -1547,9 +2150,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.balsamic-glaze",
@@ -1561,9 +2165,10 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.chipotle-aioli",
@@ -1575,9 +2180,12 @@
             "carbGrams": 1.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.creamy-basil-pesto",
@@ -1589,9 +2197,12 @@
             "carbGrams": 1.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.farmhouse-ranch-sandwich-portion",
@@ -1603,9 +2214,13 @@
             "carbGrams": 2.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.garlic-aioli",
@@ -1617,9 +2232,12 @@
             "carbGrams": 0.0,
             "fatGrams": 12.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.greek-dressing-sandwich-portion",
@@ -1631,9 +2249,10 @@
             "carbGrams": 0.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.green-goddess-sandwich-portion",
@@ -1645,9 +2264,12 @@
             "carbGrams": 1.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.hummus",
@@ -1659,9 +2281,12 @@
             "carbGrams": 4.0,
             "fatGrams": 4.5
           },
-          "allergens": null,
+          "allergens": [
+            "sesame"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.mayonnaise",
@@ -1673,9 +2298,12 @@
             "carbGrams": 0.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.green-chile-salsa-verde",
@@ -1687,9 +2315,13 @@
             "carbGrams": 2.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "panera.sauces.signature-sauce",
@@ -1701,9 +2333,12 @@
             "carbGrams": 4.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"

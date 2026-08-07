@@ -26,9 +26,13 @@
             "carbGrams": 51.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.tortilla.flour-tortilla-8",
@@ -40,9 +44,13 @@
             "carbGrams": 17.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.tortilla.flour-tortilla-6",
@@ -54,9 +62,13 @@
             "carbGrams": 11.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.tortilla.crispy-corn-shell-6",
@@ -68,9 +80,12 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "wheatFlat"
@@ -92,9 +107,12 @@
             "carbGrams": 54.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.rice.cilantro-lime-rice",
@@ -106,9 +124,12 @@
             "carbGrams": 54.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.rice.seasoned-rice-burrito",
@@ -120,9 +141,12 @@
             "carbGrams": 27.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.rice.cilantro-lime-rice-burrito",
@@ -134,7 +158,78 @@
             "carbGrams": 27.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "moes.rice.seasoned-rice-jr-burrito",
+          "name": "Seasoned Rice (junior burrito portion)",
+          "servingDescription": "Ingredient portion for a junior burrito",
+          "macros": {
+            "calories": 94.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 18.0,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.rice.seasoned-rice-bowl",
+          "name": "Seasoned Rice (bowl)",
+          "servingDescription": "Bowl size",
+          "macros": {
+            "calories": 500.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 90.0,
+            "fatGrams": 10.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.rice.cilantro-lime-rice-jr-burrito",
+          "name": "Cilantro Lime Rice (junior burrito portion)",
+          "servingDescription": "Ingredient portion for a junior burrito",
+          "macros": {
+            "calories": 93.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 18.0,
+            "fatGrams": 2.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.rice.cilantro-lime-rice-bowl",
+          "name": "Cilantro Lime Rice (bowl)",
+          "servingDescription": "Bowl size",
+          "macros": {
+            "calories": 470.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 90.0,
+            "fatGrams": 10.0
+          },
+          "allergens": [
+            "soy"
+          ],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -158,9 +253,10 @@
             "carbGrams": 12.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.beans.pinto-beans",
@@ -172,7 +268,98 @@
             "carbGrams": 12.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "moes.beans.black-beans-jr",
+          "name": "Black Beans (junior / taco portion)",
+          "servingDescription": "Jr. ingredient portion / taco fresh-free modifier",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 6.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.beans.black-beans-cup",
+          "name": "Black Beans (cup)",
+          "servingDescription": "Cup size",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 24.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.beans.black-beans-bowl",
+          "name": "Black Beans (bowl)",
+          "servingDescription": "Bowl size",
+          "macros": {
+            "calories": 220.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 40.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.beans.pinto-beans-jr",
+          "name": "Pinto Beans (junior / taco portion)",
+          "servingDescription": "Jr. ingredient portion / taco fresh-free modifier",
+          "macros": {
+            "calories": 30.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 6.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.beans.pinto-beans-cup",
+          "name": "Pinto Beans (cup)",
+          "servingDescription": "Cup size",
+          "macros": {
+            "calories": 120.0,
+            "proteinGrams": 6.0,
+            "carbGrams": 24.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.beans.pinto-beans-bowl",
+          "name": "Pinto Beans (bowl)",
+          "servingDescription": "Bowl size",
+          "macros": {
+            "calories": 200.0,
+            "proteinGrams": 10.0,
+            "carbGrams": 40.0,
+            "fatGrams": 0.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -196,9 +383,14 @@
             "carbGrams": 1.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.white-meat-chicken",
@@ -210,9 +402,14 @@
             "carbGrams": 3.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.hand-cut-steak",
@@ -224,9 +421,14 @@
             "carbGrams": 4.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.ground-beef",
@@ -238,9 +440,14 @@
             "carbGrams": 5.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.tofu",
@@ -252,9 +459,12 @@
             "carbGrams": 2.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.protein.adobo-chicken-double",
@@ -266,9 +476,14 @@
             "carbGrams": 2.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.white-meat-chicken-double",
@@ -280,9 +495,14 @@
             "carbGrams": 6.0,
             "fatGrams": 6.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.hand-cut-steak-double",
@@ -294,9 +514,14 @@
             "carbGrams": 8.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.ground-beef-double",
@@ -308,9 +533,14 @@
             "carbGrams": 10.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.tofu-large",
@@ -322,9 +552,12 @@
             "carbGrams": 4.0,
             "fatGrams": 14.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.protein.adobo-chicken-small",
@@ -336,9 +569,14 @@
             "carbGrams": 1.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.white-meat-chicken-small",
@@ -350,9 +588,14 @@
             "carbGrams": 2.0,
             "fatGrams": 2.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.hand-cut-steak-small",
@@ -364,9 +607,14 @@
             "carbGrams": 2.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.ground-beef-small",
@@ -378,9 +626,14 @@
             "carbGrams": 3.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat"
+          ]
         },
         {
           "id": "moes.protein.tofu-small",
@@ -392,9 +645,12 @@
             "carbGrams": 1.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chicken"
@@ -416,9 +672,12 @@
             "carbGrams": 2.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "cheeseSlice"
@@ -440,9 +699,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.salsa.house-made-salsa",
@@ -454,9 +714,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.salsa.tomatillo-salsa",
@@ -468,9 +729,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.salsa.spicy-red-salsa",
@@ -482,9 +744,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.salsa.roasted-corn-salsa",
@@ -496,9 +759,12 @@
             "carbGrams": 9.0,
             "fatGrams": 3.5
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -520,9 +786,12 @@
             "carbGrams": 5.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.veggies.romaine-lettuce",
@@ -534,9 +803,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.veggies.diced-onions",
@@ -548,9 +818,10 @@
             "carbGrams": 3.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.veggies.pickled-jalapenos",
@@ -562,9 +833,12 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.veggies.fresh-jalapenos",
@@ -576,9 +850,10 @@
             "carbGrams": 2.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.veggies.black-olives",
@@ -590,9 +865,10 @@
             "carbGrams": 0.0,
             "fatGrams": 4.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "vegetables"
@@ -614,9 +890,12 @@
             "carbGrams": 1.0,
             "fatGrams": 5.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.toppings.guacamole",
@@ -628,9 +907,10 @@
             "carbGrams": 5.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.toppings.queso-add-on",
@@ -642,9 +922,12 @@
             "carbGrams": 3.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.toppings.bacon",
@@ -656,9 +939,15 @@
             "carbGrams": 0.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": [
+            "meat",
+            "pork"
+          ]
         },
         {
           "id": "moes.toppings.potatoes",
@@ -670,7 +959,57 @@
             "carbGrams": 29.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
+          "notes": null,
+          "iconName": null,
+          "dietaryMarkers": []
+        },
+        {
+          "id": "moes.toppings.queso-add-on-small",
+          "name": "Moe's Famous Queso (Add-On, small)",
+          "servingDescription": "Small add-on portion into an entree (tacos, kids)",
+          "macros": {
+            "calories": 50.0,
+            "proteinGrams": 2.0,
+            "carbGrams": 1.0,
+            "fatGrams": 4.0
+          },
+          "allergens": [
+            "milk"
+          ],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.toppings.guacamole-add-on",
+          "name": "Guacamole (Add-On)",
+          "servingDescription": "1 add-on portion into an entree",
+          "macros": {
+            "calories": 60.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 4.0,
+            "fatGrams": 6.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
+          "notes": null,
+          "iconName": null
+        },
+        {
+          "id": "moes.toppings.guacamole-add-on-small",
+          "name": "Guacamole (Add-On, small)",
+          "servingDescription": "Small add-on portion into an entree (tacos, kids)",
+          "macros": {
+            "calories": 40.0,
+            "proteinGrams": 1.0,
+            "carbGrams": 3.0,
+            "fatGrams": 4.0
+          },
+          "allergens": [],
+          "dietaryMarkers": [],
           "notes": null,
           "iconName": null
         }
@@ -694,9 +1033,14 @@
             "carbGrams": 3.0,
             "fatGrams": 11.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.sauces.poblano-crema",
@@ -708,9 +1052,12 @@
             "carbGrams": 2.0,
             "fatGrams": 3.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.sauces.chili-lime-sauce",
@@ -722,9 +1069,12 @@
             "carbGrams": 4.0,
             "fatGrams": 9.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.sauces.hard-rock-sauce",
@@ -736,9 +1086,10 @@
             "carbGrams": 1.0,
             "fatGrams": 0.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "salsa"
@@ -761,9 +1112,13 @@
             "carbGrams": 2.0,
             "fatGrams": 15.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dressings.southwest-vinaigrette",
@@ -775,9 +1130,12 @@
             "carbGrams": 3.0,
             "fatGrams": 13.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "oil"
@@ -800,9 +1158,12 @@
             "carbGrams": 5.0,
             "fatGrams": 16.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dips.queso-cup",
@@ -814,9 +1175,12 @@
             "carbGrams": 11.0,
             "fatGrams": 32.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dips.queso-bowl",
@@ -828,9 +1192,12 @@
             "carbGrams": 20.0,
             "fatGrams": 59.0
           },
-          "allergens": null,
+          "allergens": [
+            "milk"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dips.guac-side",
@@ -842,9 +1209,10 @@
             "carbGrams": 7.0,
             "fatGrams": 10.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dips.guac-cup",
@@ -856,9 +1224,10 @@
             "carbGrams": 15.0,
             "fatGrams": 22.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.dips.guac-bowl",
@@ -870,9 +1239,10 @@
             "carbGrams": 26.0,
             "fatGrams": 36.0
           },
-          "allergens": null,
+          "allergens": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "hummus"
@@ -894,9 +1264,12 @@
             "carbGrams": 18.0,
             "fatGrams": 7.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.chips.tortilla-chips-side",
@@ -908,9 +1281,12 @@
             "carbGrams": 45.0,
             "fatGrams": 18.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.chips.tortilla-chips-cup",
@@ -922,9 +1298,12 @@
             "carbGrams": 90.0,
             "fatGrams": 36.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         },
         {
           "id": "moes.chips.tortilla-chips-bowl",
@@ -936,9 +1315,12 @@
             "carbGrams": 135.0,
             "fatGrams": 54.0
           },
-          "allergens": null,
+          "allergens": [
+            "soy"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"
@@ -960,9 +1342,15 @@
             "carbGrams": 23.0,
             "fatGrams": 8.0
           },
-          "allergens": null,
+          "allergens": [
+            "egg",
+            "milk",
+            "soy",
+            "wheat"
+          ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "dietaryMarkers": []
         }
       ],
       "iconName": "chipsBaked"
