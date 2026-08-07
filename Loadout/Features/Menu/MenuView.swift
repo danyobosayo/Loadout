@@ -4,13 +4,14 @@ import SwiftUI
 /// rows with ½ / + / − portion controls, live-ticking tray bar
 /// floating above the tab bar.
 ///
-/// Rail ↔ scroll sync: `railSelection` (what the pill shows) is
-/// deliberately separate from `scrolledStation` (the scroll binding).
-/// While a tap-initiated scroll is in flight, scroll-position updates
-/// are ignored so mid-deceleration taps can't be overwritten — and the
-/// programmatic write is re-asserted once, because a write issued
-/// during deceleration can be swallowed by the scroll view's own
-/// position stream.
+/// Rail ↔ scroll sync is deliberately one-directional in each role:
+/// `onScrollTargetVisibilityChange` *reads* the visible station into
+/// `railSelection`, and `scrollTarget` *writes* a rail tap into the scroll
+/// view. They are never the same piece of state. A two-way
+/// `.scrollPosition(id:)` binding looks tidier but re-pins the scroll view
+/// whenever the content mutates, so adding an item would yank the list.
+/// While a tap-initiated scroll is in flight the read side is muted, so the
+/// pill doesn't flicker through every station it passes.
 struct MenuView: View {
     let restaurant: Restaurant
     // The order format this build started from, or nil for build-your-own.
@@ -19,7 +20,10 @@ struct MenuView: View {
     @State private var store: MealBuilderStore
     @State private var trayPresented: Bool
     @State private var railSelection: String?
-    @State private var scrolledStation: String?
+    /// Write-only scroll request: set to a station id to scroll there, cleared
+    /// as soon as it lands. Kept separate from the rail's read-side sync so
+    /// neither can drive the other (see the scroll view's modifiers).
+    @State private var scrollTarget: String?
     @State private var railNavigation: Task<Void, Never>?
     @State private var limitToast: String?
     @State private var toastDismissTask: Task<Void, Never>?
@@ -199,13 +203,25 @@ struct MenuView: View {
                 .padding(.horizontal, Spacing.md)
                 .padding(.top, Spacing.sm)
             }
-            .scrollPosition(id: $scrolledStation, anchor: .top)
             .contentMargins(.bottom, Metrics.tabBarClearance + Metrics.trayBarClearance, for: .scrollContent)
-            .onChange(of: scrolledStation) { _, newValue in
-                // Scroll → rail sync, muted while a tap navigation is in
-                // flight so the target pill doesn't flash back.
-                guard railNavigation == nil, let newValue else { return }
-                withAnimation(Motion.snap) { railSelection = newValue }
+            // Scroll → rail sync, muted while a tap navigation is in flight so
+            // the target pill doesn't flash back.
+            //
+            // Read-only on purpose. This used to be
+            // `.scrollPosition(id: $scrolledStation, anchor: .top)`, but that
+            // binding *also writes back into the scroll view*: any content
+            // mutation re-applied it and re-pinned the tracked station to the
+            // top. Tapping an item grows its row, so the first tap in a station
+            // yanked the list down mid-browse.
+            .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.1) { visible in
+                guard railNavigation == nil, let top = visible.first else { return }
+                withAnimation(Motion.snap) { railSelection = top }
+            }
+            .onChange(of: scrollTarget) { _, target in
+                guard let target else { return }
+                withAnimation(Motion.glide) { proxy.scrollTo(target, anchor: .top) }
+                // Cleared so tapping the same rail pill twice scrolls again.
+                scrollTarget = nil
             }
             .onChange(of: expandedPrompt) { _, prompt in
                 // Expanding a prompt grows its options; pull it to the top so
@@ -330,16 +346,10 @@ struct MenuView: View {
     private func jump(to stationId: String) {
         railNavigation?.cancel()
         withAnimation(Motion.snap) { railSelection = stationId }
-        withAnimation(Motion.glide) { scrolledStation = stationId }
+        scrollTarget = stationId
         railNavigation = Task {
-            // Re-assert once: a position write issued mid-deceleration
-            // can be dropped in favor of the decelerating scroll.
-            try? await Task.sleep(for: .milliseconds(80))
-            guard !Task.isCancelled else { return }
-            if scrolledStation != stationId {
-                withAnimation(Motion.glide) { scrolledStation = stationId }
-            }
-            // Hold the mute until the programmatic scroll settles.
+            // Hold the rail-sync mute until the programmatic scroll settles,
+            // so the pill doesn't flicker through every station it passes.
             try? await Task.sleep(for: .milliseconds(600))
             guard !Task.isCancelled else { return }
             railNavigation = nil
@@ -818,9 +828,11 @@ private extension MenuView {
     /// A guided pick. "Choose one" prompts holding a single full portion (not
     /// tacos ×3 or a Footlong) use the same tap-to-cycle model as the stations
     /// — tap to add, again to double, or tap another to split ½ + ½ within the
-    /// prompt's subset. Everything else toggles at its set quantity. The prompt
-    /// stays open after a pick (no auto-advance) so portions stay adjustable;
-    /// the user moves on by tapping the next prompt's header.
+    /// prompt's subset. Everything else toggles at its set quantity.
+    ///
+    /// The prompt only closes once it's *saturated* — a "choose 2 entrées"
+    /// waits for the second tap. Anything short of that leaves it open so
+    /// portions stay adjustable.
     func pick(_ item: MenuItem, prompt: FormatPrompt) {
         guard let category = restaurant.category(id: prompt.categoryId) else { return }
         let scope = prompt.subsetItemIds.map(Set.init)
@@ -839,6 +851,38 @@ private extension MenuView {
                 apply(store.add(item, in: category, quantity: quantity, ruleOverride: prompt.choose, within: scope), in: category)
             }
         }
+
+        if isSaturated(prompt) { advance(past: prompt) }
+    }
+
+    /// Whether a prompt has taken everything it can hold.
+    ///
+    /// Only a real cap counts. A `selectOne` base can still be doubled or split
+    /// ½ + ½ after its first tap, so it is never saturated — closing it on the
+    /// first tap is exactly the behaviour that made portions unadjustable and
+    /// got auto-advance removed once already. Fixed-quantity picks (tacos ×3, a
+    /// Footlong loaf) can't be adjusted in place, so one pick completes them.
+    func isSaturated(_ prompt: FormatPrompt) -> Bool {
+        guard let category = restaurant.category(id: prompt.categoryId) else { return false }
+        switch prompt.choose {
+        case .selectUpTo(let max):
+            let scope = prompt.subsetItemIds.map(Set.init)
+            return store.totalQuantity(in: category, scope: scope) >= Double(max)
+        case .selectOne:
+            return !canSplit(prompt) && isAnswered(prompt)
+        case .selectMany:
+            return false                      // uncapped: the user says when
+        }
+    }
+
+    /// Collapse the finished prompt and open the next unanswered one. When
+    /// every prompt is answered nothing expands, which drops the accordion to
+    /// its compact summaries and brings the add-on stations up into view.
+    func advance(past prompt: FormatPrompt) {
+        guard let format,
+              let index = format.prompts.firstIndex(where: { $0.id == prompt.id }) else { return }
+        let next = format.prompts[(index + 1)...].first { !isAnswered($0) }
+        withAnimation(Motion.snap) { expandedPrompt = next?.id }
     }
 
     /// The `PortionPolicy` a prompt's `choose` implies, so the guided rows use

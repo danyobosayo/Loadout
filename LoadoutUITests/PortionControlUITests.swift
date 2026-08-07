@@ -77,10 +77,12 @@ final class PortionControlUITests: XCTestCase {
         XCTAssertTrue(brownRice.waitForExistence(timeout: 10))
         brownRice.tap()
 
-        // No auto-advance: open the greens-half prompt and pick a greens (½).
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Pick your greens half")).firstMatch.tap()
+        // The grain half is a fixed ½ choose-one: it can't take a second pick,
+        // so it's saturated and the accordion advances to the greens half on
+        // its own. (A splittable base would stay open — see GuidedAdvanceUITests.)
         let arugula = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Arugula")).firstMatch
-        XCTAssertTrue(arugula.waitForExistence(timeout: 5))
+        XCTAssertTrue(arugula.waitForExistence(timeout: 5),
+                      "Picking the grain half should advance to the greens half")
         arugula.tap()
         attach(app, "03-greens-and-grains")
 
