@@ -37,6 +37,7 @@ struct MenuView: View {
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
     @Environment(ProStore.self) private var pro
+    @Environment(SettingsStore.self) private var settings
     // When set, the builder auto-fills a macro-fitting suggestion on first
     // appear (the "Fit my macros" path); cleared once it runs.
     @State private var autoBuild: Bool
@@ -165,7 +166,9 @@ struct MenuView: View {
     private func runAutoBuild() {
         guard autoBuild, pro.isPro, store.isEmpty, let target = profile.target else { autoBuild = false; return }
         let budget = health.remaining(against: target) ?? target
-        if let suggestion = MealSolver.solve(restaurant: restaurant, budget: budget) {
+        if let suggestion = MealSolver.solve(
+            restaurant: restaurant, budget: budget, preferences: settings.autoBuild
+        ) {
             withAnimation(Motion.snap) { store.replace(with: suggestion.lineItems) }
             Haptics.success()
             trayPresented = true

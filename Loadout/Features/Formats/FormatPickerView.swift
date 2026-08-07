@@ -29,6 +29,7 @@ struct FormatPickerView: View {
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
     @Environment(ProStore.self) private var pro
+    @Environment(SettingsStore.self) private var settings
     /// The user's recipes saved *at this restaurant*, newest first.
     @Query private var savedMeals: [FavoriteMeal]
     @State private var formats: [OrderFormat] = []
@@ -173,6 +174,15 @@ struct FormatPickerView: View {
     private var presetsEntranceBase: Int { savedMealsEntranceBase + shownSavedMeals.count }
     private var formatsEntranceBase: Int { presetsEntranceBase + presets.count }
 
+    /// "High protein · no sauces" — the active auto-build settings in one line.
+    private var autoBuildSummary: String {
+        let prefs = settings.autoBuild
+        let exclusions = prefs.exclusions
+            .sorted { $0.rawValue < $1.rawValue }
+            .map { $0 == .sauces ? "no sauces" : $0.title.lowercased() }
+        return ([prefs.focus.title] + exclusions).joined(separator: " · ")
+    }
+
     private func sectionLabel(_ text: String) -> some View {
         Text(text)
             .microLabelStyle(.textTertiary)
@@ -211,6 +221,12 @@ struct FormatPickerView: View {
                          : "Build toward your daily target")
                         .font(.appCaption)
                         .foregroundStyle(.textSecondary)
+                    // Surface the standing preference here so it's obvious what
+                    // the button is about to do — it's set once in Settings and
+                    // then easy to forget.
+                    Text(autoBuildSummary)
+                        .font(.appCaption)
+                        .foregroundStyle(.volt)
                 }
                 Spacer(minLength: 0)
                 Image(systemName: "chevron.right")

@@ -78,6 +78,10 @@ struct SettingsView: View {
                             .accessibilityHint(profile.goal == nil ? "Calculate or enter your daily macros." : "Edit your daily macro target.")
                         }
 
+                        section("Auto-build") {
+                            Card { autoBuildContent }
+                        }
+
                         section("Apple Health") {
                             Card { appleHealthContent }
                         }
@@ -235,6 +239,96 @@ struct SettingsView: View {
                 if !accepted { launchFailed = true }
             }
         }
+    }
+
+    /// What "Fit my macros" should aim for. A focus is pick-one — the options
+    /// pull the objective in competing directions — while the exclusions below
+    /// stack, because each just removes items from consideration.
+    @ViewBuilder
+    private var autoBuildContent: some View {
+        @Bindable var settings = settings
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            Text("Focus")
+                .microLabelStyle()
+
+            VStack(spacing: Spacing.xs) {
+                ForEach(AutoBuildFocus.allCases) { focus in
+                    Button {
+                        Haptics.tap()
+                        withAnimation(Motion.snap) { settings.autoBuild.focus = focus }
+                    } label: {
+                        focusRow(focus, selected: settings.autoBuild.focus == focus)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("autoBuildFocus.\(focus.rawValue)")
+                    .accessibilityAddTraits(settings.autoBuild.focus == focus ? [.isSelected] : [])
+                }
+            }
+
+            Divider().overlay(Color.hairline)
+
+            Text("Always skip")
+                .microLabelStyle()
+
+            ForEach(AutoBuildExclusion.allCases) { exclusion in
+                Toggle(isOn: Binding(
+                    get: { settings.autoBuild.exclusions.contains(exclusion) },
+                    set: { isOn in
+                        Haptics.tap()
+                        if isOn { settings.autoBuild.exclusions.insert(exclusion) }
+                        else { settings.autoBuild.exclusions.remove(exclusion) }
+                    }
+                )) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(exclusion.title).font(.appBody).foregroundStyle(.textPrimary)
+                        Text(exclusion.detail).font(.appCaption).foregroundStyle(.textTertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .tint(.volt)
+                .accessibilityIdentifier("autoBuildExclusion.\(exclusion.rawValue)")
+            }
+
+            Text("Applies when you tap Fit my macros. Dietary restrictions will join the skip list.")
+                .font(.appCaption)
+                .foregroundStyle(.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private func focusRow(_ focus: AutoBuildFocus, selected: Bool) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: focus.symbol)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(selected ? .volt : .textTertiary)
+                .frame(width: 30, height: 30)
+                .background(Circle().fill(selected ? Color.volt.opacity(0.14) : Color.white.opacity(0.03)))
+            VStack(alignment: .leading, spacing: 1) {
+                Text(focus.title)
+                    .font(.appBody)
+                    .foregroundStyle(selected ? .textPrimary : .textSecondary)
+                Text(focus.detail)
+                    .font(.appCaption)
+                    .foregroundStyle(.textTertiary)
+            }
+            Spacer(minLength: 0)
+            Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(selected ? .volt : .textTertiary)
+        }
+        .padding(.vertical, Spacing.xs)
+        .padding(.horizontal, Spacing.xs)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+                .fill(selected ? Color.volt.opacity(0.07) : .clear)
+                .overlay {
+                    RoundedRectangle(cornerRadius: Radius.chip, style: .continuous)
+                        .strokeBorder(selected ? Color.volt.opacity(0.35) : .clear, lineWidth: 1)
+                }
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
     }
 
     @ViewBuilder
