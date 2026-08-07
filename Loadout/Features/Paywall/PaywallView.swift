@@ -56,7 +56,9 @@ struct PaywallView: View {
         }
         .presentationBackground(Color.void)
         .task { await pro.refresh() }
-        .onChange(of: pro.isPro) { _, isPro in if isPro { dismiss() } }
+        // Entitlement, not `isPro` — while Pro ships unlocked for everyone
+        // `isPro` is already true, and only a real purchase should dismiss.
+        .onChange(of: pro.hasProEntitlement) { _, entitled in if entitled { dismiss() } }
     }
 
     private var header: some View {

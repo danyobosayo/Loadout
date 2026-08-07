@@ -15,11 +15,29 @@ final class ProStore {
     static let monthlyID = "danielsungsukim.Loadout.pro.monthly"
     static let productIDs = [lifetimeID, yearlyID, monthlyID]
 
+    /// **Launch switch.** The Pro products aren't live in App Store Connect yet,
+    /// so every Pro surface ships unlocked for everyone. Flip to `false` once
+    /// the products are configured and every gate re-arms — each one reads
+    /// `isPro` and nothing else has to change. The paywall, the entitlement
+    /// listener, and the purchase/restore paths all stay wired underneath.
+    static let unlockedForEveryone = true
+
     private(set) var products: [Product] = []
-    private(set) var isPro = false
+    /// The real StoreKit entitlement, tracked independently of the launch
+    /// switch so flipping the switch back is a true re-gate, not a reset.
+    private(set) var hasProEntitlement = false
     /// True until the first entitlement check completes — the UI shouldn't flash
     /// a paywall before we know.
     private(set) var isLoading = true
+
+    /// What every Pro gate reads.
+    var isPro: Bool { isUnlockedForEveryone || hasProEntitlement }
+
+    /// DEBUG-only inverse of the launch switch, so `PaywallUITests` can still
+    /// exercise the gating + paywall UI while Pro ships unlocked.
+    private let gatingForced: Bool
+
+    private var isUnlockedForEveryone: Bool { !gatingForced && Self.unlockedForEveryone }
 
     // Held so the listener lives for the app's lifetime (this is a single
     // root-level store; it never deallocates during a session).
@@ -27,13 +45,16 @@ final class ProStore {
 
     init() {
         #if DEBUG
+        gatingForced = UserDefaults.standard.bool(forKey: "loadout.debug.forceGating")
         // Test hook: `-loadout.debug.forcePro YES` unlocks Pro without StoreKit,
         // so UI tests can exercise the Pro surfaces. Never set in production.
         if UserDefaults.standard.bool(forKey: "loadout.debug.forcePro") {
-            isPro = true
+            hasProEntitlement = true
             isLoading = false
             return
         }
+        #else
+        gatingForced = false
         #endif
         updatesTask = listenForTransactions()
         Task { await refresh() }
@@ -62,7 +83,7 @@ final class ProStore {
             guard case .verified(let transaction) = verification else { return false }
             await transaction.finish()
             await updateEntitlement()
-            return isPro
+            return hasProEntitlement
         case .userCancelled, .pending:
             return false
         @unknown default:
@@ -85,7 +106,7 @@ final class ProStore {
                   transaction.revocationDate == nil else { continue }
             entitled = true
         }
-        isPro = entitled
+        hasProEntitlement = entitled
     }
 
     private func listenForTransactions() -> Task<Void, Never> {
