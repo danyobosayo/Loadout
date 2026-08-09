@@ -54,7 +54,7 @@ struct RootView: View {
         // A quick crossfade for the content — the springy Motion.snap that
         // slides the pill would ghost a full-screen opacity switch for ~0.5s.
         .animation(.easeInOut(duration: 0.18), value: tab)
-        .onAppear { Haptics.prepare(); resetLibraryIfRequested() }
+        .onAppear { Haptics.prepare(); resetLibraryIfRequested(); consumePendingIntentRoute() }
         .overlay(alignment: .bottom) {
             FloatingTabBar(selection: $tab)
         }
@@ -71,9 +71,13 @@ struct RootView: View {
             if health.status == .connected { await health.refreshToday() }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active, health.status == .connected {
+            guard phase == .active else { return }
+            if health.status == .connected {
                 Task { await health.refreshToday() }
             }
+            // An intent can park a route while we're backgrounded, so pick it
+            // up on the way back in, not only on first appear.
+            consumePendingIntentRoute()
         }
         // The MacroFactor Shortcut returns here via loadout:// when it
         // finishes — so we log to history + confirm only on a real success.
@@ -107,6 +111,15 @@ struct RootView: View {
         )) {
             OnboardingView()
         }
+    }
+
+    /// `OpenRecipeIntent` can't push navigation itself — it runs before the UI
+    /// exists — so it parks a recipe id and the app picks it up here, landing
+    /// on Recipes where the saved meal is one tap from the tray.
+    private func consumePendingIntentRoute() {
+        guard PendingIntentRoute.shared.recipeToOpen != nil else { return }
+        PendingIntentRoute.shared.recipeToOpen = nil
+        withAnimation(Motion.snap) { tab = .recipes }
     }
 
     /// Test hook: `-loadout.debug.resetLibrary YES` launches with no saved

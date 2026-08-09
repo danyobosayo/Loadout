@@ -17,7 +17,11 @@ struct LoadoutApp: App {
                 .environment(profile)
                 .environment(health)
                 .environment(pro)
+                // Share the container with App Intents so a recipe logged by
+                // Siri and one logged in the app are the same row. The fallback
+                // is only reachable if the store is unreadable, where
+                // `.modelContainer(for:)` behaves exactly as it did before.
+                .modelContainerIfAvailable(LoadoutStore.shared)
         }
-        .modelContainer(for: [FavoriteMeal.self, LoggedMeal.self])
     }
 }
