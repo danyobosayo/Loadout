@@ -6,9 +6,11 @@ import SwiftUI
 // never use a literal Color — tokens only.
 nonisolated extension Color {
     // MARK: Canvas
-    static let void            = Color(red: 0.043, green: 0.043, blue: 0.059) // #0B0B0F
-    static let surface         = Color(red: 0.075, green: 0.075, blue: 0.094) // #131318
-    static let surfaceElevated = Color(red: 0.106, green: 0.106, blue: 0.133) // #1B1B22
+    // Warm-neutral, not blue-grey. A blue-leaning dark is what every editor and
+    // half the App Store ships by default; a degree of warmth reads as chosen.
+    static let void            = Color(red: 0.047, green: 0.043, blue: 0.039) // #0C0B0A
+    static let surface         = Color(red: 0.078, green: 0.075, blue: 0.071) // #141312
+    static let surfaceElevated = Color(red: 0.110, green: 0.106, blue: 0.098) // #1C1B19
     static let hairline        = Color.white.opacity(0.08)
 
     // MARK: Text
@@ -19,13 +21,29 @@ nonisolated extension Color {
     // MARK: Signature
     static let volt = Color(red: 0.784, green: 1.0, blue: 0.302) // #C8FF4D
 
-    // MARK: Macro semantics (fixed — never re-themed)
+    // MARK: Macro semantics
+    //
+    // Deliberately NOT four hues. A red/blue/yellow macro row is the exact
+    // mechanism by which every tracker in this category reads as generic — five
+    // saturated colours on one viewport and the app has no signature left.
+    // Macros are already distinguishable by fixed order, a trailing letter and
+    // position (`540 · 34P 22C 41F`), so colour is freed up to do hierarchy
+    // instead of identity: one descending ladder on the same neutral.
+    //
+    // The rungs stop well above the spec's 30% floor because these tint the P/C/F
+    // labels as well as the bars, and an illegible label is a worse trade than a
+    // flatter ladder (PROJECT.md §9: AA contrast, no colour-only signalling —
+    // and nothing here signals by colour alone).
     static let kcal    = Color.volt
-    static let protein = Color(red: 1.0,   green: 0.478, blue: 0.420) // #FF7A6B
-    static let carbs   = Color(red: 0.337, green: 0.784, blue: 0.961) // #56C8F5
-    static let fat     = Color(red: 1.0,   green: 0.788, blue: 0.302) // #FFC94D
+    static let protein = Color.white.opacity(0.92)
+    static let carbs   = Color.white.opacity(0.66)
+    static let fat     = Color.white.opacity(0.46)
 
     // MARK: Feedback
+    /// Over-target, and values we could not verify. Deliberately amber and never
+    /// red: going over your macros is information, not a failure, and a red bowl
+    /// is an uninstall. Red stays reserved for genuinely destructive actions.
+    static let overTarget = Color(red: 1.0, green: 0.690, blue: 0.125) // #FFB020
     static let destructiveRed = Color(red: 1.0, green: 0.365, blue: 0.365) // #FF5D5D
 }
 
@@ -43,5 +61,6 @@ nonisolated extension ShapeStyle where Self == Color {
     static var protein: Color { .protein }
     static var carbs: Color { .carbs }
     static var fat: Color { .fat }
+    static var overTarget: Color { .overTarget }
     static var destructiveRed: Color { .destructiveRed }
 }

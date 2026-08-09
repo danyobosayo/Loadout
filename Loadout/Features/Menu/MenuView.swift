@@ -408,7 +408,7 @@ struct MenuView: View {
             .background {
                 Capsule()
                     .fill(Color.surfaceElevated)
-                    .overlay(Capsule().strokeBorder(Color.destructiveRed.opacity(0.4), lineWidth: 1))
+                    .overlay(Capsule().strokeBorder(Color.overTarget.opacity(0.4), lineWidth: 1))
                     .shadow(color: .black.opacity(0.35), radius: 16, y: 6)
             }
             .padding(.top, Spacing.sm)
@@ -616,7 +616,7 @@ private struct MenuItemRow: View {
             Text(excluded ? "Doesn't fit your diet settings" : "Not checked for your diet settings")
                 .font(.appCaption)
         }
-        .foregroundStyle(excluded ? Color.destructiveRed : Color.textTertiary)
+        .foregroundStyle(excluded ? Color.overTarget : Color.textTertiary)
     }
 
     /// splitBase badge: ½ / ×2; a plain full portion is just the filled dot.

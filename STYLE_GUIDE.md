@@ -28,9 +28,9 @@ All tokens live in `Colors.swift`. Never use a literal color in a feature view.
 
 | Token | Hex | Role |
 |---|---|---|
-| `Color.void` | `#0B0B0F` | App background. The bottom of the world. |
-| `Color.surface` | `#131318` | Cards, rows, rails. |
-| `Color.surfaceElevated` | `#1B1B22` | Sheets, tray, floating bars, pressed rows. |
+| `Color.void` | `#0C0B0A` | App background. The bottom of the world. Warm-neutral, not blue-grey — a blue-leaning dark is the default every editor ships; a degree of warmth reads as chosen. |
+| `Color.surface` | `#141312` | Cards, rows, rails. |
+| `Color.surfaceElevated` | `#1C1B19` | Sheets, tray, floating bars, pressed rows. |
 | `Color.hairline` | `white 8%` | 1 pt strokes — the only edge treatment in the app. |
 | `Color.textPrimary` | `#F5F5F7` | Titles, values. |
 | `Color.textSecondary` | `#9C9CA8` | Serving sizes, metadata. |
@@ -44,14 +44,35 @@ All tokens live in `Colors.swift`. Never use a literal color in a feature view.
 
 Volt is loud on purpose and therefore rationed: **at most one volt-filled element per screen region.** Text sitting on volt is always `#0B0B0F`, never white. Volt never glows, never gradients — its saturation against the void *is* the emphasis.
 
-### 1.3 Macro semantics (fixed, never re-themed)
+### 1.3 Macro semantics — a ladder, not a rainbow
 
-| Token | Hex | Macro |
+| Token | Value | Macro |
 |---|---|---|
 | `Color.kcal` | `#C8FF4D` | Calories (shares volt — energy *is* the brand) |
-| `Color.protein` | `#FF7A6B` | Protein |
-| `Color.carbs` | `#56C8F5` | Carbs |
-| `Color.fat` | `#FFC94D` | Fat |
+| `Color.protein` | `white 92%` | Protein |
+| `Color.carbs` | `white 66%` | Carbs |
+| `Color.fat` | `white 46%` | Fat |
+
+**Macros are not colour-coded, and that is the point.** A red/blue/yellow macro row
+is the exact mechanism by which every tracker in the category reads as generic —
+five saturated hues on one viewport and the app has no signature left. Macros are
+already distinguishable by **fixed order, a trailing letter, and position**
+(`540 · 34P 22C 41F`), so colour is freed to carry *hierarchy* instead of identity.
+
+The ladder stops well above a 30% floor because these tint the P/C/F labels as
+well as the bars, and an illegible label is a worse trade than a flatter ladder.
+Nothing in the app signals by colour alone (PROJECT.md §9).
+
+### 1.3a Feedback
+
+| Token | Hex | Role |
+|---|---|---|
+| `Color.overTarget` | `#FFB020` | Over target, capped stations, unverified values, diet conflicts. |
+| `Color.destructiveRed` | `#FF5D5D` | Destructive actions and genuine errors *only* — Clear, Delete, "menus didn't load". |
+
+**Amber, never red, for going over.** Exceeding your macros is information, not a
+failure; a red bowl is an uninstall. Red is reserved for actions that destroy
+something or states that are actually broken.
 
 ### 1.4 Restaurant identities
 

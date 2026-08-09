@@ -29,7 +29,7 @@ struct BudgetFitView: View {
         HStack(spacing: Spacing.sm) {
             Image(systemName: over ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(over ? Color.fat : Color.volt)
+                .foregroundStyle(over ? Color.overTarget : Color.volt)
             VStack(alignment: .leading, spacing: 1) {
                 Text(over
                      ? "Over by \(Int(-fit.caloriesLeftAfter.rounded())) kcal"
@@ -56,7 +56,7 @@ struct BudgetFitView: View {
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.white.opacity(0.06))
                     Capsule()
-                        .fill(isOver ? Color.fat : kind.color)
+                        .fill(isOver ? Color.overTarget : kind.color)
                         .frame(width: max(geo.size.width * fraction, fraction > 0 ? 3 : 0))
                 }
             }
@@ -64,7 +64,7 @@ struct BudgetFitView: View {
             Text("\(Int(meal.rounded())) / \(Int(budget.rounded()))")
                 .font(.appCaption)
                 .monospacedDigit()
-                .foregroundStyle(isOver ? Color.fat : .textSecondary)
+                .foregroundStyle(isOver ? Color.overTarget : .textSecondary)
                 .frame(width: 78, alignment: .trailing)
         }
     }
