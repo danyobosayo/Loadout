@@ -5,6 +5,16 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     let name: String
     let servingDescription: String
     let macros: Macros
+    /// Items that are the same dish at different sizes share this key, so the
+    /// station list can collapse them into one row with a size picker. A menu of
+    /// 427 rows where 258 are Tall/Venti duplicates is not a menu, it's a
+    /// scrolling exercise. Nil means the item stands alone.
+    let sizeGroup: String?
+    /// Short chip label — "M", "Venti", "5 oz". Nil when `sizeGroup` is nil.
+    let sizeLabel: String?
+    /// The size a customer gets if they say nothing. Exactly one member of a
+    /// group carries true.
+    let isDefaultSize: Bool
     let allergens: [Allergen]?
     /// Animal/derived content beyond the allergen list — what vegetarian, vegan
     /// and no-pork are derived from. `nil` means unflagged, NOT "contains
@@ -22,6 +32,9 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         name: String,
         servingDescription: String,
         macros: Macros,
+        sizeGroup: String? = nil,
+        sizeLabel: String? = nil,
+        isDefaultSize: Bool = false,
         allergens: [Allergen]? = nil,
         dietaryMarkers: [DietaryMarker]? = nil,
         notes: String? = nil,
@@ -31,10 +44,37 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         self.name = name
         self.servingDescription = servingDescription
         self.macros = macros
+        self.sizeGroup = sizeGroup
+        self.sizeLabel = sizeLabel
+        self.isDefaultSize = isDefaultSize
         self.allergens = allergens
         self.dietaryMarkers = dietaryMarkers
         self.notes = notes
         self.iconName = iconName
+    }
+}
+
+nonisolated extension MenuItem {
+    private enum CodingKeys: String, CodingKey {
+        case id, name, servingDescription, macros, sizeGroup, sizeLabel, isDefaultSize
+        case allergens, dietaryMarkers, notes, iconName
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            id: try c.decode(String.self, forKey: .id),
+            name: try c.decode(String.self, forKey: .name),
+            servingDescription: try c.decode(String.self, forKey: .servingDescription),
+            macros: try c.decode(Macros.self, forKey: .macros),
+            sizeGroup: try c.decodeIfPresent(String.self, forKey: .sizeGroup),
+            sizeLabel: try c.decodeIfPresent(String.self, forKey: .sizeLabel),
+            isDefaultSize: try c.decodeIfPresent(Bool.self, forKey: .isDefaultSize) ?? false,
+            allergens: try c.decodeIfPresent([Allergen].self, forKey: .allergens),
+            dietaryMarkers: try c.decodeIfPresent([DietaryMarker].self, forKey: .dietaryMarkers),
+            notes: try c.decodeIfPresent(String.self, forKey: .notes),
+            iconName: try c.decodeIfPresent(String.self, forKey: .iconName)
+        )
     }
 }
 

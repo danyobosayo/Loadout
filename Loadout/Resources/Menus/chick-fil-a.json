@@ -194,7 +194,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+          "sizeLabel": "8 ct",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.entrees.chick-fil-a-nuggets-12-ct",
@@ -215,7 +218,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+          "sizeLabel": "12 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.grilled-nuggets-8-ct",
@@ -232,7 +238,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+          "sizeLabel": "8 ct",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.entrees.grilled-nuggets-12-ct",
@@ -249,7 +258,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+          "sizeLabel": "12 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.chick-n-strips-3-ct",
@@ -270,7 +282,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+          "sizeLabel": "3 ct",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.entrees.chick-n-strips-4-ct",
@@ -291,7 +306,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+          "sizeLabel": "4 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.grilled-filet",
@@ -329,7 +347,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+          "sizeLabel": "30 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.grilled-nuggets-30-ct",
@@ -346,7 +367,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+          "sizeLabel": "30 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.chick-n-strips-2-ct",
@@ -367,7 +391,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+          "sizeLabel": "2 ct",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.entrees.chick-n-strips-10-ct",
@@ -388,7 +415,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+          "sizeLabel": "10 ct",
+          "isDefaultSize": false
         }
       ],
       "iconName": "chickenGrilled"
@@ -609,7 +639,10 @@
           "dietaryMarkers": [
             "honey",
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
+          "sizeLabel": "4 ct",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.breakfast.hash-brown-scramble-bowl",
@@ -696,7 +729,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
+          "sizeLabel": "10 ct",
+          "isDefaultSize": false
         }
       ],
       "iconName": "wheatFlat"
@@ -721,7 +757,10 @@
           "allergens": [],
           "notes": null,
           "iconName": null,
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+          "sizeLabel": "M",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.sides.mac-and-cheese",
@@ -741,7 +780,10 @@
           ],
           "notes": null,
           "iconName": null,
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chick-fil-a.size.mac-and-cheese",
+          "sizeLabel": "M",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.sides.kale-crunch-side",
@@ -801,7 +843,10 @@
           "iconName": null,
           "dietaryMarkers": [
             "meat"
-          ]
+          ],
+          "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
+          "sizeLabel": "Cup",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.sides.waffle-potato-chips",
@@ -831,7 +876,10 @@
           "allergens": [],
           "notes": null,
           "iconName": null,
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chick-fil-a.size.hash-browns",
+          "sizeLabel": "S",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.sides.fruit-cup-medium",
@@ -846,7 +894,10 @@
           "allergens": [],
           "notes": null,
           "iconName": null,
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chick-fil-a.size.fruit-cup",
+          "sizeLabel": "M",
+          "isDefaultSize": true
         },
         {
           "id": "chick-fil-a.sides.waffle-potato-fries-small",
@@ -861,7 +912,10 @@
           "allergens": [],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+          "sizeLabel": "S",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.waffle-potato-fries-large",
@@ -876,7 +930,10 @@
           "allergens": [],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+          "sizeLabel": "L",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.hash-browns-large",
@@ -891,7 +948,10 @@
           "allergens": [],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.hash-browns",
+          "sizeLabel": "L",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.fruit-cup-small",
@@ -906,7 +966,10 @@
           "allergens": [],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.fruit-cup",
+          "sizeLabel": "S",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.fruit-cup-large",
@@ -921,7 +984,10 @@
           "allergens": [],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.fruit-cup",
+          "sizeLabel": "L",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.mac-and-cheese-small",
@@ -941,7 +1007,10 @@
           ],
           "dietaryMarkers": [],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.mac-and-cheese",
+          "sizeLabel": "S",
+          "isDefaultSize": false
         },
         {
           "id": "chick-fil-a.sides.chicken-noodle-soup-bowl",
@@ -963,7 +1032,10 @@
             "meat"
           ],
           "notes": null,
-          "iconName": null
+          "iconName": null,
+          "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
+          "sizeLabel": "Bowl",
+          "isDefaultSize": false
         }
       ],
       "iconName": "breadPita"

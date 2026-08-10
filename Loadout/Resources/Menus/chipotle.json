@@ -441,7 +441,10 @@
           "allergens": [],
           "notes": null,
           "iconName": "guacamole",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.guacamole",
+          "sizeLabel": "4 oz",
+          "isDefaultSize": true
         },
         {
           "id": "chipotle.toppings.guacamole-large",
@@ -456,7 +459,10 @@
           "allergens": [],
           "notes": "Side portion",
           "iconName": "guacamole",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.guacamole",
+          "sizeLabel": "8 oz",
+          "isDefaultSize": false
         },
         {
           "id": "chipotle.toppings.queso-entree",
@@ -473,7 +479,10 @@
           ],
           "notes": "Bowl/burrito add-in",
           "iconName": "cheeseSlice",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.queso-blanco",
+          "sizeLabel": "2 oz",
+          "isDefaultSize": true
         },
         {
           "id": "chipotle.toppings.queso-side",
@@ -490,7 +499,10 @@
           ],
           "notes": "Side portion",
           "iconName": "cheeseSlice",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.queso-blanco",
+          "sizeLabel": "4 oz",
+          "isDefaultSize": false
         },
         {
           "id": "chipotle.toppings.queso-large",
@@ -507,7 +519,10 @@
           ],
           "notes": "Large side",
           "iconName": "cheeseSlice",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.queso-blanco",
+          "sizeLabel": "8 oz",
+          "isDefaultSize": false
         }
       ],
       "iconName": "cheeseSlice"
@@ -561,7 +576,10 @@
           "allergens": [],
           "notes": null,
           "iconName": "chipsBaked",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.chips",
+          "sizeLabel": "Regular",
+          "isDefaultSize": true
         },
         {
           "id": "chipotle.chips.large",
@@ -576,7 +594,10 @@
           "allergens": [],
           "notes": null,
           "iconName": "chipsBaked",
-          "dietaryMarkers": []
+          "dietaryMarkers": [],
+          "sizeGroup": "chipotle.size.chips",
+          "sizeLabel": "Large",
+          "isDefaultSize": false
         }
       ],
       "iconName": "chipsBaked"
