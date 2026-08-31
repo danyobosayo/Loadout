@@ -4,9 +4,9 @@
  "schemaVersion": 1,
  "dataSource": {
   "url": "https://cava.com/nutrition",
-  "fetchedAt": "2026-05-09",
+  "fetchedAt": "2026-08-31",
   "fetchedBy": "manual",
-  "notes": "Per CAVA Nutrition and Allergen Guide PDF (code CAVA-REC-GID-0326-AllergReg). The PDF reports per-recipe macros without explicit gram/oz weights, so every servingDescription is '1 portion' (with '1 pita' / '1 piece' for sides where it's clearly singular). Curated bowls/pitas, kids meals, and drinks are intentionally excluded \u2014 see build_cava_csv.py.\n\nDRINKS ADDED 2026-08-10 from the same first-party guide as the food (NUTRITION AND ALLERGEN GUIDE). 44 rows across 20 groups at Kids 12 oz / Small 16 oz / Large 22 oz; Small is the default pour. A full re-diff of all 51 pre-existing food items against this guide found ZERO macro mismatches, so no food figure was touched. The 8 curated bowls and 3 curated pitas are deliberately NOT carried: the guide publishes their totals but not their compositions, and a preset that isn't composed from real menu items can't be verified by summation."
+  "notes": "Per CAVA Nutrition and Allergen Guide PDF KT5_26_AN_STND_RECAN11148, published at https://cava.com/nutrition and created 2026-06-15. The guide reports per-recipe macros without explicit gram/oz weights, so servingDescription uses '1 portion' (or the singular item/size where the guide supplies one). All non-seasonal build ingredients, sides, desserts, and drinks in the guide were rechecked on 2026-08-31. Current published drinks total 38 rows: 10 three-size groups and 8 standalone items; Small is the default fountain pour. Kids Meal components remain excluded because Loadout does not yet model CAVA's separate kids-meal assembly flow. Named bowls and pitas live in cava.presets.json only when their official composition can be mapped and checked against the guide total. The live Streeterville ordering builder was checked separately for ordering rules; its displayed pita/tzatziki/hummus calories differed from this downloadable guide, so the official nutrition guide remains the macro source and the discrepancy is recorded in docs/restaurant-research/CAVA.md."
  },
  "categories": [
   {
@@ -144,7 +144,7 @@
    "name": "Dips & Spreads",
    "selectionRule": {
     "kind": "selectUpTo",
-    "max": 2
+    "max": 3
    },
    "items": [
     {
@@ -607,7 +607,7 @@
    "name": "Dressings",
    "selectionRule": {
     "kind": "selectUpTo",
-    "max": 1
+    "max": 2
    },
    "items": [
     {
@@ -800,17 +800,16 @@
      "dietaryMarkers": []
     },
     {
-     "id": "cava.sides.sumac-pita-chips",
-     "name": "Sumac Sour Cream + Onion Pita Chips",
+     "id": "cava.sides.harissa-bbq-pita-chips",
+     "name": "Harissa BBQ Pita Chips",
      "servingDescription": "1 portion",
      "macros": {
-      "calories": 290.0,
+      "calories": 280.0,
       "proteinGrams": 10.0,
       "carbGrams": 43.0,
-      "fatGrams": 9.0
+      "fatGrams": 10.0
      },
      "allergens": [
-      "milk",
       "wheat"
      ],
      "notes": null,
@@ -1178,16 +1177,16 @@
      "dietaryMarkers": []
     },
     {
-     "id": "cava.drinks.strawberry-citrus.kids",
-     "name": "Strawberry Citrus (Kids)",
+     "id": "cava.drinks.strawberry-ginger.kids",
+     "name": "Strawberry Ginger (Kids)",
      "servingDescription": "12 fl oz",
      "macros": {
-      "calories": 100.0,
+      "calories": 110.0,
       "proteinGrams": 0.0,
-      "carbGrams": 26.0,
+      "carbGrams": 29.0,
       "fatGrams": 0.0
      },
-     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeGroup": "cava.drinks.strawberry-ginger",
      "sizeLabel": "Kids",
      "isDefaultSize": false,
      "allergens": [],
@@ -1196,16 +1195,16 @@
      "dietaryMarkers": []
     },
     {
-     "id": "cava.drinks.strawberry-citrus.small",
-     "name": "Strawberry Citrus (Small)",
+     "id": "cava.drinks.strawberry-ginger.small",
+     "name": "Strawberry Ginger (Small)",
      "servingDescription": "16 fl oz",
      "macros": {
-      "calories": 140.0,
+      "calories": 150.0,
       "proteinGrams": 0.0,
-      "carbGrams": 35.0,
+      "carbGrams": 38.0,
       "fatGrams": 0.0
      },
-     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeGroup": "cava.drinks.strawberry-ginger",
      "sizeLabel": "Small",
      "isDefaultSize": true,
      "allergens": [],
@@ -1214,16 +1213,16 @@
      "dietaryMarkers": []
     },
     {
-     "id": "cava.drinks.strawberry-citrus.large",
-     "name": "Strawberry Citrus (Large)",
+     "id": "cava.drinks.strawberry-ginger.large",
+     "name": "Strawberry Ginger (Large)",
      "servingDescription": "22 fl oz",
      "macros": {
-      "calories": 190.0,
-      "proteinGrams": 1.0,
-      "carbGrams": 48.0,
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 53.0,
       "fatGrams": 0.0
      },
-     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeGroup": "cava.drinks.strawberry-ginger",
      "sizeLabel": "Large",
      "isDefaultSize": false,
      "allergens": [],
@@ -1332,114 +1331,6 @@
       "fatGrams": 0.0
      },
      "sizeGroup": "cava.drinks.blueberry-lavender",
-     "sizeLabel": "Large",
-     "isDefaultSize": false,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.pineapple-apple-mint-juice.kids",
-     "name": "Pineapple Apple Mint Juice (Kids)",
-     "servingDescription": "12 fl oz",
-     "macros": {
-      "calories": 80.0,
-      "proteinGrams": 0.0,
-      "carbGrams": 22.0,
-      "fatGrams": 0.0
-     },
-     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
-     "sizeLabel": "Kids",
-     "isDefaultSize": false,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.pineapple-apple-mint-juice.small",
-     "name": "Pineapple Apple Mint Juice (Small)",
-     "servingDescription": "16 fl oz",
-     "macros": {
-      "calories": 110.0,
-      "proteinGrams": 0.0,
-      "carbGrams": 29.0,
-      "fatGrams": 0.5
-     },
-     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
-     "sizeLabel": "Small",
-     "isDefaultSize": true,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.pineapple-apple-mint-juice.large",
-     "name": "Pineapple Apple Mint Juice (Large)",
-     "servingDescription": "22 fl oz",
-     "macros": {
-      "calories": 160.0,
-      "proteinGrams": 1.0,
-      "carbGrams": 39.0,
-      "fatGrams": 0.5
-     },
-     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
-     "sizeLabel": "Large",
-     "isDefaultSize": false,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.tangerine-aleppo.kids",
-     "name": "Tangerine Aleppo (Kids)",
-     "servingDescription": "12 fl oz",
-     "macros": {
-      "calories": 140.0,
-      "proteinGrams": 1.0,
-      "carbGrams": 37.0,
-      "fatGrams": 0.0
-     },
-     "sizeGroup": "cava.drinks.tangerine-aleppo",
-     "sizeLabel": "Kids",
-     "isDefaultSize": false,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.tangerine-aleppo.small",
-     "name": "Tangerine Aleppo (Small)",
-     "servingDescription": "16 fl oz",
-     "macros": {
-      "calories": 180.0,
-      "proteinGrams": 1.0,
-      "carbGrams": 49.0,
-      "fatGrams": 0.0
-     },
-     "sizeGroup": "cava.drinks.tangerine-aleppo",
-     "sizeLabel": "Small",
-     "isDefaultSize": true,
-     "allergens": [],
-     "notes": null,
-     "iconName": null,
-     "dietaryMarkers": []
-    },
-    {
-     "id": "cava.drinks.tangerine-aleppo.large",
-     "name": "Tangerine Aleppo (Large)",
-     "servingDescription": "22 fl oz",
-     "macros": {
-      "calories": 250.0,
-      "proteinGrams": 1.0,
-      "carbGrams": 67.0,
-      "fatGrams": 0.0
-     },
-     "sizeGroup": "cava.drinks.tangerine-aleppo",
      "sizeLabel": "Large",
      "isDefaultSize": false,
      "allergens": [],

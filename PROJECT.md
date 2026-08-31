@@ -195,13 +195,12 @@ what makes a preset trustworthy, and it double-checks the menu data for free:
 6. Record where the composition came from in `sourceNote`, and pin the verified
    totals in `MealPresetTests` so a menu refresh breaks loudly.
 
-**If the composition isn't officially published, don't ship the preset.**
-CAVA is the current example: their nutrition PDF publishes totals for the
-curated bowls, but the ingredient lists aren't retrievable from an official
-source and reconstructions don't sum to those totals — so CAVA ships no presets
-until they can be verified. A missing presets file is normal, not an error;
-Panda Express sells combos of entrées rather than named dishes and ships none
-by design.
+**If the composition isn't officially published, don't ship the preset.** CAVA
+demonstrates the permitted path: its public menu pages now expose compositions,
+so a named bowl or pita ships only when those ingredients map to real menu items
+and their sum agrees closely with the official guide total. Seasonal recipes
+remain excluded. A missing presets file is normal, not an error; Panda Express
+sells combos of entrées rather than named dishes and ships none by design.
 
 ---
 

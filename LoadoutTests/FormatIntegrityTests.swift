@@ -122,4 +122,42 @@ struct FormatIntegrityTests {
         let formats = try await Self.repository.loadFormats(restaurantId: "no-such-place")
         #expect(formats.isEmpty)
     }
+
+    /// CAVA's public builder is stricter than a generic assembly menu, and the
+    /// downloadable guide changes independently. Pin the live rules and the
+    /// current guide's non-seasonal deltas so a later refresh cannot silently
+    /// restore retired drinks or the former two-dip/one-dressing limits.
+    @Test func cavaMatchesCurrentOfficialGuideAndBuilder() async throws {
+        let (restaurant, formats) = try await Self.load("cava")
+
+        let dips = try #require(restaurant.category(id: "dips"))
+        let dressings = try #require(restaurant.category(id: "dressings"))
+        let drinks = try #require(restaurant.category(id: "drinks"))
+        #expect(dips.selectionRule == .selectUpTo(3))
+        #expect(dressings.selectionRule == .selectUpTo(2))
+        #expect(drinks.items.count == 38)
+        #expect(drinks.items.allSatisfy { !$0.id.contains("strawberry-citrus") })
+        #expect(drinks.items.allSatisfy { !$0.id.contains("pineapple-apple-mint") })
+        #expect(drinks.items.allSatisfy { !$0.id.contains("tangerine-aleppo") })
+
+        let strawberrySmall = try #require(
+            drinks.items.first { $0.id == "cava.drinks.strawberry-ginger.small" }
+        )
+        #expect(strawberrySmall.macros == Macros(
+            calories: 150, proteinGrams: 0, carbGrams: 38, fatGrams: 0
+        ))
+
+        let sides = try #require(restaurant.category(id: "sides"))
+        let harissaChips = try #require(
+            sides.items.first { $0.id == "cava.sides.harissa-bbq-pita-chips" }
+        )
+        #expect(harissaChips.macros == Macros(
+            calories: 280, proteinGrams: 10, carbGrams: 43, fatGrams: 10
+        ))
+
+        #expect(formats.allSatisfy { $0.optionalCategoryIds.contains("drinks") })
+        let pita = try #require(formats.first { $0.id == "pita" })
+        #expect(!pita.optionalCategoryIds.contains("bases"))
+        #expect(pita.prompts.first { $0.categoryId == "dips" }?.choose == .selectUpTo(3))
+    }
 }

@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Add CAVA's drinks station from the official nutrition guide.
+"""Refresh CAVA's drinks station from the official nutrition guide.
 
-CAVA's food data was already exact — a full diff against the March 2026 guide
-found zero macro mismatches across all 51 items. What was missing was the entire
-drinks list, and at CAVA that is not a rounding error: a large Classic Lemonade
-is 360 cal, more than a Grilled Chicken and a Saffron Basmati Rice put together.
+Input is the text produced by:
+
+    pdftotext -layout CAVA-guide.pdf cava-guide.txt
+
+Pass that text file as the first argument. The script intentionally does not
+download the guide: https://cava.com/nutrition is the authoritative place to
+find the current PDF, and the caller should verify its date before importing.
 
 Sizes come through as CAVA labels them (Kids 12 oz / Small 16 oz / Large 22 oz)
 with the fluid ounces in the serving line, so a size is comparable across chains
@@ -13,14 +16,22 @@ even though "Small" isn't.
 import json
 import pathlib
 import re
+import sys
 
-SP = "/private/tmp/claude-501/-Volumes-dayossd-Projects-Loadout/b31077f6-c988-4098-8195-245065d2415a/scratchpad"
-OUT = pathlib.Path("Loadout/Resources/Menus/cava.json")
+ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+OUT = ROOT / "Loadout/Resources/Menus/cava.json"
 P = "cava"
 
-lines = open(f"{SP}/cava_full.txt").read().split("\n")
+if len(sys.argv) != 2:
+    raise SystemExit("usage: build_cava_drinks.py <pdftotext-layout-output.txt>")
+
+source_text = pathlib.Path(sys.argv[1]).expanduser().resolve()
+if not source_text.is_file():
+    raise SystemExit(f"nutrition text not found: {source_text}")
+
+lines = source_text.read_text(encoding="utf-8").split("\n")
 start = next(i for i, l in enumerate(lines) if l.strip() == "DRINKS*")
-end = next(i for i, l in enumerate(lines) if l.startswith("Allergen Guide"))
+end = next(i for i, l in enumerate(lines) if l.strip() == "Allergen Guide")
 
 # Rows are "Name  n n n n n n n n n n n". Long names wrap, and the wrap is not
 # always clean: the Maine Root Diet Soda rows break as "Name -" / numbers /
@@ -30,8 +41,9 @@ end = next(i for i, l in enumerate(lines) if l.startswith("Allergen Guide"))
 NUMS = re.compile(r"^(.*?)\s+((?:-?[\d.]+\s+){10}-?[\d.]+)\s*$")
 SIZE_FRAGMENT = re.compile(r"^(Kids|Small|Large)?\s*\(?\d+\s*oz\)?$", re.I)
 HAS_SIZE = re.compile(r"\(\s*\d+\s*oz\s*\)", re.I)
-body = [l.strip() for l in lines[start:end]
-        if l.strip() and not l.startswith(("DRINKS", "Cal."))]
+body = [stripped for line in lines[start:end]
+        if (stripped := line.strip())
+        and not stripped.startswith(("DRINKS", "Cal.", "from Fat"))]
 rows, buffer, i = [], "", 0
 while i < len(body):
     candidate = f"{buffer} {body[i]}".strip() if buffer else body[i]
@@ -102,7 +114,7 @@ menu["categories"].append({
 })
 OUT.write_text(json.dumps(menu, indent=1) + "\n")
 
-print(f"{len(rows)} drink rows -> {len(order)} groups, {len(items)} items")
+print(f"{len(rows)} drink rows -> {len(order)} groups/items, {len(items)} menu items")
 for key in order:
     labels = [m[1] or "—" for m in groups[key]]
     print(f"  {key:34} {labels}")
