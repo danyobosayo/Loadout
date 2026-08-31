@@ -85,15 +85,21 @@ struct MacroDisplay: View {
 
     private var inline: some View {
         HStack(alignment: .firstTextBaseline, spacing: 3) {
+            // The unit label used to be `.fixedSize()`, which made it refuse to
+            // shrink and squeeze the number instead: at the largest text size a
+            // four-digit total rendered as "KCAL 1,1…". A truncated figure reads
+            // as a different meal, so the label yields first and the number
+            // shrinks further before either gives up.
             Text(kind.shortLabel)
                 .microLabelStyle(kind.color)
-                .fixedSize()
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
             Text(value, format: format)
                 .font(.numeralCompact)
                 .foregroundStyle(.textPrimary)
                 .contentTransition(.numericText(value: value))
                 .animation(Motion.snap, value: value)
-                .numeralFitting(0.6)
+                .numeralFitting(0.5)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(Int(value.rounded())) \(kind.voiceOverUnit)")

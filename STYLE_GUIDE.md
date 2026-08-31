@@ -254,3 +254,39 @@ Contrast: `textPrimary` on `surface` ≥ 12:1; volt on void 13.9:1; macro colors
 - [ ] Empty, loading, and error states designed
 - [ ] Reduce Motion path verified
 - [ ] VoiceOver: composite rows read as one sentence
+
+
+## Dynamic Type — scales, capped at xxLarge
+
+The type scale follows the system text size through the normal range and stops
+before the accessibility sizes. Rationale: a row carrying four macros, an icon
+and a chevron cannot stay on one line at AX sizes, and stacking it vertically
+turns one combo into most of a screen. Capping covers the large majority of
+people who bump text up a notch without destroying the dense rows.
+
+**The cap is enforced inside the metric, not by a modifier.**
+`Typography.obsidianScaled` clamps the content size category and passes it to
+`UIFontMetrics.scaledValue(for:compatibleWith:)`. `.dynamicTypeSize()` at the
+root bounds the SwiftUI environment, but `UIFontMetrics` reads UIKit's trait
+collection — relying on the two staying in step is how a cap silently stops
+working.
+
+Before this, every font was a fixed point size and the app rendered
+*pixel-identically* at Medium and at Accessibility XXL. Someone who enlarges
+text for legibility got nothing.
+
+### The rule that broke first
+
+"Numerals never wrap and never truncate — they shrink." Making text scale
+immediately violated it: at the largest size a Caniac Combo rendered as
+`KCAL …` and a Sandwich Combo as `KCAL 1,1…`. The cause was the unit label
+being `.fixedSize()`, so it refused to shrink and squeezed the number until it
+clipped. The label now yields first (`minimumScaleFactor(0.7)`) and the number
+shrinks further (`0.5`) before either gives up — so a crowded row clips `KC…`,
+never the figure.
+
+`DynamicTypeUITests` pins both halves: that text genuinely scales, and that all
+four macros survive at the largest size the app will render. Note the first
+version of that test passed while the screen was visibly broken — the
+accessibility label carries the full number even when the glyphs are clipped.
+Tests read labels; only looking reads layout.
