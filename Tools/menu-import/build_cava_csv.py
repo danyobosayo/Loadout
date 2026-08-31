@@ -1,8 +1,9 @@
 """
 Tools/menu-import/build_cava_csv.py
 
-Source: CAVA Nutrition and Allergen Guide PDF, code CAVA-REC-GID-0326-AllergReg
-        (workspace: ../../CAVA-REC-GID-0326-AllergReg.pdf — outside the repo)
+Source: CAVA Nutrition and Allergen Guide PDF, code
+        KT5_26_AN_STND_RECAN11148 (created 2026-06-15 and linked from
+        https://cava.com/nutrition)
 
 Outputs: cava-source.csv with one row per nutritionally-distinct line item.
 
@@ -22,8 +23,8 @@ Excluded from this CSV:
       build-from-line-items; combos can be reconstructed from the parts.
     - Kids Meals: smaller portions of the same items (matches the
       Chipotle decision in build_chipotle_csv.py).
-    - Drinks: per project_menu_scope_food_only memory — fast-food menus
-      ship food only.
+    - Drinks: imported from the same guide by build_cava_drinks.py because
+      their size rows need grouping metadata that this CSV does not carry.
 """
 
 import csv
@@ -90,7 +91,7 @@ ITEMS = [
     ("sides", "whole-pita",         "Whole Pita",          "1 pita",    320, 13, 54,  6,   6, 3, 700, "", "breadPita"),
     ("sides", "side-pita",          "Side Pita",           "1 pita",     80,  3, 14,  1.5, 2, 1, 180, "", "breadPita"),
     ("sides", "pita-chips",         "Pita Chips",          "1 portion", 280, 10, 41,  8,   5, 2, 630, "", "chipsBaked"),
-    ("sides", "sumac-pita-chips",   "Sumac Sour Cream + Onion Pita Chips","1 portion", 290, 10, 43, 9, 5, 3, 740, "", "chipsBakedSeasoned"),
+    ("sides", "harissa-bbq-pita-chips", "Harissa BBQ Pita Chips", "1 portion", 280, 10, 43, 10, 5, 3, 850, "", "chipsBakedSeasoned"),
     ("sides", "greyston-blondie",   "Greyston Chocolate Chip Blondie","1 piece", 140, 2, 22, 5, 0, 16, 10, "", "cakeSquareChocolate"),
     ("sides", "greyston-brownie",   "Greyston Brownie",    "1 piece",   150,  2, 17,  9,   1, 13, 10, "", "cakeSquareChocolate"),
     ("sides", "whisked-apricot-honey","Whisked! Apricot Honey","1 piece", 220, 3, 34, 9,   1, 19, 150, "DMV regional", "biscotti"),
@@ -133,7 +134,7 @@ def build_csv(output_path: Path) -> None:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=HEADERS)
+        writer = csv.DictWriter(fh, fieldnames=HEADERS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

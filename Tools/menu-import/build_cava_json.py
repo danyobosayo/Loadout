@@ -19,19 +19,20 @@ JSON_PATH = ROOT / "Loadout" / "Resources" / "Menus" / "cava.json"
 
 # (display name, selectionRule, category-fallback icon) per category id.
 # Selection rules reflect CAVA's standard build:
-#   - bases:     one base per bowl/pita
-#   - dips:      "choose 2" by default at CAVA, can pay for more
+#   - bases:     many at category level so Greens + Grains can hold two halves;
+#                each guided base prompt still enforces one choice
+#   - dips:      up to three scoops in the current public builder
 #   - mains:     selectMany so users can mix proteins (split chicken+lamb)
 #                — the quantity stepper expresses "double protein" too
 #   - toppings:  unrestricted
-#   - dressings: typically one per bowl
+#   - dressings: up to two in the current public builder
 #   - sides:     unrestricted; these are addons, not part of the bowl
 CATEGORY_META = {
-    "bases":     ("Bases",     {"kind": "selectUpTo", "max": 1}, "lettuce"),
-    "dips":      ("Dips & Spreads", {"kind": "selectUpTo", "max": 2}, "hummus"),
+    "bases":     ("Bases",     {"kind": "selectMany"},             "lettuce"),
+    "dips":      ("Dips & Spreads", {"kind": "selectUpTo", "max": 3}, "hummus"),
     "mains":     ("Mains",     {"kind": "selectMany"},             "chickenGrilled"),
     "toppings":  ("Toppings",  {"kind": "selectMany"},             "vegetables"),
-    "dressings": ("Dressings", {"kind": "selectUpTo", "max": 1},   "oil"),
+    "dressings": ("Dressings", {"kind": "selectUpTo", "max": 2},   "oil"),
     "sides":     ("Sides",     {"kind": "selectMany"},             "breadPita"),
 }
 
@@ -89,16 +90,16 @@ def main() -> None:
         "schemaVersion": 1,
         "dataSource": {
             "url": "https://cava.com/nutrition",
-            "fetchedAt": "2026-05-09",
+            "fetchedAt": "2026-08-31",
             "fetchedBy": "manual",
             "notes": (
                 "Per CAVA Nutrition and Allergen Guide PDF "
-                "(code CAVA-REC-GID-0326-AllergReg). The PDF reports "
+                "KT5_26_AN_STND_RECAN11148, created 2026-06-15. The PDF reports "
                 "per-recipe macros without explicit gram/oz weights, so "
                 "every servingDescription is '1 portion' (with '1 pita' / "
                 "'1 piece' for sides where it's clearly singular). "
-                "Curated bowls/pitas, kids meals, and drinks are "
-                "intentionally excluded — see build_cava_csv.py."
+                "Kids Meal components are intentionally excluded; drinks are "
+                "added by build_cava_drinks.py and named recipes by the preset importer."
             ),
         },
         "categories": list(categories.values()),

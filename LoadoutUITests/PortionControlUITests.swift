@@ -92,6 +92,59 @@ final class PortionControlUITests: XCTestCase {
                       "Greens + Grains should hold two ½ bases — tray: \(tray.label)")
     }
 
+    /// Mirrors the current public CAVA pita builder: the pita is implicit,
+    /// mains allow the shared portion flow, dips cap at three scoops, and
+    /// drinks remain available after the guided picks.
+    @MainActor
+    func testCavaPitaSupportsThreeDipsAndDrinks() throws {
+        let app = launchedApp()
+
+        app.tapRestaurant("CAVA,")
+        let pita = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Pita.")
+        ).firstMatch
+        XCTAssertTrue(pita.waitForExistence(timeout: 15), "CAVA should offer its Pita format")
+        pita.tap()
+
+        let chicken = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Grilled Chicken,")
+        ).firstMatch
+        XCTAssertTrue(chicken.waitForExistence(timeout: 10))
+        chicken.tap()
+
+        let dipsPrompt = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Choose your dips & spreads")
+        ).firstMatch
+        XCTAssertTrue(dipsPrompt.waitForExistence(timeout: 5))
+        dipsPrompt.tap()
+
+        let tzatziki = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Tzatziki,")
+        ).firstMatch
+        XCTAssertTrue(tzatziki.waitForExistence(timeout: 5))
+        tzatziki.tap()
+        tzatziki.tap()
+        tzatziki.tap()
+
+        let tray = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Meal tray")
+        ).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5) && tray.label.contains("660"),
+                      "Pita + chicken + three tzatziki scoops should total 660 — tray: \(tray.label)")
+
+        // Reopen the saturated prompt. A fourth scoop must be rejected.
+        XCTAssertTrue(dipsPrompt.waitForExistence(timeout: 5))
+        dipsPrompt.tap()
+        XCTAssertTrue(tzatziki.waitForExistence(timeout: 5))
+        tzatziki.tap()
+        XCTAssertTrue(tray.label.contains("660"),
+                      "The fourth dip scoop should be rejected — tray: \(tray.label)")
+
+        XCTAssertTrue(app.buttons["Drinks station"].exists,
+                      "Pita should keep Drinks as an optional station")
+        attach(app, "03b-cava-pita-three-dips")
+    }
+
     @MainActor
     func testPandaBiggerPlateCountsEntrees() throws {
         let app = launchedApp()
