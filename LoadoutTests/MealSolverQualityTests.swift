@@ -44,15 +44,24 @@ struct MealSolverQualityTests {
 
     /// A meal has to sit on something. Chipotle used to come back as beans,
     /// meat and a tortilla with no rice at all.
+    ///
+    /// "Something" is a base station OR a whole dish — picking a named Subway sub
+    /// satisfies this exactly as picking a bread and building on it would, and
+    /// the solver is right to prefer it. What must never come back is a pile of
+    /// fillings with no foundation at all.
     @Test(arguments: restaurants)
-    func suggestionIncludesABaseWhenTheMenuHasOne(_ id: String) async throws {
+    func suggestionSitsOnABaseOrAWholeDish(_ id: String) async throws {
         let (restaurant, suggestion) = try await solve(id, wholeDay)
         let menuHasBase = restaurant.categories.contains { Self.baseCategories.contains($0.id) }
         guard menuHasBase else { return }        // Cane's, Halal Guys-style menus
-        #expect(
-            suggestion.picks.contains { Self.baseCategories.contains($0.categoryId) },
-            "\(id) built a meal with no base: \(suggestion.picks.map(\.item.name))"
+
+        let completeMealCategories = Set(
+            restaurant.categories.filter(\.isCompleteMeal).map(\.id)
         )
+        let foundation = suggestion.picks.contains {
+            Self.baseCategories.contains($0.categoryId) || completeMealCategories.contains($0.categoryId)
+        }
+        #expect(foundation, "\(id) built a meal with no base: \(suggestion.picks.map(\.item.name))")
     }
 
     /// The base should read first, the way the counter is laid out — that's how
@@ -64,6 +73,22 @@ struct MealSolverQualityTests {
         )
         let protein = suggestion.picks.firstIndex { $0.categoryId == "protein" }
         if let protein { #expect(firstBase < protein, "the base should precede the protein") }
+    }
+
+    /// Auto-build must never put a drink in the tray.
+    ///
+    /// The moment drinks were curated, the solver started closing carb gaps with
+    /// a large lemonade — CAVA's is 360 cal — because a drink is just cheap carbs
+    /// to an optimiser. What you drink is a decision the person makes; the solver
+    /// fits the food around it.
+    @Test(arguments: restaurants)
+    func neverSuggestsADrink(_ id: String) async throws {
+        let (restaurant, suggestion) = try await solve(id, wholeDay)
+        guard restaurant.category(id: "drinks") != nil else { return }
+        #expect(
+            !suggestion.picks.contains { $0.categoryId == "drinks" },
+            "\(id) auto-build put a drink in the tray"
+        )
     }
 
     /// With the whole day open, the solver must not spend the entire meal

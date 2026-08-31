@@ -78,17 +78,40 @@ struct DietaryTests {
 
     // MARK: Shipped data
 
+    /// An unflagged item must say WHY it's unflagged.
+    ///
+    /// This used to be a bare count (`<= 1`), which conflated two very different
+    /// things: forgetting to flag an item, and a chain that genuinely publishes
+    /// no per-item allergen data. Subway is the second — it publishes allergens
+    /// per component (Genoa Salami, Artisan Italian bread) and never states what
+    /// is on a given sandwich, so all 74 named subs are honestly unknown.
+    ///
+    /// Requiring a note is a stronger guard than a count, not a weaker one: you
+    /// cannot leave an item unflagged by accident, because silence fails. And
+    /// `nil` renders as "Not checked for your diet settings" while auto-build
+    /// skips the item entirely, so unknown is safe as well as honest.
     @Test(arguments: restaurants)
-    func everyItemIsFlagged(_ id: String) async throws {
+    func everyUnflaggedItemExplainsItself(_ id: String) async throws {
         let restaurant = try await repository.loadRestaurant(id: id)
-        let unflagged = restaurant.categories
+        let unexplained = restaurant.categories
             .flatMap(\.items)
-            .filter { !$0.hasDietaryData }
-        // One item is deliberately unknown: Sweetgreen's pesto vinaigrette,
-        // where the researched flags and the keyword audit disagreed and no
-        // official allergen chart settled it. Failing safe is the point.
-        #expect(unflagged.count <= 1,
-                "\(id) has \(unflagged.count) unflagged items: \(unflagged.map(\.name).prefix(5))")
+            .filter { !$0.hasDietaryData && ($0.notes ?? "").isEmpty }
+        #expect(unexplained.isEmpty,
+                "\(id): \(unexplained.count) items have no dietary data and no reason given — \(unexplained.map(\.name).prefix(5))")
+    }
+
+    /// …and unknown must stay rare enough to notice. A chain-wide gap is a
+    /// documented decision; half the app going unknown is a regression.
+    @Test func mostOfTheAppIsDietaryChecked() async throws {
+        var total = 0, unflagged = 0
+        for restaurant in try await repository.availableRestaurants() {
+            for item in restaurant.categories.flatMap(\.items) {
+                total += 1
+                if !item.hasDietaryData { unflagged += 1 }
+            }
+        }
+        #expect(Double(unflagged) / Double(total) < 0.10,
+                "\(unflagged) of \(total) items carry no dietary data")
     }
 
     /// Pork must always carry `meat` too, or "vegetarian" would clear bacon.

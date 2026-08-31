@@ -19,6 +19,7 @@ struct MealTrayView: View {
     @Environment(MacroFactorExport.self) private var macroFactorExport
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
+    @Environment(AppreciationStore.self) private var appreciation
     @Environment(ProStore.self) private var pro
 
     @State private var savePrompt = false
@@ -331,6 +332,9 @@ struct MealTrayView: View {
         let macros = store.totalMacros
         Task {
             let ok = await health.logMeal(named: name, macros: macros)
+            // Counts as a first meal too — which export route someone happens to
+            // use says nothing about whether the app worked for them.
+            if ok { appreciation.recordMealLogged() }
             showNote(ok ? "Logged to Apple Health" : "Couldn't log to Apple Health")
         }
     }

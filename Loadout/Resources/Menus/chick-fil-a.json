@@ -1,1251 +1,3941 @@
 {
-  "id": "chick-fil-a",
-  "name": "Chick-fil-A",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://www.chick-fil-a.com/nutrition-allergens",
-    "fetchedAt": "2026-08-07",
-    "fetchedBy": "research agent, verified against the official source",
-    "notes": "SOURCING: All numbers come from chick-fil-a.com — the /nutrition-allergens guide plus individual /menu/... item pages, which are server-rendered (not JS-gated) and expose full macro panels. Note the lead URL chick-fil-a.com/nutrition is a 404; the live path is /nutrition-allergens.\n\nCROSS-VALIDATION: I pulled 7 items from BOTH the aggregate nutrition guide and their individual item pages (Spicy Chicken Sandwich, Deluxe Sandwich, Chicken Biscuit, Hash Brown Scramble Bowl, Egg White Grill, Hash Browns, Fruit Cup). All 7 agreed exactly on all four macros, which is why I was willing to take Spicy Deluxe Sandwich and Grilled Chicken Club from the guide page alone — those two are the only items here not confirmed on their own item page.\n\nREVERSE-ENGINEERED ITEMS (3): Chick-fil-A's salad pages state literally \"Nutrition values are per Salad (includes toppings and dressing)\" and show an \"Includes\" line itemizing the dressing's calories. So the published salad totals are COMPOSED numbers, not line items. I subtracted the dressing packet to get dressing-free bases:\n  - Side Salad: 470/6/14/42 minus Avocado Lime Ranch (310/1/3/32) = 160/5/11/10\n  - Cobb Salad: 830/41/31/60 minus Avocado Lime Ranch (310/1/3/32) = 520/40/28/28\n  - Market Salad: 550/28/42/31 minus Zesty Apple Cider Vinaigrette (230/0/16/19) = 320/28/26/12\nTwo of these three (Side Salad 160/5/11/10 and Cobb 520/40/28/28) land exactly on Chick-fil-A's own separately-published dressing-free values, which is what gave me confidence the subtraction is the right model rather than a coincidence. The three salads are therefore also shipped as presets, where component sums reproduce the published totals exactly.\n\nCOOL WRAP CAVEAT — read before trusting: the Cool Wrap's published 660/43/32/45 is listed under a plain \"Amount per serving\" header with NO \"Includes\" dressing breakdown, unlike the salads. Subtracting Avocado Lime Ranch from it would yield 350/42/29/13, which happens to match the known dressing-free wrap — but because the page does not declare dressing is inside the total, I did NOT decompose it and shipped the published 660 as-is. Consequence: if a user adds a dressing to a Cool Wrap in the builder, they may double-count. Treat Cool Wrap as \"as served\" and consider suppressing the dressings station for it.\n\nPORTION BASIS: Dipping sauces are 1 oz containers; salad dressings are 2 oz packets (both per the source). Waffle Fries are the medium serving (the only size the item page publishes). Nuggets/Strips are per stated piece count. Chick-fil-A does not publish gram weights on these pages, so serving descriptions use the count/size language the source itself uses.\n\nCATEGORY IDS: Reused existing vocabulary throughout — entrees, mains (salad bases), sides, dips (1 oz dipping sauces, so the 3-scoop cap applies naturally), dressings (2 oz packets, 2-cap). I invented ONE new id, \"breakfast\", because it is a genuinely separate daypart station and nothing in the vocabulary honestly covers biscuits/burritos/parfaits."
-  },
-  "categories": [
+ "id": "chick-fil-a",
+ "name": "Chick-fil-A",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://www.chick-fil-a.com/nutrition-allergens",
+  "fetchedAt": "2026-08-07",
+  "fetchedBy": "research agent, verified against the official source",
+  "notes": "SOURCING: All numbers come from chick-fil-a.com \u2014 the /nutrition-allergens guide plus individual /menu/... item pages, which are server-rendered (not JS-gated) and expose full macro panels. Note the lead URL chick-fil-a.com/nutrition is a 404; the live path is /nutrition-allergens.\n\nCROSS-VALIDATION: I pulled 7 items from BOTH the aggregate nutrition guide and their individual item pages (Spicy Chicken Sandwich, Deluxe Sandwich, Chicken Biscuit, Hash Brown Scramble Bowl, Egg White Grill, Hash Browns, Fruit Cup). All 7 agreed exactly on all four macros, which is why I was willing to take Spicy Deluxe Sandwich and Grilled Chicken Club from the guide page alone \u2014 those two are the only items here not confirmed on their own item page.\n\nREVERSE-ENGINEERED ITEMS (3): Chick-fil-A's salad pages state literally \"Nutrition values are per Salad (includes toppings and dressing)\" and show an \"Includes\" line itemizing the dressing's calories. So the published salad totals are COMPOSED numbers, not line items. I subtracted the dressing packet to get dressing-free bases:\n  - Side Salad: 470/6/14/42 minus Avocado Lime Ranch (310/1/3/32) = 160/5/11/10\n  - Cobb Salad: 830/41/31/60 minus Avocado Lime Ranch (310/1/3/32) = 520/40/28/28\n  - Market Salad: 550/28/42/31 minus Zesty Apple Cider Vinaigrette (230/0/16/19) = 320/28/26/12\nTwo of these three (Side Salad 160/5/11/10 and Cobb 520/40/28/28) land exactly on Chick-fil-A's own separately-published dressing-free values, which is what gave me confidence the subtraction is the right model rather than a coincidence. The three salads are therefore also shipped as presets, where component sums reproduce the published totals exactly.\n\nCOOL WRAP CAVEAT \u2014 read before trusting: the Cool Wrap's published 660/43/32/45 is listed under a plain \"Amount per serving\" header with NO \"Includes\" dressing breakdown, unlike the salads. Subtracting Avocado Lime Ranch from it would yield 350/42/29/13, which happens to match the known dressing-free wrap \u2014 but because the page does not declare dressing is inside the total, I did NOT decompose it and shipped the published 660 as-is. Consequence: if a user adds a dressing to a Cool Wrap in the builder, they may double-count. Treat Cool Wrap as \"as served\" and consider suppressing the dressings station for it.\n\nPORTION BASIS: Dipping sauces are 1 oz containers; salad dressings are 2 oz packets (both per the source). Waffle Fries are the medium serving (the only size the item page publishes). Nuggets/Strips are per stated piece count. Chick-fil-A does not publish gram weights on these pages, so serving descriptions use the count/size language the source itself uses.\n\nCATEGORY IDS: Reused existing vocabulary throughout \u2014 entrees, mains (salad bases), sides, dips (1 oz dipping sauces, so the 3-scoop cap applies naturally), dressings (2 oz packets, 2-cap). I invented ONE new id, \"breakfast\", because it is a genuinely separate daypart station and nothing in the vocabulary honestly covers biscuits/burritos/parfaits."
+ },
+ "categories": [
+  {
+   "id": "entrees",
+   "name": "Entr\u00e9es",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
     {
-      "id": "entrees",
-      "name": "Entrées",
-      "selectionRule": {
-        "kind": "selectOne"
+     "id": "chick-fil-a.entrees.chick-fil-a-chicken-sandwich",
+     "name": "Chick-fil-A Chicken Sandwich",
+     "servingDescription": "1 sandwich",
+     "macros": {
+      "calories": 420.0,
+      "proteinGrams": 29.0,
+      "carbGrams": 41.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.toppings.buttery-white-bun",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
       },
-      "items": [
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-chicken-sandwich",
-          "name": "Chick-fil-A Chicken Sandwich",
-          "servingDescription": "1 sandwich",
-          "macros": {
-            "calories": 420.0,
-            "proteinGrams": 29.0,
-            "carbGrams": 41.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.spicy-chicken-sandwich",
-          "name": "Spicy Chicken Sandwich",
-          "servingDescription": "1 sandwich",
-          "macros": {
-            "calories": 450.0,
-            "proteinGrams": 28.0,
-            "carbGrams": 45.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-deluxe-sandwich",
-          "name": "Chick-fil-A Deluxe Sandwich",
-          "servingDescription": "1 sandwich",
-          "macros": {
-            "calories": 490.0,
-            "proteinGrams": 32.0,
-            "carbGrams": 43.0,
-            "fatGrams": 22.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.spicy-deluxe-sandwich",
-          "name": "Spicy Deluxe Sandwich",
-          "servingDescription": "1 sandwich",
-          "macros": {
-            "calories": 540.0,
-            "proteinGrams": 34.0,
-            "carbGrams": 47.0,
-            "fatGrams": 26.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-chicken-sandwich",
-          "name": "Grilled Chicken Sandwich",
-          "servingDescription": "1 sandwich on multigrain bun",
-          "macros": {
-            "calories": 390.0,
-            "proteinGrams": 28.0,
-            "carbGrams": 45.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "egg",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-chicken-club-sandwich",
-          "name": "Chick-fil-A Grilled Chicken Club",
-          "servingDescription": "1 sandwich",
-          "macros": {
-            "calories": 520.0,
-            "proteinGrams": 37.0,
-            "carbGrams": 45.0,
-            "fatGrams": 22.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey",
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-cool-wrap",
-          "name": "Chick-fil-A Cool Wrap",
-          "servingDescription": "1 wrap, as served (see notes on dressing)",
-          "macros": {
-            "calories": 660.0,
-            "proteinGrams": 43.0,
-            "carbGrams": 32.0,
-            "fatGrams": 45.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-nuggets-8-ct",
-          "name": "Chick-fil-A Nuggets (8 ct)",
-          "servingDescription": "8 nuggets",
-          "macros": {
-            "calories": 250.0,
-            "proteinGrams": 27.0,
-            "carbGrams": 11.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
-          "sizeLabel": "8 ct",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-nuggets-12-ct",
-          "name": "Chick-fil-A Nuggets (12 ct)",
-          "servingDescription": "12 nuggets",
-          "macros": {
-            "calories": 380.0,
-            "proteinGrams": 40.0,
-            "carbGrams": 16.0,
-            "fatGrams": 17.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
-          "sizeLabel": "12 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-nuggets-8-ct",
-          "name": "Grilled Nuggets (8 ct)",
-          "servingDescription": "8 grilled nuggets",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 25.0,
-            "carbGrams": 1.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
-          "sizeLabel": "8 ct",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-nuggets-12-ct",
-          "name": "Grilled Nuggets (12 ct)",
-          "servingDescription": "12 grilled nuggets",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 38.0,
-            "carbGrams": 2.0,
-            "fatGrams": 4.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
-          "sizeLabel": "12 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-n-strips-3-ct",
-          "name": "Chick-fil-A Chick-n-Strips (3 ct)",
-          "servingDescription": "3 strips",
-          "macros": {
-            "calories": 310.0,
-            "proteinGrams": 29.0,
-            "carbGrams": 16.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
-          "sizeLabel": "3 ct",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-n-strips-4-ct",
-          "name": "Chick-fil-A Chick-n-Strips (4 ct)",
-          "servingDescription": "4 strips",
-          "macros": {
-            "calories": 410.0,
-            "proteinGrams": 39.0,
-            "carbGrams": 22.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
-          "sizeLabel": "4 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-filet",
-          "name": "Grilled Filet",
-          "servingDescription": "1 grilled chicken breast filet",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 21.0,
-            "carbGrams": 1.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-fil-a-nuggets-30-ct",
-          "name": "Chick-fil-A Nuggets (30 ct)",
-          "servingDescription": "30 nuggets",
-          "macros": {
-            "calories": 950.0,
-            "proteinGrams": 100.0,
-            "carbGrams": 41.0,
-            "fatGrams": 43.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
-          "sizeLabel": "30 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.grilled-nuggets-30-ct",
-          "name": "Grilled Nuggets (30 ct)",
-          "servingDescription": "30 grilled nuggets",
-          "macros": {
-            "calories": 510.0,
-            "proteinGrams": 98.0,
-            "carbGrams": 4.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.grilled-nuggets",
-          "sizeLabel": "30 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-n-strips-2-ct",
-          "name": "Chick-fil-A Chick-n-Strips (2 ct)",
-          "servingDescription": "2 strips",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 19.0,
-            "carbGrams": 11.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
-          "sizeLabel": "2 ct",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.entrees.chick-n-strips-10-ct",
-          "name": "Chick-fil-A Chick-n-Strips (10 ct)",
-          "servingDescription": "10 strips",
-          "macros": {
-            "calories": 1020.0,
-            "proteinGrams": 96.0,
-            "carbGrams": 54.0,
-            "fatGrams": 46.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
-          "sizeLabel": "10 ct",
-          "isDefaultSize": false
-        }
-      ],
-      "iconName": "chickenGrilled"
+      {
+       "menuItemId": "chick-fil-a.toppings.dill-pickle-chips",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.white-bun-unbuttered",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.multigrain-brioche-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.gluten-free-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
     },
     {
-      "id": "mains",
-      "name": "Salads",
-      "selectionRule": {
-        "kind": "selectOne"
+     "id": "chick-fil-a.entrees.spicy-chicken-sandwich",
+     "name": "Spicy Chicken Sandwich",
+     "servingDescription": "1 sandwich",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 45.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.toppings.buttery-white-bun",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
       },
-      "items": [
-        {
-          "id": "chick-fil-a.mains.cobb-salad-base",
-          "name": "Cobb Salad (no dressing)",
-          "servingDescription": "1 salad, dressing not included",
-          "macros": {
-            "calories": 520.0,
-            "proteinGrams": 40.0,
-            "carbGrams": 28.0,
-            "fatGrams": 28.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey",
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "chick-fil-a.mains.market-salad-base",
-          "name": "Market Salad (no dressing)",
-          "servingDescription": "1 salad, dressing not included",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 28.0,
-            "carbGrams": 26.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [
-            "milk",
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ]
-        }
-      ],
-      "iconName": "chickenGrilled"
+      {
+       "menuItemId": "chick-fil-a.toppings.dill-pickle-chips",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.white-bun-unbuttered",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.multigrain-brioche-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.gluten-free-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
     },
     {
-      "id": "breakfast",
-      "name": "Breakfast",
-      "selectionRule": {
-        "kind": "selectOne"
+     "id": "chick-fil-a.entrees.chick-fil-a-deluxe-sandwich",
+     "name": "Chick-fil-A Deluxe Sandwich",
+     "servingDescription": "1 sandwich",
+     "macros": {
+      "calories": 490.0,
+      "proteinGrams": 32.0,
+      "carbGrams": 43.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.toppings.buttery-white-bun",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
       },
-      "items": [
-        {
-          "id": "chick-fil-a.breakfast.egg-white-grill",
-          "name": "Egg White Grill",
-          "servingDescription": "1 sandwich on English muffin",
-          "macros": {
-            "calories": 300.0,
-            "proteinGrams": 27.0,
-            "carbGrams": 29.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.chick-fil-a-chicken-biscuit",
-          "name": "Chick-fil-A Chicken Biscuit",
-          "servingDescription": "1 biscuit sandwich",
-          "macros": {
-            "calories": 460.0,
-            "proteinGrams": 19.0,
-            "carbGrams": 45.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.spicy-chicken-biscuit",
-          "name": "Spicy Chicken Biscuit",
-          "servingDescription": "1 biscuit sandwich",
-          "macros": {
-            "calories": 450.0,
-            "proteinGrams": 19.0,
-            "carbGrams": 44.0,
-            "fatGrams": 22.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.chicken-egg-cheese-biscuit",
-          "name": "Chicken, Egg & Cheese Biscuit",
-          "servingDescription": "1 biscuit sandwich",
-          "macros": {
-            "calories": 550.0,
-            "proteinGrams": 27.0,
-            "carbGrams": 48.0,
-            "fatGrams": 28.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.bacon-egg-cheese-biscuit",
-          "name": "Bacon, Egg & Cheese Biscuit",
-          "servingDescription": "1 biscuit sandwich",
-          "macros": {
-            "calories": 420.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 38.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.sausage-egg-cheese-biscuit",
-          "name": "Sausage, Egg & Cheese Biscuit",
-          "servingDescription": "1 biscuit sandwich",
-          "macros": {
-            "calories": 620.0,
-            "proteinGrams": 22.0,
-            "carbGrams": 38.0,
-            "fatGrams": 42.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.chick-n-minis-4-ct",
-          "name": "Chick-fil-A Chick-n-Minis (4 ct)",
-          "servingDescription": "4 mini sandwiches",
-          "macros": {
-            "calories": 360.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 41.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
-          "sizeLabel": "4 ct",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.breakfast.hash-brown-scramble-bowl",
-          "name": "Hash Brown Scramble Bowl",
-          "servingDescription": "1 bowl, default nugget build",
-          "macros": {
-            "calories": 470.0,
-            "proteinGrams": 29.0,
-            "carbGrams": 19.0,
-            "fatGrams": 30.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.hash-brown-scramble-burrito",
-          "name": "Hash Brown Scramble Burrito",
-          "servingDescription": "1 burrito, default nugget build",
-          "macros": {
-            "calories": 700.0,
-            "proteinGrams": 34.0,
-            "carbGrams": 51.0,
-            "fatGrams": 40.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.berry-parfait",
-          "name": "Berry Parfait",
-          "servingDescription": "1 parfait",
-          "macros": {
-            "calories": 270.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 35.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk",
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "chick-fil-a.breakfast.chick-n-minis-10-ct",
-          "name": "Chick-fil-A Chick-n-Minis (10 ct)",
-          "servingDescription": "10 mini sandwiches",
-          "macros": {
-            "calories": 910.0,
-            "proteinGrams": 49.0,
-            "carbGrams": 103.0,
-            "fatGrams": 34.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
-          "sizeLabel": "10 ct",
-          "isDefaultSize": false
-        }
-      ],
-      "iconName": "wheatFlat"
+      {
+       "menuItemId": "chick-fil-a.toppings.dill-pickle-chips",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.white-bun-unbuttered",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.multigrain-brioche-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.gluten-free-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "chick-fil-a.entrees.spicy-deluxe-sandwich",
+     "name": "Spicy Deluxe Sandwich",
+     "servingDescription": "1 sandwich",
+     "macros": {
+      "calories": 540.0,
+      "proteinGrams": 34.0,
+      "carbGrams": 47.0,
+      "fatGrams": 26.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.toppings.buttery-white-bun",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
       },
-      "items": [
-        {
-          "id": "chick-fil-a.sides.waffle-potato-fries-medium",
-          "name": "Chick-fil-A Waffle Potato Fries",
-          "servingDescription": "1 medium serving",
-          "macros": {
-            "calories": 420.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 45.0,
-            "fatGrams": 24.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [],
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
-          "sizeLabel": "M",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.sides.mac-and-cheese",
-          "name": "Mac & Cheese",
-          "servingDescription": "1 side serving",
-          "macros": {
-            "calories": 450.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 28.0,
-            "fatGrams": 29.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [],
-          "sizeGroup": "chick-fil-a.size.mac-and-cheese",
-          "sizeLabel": "M",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.sides.kale-crunch-side",
-          "name": "Kale Crunch Side",
-          "servingDescription": "1 side serving",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 13.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "alcohol"
-          ]
-        },
-        {
-          "id": "chick-fil-a.sides.side-salad",
-          "name": "Side Salad (no dressing)",
-          "servingDescription": "1 side salad, dressing not included",
-          "macros": {
-            "calories": 160.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 11.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.sides.chicken-noodle-soup",
-          "name": "Chicken Noodle Soup",
-          "servingDescription": "1 cup",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 11.0,
-            "carbGrams": 27.0,
-            "fatGrams": 4.5
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
-          "sizeLabel": "Cup",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.sides.waffle-potato-chips",
-          "name": "Original Flavor Waffle Potato Chips",
-          "servingDescription": "1 bag",
-          "macros": {
-            "calories": 220.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 25.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.sides.hash-browns",
-          "name": "Hash Browns",
-          "servingDescription": "1 small serving",
-          "macros": {
-            "calories": 270.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 23.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [],
-          "sizeGroup": "chick-fil-a.size.hash-browns",
-          "sizeLabel": "S",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.sides.fruit-cup-medium",
-          "name": "Fruit Cup",
-          "servingDescription": "1 medium cup",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 16.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [],
-          "sizeGroup": "chick-fil-a.size.fruit-cup",
-          "sizeLabel": "M",
-          "isDefaultSize": true
-        },
-        {
-          "id": "chick-fil-a.sides.waffle-potato-fries-small",
-          "name": "Chick-fil-A Waffle Potato Fries (small)",
-          "servingDescription": "1 small serving",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 35.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
-          "sizeLabel": "S",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.waffle-potato-fries-large",
-          "name": "Chick-fil-A Waffle Potato Fries (large)",
-          "servingDescription": "1 large serving",
-          "macros": {
-            "calories": 600.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 65.0,
-            "fatGrams": 35.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
-          "sizeLabel": "L",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.hash-browns-large",
-          "name": "Hash Browns (large)",
-          "servingDescription": "1 large serving",
-          "macros": {
-            "calories": 420.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 35.0,
-            "fatGrams": 29.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.hash-browns",
-          "sizeLabel": "L",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.fruit-cup-small",
-          "name": "Fruit Cup (small)",
-          "servingDescription": "1 small cup",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 14.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.fruit-cup",
-          "sizeLabel": "S",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.fruit-cup-large",
-          "name": "Fruit Cup (large)",
-          "servingDescription": "1 large cup",
-          "macros": {
-            "calories": 120.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 28.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.fruit-cup",
-          "sizeLabel": "L",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.mac-and-cheese-small",
-          "name": "Mac & Cheese (small)",
-          "servingDescription": "1 small serving",
-          "macros": {
-            "calories": 270.0,
-            "proteinGrams": 12.0,
-            "carbGrams": 17.0,
-            "fatGrams": 17.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.mac-and-cheese",
-          "sizeLabel": "S",
-          "isDefaultSize": false
-        },
-        {
-          "id": "chick-fil-a.sides.chicken-noodle-soup-bowl",
-          "name": "Chicken Noodle Soup (bowl)",
-          "servingDescription": "1 bowl",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 42.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
-          "sizeLabel": "Bowl",
-          "isDefaultSize": false
-        }
-      ],
-      "iconName": "breadPita"
+      {
+       "menuItemId": "chick-fil-a.toppings.dill-pickle-chips",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.white-bun-unbuttered",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.multigrain-brioche-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.gluten-free-bun",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
     },
     {
-      "id": "dips",
-      "name": "Dipping Sauces",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "chick-fil-a.entrees.grilled-chicken-sandwich",
+     "name": "Grilled Chicken Sandwich",
+     "servingDescription": "1 sandwich on multigrain bun",
+     "macros": {
+      "calories": 390.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 45.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "egg",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.grilled-bun-filet",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "chick-fil-a.dips.chick-fil-a-sauce",
-          "name": "Chick-fil-A Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 6.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.barbeque-sauce",
-          "name": "Barbeque Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 45.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 11.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.polynesian-sauce",
-          "name": "Polynesian Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 14.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.honey-mustard-sauce",
-          "name": "Honey Mustard Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 50.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 11.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "chick-fil-a.dips.garden-herb-ranch-sauce",
-          "name": "Garden Herb Ranch Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 100.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.zesty-buffalo-sauce",
-          "name": "Zesty Buffalo Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.sweet-spicy-sriracha-sauce",
-          "name": "Sweet & Spicy Sriracha Sauce",
-          "servingDescription": "1 oz container",
-          "macros": {
-            "calories": 45.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 11.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dips.honey-roasted-bbq-sauce",
-          "name": "Honey Roasted BBQ Sauce",
-          "servingDescription": "1 packet",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        }
-      ],
-      "iconName": "hummus"
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
     },
     {
-      "id": "dressings",
-      "name": "Salad Dressings",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "chick-fil-a.entrees.grilled-chicken-club-sandwich",
+     "name": "Chick-fil-A Grilled Chicken Club",
+     "servingDescription": "1 sandwich",
+     "macros": {
+      "calories": 520.0,
+      "proteinGrams": 37.0,
+      "carbGrams": 45.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat",
+      "pork"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.grilled-bun-filet",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
-          "name": "Avocado Lime Ranch Dressing",
-          "servingDescription": "1 packet (2 oz)",
-          "macros": {
-            "calories": 310.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 32.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
-          "name": "Zesty Apple Cider Vinaigrette",
-          "servingDescription": "1 packet (2 oz)",
-          "macros": {
-            "calories": 230.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 16.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "chick-fil-a.dressings.light-italian-dressing",
-          "name": "Light Italian Dressing",
-          "servingDescription": "1 packet (2 oz)",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "oil"
+      {
+       "menuItemId": "chick-fil-a.toppings.green-leaf-lettuce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.tomato",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.colby-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.applewood-smoked-bacon",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.american-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.pepper-jack-cheese",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-fil-a-cool-wrap",
+     "name": "Chick-fil-A Cool Wrap",
+     "servingDescription": "1 wrap, as served (see notes on dressing)",
+     "macros": {
+      "calories": 660.0,
+      "proteinGrams": 43.0,
+      "carbGrams": 32.0,
+      "fatGrams": 45.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.cool-wrap-no-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.creamy-salsa-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-balsamic-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.fat-free-honey-mustard-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-italian-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-fil-a-nuggets-8-ct",
+     "name": "Chick-fil-A Nuggets (8 ct)",
+     "servingDescription": "8 nuggets",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 27.0,
+      "carbGrams": 11.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+     "sizeLabel": "8 ct",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-fil-a-nuggets-12-ct",
+     "name": "Chick-fil-A Nuggets (12 ct)",
+     "servingDescription": "12 nuggets",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 40.0,
+      "carbGrams": 16.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+     "sizeLabel": "12 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.grilled-nuggets-8-ct",
+     "name": "Grilled Nuggets (8 ct)",
+     "servingDescription": "8 grilled nuggets",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 25.0,
+      "carbGrams": 1.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+     "sizeLabel": "8 ct",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.entrees.grilled-nuggets-12-ct",
+     "name": "Grilled Nuggets (12 ct)",
+     "servingDescription": "12 grilled nuggets",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 38.0,
+      "carbGrams": 2.0,
+      "fatGrams": 4.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+     "sizeLabel": "12 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-n-strips-3-ct",
+     "name": "Chick-fil-A Chick-n-Strips (3 ct)",
+     "servingDescription": "3 strips",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 29.0,
+      "carbGrams": 16.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+     "sizeLabel": "3 ct",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-n-strips-4-ct",
+     "name": "Chick-fil-A Chick-n-Strips (4 ct)",
+     "servingDescription": "4 strips",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 39.0,
+      "carbGrams": 22.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+     "sizeLabel": "4 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.grilled-filet",
+     "name": "Grilled Filet",
+     "servingDescription": "1 grilled chicken breast filet",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 21.0,
+      "carbGrams": 1.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-fil-a-nuggets-30-ct",
+     "name": "Chick-fil-A Nuggets (30 ct)",
+     "servingDescription": "30 nuggets",
+     "macros": {
+      "calories": 950.0,
+      "proteinGrams": 100.0,
+      "carbGrams": 41.0,
+      "fatGrams": 43.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-nuggets",
+     "sizeLabel": "30 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.grilled-nuggets-30-ct",
+     "name": "Grilled Nuggets (30 ct)",
+     "servingDescription": "30 grilled nuggets",
+     "macros": {
+      "calories": 510.0,
+      "proteinGrams": 98.0,
+      "carbGrams": 4.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.grilled-nuggets",
+     "sizeLabel": "30 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-n-strips-2-ct",
+     "name": "Chick-fil-A Chick-n-Strips (2 ct)",
+     "servingDescription": "2 strips",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 19.0,
+      "carbGrams": 11.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+     "sizeLabel": "2 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.chick-n-strips-10-ct",
+     "name": "Chick-fil-A Chick-n-Strips (10 ct)",
+     "servingDescription": "10 strips",
+     "macros": {
+      "calories": 1020.0,
+      "proteinGrams": 96.0,
+      "carbGrams": 54.0,
+      "fatGrams": 46.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-strips",
+     "sizeLabel": "10 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.entrees.honey-pepper-pimento-sandwich-w-chick-fil-a-filet",
+     "name": "Honey Pepper Pimento Sandwich w/ Chick-fil-A Filet",
+     "servingDescription": "232g",
+     "macros": {
+      "calories": 600.0,
+      "proteinGrams": 34.0,
+      "carbGrams": 53.0,
+      "fatGrams": 30.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.entrees.honey-pepper-pimento-sandwich-w-spicy-filet",
+     "name": "Honey Pepper Pimento Sandwich w/ Spicy Filet",
+     "servingDescription": "237g",
+     "macros": {
+      "calories": 620.0,
+      "proteinGrams": 33.0,
+      "carbGrams": 56.0,
+      "fatGrams": 31.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.entrees.honey-pepper-pimento-sandwich-w-grilled-filet",
+     "name": "Honey Pepper Pimento Sandwich w/ Grilled Filet",
+     "servingDescription": "201g",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 30.0,
+      "carbGrams": 42.0,
+      "fatGrams": 20.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
     }
-  ]
+   ],
+   "iconName": "chickenGrilled",
+   "isHeadline": true
+  },
+  {
+   "id": "mains",
+   "name": "Salads",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.mains.cobb-salad-base",
+     "name": "Cobb Salad",
+     "servingDescription": "1 salad, dressing not included",
+     "macros": {
+      "calories": 830.0,
+      "proteinGrams": 41.0,
+      "carbGrams": 31.0,
+      "fatGrams": 60.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat",
+      "pork"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.cobb-no-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.creamy-salsa-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-balsamic-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.fat-free-honey-mustard-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-italian-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.blue-cheese-crumbles",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    },
+    {
+     "id": "chick-fil-a.mains.market-salad-base",
+     "name": "Market Salad",
+     "servingDescription": "1 salad, dressing not included",
+     "macros": {
+      "calories": 550.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 42.0,
+      "fatGrams": 31.0
+     },
+     "allergens": [
+      "milk",
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.market-no-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.creamy-salsa-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-balsamic-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.fat-free-honey-mustard-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-italian-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    },
+    {
+     "id": "chick-fil-a.mains.spicy-southwest-salad",
+     "name": "Spicy Southwest Salad",
+     "servingDescription": "1 salad",
+     "macros": {
+      "calories": 680.0,
+      "proteinGrams": 33.0,
+      "carbGrams": 27.0,
+      "fatGrams": 49.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.southwest-no-toppings",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.seasoned-tortilla-strips",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.chili-lime-pepitas",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.creamy-salsa-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.toppings.blue-cheese-crumbles",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    }
+   ],
+   "iconName": "chickenGrilled",
+   "isHeadline": true
+  },
+  {
+   "id": "breakfast",
+   "name": "Breakfast",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.breakfast.egg-white-grill",
+     "name": "Egg White Grill",
+     "servingDescription": "1 sandwich on English muffin",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 27.0,
+      "carbGrams": 29.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.chick-fil-a-chicken-biscuit",
+     "name": "Chick-fil-A Chicken Biscuit",
+     "servingDescription": "1 biscuit sandwich",
+     "macros": {
+      "calories": 460.0,
+      "proteinGrams": 19.0,
+      "carbGrams": 45.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.spicy-chicken-biscuit",
+     "name": "Spicy Chicken Biscuit",
+     "servingDescription": "1 biscuit sandwich",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 19.0,
+      "carbGrams": 44.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.chicken-egg-cheese-biscuit",
+     "name": "Chicken, Egg & Cheese Biscuit",
+     "servingDescription": "1 biscuit sandwich",
+     "macros": {
+      "calories": 550.0,
+      "proteinGrams": 27.0,
+      "carbGrams": 48.0,
+      "fatGrams": 28.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.bacon-egg-cheese-biscuit",
+     "name": "Bacon, Egg & Cheese Biscuit",
+     "servingDescription": "1 biscuit sandwich",
+     "macros": {
+      "calories": 420.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 38.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.sausage-egg-cheese-biscuit",
+     "name": "Sausage, Egg & Cheese Biscuit",
+     "servingDescription": "1 biscuit sandwich",
+     "macros": {
+      "calories": 620.0,
+      "proteinGrams": 22.0,
+      "carbGrams": 38.0,
+      "fatGrams": 42.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.chick-n-minis-4-ct",
+     "name": "Chick-fil-A Chick-n-Minis (4 ct)",
+     "servingDescription": "4 mini sandwiches",
+     "macros": {
+      "calories": 360.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 41.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
+     "sizeLabel": "4 ct",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.breakfast.hash-brown-scramble-bowl",
+     "name": "Hash Brown Scramble Bowl",
+     "servingDescription": "1 bowl, default nugget build",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 29.0,
+      "carbGrams": 19.0,
+      "fatGrams": 30.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.hash-brown-scramble-burrito",
+     "name": "Hash Brown Scramble Burrito",
+     "servingDescription": "1 burrito, default nugget build",
+     "macros": {
+      "calories": 700.0,
+      "proteinGrams": 34.0,
+      "carbGrams": 51.0,
+      "fatGrams": 40.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.berry-parfait",
+     "name": "Berry Parfait",
+     "servingDescription": "1 parfait",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 35.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk",
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.chick-n-minis-10-ct",
+     "name": "Chick-fil-A Chick-n-Minis (10 ct)",
+     "servingDescription": "10 mini sandwiches",
+     "macros": {
+      "calories": 910.0,
+      "proteinGrams": 49.0,
+      "carbGrams": 103.0,
+      "fatGrams": 34.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-chick-n-minis",
+     "sizeLabel": "10 ct",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.breakfast.chicken-egg-cheese-muffin",
+     "name": "Chicken, Egg & Cheese Muffin",
+     "servingDescription": "187g",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 27.0,
+      "carbGrams": 36.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.bacon-egg-cheese-muffin",
+     "name": "Bacon, Egg & Cheese Muffin",
+     "servingDescription": "126g",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 16.0,
+      "carbGrams": 28.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.sausage-egg-cheese-muffin",
+     "name": "Sausage, Egg & Cheese Muffin",
+     "servingDescription": "173g",
+     "macros": {
+      "calories": 490.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 29.0,
+      "fatGrams": 32.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.breakfast.buttery-biscuit",
+     "name": "Buttery Biscuit",
+     "servingDescription": "81g",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 37.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.breakfast.english-muffin",
+     "name": "English Muffin",
+     "servingDescription": "58g",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 27.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.breakfast.4-ct-mini-yeast-rolls",
+     "name": "4 ct Mini Yeast Rolls",
+     "servingDescription": "70g",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 36.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": "Marked as containing honey conservatively: Chick-fil-A publishes no ingredient list for the rolls sold on their own, and the Chick-n-Minis built on them do contain honey.",
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "wheatFlat",
+   "isHeadline": true
+  },
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.sides.waffle-potato-fries-medium",
+     "name": "Chick-fil-A Waffle Potato Fries",
+     "servingDescription": "1 medium serving",
+     "macros": {
+      "calories": 420.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 45.0,
+      "fatGrams": 24.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+     "sizeLabel": "M",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.sides.mac-and-cheese",
+     "name": "Mac & Cheese",
+     "servingDescription": "1 side serving",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 28.0,
+      "fatGrams": 29.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "chick-fil-a.size.mac-and-cheese",
+     "sizeLabel": "M",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.sides.kale-crunch-side",
+     "name": "Kale Crunch Side",
+     "servingDescription": "1 side serving",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 13.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "alcohol"
+     ]
+    },
+    {
+     "id": "chick-fil-a.sides.side-salad",
+     "name": "Side Salad",
+     "servingDescription": "1 side salad, dressing not included",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 14.0,
+      "fatGrams": 42.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "components": [
+      {
+       "menuItemId": "chick-fil-a.pantry.side-salad-no-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.creamy-salsa-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-balsamic-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.fat-free-honey-mustard-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "chick-fil-a.dressings.light-italian-dressing",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ]
+    },
+    {
+     "id": "chick-fil-a.sides.chicken-noodle-soup",
+     "name": "Chicken Noodle Soup",
+     "servingDescription": "1 cup",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 11.0,
+      "carbGrams": 27.0,
+      "fatGrams": 4.5
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
+     "sizeLabel": "Cup",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.sides.waffle-potato-chips",
+     "name": "Original Flavor Waffle Potato Chips",
+     "servingDescription": "1 bag",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 25.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.sides.hash-browns",
+     "name": "Hash Browns",
+     "servingDescription": "1 small serving",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "chick-fil-a.size.hash-browns",
+     "sizeLabel": "S",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.sides.fruit-cup-medium",
+     "name": "Fruit Cup",
+     "servingDescription": "1 medium cup",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "chick-fil-a.size.fruit-cup",
+     "sizeLabel": "M",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chick-fil-a.sides.waffle-potato-fries-small",
+     "name": "Chick-fil-A Waffle Potato Fries (small)",
+     "servingDescription": "1 small serving",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 35.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+     "sizeLabel": "S",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.waffle-potato-fries-large",
+     "name": "Chick-fil-A Waffle Potato Fries (large)",
+     "servingDescription": "1 large serving",
+     "macros": {
+      "calories": 600.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 65.0,
+      "fatGrams": 35.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chick-fil-a-waffle-potato-fries",
+     "sizeLabel": "L",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.hash-browns-large",
+     "name": "Hash Browns (large)",
+     "servingDescription": "1 large serving",
+     "macros": {
+      "calories": 420.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 35.0,
+      "fatGrams": 29.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.hash-browns",
+     "sizeLabel": "L",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.fruit-cup-small",
+     "name": "Fruit Cup (small)",
+     "servingDescription": "1 small cup",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 14.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.fruit-cup",
+     "sizeLabel": "S",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.fruit-cup-large",
+     "name": "Fruit Cup (large)",
+     "servingDescription": "1 large cup",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.fruit-cup",
+     "sizeLabel": "L",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.mac-and-cheese-small",
+     "name": "Mac & Cheese (small)",
+     "servingDescription": "1 small serving",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 17.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.mac-and-cheese",
+     "sizeLabel": "S",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.chicken-noodle-soup-bowl",
+     "name": "Chicken Noodle Soup (bowl)",
+     "servingDescription": "1 bowl",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 42.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "chick-fil-a.size.chicken-noodle-soup",
+     "sizeLabel": "Bowl",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chick-fil-a.sides.chicken-tortilla-soup",
+     "name": "Chicken Tortilla Soup",
+     "servingDescription": "265g",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 24.0,
+      "carbGrams": 31.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.sides.buddy-fruits-apple-sauce",
+     "name": "Buddy Fruits Apple Sauce",
+     "servingDescription": "90g",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 12.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "breadPita",
+   "isHeadline": false
+  },
+  {
+   "id": "dips",
+   "name": "Dipping Sauces",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.dips.chick-fil-a-sauce",
+     "name": "Chick-fil-A Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 6.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.barbeque-sauce",
+     "name": "Barbeque Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.polynesian-sauce",
+     "name": "Polynesian Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 14.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.honey-mustard-sauce",
+     "name": "Honey Mustard Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "chick-fil-a.dips.garden-herb-ranch-sauce",
+     "name": "Garden Herb Ranch Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.zesty-buffalo-sauce",
+     "name": "Zesty Buffalo Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.sweet-spicy-sriracha-sauce",
+     "name": "Sweet & Spicy Sriracha Sauce",
+     "servingDescription": "1 oz container",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dips.honey-roasted-bbq-sauce",
+     "name": "Honey Roasted BBQ Sauce",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "hummus",
+   "isHeadline": false
+  },
+  {
+   "id": "dressings",
+   "name": "Salad Dressings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.dressings.avocado-lime-ranch-dressing",
+     "name": "Avocado Lime Ranch Dressing",
+     "servingDescription": "1 packet (2 oz)",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 32.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dressings.zesty-apple-cider-vinaigrette",
+     "name": "Zesty Apple Cider Vinaigrette",
+     "servingDescription": "1 packet (2 oz)",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "chick-fil-a.dressings.light-italian-dressing",
+     "name": "Light Italian Dressing",
+     "servingDescription": "1 packet (2 oz)",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dressings.garden-herb-ranch-dressing",
+     "name": "Garden Herb Ranch Dressing",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 29.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dressings.creamy-salsa-dressing",
+     "name": "Creamy Salsa Dressing",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 31.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dressings.light-balsamic-vinaigrette",
+     "name": "Light Balsamic Vinaigrette",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 10.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.dressings.fat-free-honey-mustard-dressing",
+     "name": "Fat-Free Honey Mustard Dressing",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "oil",
+   "isHeadline": false
+  },
+  {
+   "id": "toppings",
+   "name": "Toppings & Buns",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.toppings.buttery-white-bun",
+     "name": "Buttery White Bun",
+     "servingDescription": "1 bun",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 29.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.white-bun-unbuttered",
+     "name": "White Bun (unbuttered)",
+     "servingDescription": "1 bun",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 28.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.multigrain-brioche-bun",
+     "name": "Multigrain Brioche Bun",
+     "servingDescription": "1 bun",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 38.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.gluten-free-bun",
+     "name": "Gluten Free Bun",
+     "servingDescription": "1 bun",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 37.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.american-cheese",
+     "name": "American Cheese",
+     "servingDescription": "1 slice",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 1.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.colby-jack-cheese",
+     "name": "Colby Jack Cheese",
+     "servingDescription": "1 slice",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 0.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.pepper-jack-cheese",
+     "name": "Pepper Jack Cheese",
+     "servingDescription": "1 slice",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 0.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.applewood-smoked-bacon",
+     "name": "Applewood Smoked Bacon",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 0.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.toppings.green-leaf-lettuce",
+     "name": "Green Leaf Lettuce",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.tomato",
+     "name": "Tomato",
+     "servingDescription": "1 slice",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.dill-pickle-chips",
+     "name": "Dill Pickle Chips",
+     "servingDescription": "2 chips",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.crispy-red-bell-peppers",
+     "name": "Crispy Red Bell Peppers",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 6.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.seasoned-tortilla-strips",
+     "name": "Seasoned Tortilla Strips",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 8.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.chili-lime-pepitas",
+     "name": "Chili Lime Pepitas",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 2.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.harvest-nut-granola",
+     "name": "Harvest Nut Granola",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 10.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.blue-cheese-crumbles",
+     "name": "Blue Cheese Crumbles",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 0.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.toppings.roasted-nut-blend",
+     "name": "Roasted Nut Blend",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "peanut",
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "treats",
+   "name": "Treats",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.treats.chocolate-fudge-brownie",
+     "name": "Chocolate Fudge Brownie",
+     "servingDescription": "85g",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 47.0,
+      "fatGrams": 21.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.frosted-sodas",
+     "name": "Frosted Sodas",
+     "servingDescription": "369g",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 60.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.peach-milkshake",
+     "name": "Peach Milkshake",
+     "servingDescription": "412g",
+     "macros": {
+      "calories": 600.0,
+      "proteinGrams": 11.0,
+      "carbGrams": 101.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.frosted-coffee",
+     "name": "Frosted Coffee",
+     "servingDescription": "374g",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 45.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.cookies-cream-milkshake",
+     "name": "Cookies & Cream Milkshake",
+     "servingDescription": "409g",
+     "macros": {
+      "calories": 630.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 91.0,
+      "fatGrams": 25.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.chocolate-milkshake",
+     "name": "Chocolate Milkshake",
+     "servingDescription": "409g",
+     "macros": {
+      "calories": 600.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 93.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.strawberry-milkshake",
+     "name": "Strawberry Milkshake",
+     "servingDescription": "409g",
+     "macros": {
+      "calories": 560.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 92.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.vanilla-milkshake",
+     "name": "Vanilla Milkshake",
+     "servingDescription": "409g",
+     "macros": {
+      "calories": 580.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 82.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.chick-fil-a-icedream-cone",
+     "name": "Chick-fil-A Icedream Cone",
+     "servingDescription": "135g",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 32.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.chick-fil-a-icedream-cup",
+     "name": "Chick-fil-A Icedream Cup",
+     "servingDescription": "122g",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 24.0,
+      "fatGrams": 3.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.dr-pepper-float",
+     "name": "Dr Pepper Float",
+     "servingDescription": "369g",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 60.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.caramel-frosted-coffee",
+     "name": "Caramel Frosted Coffee",
+     "servingDescription": "406g",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 63.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.mocha-frosted-coffee",
+     "name": "Mocha Frosted Coffee",
+     "servingDescription": "400g",
+     "macros": {
+      "calories": 330.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 61.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.vanilla-frosted-coffee",
+     "name": "Vanilla Frosted Coffee",
+     "servingDescription": "400g",
+     "macros": {
+      "calories": 330.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 62.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.frosted-lemonade",
+     "name": "Frosted Lemonade",
+     "servingDescription": "383g",
+     "macros": {
+      "calories": 350.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 67.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.frosted-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.frosted-lemonade-w-diet-lemonade",
+     "name": "Frosted Lemonade w/ Diet Lemonade",
+     "servingDescription": "383g",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 50.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.frosted-lemonade",
+     "sizeLabel": "Diet",
+     "isDefaultSize": false,
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.peach-frosted-lemonade",
+     "name": "Peach Frosted Lemonade",
+     "servingDescription": "383g",
+     "macros": {
+      "calories": 440.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 91.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.peach-frosted-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.peach-frosted-lemonade-w-diet-lemonade",
+     "name": "Peach Frosted Lemonade w/ Diet Lemonade",
+     "servingDescription": "383g",
+     "macros": {
+      "calories": 440.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 91.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.peach-frosted-lemonade",
+     "sizeLabel": "Diet",
+     "isDefaultSize": false,
+     "allergens": [
+      "milk"
+     ],
+     "notes": "Chick-fil-A publishes identical nutrition for the regular and diet-lemonade builds of this one.",
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.pineapple-dragonfruit-frosted-lemonade",
+     "name": "Pineapple Dragonfruit Frosted Lemonade",
+     "servingDescription": "375g",
+     "macros": {
+      "calories": 360.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 70.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.pineapple-dragonfruit-frosted-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.pineapple-dragonfruit-frosted-lemonade-w-diet-lemonade",
+     "name": "Pineapple Dragonfruit Frosted Lemonade w/ Diet Lemonade",
+     "servingDescription": "375g",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 54.0,
+      "fatGrams": 7.0
+     },
+     "sizeGroup": "chick-fil-a.size.pineapple-dragonfruit-frosted-lemonade",
+     "sizeLabel": "Diet",
+     "isDefaultSize": false,
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.treats.chocolate-chunk-cookie",
+     "name": "Chocolate Chunk Cookie",
+     "servingDescription": "78g",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 49.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-sweetened-iced-tea-small",
+     "name": "Freshly-Brewed Sweetened Iced Tea (Small)",
+     "servingDescription": "451g",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-sweetened-iced-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-sweetened-iced-tea-medium",
+     "name": "Freshly-Brewed Sweetened Iced Tea (Medium)",
+     "servingDescription": "604g",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 31.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-sweetened-iced-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-sweetened-iced-tea-large",
+     "name": "Freshly-Brewed Sweetened Iced Tea (Large)",
+     "servingDescription": "893g",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-sweetened-iced-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-unsweetened-iced-tea-small",
+     "name": "Freshly-Brewed Unsweetened Iced Tea (Small)",
+     "servingDescription": "451g",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-unsweetened-iced-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-unsweetened-iced-tea-medium",
+     "name": "Freshly-Brewed Unsweetened Iced Tea (Medium)",
+     "servingDescription": "604g",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-unsweetened-iced-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.freshly-brewed-unsweetened-iced-tea-large",
+     "name": "Freshly-Brewed Unsweetened Iced Tea (Large)",
+     "servingDescription": "893g",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.freshly-brewed-unsweetened-iced-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-lemonade-small",
+     "name": "Chick-fil-A Lemonade (Small)",
+     "servingDescription": "465g",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 49.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-lemonade-medium",
+     "name": "Chick-fil-A Lemonade (Medium)",
+     "servingDescription": "612g",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 66.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-lemonade-large",
+     "name": "Chick-fil-A Lemonade (Large)",
+     "servingDescription": "916g",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 98.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-diet-lemonade-small",
+     "name": "Chick-fil-A Diet Lemonade (Small)",
+     "servingDescription": "465g",
+     "macros": {
+      "calories": 40.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 12.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-diet-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-diet-lemonade-medium",
+     "name": "Chick-fil-A Diet Lemonade (Medium)",
+     "servingDescription": "612g",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 15.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-diet-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.chick-fil-a-diet-lemonade-large",
+     "name": "Chick-fil-A Diet Lemonade (Large)",
+     "servingDescription": "916g",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 23.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.chick-fil-a-diet-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade-small",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Lemonade) (Small)",
+     "servingDescription": "479g",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 45.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade-medium",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Lemonade) (Medium)",
+     "servingDescription": "641g",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 60.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade-large",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Lemonade) (Large)",
+     "servingDescription": "944g",
+     "macros": {
+      "calories": 350.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 91.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade-small",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Diet Lemonade) (Small)",
+     "servingDescription": "479g",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 20.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade-medium",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Diet Lemonade) (Medium)",
+     "servingDescription": "641g",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 29.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade-large",
+     "name": "Sunjoy (1/2 Sweet Tea, 1/2 Diet Lemonade) (Large)",
+     "servingDescription": "944g",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-sweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade-small",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Lemonade) (Small)",
+     "servingDescription": "479g",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 33.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade-medium",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Lemonade) (Medium)",
+     "servingDescription": "641g",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade-large",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Lemonade) (Large)",
+     "servingDescription": "944g",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 66.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade-small",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Diet Lemonade) (Small)",
+     "servingDescription": "479g",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 8.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade-medium",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Diet Lemonade) (Medium)",
+     "servingDescription": "641g",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 10.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade-large",
+     "name": "Sunjoy (1/2 Unsweet Tea, 1/2 Diet Lemonade) (Large)",
+     "servingDescription": "944g",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 15.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.sunjoy-1-2-unsweet-tea-1-2-diet-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.coca-cola-small",
+     "name": "Coca-Cola (Small)",
+     "servingDescription": "451g",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.coca-cola",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.coca-cola-medium",
+     "name": "Coca-Cola (Medium)",
+     "servingDescription": "584g",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 46.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.coca-cola",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.coca-cola-large",
+     "name": "Coca-Cola (Large)",
+     "servingDescription": "859g",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 68.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.coca-cola",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.dr-pepper-small",
+     "name": "Dr Pepper (Small)",
+     "servingDescription": "451g",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 34.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.dr-pepper",
+     "sizeLabel": "Small",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.dr-pepper-medium",
+     "name": "Dr Pepper (Medium)",
+     "servingDescription": "584g",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.dr-pepper",
+     "sizeLabel": "Medium",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.dr-pepper-large",
+     "name": "Dr Pepper (Large)",
+     "servingDescription": "859g",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 64.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chick-fil-a.size.drinks.dr-pepper",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sunjoy-sweet-tea-lemonade",
+     "name": "Pineapple Dragonfruit Sunjoy (Sweet Tea, Lemonade)",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 59.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sunjoy-sweet-tea-diet-lemonade",
+     "name": "Pineapple Dragonfruit Sunjoy (Sweet Tea, Diet Lemonade)",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 34.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sunjoy-unsweet-tea-lemonade",
+     "name": "Pineapple Dragonfruit Sunjoy (Unsweet Tea, Lemonade)",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sunjoy-unsweet-tea-diet-lemonade",
+     "name": "Pineapple Dragonfruit Sunjoy (Unsweet Tea, Diet Lemonade)",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 14.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sweet-tea",
+     "name": "Pineapple Dragonfruit Sweet Tea",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-unsweet-tea",
+     "name": "Pineapple Dragonfruit Unsweet Tea",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 7.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-lemonade",
+     "name": "Pineapple Dragonfruit Lemonade",
+     "servingDescription": "691g",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 72.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-diet-lemonade",
+     "name": "Pineapple Dragonfruit Diet Lemonade",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 21.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.dasani-bottled-water",
+     "name": "DASANI Bottled Water",
+     "servingDescription": "479g",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.honest-kids-apple-juice",
+     "name": "Honest Kids Apple Juice",
+     "servingDescription": "170g",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.simply-orange",
+     "name": "Simply Orange",
+     "servingDescription": "326g",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 34.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.1-chocolate-milk",
+     "name": "1% Chocolate Milk",
+     "servingDescription": "198g",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 23.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.1-milk",
+     "name": "1% Milk",
+     "servingDescription": "213g",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 10.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.pineapple-dragonfruit-sprite",
+     "name": "Pineapple Dragonfruit & Sprite",
+     "servingDescription": "662g",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 50.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.vanilla-iced-coffee",
+     "name": "Vanilla Iced Coffee",
+     "servingDescription": "661g",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 35.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.caramel-iced-coffee",
+     "name": "Caramel Iced Coffee",
+     "servingDescription": "672g",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 38.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.mocha-iced-coffee",
+     "name": "Mocha Iced Coffee",
+     "servingDescription": "661g",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 34.0,
+      "fatGrams": 4.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.iced-coffee",
+     "name": "Iced Coffee",
+     "servingDescription": "624g",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 11.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.hot-coffee",
+     "name": "Hot Coffee",
+     "servingDescription": "340g",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.caramel-cream-cold-brew",
+     "name": "Caramel Cream Cold Brew",
+     "servingDescription": "700g",
+     "macros": {
+      "calories": 520.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 75.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.mocha-cream-cold-brew",
+     "name": "Mocha Cream Cold Brew",
+     "servingDescription": "689g",
+     "macros": {
+      "calories": 460.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 71.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.vanilla-cream-cold-brew",
+     "name": "Vanilla Cream Cold Brew",
+     "servingDescription": "689g",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 72.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.drinks.cream-cold-brew",
+     "name": "Cream Cold Brew",
+     "servingDescription": "652g",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 48.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "pantry",
+   "name": "Components",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chick-fil-a.pantry.cool-wrap-no-dressing",
+     "name": "Cool Wrap (before dressing)",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 350.0,
+      "proteinGrams": 42.0,
+      "carbGrams": 29.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": "Derived: the published 660 Cool Wrap minus its built-in Avocado Lime Ranch. Closes exactly on all four macros.",
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.pantry.grilled-bun-filet",
+     "name": "Grilled sandwich bun + filet",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 43.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "egg",
+      "wheat"
+     ],
+     "notes": "Derived block. The a-la-carte multigrain bun plus grilled filet leaves a 60-cal residual against the board figure, identically across all three grilled sandwiches, so bun and filet ship fused and neither can be removed.",
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.pantry.cobb-no-dressing",
+     "name": "Cobb Salad (before dressing)",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 520.0,
+      "proteinGrams": 40.0,
+      "carbGrams": 28.0,
+      "fatGrams": 28.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chick-fil-a.pantry.market-no-dressing",
+     "name": "Market Salad (before dressing)",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 26.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [
+      "milk",
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "chick-fil-a.pantry.side-salad-no-dressing",
+     "name": "Side Salad (before dressing)",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 11.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chick-fil-a.pantry.southwest-no-toppings",
+     "name": "Spicy Southwest Salad (before toppings)",
+     "servingDescription": "component",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 27.0,
+      "carbGrams": 15.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "notes": "Derived: the published 680 minus tortilla strips, pepitas and Creamy Salsa dressing.",
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHidden": true,
+   "isHeadline": false
+  }
+ ],
+ "orderingModel": "configuration"
 }

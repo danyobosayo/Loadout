@@ -96,7 +96,7 @@ private struct RestaurantCard: View {
                         .foregroundStyle(.textPrimary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
-                    Text("\(restaurant.categories.count) stations · \(itemCount) items")
+                    Text("\(restaurant.orderableCategories.count) stations · \(itemCount) items")
                         .font(.appCaption)
                         .foregroundStyle(.textSecondary)
                 }
@@ -109,7 +109,7 @@ private struct RestaurantCard: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(restaurant.name), \(restaurant.categories.count) stations, \(itemCount) items")
+        .accessibilityLabel("\(restaurant.name), \(restaurant.orderableCategories.count) stations, \(itemCount) items")
     }
 
     private var identityTile: some View {
@@ -127,7 +127,7 @@ private struct RestaurantCard: View {
     }
 
     private var itemCount: Int {
-        restaurant.categories.reduce(0) { $0 + $1.items.count }
+        restaurant.orderableCategories.reduce(0) { $0 + $1.items.count }
     }
 }
 

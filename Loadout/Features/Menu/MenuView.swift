@@ -34,6 +34,28 @@ struct MenuView: View {
     // flat, filtered list across every station — the way to find one item in
     // a 70-item menu without rail-hopping.
     @State private var searchText = ""
+    /// The item whose configure sheet is open — a Cane's combo you're taking the
+    /// slaw off. Nil for the ordinary tap-to-add path.
+    @State private var configuring: ConfigurationTarget?
+    /// Which cup is showing for each size group — `sizeGroup` id → `MenuItem` id.
+    /// Absent means the group's own default. Held here rather than in the row so
+    /// a choice survives the row being rebuilt as the tray changes.
+    @State private var sizeChoice: SizeChoice?
+    /// Set when the landing screen picked a headline item; opens its configurator
+    /// as soon as this view appears, so "what" hands straight to "how".
+    private let configureItemId: String?
+    /// One-shot. `.task` runs again every time this view reappears, so without
+    /// this, dismissing the configurator popped back here and immediately pushed
+    /// a fresh one — you could never reach the menu underneath.
+    @State private var didRouteConfigurator = false
+    /// Size groups, derived once per category.
+    ///
+    /// `sizeGroups()` is pure derivation over immutable menu data, but the
+    /// station list is a plain VStack — every station rebuilds on every body
+    /// pass — so calling it inline re-derived every group on every frame, on the
+    /// main thread, during scrolling. That pegged the main thread for 30s on
+    /// Chipotle. The menu never changes under us; compute it once.
+    @State private var sizeGroupCache: [String: [SizeGroup]] = [:]
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
     @Environment(ProStore.self) private var pro
@@ -42,9 +64,13 @@ struct MenuView: View {
     // appear (the "Fit my macros" path); cleared once it runs.
     @State private var autoBuild: Bool
 
-    init(restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [], skipTrayAutoOpen: Bool = false, autoBuild: Bool = false) {
+    init(
+        restaurant: Restaurant, format: OrderFormat? = nil, seed: [LineItem] = [],
+        autoBuild: Bool = false, configureItemId: String? = nil
+    ) {
         self.restaurant = restaurant
         self.format = format
+        self.configureItemId = configureItemId
         let seededStore = MealBuilderStore(restaurant: restaurant, lineItems: seed, formatName: format?.name)
         // Curated base/vessel items (a burrito's tortilla) seed rule-safe
         // through the normal add path — not the raw lineItems seed, which
@@ -53,29 +79,28 @@ struct MenuView: View {
             seededStore.seedThroughRules(format.autoAdd, multiplier: format.portionMultiplier)
         }
         _store = State(initialValue: seededStore)
-        // Guided formats open on the fillings, never the tray. Re-opening a
-        // saved recipe lands in the tray with items visible — that's the
-        // point of saving it.
-        _trayPresented = State(initialValue: !seed.isEmpty && !skipTrayAutoOpen)
+        // Nothing auto-opens the tray any more, seeded or not.
+        //
+        // A preset or saved recipe used to land straight in the tray, which read
+        // as "done, log it" — while every other route lands somewhere you adjust
+        // first. Screen 2 answers "how do you want it?" for everything: a seeded
+        // meal arrives in the builder with its items already in, the tray bar
+        // showing the running total, and the tray one tap away when you're ready.
+        _trayPresented = State(initialValue: false)
         _railSelection = State(initialValue:
             Self.stationCategories(restaurant: restaurant, format: format).first?.id)
         _expandedPrompt = State(initialValue: format?.prompts.first?.id)
         _autoBuild = State(initialValue: autoBuild)
     }
 
-    /// Route-driven entry from the format picker. A chosen format skips the
-    /// tray auto-open (nothing to review yet — the user is about to build);
-    /// build-your-own (`format == nil`) is byte-for-byte today's behavior.
+    /// Route-driven entry from the landing screen.
     init(route: MenuRoute) {
-        // A seeded route (preset / saved recipe) carries a complete meal, so it
-        // lands in the tray — same as re-opening a recipe. Guided formats still
-        // open on the fillings.
         self.init(
             restaurant: route.restaurant,
             format: route.format,
             seed: route.seed,
-            skipTrayAutoOpen: route.format != nil,
-            autoBuild: route.autoBuild
+            autoBuild: route.autoBuild,
+            configureItemId: route.configureItemId
         )
     }
 
@@ -84,7 +109,7 @@ struct MenuView: View {
     /// build-your-own shows every station. One ordered array feeds BOTH the
     /// rail and the scroll `ForEach`, so rail↔scroll sync stays correct.
     static func stationCategories(restaurant: Restaurant, format: OrderFormat?) -> [MenuCategory] {
-        guard let format else { return restaurant.categories }
+        guard let format else { return restaurant.orderableCategories }
         return format.optionalCategoryIds.compactMap { restaurant.category(id: $0) }
     }
 
@@ -113,7 +138,7 @@ struct MenuView: View {
     /// portion policy and cap. Empty categories drop out.
     private var searchResults: [(category: MenuCategory, matches: [MenuItem])] {
         let q = trimmedQuery.lowercased()
-        return restaurant.categories.compactMap { category in
+        return restaurant.orderableCategories.compactMap { category in
             let matches = category.items.filter {
                 $0.name.lowercased().contains(q)
                     || $0.servingDescription.lowercased().contains(q)
@@ -158,7 +183,63 @@ struct MenuView: View {
         .sheet(isPresented: $trayPresented) {
             MealTrayView(store: store, format: format)
         }
-        .task { runAutoBuild() }
+        .sheet(item: $sizeChoice) { choice in
+            SizeChoiceSheet(
+                group: choice.group,
+                accent: restaurant.category(id: choice.categoryId)?.style.accent ?? .volt,
+                quantityFor: { store.quantity(forMenuItemId: $0.id) }
+            ) { picked in
+                guard let category = restaurant.category(id: choice.categoryId) else { return }
+                withAnimation(Motion.snap) {
+                    // Switching size on something already in the tray moves the
+                    // line rather than leaving both cups on the order.
+                    if let current = choice.group.members.first(where: { store.quantity(forMenuItemId: $0.id) > 0 }),
+                       current.id != picked.id,
+                       let line = store.lineItems.first(where: { $0.menuItemId == current.id }) {
+                        let quantity = line.quantity
+                        store.remove(lineItemId: line.id)
+                        store.add(picked, in: category, quantity: quantity)
+                    } else {
+                        apply(store.applyPortionTap(picked, in: category), in: category)
+                    }
+                }
+            }
+            .presentationDetents([.medium])
+            .presentationCornerRadius(Radius.sheet)
+            .presentationBackground(Color.void)
+            .presentationDragIndicator(.visible)
+        }
+        // Pushed, not presented: this is screen 2, the same slot the station
+        // builder occupies for an assembly restaurant. The size sheet below
+        // stays a sheet — picking which cup is a sub-decision, not a build.
+        .navigationDestination(item: $configuring) { target in
+            ConfigureItemScreen(
+                item: target.item,
+                category: target.category,
+                restaurant: restaurant,
+                accent: target.category.style.accent,
+                editing: target.lineItemId,
+                initialConfiguration: target.configuration
+            ) { configuration in
+                withAnimation(Motion.snap) {
+                    apply(
+                        store.addConfigured(
+                            target.item, in: target.category,
+                            configuration: configuration,
+                            replacing: target.lineItemId
+                        ),
+                        in: target.category
+                    )
+                }
+            }
+        }
+        .task {
+            sizeGroupCache = Dictionary(
+                uniqueKeysWithValues: restaurant.categories.map { ($0.id, $0.sizeGroups()) }
+            )
+            openConfiguratorIfRouted()
+            runAutoBuild()
+        }
     }
 
     /// "Fit my macros": solve for the user's budget and drop the suggestion into
@@ -262,7 +343,10 @@ struct MenuView: View {
             }
 
             VStack(spacing: Spacing.sm) {
-                ForEach(displayItems ?? category.items) { item in
+                // One row per *dish*, not per size. A latte in four cups is one
+                // row with a picker; Starbucks was 427 rows that were ~100 drinks.
+                ForEach(sizeGroups(for: category, items: displayItems)) { group in
+                    let item = shownMember(of: group)
                     let quantity = store.quantity(forMenuItemId: item.id)
                     MenuItemRow(
                         item: item,
@@ -271,7 +355,16 @@ struct MenuView: View {
                         policy: policy,
                         isDisabled: scoopCapReached && quantity == 0,
                         dietary: item.verdict(for: settings.autoBuild.restrictions),
-                        onTap: { tapStation(item, in: category) },
+                        sizes: group.hasChoices ? group.members : [],
+                        displayName: group.hasChoices ? group.displayName : item.name,
+                        onTap: {
+                            if group.hasChoices {
+                                Haptics.tap()
+                                sizeChoice = SizeChoice(group: group, categoryId: category.id)
+                            } else {
+                                tapStation(item, in: category)
+                            }
+                        },
                         onDecrement: { decrementStation(item) }
                     )
                 }
@@ -337,6 +430,35 @@ struct MenuView: View {
         }
     }
 
+    /// Push the configurator for an item chosen on the landing screen. The menu
+    /// stays underneath in the stack, so backing out lands on the full station
+    /// list — a reasonable "actually, show me everything" affordance.
+    private func openConfiguratorIfRouted() {
+        guard !didRouteConfigurator,
+              let configureItemId,
+              let resolved = restaurant.resolve(menuItemId: configureItemId)
+        else { return }
+        didRouteConfigurator = true
+        configuring = ConfigurationTarget(item: resolved.item, category: resolved.category)
+    }
+
+    /// Cached for the full station list; derived on the spot for a search
+    /// subset, which is a handful of rows rather than the whole menu.
+    private func sizeGroups(for category: MenuCategory, items: [MenuItem]?) -> [SizeGroup] {
+        guard items == nil else { return category.sizeGroups(from: items) }
+        return sizeGroupCache[category.id] ?? category.sizeGroups()
+    }
+
+    /// The size the row shows: whatever's already in the tray, so a Venti you
+    /// added reads back as a Venti — otherwise the cup you'd get by saying
+    /// nothing. Picking a different one happens in the sheet.
+    private func shownMember(of group: SizeGroup) -> MenuItem {
+        if let inTray = group.members.first(where: { store.quantity(forMenuItemId: $0.id) > 0 }) {
+            return inTray
+        }
+        return group.defaultMember
+    }
+
     private func headerText(for category: MenuCategory) -> String {
         switch category.portionPolicy {
         case .splitBase: "\(category.name) · tap two to split"
@@ -365,6 +487,14 @@ struct MenuView: View {
     /// One tap on a station row, resolved by the station's `PortionPolicy`:
     /// cycle full → ×2 → off, an auto ½ + ½ split, or capped scoops.
     private func tapStation(_ item: MenuItem, in category: MenuCategory) {
+        // An item that arrives already built opens for configuration instead of
+        // dropping straight into the tray — a Box Combo is a starting point, not
+        // a finished line. Everything else keeps the tap-to-cycle behaviour.
+        guard !item.isConfigurable else {
+            Haptics.tap()
+            configuring = ConfigurationTarget(item: item, category: category)
+            return
+        }
         withAnimation(Motion.snap) {
             apply(store.applyPortionTap(item, in: category), in: category)
         }
@@ -511,6 +641,12 @@ private struct MenuItemRow: View {
     /// enforced — the menu marks a conflict and still lets you tap it, because
     /// only the person ordering knows how strict their rule is today.
     var dietary: DietaryVerdict = .allowed
+    /// The cups this dish comes in. Empty for anything sold one way, which is
+    /// most of the menu — the picker only appears where there's a real choice.
+    var sizes: [MenuItem] = []
+    /// The dish's name with the size stripped, so the row reads "Caffè Latte"
+    /// and the chips say which cup.
+    var displayName: String?
     let onTap: () -> Void
     let onDecrement: () -> Void
 
@@ -586,7 +722,7 @@ private struct MenuItemRow: View {
 
             VStack(alignment: .leading, spacing: 5) {
                 HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
-                    Text(item.name)
+                    Text(displayName ?? item.name)
                         .font(.appHeadline)
                         .foregroundStyle(.textPrimary)
                         .lineLimit(2)
@@ -595,16 +731,42 @@ private struct MenuItemRow: View {
                     // Serving size yields first: "Rosemary Parmesan Bread" and
                     // "1 Regular sub roll" would otherwise meet in the middle
                     // and run to both edges.
-                    Text(item.servingDescription)
-                        .font(.appCaption)
-                        .foregroundStyle(.textTertiary)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                    sizeControl
                 }
                 MacroStrip(macros: item.macros)
                 if dietary != .allowed { dietaryNote }
             }
         }
+    }
+
+    /// The serving size — a plain label when a dish is sold one way, a menu when
+    /// it isn't.
+    ///
+    /// Deliberately *replaces* the serving text instead of adding a chip row
+    /// beneath it. An extra row inside every card changed the row's shape, and
+    /// with it the layout and accessibility tree of the whole station list: UI
+    /// queries against Chipotle's toppings went from 29 seconds to timing out at
+    /// 190, and it made no difference whether the chips were buttons or plain
+    /// text. One control, in space the row already had, costs nothing.
+    /// The serving line, with a hint when the dish comes in more than one size.
+    ///
+    /// Deliberately NOT an interactive control. Both row shapes wrap their
+    /// content in a Button, so a Menu or a chip placed here can never receive a
+    /// tap — the row swallows it — and giving the row a second shape to make
+    /// room for one turned unrelated UI queries from 29 seconds into 190-second
+    /// timeouts. The row stays exactly as it was; picking a size opens a sheet.
+    private var sizeControl: some View {
+        HStack(spacing: 3) {
+            Text(item.servingDescription)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            if sizes.count > 1 {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 8, weight: .bold))
+            }
+        }
+        .font(.appCaption)
+        .foregroundStyle(sizes.count > 1 ? accent : Color.textTertiary)
     }
 
     @ViewBuilder
@@ -629,7 +791,10 @@ private struct MenuItemRow: View {
     }
 
     private var accessibilityText: String {
-        var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
+        // servingDescription stays in here explicitly: when the size picker is a
+        // Menu, its text no longer folds into the container's combined label.
+        var parts = [displayName ?? item.name, item.servingDescription,
+                     "\(Int(item.macros.calories.rounded())) calories"]
         switch dietary {
         case .excluded: parts.append("does not fit your diet settings")
         case .unknown:  parts.append("not checked for your diet settings")
@@ -761,13 +926,27 @@ private extension MenuView {
                         .fill(Color.hairline)
                         .frame(height: 1)
                     VStack(spacing: 2) {
-                        ForEach(guidedItems(for: prompt)) { item in
+                        // Grouped by size, exactly like a station row. Without
+                        // this the guided path listed every cup separately —
+                        // which is most of Starbucks, since its formats put the
+                        // drinks in prompts rather than in optional stations.
+                        ForEach(guidedGroups(for: prompt)) { group in
+                            let item = shownMember(of: group)
                             GuidedItemRow(
                                 item: item,
                                 accent: category?.style.accent ?? .textSecondary,
                                 quantity: store.quantity(forMenuItemId: item.id),
                                 isCounter: promptPolicy(prompt)?.isCounter ?? false,
-                                onTap: { pick(item, prompt: prompt) },
+                                sizeCount: group.members.count,
+                                displayName: group.hasChoices ? group.displayName : item.name,
+                                onTap: {
+                                    if group.hasChoices, let category {
+                                        Haptics.tap()
+                                        sizeChoice = SizeChoice(group: group, categoryId: category.id)
+                                    } else {
+                                        pick(item, prompt: prompt)
+                                    }
+                                },
                                 onDecrement: { promptDecrement(item) }
                             )
                         }
@@ -802,6 +981,12 @@ private extension MenuView {
 
     /// The items a prompt offers: its subset (in authored order) or, when
     /// `subsetItemIds` is nil, the whole category.
+    /// A prompt's offered items, collapsed by size.
+    func guidedGroups(for prompt: FormatPrompt) -> [SizeGroup] {
+        guard let category = restaurant.category(id: prompt.categoryId) else { return [] }
+        return category.sizeGroups(from: guidedItems(for: prompt))
+    }
+
     func guidedItems(for prompt: FormatPrompt) -> [MenuItem] {
         guard let category = restaurant.category(id: prompt.categoryId) else { return [] }
         guard let subset = prompt.subsetItemIds else { return category.items }
@@ -946,11 +1131,16 @@ private struct GuidedItemRow: View {
     let accent: Color
     let quantity: Double
     let isCounter: Bool
+    /// How many cups this drink comes in. >1 means the row opens a size sheet
+    /// instead of picking outright.
+    var sizeCount: Int = 1
+    var displayName: String?
     let onTap: () -> Void
     let onDecrement: () -> Void
 
     private var isSelected: Bool { quantity > 0 }
     private var isHalf: Bool { abs(quantity - 0.5) < 0.001 }
+    private var hasSizes: Bool { sizeCount > 1 }
 
     var body: some View {
         HStack(spacing: Spacing.md) {
@@ -969,15 +1159,21 @@ private struct GuidedItemRow: View {
 
                     VStack(alignment: .leading, spacing: 5) {
                         HStack(alignment: .firstTextBaseline) {
-                            Text(item.name)
+                            Text(displayName ?? item.name)
                                 .font(.appHeadline)
                                 .foregroundStyle(.textPrimary)
                                 .lineLimit(2)
                             Spacer(minLength: Spacing.xs)
-                            Text(item.servingDescription)
-                                .font(.appCaption)
-                                .foregroundStyle(.textTertiary)
-                                .lineLimit(1)
+                            HStack(spacing: 3) {
+                                Text(item.servingDescription)
+                                    .lineLimit(1)
+                                if hasSizes {
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 8, weight: .bold))
+                                }
+                            }
+                            .font(.appCaption)
+                            .foregroundStyle(hasSizes ? accent : Color.textTertiary)
                         }
                         MacroStrip(macros: item.macros)
                     }
@@ -1019,7 +1215,9 @@ private struct GuidedItemRow: View {
     }
 
     private var accessibilityText: String {
-        var parts = [item.name, item.servingDescription, "\(Int(item.macros.calories.rounded())) calories"]
+        var parts = [displayName ?? item.name, item.servingDescription,
+                     "\(Int(item.macros.calories.rounded())) calories"]
+        if hasSizes { parts.append("\(sizeCount) sizes") }
         if isSelected { parts.append(isCounter ? "\(Int(quantity.rounded())) selected" : "selected") }
         return parts.joined(separator: ", ")
     }

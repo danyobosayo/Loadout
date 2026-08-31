@@ -1,1264 +1,1620 @@
 {
-  "id": "sweetgreen",
-  "name": "Sweetgreen",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://drive.google.com/file/d/1AQyfAeWWqiZmTIiOHpWMgHi7-sAprnl1/view",
-    "fetchedAt": "2026-07-02",
-    "fetchedBy": "web-research",
-    "notes": "Official 'Sweetgreen Nutrition Guide - Updated June 2026' PDF, linked from the sweetgreen.com/menu footer ('Download our nutritional information'). All values come from the guide's per-ingredient INGREDIENTS tables (Bases, +1 Toppings, Premiums, Super Premium Ingredients, Dressings) and the Sides table. Serving sizes are Sweetgreen's standard single portions in grams, reproduced in each item's servingDescription. Category placement follows the guide's own sections: '+1 Toppings' map to 'ingredients' (this is where Sweetgreen lists apples and roasted sweet potatoes); 'Premiums' map to 'premiums', plus the non-protein Super Premiums (avocado, warm portobello mix, warm roasted sweet potatoes); protein Super Premiums map to 'proteins'. Tortilla (wrap base) is listed under bases per the guide. Excluded by design: drinks/beverages, desserts, packaged chips, kids meals, and all curated bowls/salads/plates/wraps (per-ingredient model only). No custom-bowl ingredient was excluded for missing data; every ingredient row in the guide has complete calorie/fat/carb/protein values. Summer Tomatoes and Summer Vegetable Medley are seasonal (summer 2026) items."
-  },
-  "categories": [
+ "id": "sweetgreen",
+ "name": "Sweetgreen",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://drive.google.com/file/d/1AQyfAeWWqiZmTIiOHpWMgHi7-sAprnl1/view",
+  "fetchedAt": "2026-07-02",
+  "fetchedBy": "web-research",
+  "notes": "Official 'Sweetgreen Nutrition Guide - Updated June 2026' PDF, linked from the sweetgreen.com/menu footer ('Download our nutritional information'). All values come from the guide's per-ingredient INGREDIENTS tables (Bases, +1 Toppings, Premiums, Super Premium Ingredients, Dressings) and the Sides table. Serving sizes are Sweetgreen's standard single portions in grams, reproduced in each item's servingDescription. Category placement follows the guide's own sections: '+1 Toppings' map to 'ingredients' (this is where Sweetgreen lists apples and roasted sweet potatoes); 'Premiums' map to 'premiums', plus the non-protein Super Premiums (avocado, warm portobello mix, warm roasted sweet potatoes); protein Super Premiums map to 'proteins'. Tortilla (wrap base) is listed under bases per the guide. Excluded by design: drinks/beverages, desserts, packaged chips, kids meals, and all curated bowls/salads/plates/wraps (per-ingredient model only). No custom-bowl ingredient was excluded for missing data; every ingredient row in the guide has complete calorie/fat/carb/protein values. Summer Tomatoes and Summer Vegetable Medley are seasonal (summer 2026) items."
+ },
+ "categories": [
+  {
+   "id": "bases",
+   "name": "Bases",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
     {
-      "id": "bases",
-      "name": "Bases",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.bases.arugula",
-          "name": "Arugula",
-          "servingDescription": "1 portion (60 g)",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.baby-spinach",
-          "name": "Baby Spinach",
-          "servingDescription": "1 portion (60 g)",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.chopped-romaine",
-          "name": "Chopped Romaine",
-          "servingDescription": "1 portion (140 g)",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.spring-mix",
-          "name": "Spring Mix",
-          "servingDescription": "1 portion (70 g)",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.shredded-kale",
-          "name": "Shredded Kale",
-          "servingDescription": "1 portion (70 g)",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 6.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.golden-quinoa",
-          "name": "Golden Quinoa",
-          "servingDescription": "1 portion (83 g)",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 16.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": "Warm base",
-          "iconName": "riceBrownBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.white-rice",
-          "name": "White Rice",
-          "servingDescription": "1 portion (95 g)",
-          "macros": {
-            "calories": 120.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 27.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": "Warm base",
-          "iconName": "riceWhiteBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.wild-rice",
-          "name": "Wild Rice",
-          "servingDescription": "1 portion (95 g)",
-          "macros": {
-            "calories": 155.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 31.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [],
-          "notes": "Warm base",
-          "iconName": "riceBrownBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.bases.tortilla",
-          "name": "Tortilla",
-          "servingDescription": "1 tortilla (102 g)",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 51.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": "Olive oil tortilla wrap base",
-          "iconName": "wheatFlat",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.arugula",
+     "name": "Arugula",
+     "servingDescription": "1 portion (60 g)",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "ingredients",
-      "name": "Ingredients",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.ingredients.apples",
-          "name": "Apples",
-          "servingDescription": "1 portion (32 g)",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "strawberry",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.basil",
-          "name": "Basil",
-          "servingDescription": "1 portion (7 g)",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.chickpeas",
-          "name": "Chickpeas",
-          "servingDescription": "1 portion (43 g)",
-          "macros": {
-            "calories": 45.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 7.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.cilantro",
-          "name": "Cilantro",
-          "servingDescription": "1 portion (5 g)",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.corn-salsa",
-          "name": "Corn Salsa",
-          "servingDescription": "1 portion (60 g)",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 7.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "corn",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.crispy-onions",
-          "name": "Crispy Onions",
-          "servingDescription": "1 portion (6 g)",
-          "macros": {
-            "calories": 40.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "onion",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.crispy-rice",
-          "name": "Crispy Rice",
-          "servingDescription": "1 portion (26 g)",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 14.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.crispy-noodles",
-          "name": "Crispy Noodles",
-          "servingDescription": "1 portion (33 g)",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 21.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.cucumbers",
-          "name": "Cucumbers",
-          "servingDescription": "1 portion (44 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cucumber",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.garlic-breadcrumbs",
-          "name": "Garlic Breadcrumbs",
-          "servingDescription": "1 portion (14 g)",
-          "macros": {
-            "calories": 50.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 6.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.nori-sesame-seasoning",
-          "name": "Nori Sesame Seasoning",
-          "servingDescription": "1 portion (2 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "spicesGround",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.pickled-onions",
-          "name": "Pickled Onions",
-          "servingDescription": "1 portion (38 g)",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 5.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cucumber",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.shredded-carrots",
-          "name": "Shredded Carrots",
-          "servingDescription": "1 portion (23 g)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.roasted-almonds",
-          "name": "Roasted Almonds",
-          "servingDescription": "1 portion (14 g)",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 3.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.roasted-sweet-potatoes",
-          "name": "Roasted Sweet Potatoes",
-          "servingDescription": "1 portion (39 g)",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 11.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": "Cold topping portion; see premiums for Warm Roasted Sweet Potatoes",
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.sesame-crunch",
-          "name": "Sesame Crunch",
-          "servingDescription": "1 portion (21 g)",
-          "macros": {
-            "calories": 100.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 6.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.shredded-cabbage",
-          "name": "Shredded Cabbage",
-          "servingDescription": "1 portion (25 g)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cabbage",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.spicy-broccoli",
-          "name": "Spicy Broccoli",
-          "servingDescription": "1 portion (33 g)",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "broccoli",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.toasted-sunflower-seeds",
-          "name": "Toasted Sunflower Seeds",
-          "servingDescription": "1 portion (28 g)",
-          "macros": {
-            "calories": 160.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 7.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "spicesGround",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.tomatoes",
-          "name": "Tomatoes",
-          "servingDescription": "1 portion (46 g)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.ingredients.tortilla-chips",
-          "name": "Tortilla Chips",
-          "servingDescription": "1 portion (16 g)",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 10.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "wheatFlat",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.baby-spinach",
+     "name": "Baby Spinach",
+     "servingDescription": "1 portion (60 g)",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "premiums",
-      "name": "Premiums",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.premiums.avocado",
-          "name": "Avocado",
-          "servingDescription": "1 portion (87 g)",
-          "macros": {
-            "calories": 160.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 8.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "avocado",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.apple-kimchi-sauce",
-          "name": "Apple Kimchi Sauce",
-          "servingDescription": "1 portion (50 g)",
-          "macros": {
-            "calories": 120.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 11.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "cabbage",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.crumbled-bacon",
-          "name": "Crumbled Bacon",
-          "servingDescription": "1 portion (20 g)",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 0.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "porkLoin",
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "sweetgreen.premiums.feta-crumble",
-          "name": "Feta Crumble",
-          "servingDescription": "1 portion (33 g)",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 2.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.goat-cheese",
-          "name": "Goat Cheese",
-          "servingDescription": "1 portion (34 g)",
-          "macros": {
-            "calories": 90.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 0.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.hard-boiled-egg",
-          "name": "Hard Boiled Egg",
-          "servingDescription": "1 egg (50 g)",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 1.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.hummus",
-          "name": "Hummus",
-          "servingDescription": "1 scoop (47 g)",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 7.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "hummus",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.napa-cabbage-slaw",
-          "name": "Napa Cabbage Slaw",
-          "servingDescription": "1 portion (49 g)",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 6.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cabbage",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.parmesan-crisps",
-          "name": "Parmesan Crisps",
-          "servingDescription": "1 portion (20 g)",
-          "macros": {
-            "calories": 100.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 1.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.shaved-parmesan",
-          "name": "Shaved Parmesan",
-          "servingDescription": "1 portion (17 g)",
-          "macros": {
-            "calories": 65.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 0.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.summer-tomatoes",
-          "name": "Summer Tomatoes",
-          "servingDescription": "1 portion (62 g)",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [],
-          "notes": "Seasonal (summer 2026)",
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.summer-vegetable-medley",
-          "name": "Summer Vegetable Medley",
-          "servingDescription": "1 portion (50 g)",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [],
-          "notes": "Seasonal (summer 2026)",
-          "iconName": "broccoli",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.white-cheddar",
-          "name": "White Cheddar",
-          "servingDescription": "1 portion (35 g)",
-          "macros": {
-            "calories": 120.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 1.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.warm-portobello-mix",
-          "name": "Warm Portobello Mix",
-          "servingDescription": "1 portion (65 g)",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
-          "iconName": "eggplant",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.premiums.warm-roasted-sweet-potatoes",
-          "name": "Warm Roasted Sweet Potatoes",
-          "servingDescription": "1 portion (72 g)",
-          "macros": {
-            "calories": 90.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 14.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.chopped-romaine",
+     "name": "Chopped Romaine",
+     "servingDescription": "1 portion (140 g)",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "proteins",
-      "name": "Proteins",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.proteins.blackened-chicken",
-          "name": "Blackened Chicken",
-          "servingDescription": "1 portion (105 g)",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 1.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "sweetgreen.proteins.roasted-chicken",
-          "name": "Roasted Chicken",
-          "servingDescription": "1 portion (100 g)",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 23.0,
-            "carbGrams": 0.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "sweetgreen.proteins.caramelized-garlic-steak",
-          "name": "Caramelized Garlic Steak",
-          "servingDescription": "1 portion (104 g)",
-          "macros": {
-            "calories": 220.0,
-            "proteinGrams": 25.0,
-            "carbGrams": 2.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "sweetgreen.proteins.miso-glazed-salmon",
-          "name": "Miso Glazed Salmon",
-          "servingDescription": "1 portion (117 g)",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 23.0,
-            "carbGrams": 2.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "fish",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "salmonFilet",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.proteins.roasted-tofu",
-          "name": "Roasted Tofu",
-          "servingDescription": "1 portion (101 g)",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 3.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "eggplant",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.spring-mix",
+     "name": "Spring Mix",
+     "servingDescription": "1 portion (70 g)",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "dressings",
-      "name": "Dressings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.dressings.balsamic-vinaigrette",
-          "name": "Balsamic Vinaigrette",
-          "servingDescription": "1 serving (41 g)",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 5.0,
-            "fatGrams": 22.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "sweetgreen.dressings.balsamic-vinegar",
-          "name": "Balsamic Vinegar",
-          "servingDescription": "1 serving (15 g)",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.citrus-sesame-vinaigrette",
-          "name": "Citrus Sesame Vinaigrette",
-          "servingDescription": "1 serving (35 g)",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 8.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.caesar",
-          "name": "Caesar",
-          "servingDescription": "1 serving (39 g)",
-          "macros": {
-            "calories": 160.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 1.0,
-            "fatGrams": 17.0
-          },
-          "allergens": [
-            "egg",
-            "fish",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.charred-jalapeno-ranch",
-          "name": "Charred Jalapeño Ranch",
-          "servingDescription": "1 serving (42 g)",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 17.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.crushed-red-pepper",
-          "name": "Crushed Red Pepper",
-          "servingDescription": "1 serving (1 g)",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.extra-virgin-olive-oil",
-          "name": "Extra Virgin Olive Oil",
-          "servingDescription": "1 serving (15 g)",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.tomato-vinaigrette",
-          "name": "Tomato Vinaigrette",
-          "servingDescription": "1 serving (40 g)",
-          "macros": {
-            "calories": 45.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": "Fresh tomato vinaigrette; seasonal (summer 2026)",
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.garlic-aioli",
-          "name": "Garlic Aioli",
-          "servingDescription": "1 serving (34 g)",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.green-goddess-ranch",
-          "name": "Green Goddess Ranch",
-          "servingDescription": "1 serving (35 g)",
-          "macros": {
-            "calories": 180.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 1.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.honey-bbq-sauce",
-          "name": "Honey BBQ Sauce",
-          "servingDescription": "1 serving (43 g)",
-          "macros": {
-            "calories": 55.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 6.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "sweetgreen.dressings.hot-honey-mustard-sauce",
-          "name": "Hot Honey Mustard Sauce",
-          "servingDescription": "1 serving (41 g)",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 9.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "sweetgreen.dressings.kbbq-dressing",
-          "name": "KBBQ Dressing",
-          "servingDescription": "1 serving (47 g)",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 14.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "egg",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": [
-            "alcohol"
-          ]
-        },
-        {
-          "id": "sweetgreen.dressings.lemon-squeeze",
-          "name": "Lemon Squeeze",
-          "servingDescription": "1 serving (15 g)",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
-          "name": "Lime Cilantro Jalapeño Sauce",
-          "servingDescription": "1 serving (40 g)",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.lime-squeeze",
-          "name": "Lime Squeeze",
-          "servingDescription": "1 serving (15 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.miso-sesame-ginger",
-          "name": "Miso Sesame Ginger",
-          "servingDescription": "1 serving (36 g)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 20.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": "spicesGround",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.pesto-vinaigrette",
-          "name": "Pesto Vinaigrette",
-          "servingDescription": "1 serving (39 g)",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 9.0
-          },
-          "allergens": null,
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": null
-        },
-        {
-          "id": "sweetgreen.dressings.spicy-cashew",
-          "name": "Spicy Cashew",
-          "servingDescription": "1 serving (45 g)",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 4.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "sesame",
-            "treenut"
-          ],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.sweetgreen-hot-sauce",
-          "name": "Sweetgreen Hot Sauce",
-          "servingDescription": "1 serving (28 g)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.dressings.umami-seasoning",
-          "name": "Umami Seasoning",
-          "servingDescription": "1 serving",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.shredded-kale",
+     "name": "Shredded Kale",
+     "servingDescription": "1 portion (70 g)",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 6.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "sweetgreen.sides.bread",
-          "name": "Bread",
-          "servingDescription": "1 piece (34 g)",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 18.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": "Locally sourced side bread; ingredients vary by market",
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.sides.rosemary-focaccia",
-          "name": "Rosemary Focaccia",
-          "servingDescription": "1 piece (94 g)",
-          "macros": {
-            "calories": 230.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 34.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "sweetgreen.sides.hummus-focaccia",
-          "name": "Hummus + Focaccia",
-          "servingDescription": "1 serving (131 g)",
-          "macros": {
-            "calories": 290.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 37.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "sesame",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "hummus",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "sweetgreen.bases.golden-quinoa",
+     "name": "Golden Quinoa",
+     "servingDescription": "1 portion (83 g)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 16.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": "Warm base",
+     "iconName": "riceBrownBowl",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.bases.white-rice",
+     "name": "White Rice",
+     "servingDescription": "1 portion (95 g)",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 27.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": "Warm base",
+     "iconName": "riceWhiteBowl",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.bases.wild-rice",
+     "name": "Wild Rice",
+     "servingDescription": "1 portion (95 g)",
+     "macros": {
+      "calories": 155.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 31.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [],
+     "notes": "Warm base",
+     "iconName": "riceBrownBowl",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.bases.tortilla",
+     "name": "Tortilla",
+     "servingDescription": "1 tortilla (102 g)",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 51.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": "Olive oil tortilla wrap base",
+     "iconName": "wheatFlat",
+     "dietaryMarkers": []
     }
-  ]
+   ]
+  },
+  {
+   "id": "ingredients",
+   "name": "Ingredients",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.ingredients.apples",
+     "name": "Apples",
+     "servingDescription": "1 portion (32 g)",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "strawberry",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.basil",
+     "name": "Basil",
+     "servingDescription": "1 portion (7 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.chickpeas",
+     "name": "Chickpeas",
+     "servingDescription": "1 portion (43 g)",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 7.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.cilantro",
+     "name": "Cilantro",
+     "servingDescription": "1 portion (5 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.corn-salsa",
+     "name": "Corn Salsa",
+     "servingDescription": "1 portion (60 g)",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 7.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "corn",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.crispy-onions",
+     "name": "Crispy Onions",
+     "servingDescription": "1 portion (6 g)",
+     "macros": {
+      "calories": 40.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "onion",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.crispy-rice",
+     "name": "Crispy Rice",
+     "servingDescription": "1 portion (26 g)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 14.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.crispy-noodles",
+     "name": "Crispy Noodles",
+     "servingDescription": "1 portion (33 g)",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 21.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.cucumbers",
+     "name": "Cucumbers",
+     "servingDescription": "1 portion (44 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cucumber",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.garlic-breadcrumbs",
+     "name": "Garlic Breadcrumbs",
+     "servingDescription": "1 portion (14 g)",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 6.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.nori-sesame-seasoning",
+     "name": "Nori Sesame Seasoning",
+     "servingDescription": "1 portion (2 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "spicesGround",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.pickled-onions",
+     "name": "Pickled Onions",
+     "servingDescription": "1 portion (38 g)",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 5.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cucumber",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.shredded-carrots",
+     "name": "Shredded Carrots",
+     "servingDescription": "1 portion (23 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.roasted-almonds",
+     "name": "Roasted Almonds",
+     "servingDescription": "1 portion (14 g)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 3.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.roasted-sweet-potatoes",
+     "name": "Roasted Sweet Potatoes",
+     "servingDescription": "1 portion (39 g)",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 11.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": "Cold topping portion; see premiums for Warm Roasted Sweet Potatoes",
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.sesame-crunch",
+     "name": "Sesame Crunch",
+     "servingDescription": "1 portion (21 g)",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 6.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.shredded-cabbage",
+     "name": "Shredded Cabbage",
+     "servingDescription": "1 portion (25 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cabbage",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.spicy-broccoli",
+     "name": "Spicy Broccoli",
+     "servingDescription": "1 portion (33 g)",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "broccoli",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.toasted-sunflower-seeds",
+     "name": "Toasted Sunflower Seeds",
+     "servingDescription": "1 portion (28 g)",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 7.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "spicesGround",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.tomatoes",
+     "name": "Tomatoes",
+     "servingDescription": "1 portion (46 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.ingredients.tortilla-chips",
+     "name": "Tortilla Chips",
+     "servingDescription": "1 portion (16 g)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 10.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "wheatFlat",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "premiums",
+   "name": "Premiums",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.premiums.avocado",
+     "name": "Avocado",
+     "servingDescription": "1 portion (87 g)",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 8.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "avocado",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.apple-kimchi-sauce",
+     "name": "Apple Kimchi Sauce",
+     "servingDescription": "1 portion (50 g)",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 11.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "cabbage",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.crumbled-bacon",
+     "name": "Crumbled Bacon",
+     "servingDescription": "1 portion (20 g)",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 0.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "porkLoin",
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "sweetgreen.premiums.feta-crumble",
+     "name": "Feta Crumble",
+     "servingDescription": "1 portion (33 g)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 2.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.goat-cheese",
+     "name": "Goat Cheese",
+     "servingDescription": "1 portion (34 g)",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 0.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.hard-boiled-egg",
+     "name": "Hard Boiled Egg",
+     "servingDescription": "1 egg (50 g)",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 1.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.hummus",
+     "name": "Hummus",
+     "servingDescription": "1 scoop (47 g)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 7.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "hummus",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.napa-cabbage-slaw",
+     "name": "Napa Cabbage Slaw",
+     "servingDescription": "1 portion (49 g)",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 6.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cabbage",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.parmesan-crisps",
+     "name": "Parmesan Crisps",
+     "servingDescription": "1 portion (20 g)",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 1.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.shaved-parmesan",
+     "name": "Shaved Parmesan",
+     "servingDescription": "1 portion (17 g)",
+     "macros": {
+      "calories": 65.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 0.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.summer-tomatoes",
+     "name": "Summer Tomatoes",
+     "servingDescription": "1 portion (62 g)",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [],
+     "notes": "Seasonal (summer 2026)",
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.summer-vegetable-medley",
+     "name": "Summer Vegetable Medley",
+     "servingDescription": "1 portion (50 g)",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [],
+     "notes": "Seasonal (summer 2026)",
+     "iconName": "broccoli",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.white-cheddar",
+     "name": "White Cheddar",
+     "servingDescription": "1 portion (35 g)",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 1.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.warm-portobello-mix",
+     "name": "Warm Portobello Mix",
+     "servingDescription": "1 portion (65 g)",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
+     "iconName": "eggplant",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.premiums.warm-roasted-sweet-potatoes",
+     "name": "Warm Roasted Sweet Potatoes",
+     "servingDescription": "1 portion (72 g)",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 14.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": "Hot roasted vegetable (listed under Super Premiums in the guide)",
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "proteins",
+   "name": "Proteins",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.proteins.blackened-chicken",
+     "name": "Blackened Chicken",
+     "servingDescription": "1 portion (105 g)",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 1.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "sweetgreen.proteins.roasted-chicken",
+     "name": "Roasted Chicken",
+     "servingDescription": "1 portion (100 g)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 0.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "sweetgreen.proteins.caramelized-garlic-steak",
+     "name": "Caramelized Garlic Steak",
+     "servingDescription": "1 portion (104 g)",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 25.0,
+      "carbGrams": 2.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "sweetgreen.proteins.miso-glazed-salmon",
+     "name": "Miso Glazed Salmon",
+     "servingDescription": "1 portion (117 g)",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 2.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "fish",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "salmonFilet",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.proteins.roasted-tofu",
+     "name": "Roasted Tofu",
+     "servingDescription": "1 portion (101 g)",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 3.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "eggplant",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "dressings",
+   "name": "Dressings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.dressings.balsamic-vinaigrette",
+     "name": "Balsamic Vinaigrette",
+     "servingDescription": "1 serving (41 g)",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 5.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "sweetgreen.dressings.balsamic-vinegar",
+     "name": "Balsamic Vinegar",
+     "servingDescription": "1 serving (15 g)",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.citrus-sesame-vinaigrette",
+     "name": "Citrus Sesame Vinaigrette",
+     "servingDescription": "1 serving (35 g)",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 8.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.caesar",
+     "name": "Caesar",
+     "servingDescription": "1 serving (39 g)",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 1.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "egg",
+      "fish",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.charred-jalapeno-ranch",
+     "name": "Charred Jalape\u00f1o Ranch",
+     "servingDescription": "1 serving (42 g)",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 17.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.crushed-red-pepper",
+     "name": "Crushed Red Pepper",
+     "servingDescription": "1 serving (1 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.extra-virgin-olive-oil",
+     "name": "Extra Virgin Olive Oil",
+     "servingDescription": "1 serving (15 g)",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.tomato-vinaigrette",
+     "name": "Tomato Vinaigrette",
+     "servingDescription": "1 serving (40 g)",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": "Fresh tomato vinaigrette; seasonal (summer 2026)",
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.garlic-aioli",
+     "name": "Garlic Aioli",
+     "servingDescription": "1 serving (34 g)",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.green-goddess-ranch",
+     "name": "Green Goddess Ranch",
+     "servingDescription": "1 serving (35 g)",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 1.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.honey-bbq-sauce",
+     "name": "Honey BBQ Sauce",
+     "servingDescription": "1 serving (43 g)",
+     "macros": {
+      "calories": 55.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 6.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "sweetgreen.dressings.hot-honey-mustard-sauce",
+     "name": "Hot Honey Mustard Sauce",
+     "servingDescription": "1 serving (41 g)",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "sweetgreen.dressings.kbbq-dressing",
+     "name": "KBBQ Dressing",
+     "servingDescription": "1 serving (47 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 14.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "egg",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": [
+      "alcohol"
+     ]
+    },
+    {
+     "id": "sweetgreen.dressings.lemon-squeeze",
+     "name": "Lemon Squeeze",
+     "servingDescription": "1 serving (15 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.lime-cilantro-jalapeno-sauce",
+     "name": "Lime Cilantro Jalape\u00f1o Sauce",
+     "servingDescription": "1 serving (40 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.lime-squeeze",
+     "name": "Lime Squeeze",
+     "servingDescription": "1 serving (15 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.miso-sesame-ginger",
+     "name": "Miso Sesame Ginger",
+     "servingDescription": "1 serving (36 g)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 20.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": "spicesGround",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.pesto-vinaigrette",
+     "name": "Pesto Vinaigrette",
+     "servingDescription": "1 serving (39 g)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 9.0
+     },
+     "allergens": null,
+     "notes": "Left unknown on purpose: the researched allergen flags and an independent keyword audit disagreed on whether this pesto contains tree nuts, and no official Sweetgreen allergen chart settled it. Failing safe is the point.",
+     "iconName": "oil",
+     "dietaryMarkers": null
+    },
+    {
+     "id": "sweetgreen.dressings.spicy-cashew",
+     "name": "Spicy Cashew",
+     "servingDescription": "1 serving (45 g)",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 4.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "sesame",
+      "treenut"
+     ],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.sweetgreen-hot-sauce",
+     "name": "Sweetgreen Hot Sauce",
+     "servingDescription": "1 serving (28 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.dressings.umami-seasoning",
+     "name": "Umami Seasoning",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.sides.bread",
+     "name": "Bread",
+     "servingDescription": "1 piece (34 g)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 18.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": "Locally sourced side bread; ingredients vary by market",
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.sides.rosemary-focaccia",
+     "name": "Rosemary Focaccia",
+     "servingDescription": "1 piece (94 g)",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 34.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.sides.hummus-focaccia",
+     "name": "Hummus + Focaccia",
+     "servingDescription": "1 serving (131 g)",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 37.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "sesame",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "hummus",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "sweetgreen.drinks.sweetgreen-lemonade",
+     "name": "Sweetgreen Lemonade",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 27.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.strawberry-mint",
+     "name": "Strawberry Mint",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 29.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.ginger-greens",
+     "name": "Ginger Greens",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 32.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.hibiscus-berry-tea",
+     "name": "Hibiscus Berry Tea",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.harney-sons-organic-lemonade",
+     "name": "Harney & Sons Organic Lemonade",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 20.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.organic-jasmine-green-tea",
+     "name": "Organic Jasmine Green Tea",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.organic-hibiscus-berry-tea",
+     "name": "Organic Hibiscus Berry Tea",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.just-ice-tea-original-green",
+     "name": "Just Ice Tea Original Green",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.just-ice-tea-peach-oolong",
+     "name": "Just Ice Tea Peach Oolong",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.olipop-lemon-lime-soda",
+     "name": "OLIPOP Lemon Lime Soda",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.olipop-vintage-cola",
+     "name": "OLIPOP Vintage Cola",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.olipop-root-beer",
+     "name": "OLIPOP Root Beer",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.spindrift-raspberry-lime",
+     "name": "Spindrift Raspberry Lime",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.spindrift-grapefruit",
+     "name": "Spindrift Grapefruit",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 17.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.spindrift-lemon",
+     "name": "Spindrift Lemon",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 3.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.health-ade-pink-lady-apple",
+     "name": "Health-Ade Pink Lady Apple",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 12.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.health-ade-passionfruit-tangerine",
+     "name": "Health-Ade Passionfruit Tangerine",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 12.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.health-ade-kombucha-blueberry-pomegranate",
+     "name": "Health-Ade Kombucha Blueberry Pomegranate",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 14.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.still-water",
+     "name": "Still Water",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.sparkling-water",
+     "name": "Sparkling Water",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.honest-kids-apple-juice",
+     "name": "Honest Kids Apple Juice",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.mott-s-apple-juice",
+     "name": "Mott\u2019s Apple Juice",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 24.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "sweetgreen.drinks.tree-top-apple-juice",
+     "name": "Tree Top Apple Juice",
+     "servingDescription": "1 serving (sweetgreen publishes no volume)",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

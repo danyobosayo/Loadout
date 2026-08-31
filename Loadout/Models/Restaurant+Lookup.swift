@@ -15,6 +15,17 @@ nonisolated extension Restaurant {
         return nil
     }
 
+    /// Stations a person can actually order from. Everything that renders a
+    /// station list or solves a meal uses this; only `resolve` sees pantry
+    /// stations, because a component still needs its macros looked up.
+    var orderableCategories: [MenuCategory] { categories.filter { !$0.isHidden } }
+
+    /// Stations whose items are whole orderable things, in menu order. Empty for
+    /// a build-your-own restaurant, where the landing screen offers formats
+    /// instead — a Chipotle burrito is something you assemble, not something you
+    /// pick off a list.
+    var headlineCategories: [MenuCategory] { orderableCategories.filter(\.isHeadline) }
+
     func category(id: String) -> MenuCategory? {
         categories.first { $0.id == id }
     }

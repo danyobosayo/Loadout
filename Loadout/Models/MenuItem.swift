@@ -15,6 +15,13 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     /// The size a customer gets if they say nothing. Exactly one member of a
     /// group carries true.
     let isDefaultSize: Bool
+    /// Non-nil when this item arrives already built — see `ItemComponent`. The
+    /// item's own `macros` stay the as-served board figure; components describe
+    /// what each part contributes so it can be declined.
+    let components: [ItemComponent]?
+    /// True when this item's macros come from an unofficial source and are an
+    /// estimate. Rendered in amber, the token reserved for "unverified".
+    let isEstimated: Bool
     let allergens: [Allergen]?
     /// Animal/derived content beyond the allergen list — what vegetarian, vegan
     /// and no-pork are derived from. `nil` means unflagged, NOT "contains
@@ -35,6 +42,8 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         sizeGroup: String? = nil,
         sizeLabel: String? = nil,
         isDefaultSize: Bool = false,
+        components: [ItemComponent]? = nil,
+        isEstimated: Bool = false,
         allergens: [Allergen]? = nil,
         dietaryMarkers: [DietaryMarker]? = nil,
         notes: String? = nil,
@@ -47,6 +56,8 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         self.sizeGroup = sizeGroup
         self.sizeLabel = sizeLabel
         self.isDefaultSize = isDefaultSize
+        self.components = components
+        self.isEstimated = isEstimated
         self.allergens = allergens
         self.dietaryMarkers = dietaryMarkers
         self.notes = notes
@@ -57,7 +68,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
 nonisolated extension MenuItem {
     private enum CodingKeys: String, CodingKey {
         case id, name, servingDescription, macros, sizeGroup, sizeLabel, isDefaultSize
-        case allergens, dietaryMarkers, notes, iconName
+        case components, isEstimated, allergens, dietaryMarkers, notes, iconName
     }
 
     init(from decoder: Decoder) throws {
@@ -70,6 +81,8 @@ nonisolated extension MenuItem {
             sizeGroup: try c.decodeIfPresent(String.self, forKey: .sizeGroup),
             sizeLabel: try c.decodeIfPresent(String.self, forKey: .sizeLabel),
             isDefaultSize: try c.decodeIfPresent(Bool.self, forKey: .isDefaultSize) ?? false,
+            components: try c.decodeIfPresent([ItemComponent].self, forKey: .components),
+            isEstimated: try c.decodeIfPresent(Bool.self, forKey: .isEstimated) ?? false,
             allergens: try c.decodeIfPresent([Allergen].self, forKey: .allergens),
             dietaryMarkers: try c.decodeIfPresent([DietaryMarker].self, forKey: .dietaryMarkers),
             notes: try c.decodeIfPresent(String.self, forKey: .notes),

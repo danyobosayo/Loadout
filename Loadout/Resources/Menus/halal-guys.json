@@ -1,679 +1,1005 @@
 {
-  "id": "halal-guys",
-  "name": "The Halal Guys",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://thehalalguys.com/nutritional-guide/",
-    "fetchedAt": "2026-08-07",
-    "fetchedBy": "research agent, verified against the official source",
-    "notes": "SOURCE: All numbers transcribed directly from the official Nutrition & Allergens table (TablePress table id 17) on https://thehalalguys.com/nutritional-guide/. I downloaded the raw HTML and parsed the table cells programmatically rather than trusting a page summary, because a first-pass read of the page produced garbled values. No aggregator was used and nothing was interpolated.\n\nThe official table publishes these columns: Serving Size (oz), Serving Size (g), Total Calories, Calories From Fat, Total Fat, Sat Fat, Trans Fat, Cholesterol, Sodium, Total Carbohydrates, Fiber, Sugar, Protein, plus micros. Values are per the stated serving, as listed. All macros below are PER ONE of the stated serving description.\n\nTHE BIG CAVEAT — UNLABELED DUPLICATE ROWS. The official table lists TWO rows for each core protein (Beef Gyro, Chicken, Falafel, BBQ Chicken, Pita) with the SAME item name and usually the SAME gram weight but DIFFERENT macros. The only difference in the markup is that one row of each pair carries a Halal Guys logo image in the name cell. The page has no legend, footnote, or filter explaining the distinction (its only toggle is Nutrition/Allergens), and the allergen table repeats the identical logo/non-logo duplication. So the restaurant appears to publish two product specs per item without saying which one your location serves.\n\nHOW I RESOLVED IT. I did not guess or average. For each duplicated item I used the page's own internal cross-checks to pick the row whose numbers are self-consistent: (a) Total Fat must agree with the published Calories From Fat divided by 9, and (b) Atwater (4/4/9) must reconcile with published Total Calories within ~10%. In every pair exactly one row passed, except Pita where both passed and I broke the tie toward the logo-marked row. This rule does NOT uniformly favor logo or non-logo, which is why I am reporting medium rather than high confidence:\n- Beef Gyro 6 oz/170 g -> used the NON-logo row (620 cal, 52F/14C/22P; Atwater 612). The logo row (680 cal, 32F/36C/32P) fails Atwater by 120 kcal and claims 36 g carbs in plain gyro meat.\n- Chicken 6 oz/170 g -> used the LOGO row (272 cal; Atwater 275). Non-logo (228 cal, 6F/2C/33P) fails Atwater by 34 kcal.\n- Falafel 7 oz -> used the LOGO row, 185 g (673 cal; Atwater 670). The non-logo row (707 cal) lists 6 g fat while its own Calories From Fat of 389 implies ~43 g.\n- BBQ Chicken 5 oz/142 g -> used the LOGO row (229 cal; Atwater 225). Non-logo (187 cal) fails Atwater by 26 kcal.\nA different store may well serve the other spec. Treat the protein numbers as the best-supported of two officially published options, not as the only official value.\n\nSERVING BASIS. Proteins, rice, lettuce and tomatoes are given at the REGULAR PLATTER portion, since that is the natural single serving to build from. The official table also lists Small Platter and Sandwich portions (roughly 4 oz protein); I left those out to keep one unambiguous serving basis per item. Because rice/protein are split-base categories, a combo platter is built by picking two proteins.\n\nPITA OZ COLUMN IS UNRELIABLE. The oz column labels both a 39 g pita and a 79 g pita as \"3 oz\". I used the gram weights, which are internally consistent (2.9 kcal/g), and said so in each serving description. The 39 g piece is the pita that comes alongside a platter; the 79 g one is the sandwich pita.\n\nRICE. I listed the 5 oz / 142 g platter portion. The official table separately lists a 6 oz / 170 g side of rice at 286 cal, 6P, 60C, 2F, which I omitted only to avoid two near-identical rice entries.\n\nNO REVERSE-ENGINEERING WAS NEEDED. Every value here is a verbatim published line item; I did not derive any per-item value by subtracting from a combo total."
-  },
-  "categories": [
+ "id": "halal-guys",
+ "name": "The Halal Guys",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://thehalalguys.com/nutritional-guide/",
+  "fetchedAt": "2026-08-07",
+  "fetchedBy": "research agent, verified against the official source",
+  "notes": "SOURCE: All numbers transcribed directly from the official Nutrition & Allergens table (TablePress table id 17) on https://thehalalguys.com/nutritional-guide/. I downloaded the raw HTML and parsed the table cells programmatically rather than trusting a page summary, because a first-pass read of the page produced garbled values. No aggregator was used and nothing was interpolated.\n\nThe official table publishes these columns: Serving Size (oz), Serving Size (g), Total Calories, Calories From Fat, Total Fat, Sat Fat, Trans Fat, Cholesterol, Sodium, Total Carbohydrates, Fiber, Sugar, Protein, plus micros. Values are per the stated serving, as listed. All macros below are PER ONE of the stated serving description.\n\nTHE BIG CAVEAT \u2014 UNLABELED DUPLICATE ROWS. The official table lists TWO rows for each core protein (Beef Gyro, Chicken, Falafel, BBQ Chicken, Pita) with the SAME item name and usually the SAME gram weight but DIFFERENT macros. The only difference in the markup is that one row of each pair carries a Halal Guys logo image in the name cell. The page has no legend, footnote, or filter explaining the distinction (its only toggle is Nutrition/Allergens), and the allergen table repeats the identical logo/non-logo duplication. So the restaurant appears to publish two product specs per item without saying which one your location serves.\n\nHOW I RESOLVED IT. I did not guess or average. For each duplicated item I used the page's own internal cross-checks to pick the row whose numbers are self-consistent: (a) Total Fat must agree with the published Calories From Fat divided by 9, and (b) Atwater (4/4/9) must reconcile with published Total Calories within ~10%. In every pair exactly one row passed, except Pita where both passed and I broke the tie toward the logo-marked row. This rule does NOT uniformly favor logo or non-logo, which is why I am reporting medium rather than high confidence:\n- Beef Gyro 6 oz/170 g -> used the NON-logo row (620 cal, 52F/14C/22P; Atwater 612). The logo row (680 cal, 32F/36C/32P) fails Atwater by 120 kcal and claims 36 g carbs in plain gyro meat.\n- Chicken 6 oz/170 g -> used the LOGO row (272 cal; Atwater 275). Non-logo (228 cal, 6F/2C/33P) fails Atwater by 34 kcal.\n- Falafel 7 oz -> used the LOGO row, 185 g (673 cal; Atwater 670). The non-logo row (707 cal) lists 6 g fat while its own Calories From Fat of 389 implies ~43 g.\n- BBQ Chicken 5 oz/142 g -> used the LOGO row (229 cal; Atwater 225). Non-logo (187 cal) fails Atwater by 26 kcal.\nA different store may well serve the other spec. Treat the protein numbers as the best-supported of two officially published options, not as the only official value.\n\nSERVING BASIS. Proteins, rice, lettuce and tomatoes are given at the REGULAR PLATTER portion, since that is the natural single serving to build from. The official table also lists Small Platter and Sandwich portions (roughly 4 oz protein); I left those out to keep one unambiguous serving basis per item. Because rice/protein are split-base categories, a combo platter is built by picking two proteins.\n\nPITA OZ COLUMN IS UNRELIABLE. The oz column labels both a 39 g pita and a 79 g pita as \"3 oz\". I used the gram weights, which are internally consistent (2.9 kcal/g), and said so in each serving description. The 39 g piece is the pita that comes alongside a platter; the 79 g one is the sandwich pita.\n\nRICE. I listed the 5 oz / 142 g platter portion. The official table separately lists a 6 oz / 170 g side of rice at 286 cal, 6P, 60C, 2F, which I omitted only to avoid two near-identical rice entries.\n\nNO REVERSE-ENGINEERING WAS NEEDED. Every value here is a verbatim published line item; I did not derive any per-item value by subtracting from a combo total."
+ },
+ "categories": [
+  {
+   "id": "protein",
+   "name": "Pick Your Protein",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
     {
-      "id": "protein",
-      "name": "Pick Your Protein",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.protein.chicken",
-          "name": "Chicken",
-          "servingDescription": "Regular platter portion, 6 oz (170 g)",
-          "macros": {
-            "calories": 272.0,
-            "proteinGrams": 50.0,
-            "carbGrams": 3.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "halal-guys.protein.beef-gyro",
-          "name": "Beef Gyro",
-          "servingDescription": "Regular platter portion, 6 oz (170 g)",
-          "macros": {
-            "calories": 620.0,
-            "proteinGrams": 22.0,
-            "carbGrams": 14.0,
-            "fatGrams": 52.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "halal-guys.protein.falafel",
-          "name": "Falafel",
-          "servingDescription": "Regular platter portion, 7 oz (185 g)",
-          "macros": {
-            "calories": 673.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 62.0,
-            "fatGrams": 38.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.protein.bbq-chicken",
-          "name": "BBQ Chicken",
-          "servingDescription": "Platter portion, 5 oz (142 g)",
-          "macros": {
-            "calories": 229.0,
-            "proteinGrams": 38.0,
-            "carbGrams": 7.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "halal-guys.protein.chicken-wings-platter",
-          "name": "Chicken Wings",
-          "servingDescription": "Platter portion, 5 oz (142 g)",
-          "macros": {
-            "calories": 413.0,
-            "proteinGrams": 42.0,
-            "carbGrams": 8.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "halal-guys.protein.chicken-small",
-          "name": "Chicken (small platter / sandwich portion, 4 oz)",
-          "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
-          "macros": {
-            "calories": 182.0,
-            "proteinGrams": 33.0,
-            "carbGrams": 2.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.protein.beef-gyro-small",
-          "name": "Beef Gyro (small platter / sandwich portion, 4 oz)",
-          "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
-          "macros": {
-            "calories": 414.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 9.0,
-            "fatGrams": 35.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.protein.falafel-small",
-          "name": "Falafel (small platter / sandwich portion)",
-          "servingDescription": "Small platter or sandwich portion, 113 g (oz column lists 5 oz on the small platter and 4 oz on the sandwich for the same 113 g)",
-          "macros": {
-            "calories": 412.0,
-            "proteinGrams": 12.0,
-            "carbGrams": 38.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.protein.chicken-wings-9oz",
-          "name": "Chicken Wings (9 oz platter portion)",
-          "servingDescription": "Platter portion, 9 oz (252 g); source lists this under the Platters Small heading despite it exceeding the 5 oz regular platter portion",
-          "macros": {
-            "calories": 733.0,
-            "proteinGrams": 75.0,
-            "carbGrams": 15.0,
-            "fatGrams": 41.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "meat"
-          ],
-          "notes": null,
-          "iconName": null
-        }
-      ],
-      "iconName": "chicken"
+     "id": "halal-guys.protein.chicken",
+     "name": "Chicken",
+     "servingDescription": "Regular platter portion, 6 oz (170 g)",
+     "macros": {
+      "calories": 272.0,
+      "proteinGrams": 50.0,
+      "carbGrams": 3.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "rice",
-      "name": "Rice",
-      "selectionRule": {
-        "kind": "selectOne"
-      },
-      "items": [
-        {
-          "id": "halal-guys.rice.rice",
-          "name": "Seasoned Rice",
-          "servingDescription": "Platter portion, 5 oz (142 g)",
-          "macros": {
-            "calories": 238.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 50.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.rice.rice-side-6oz",
-          "name": "Seasoned Rice (6 oz side)",
-          "servingDescription": "Side portion, 6 oz (170 g)",
-          "macros": {
-            "calories": 286.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 60.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.rice.rice-small-platter",
-          "name": "Seasoned Rice (small platter portion, 4 oz)",
-          "servingDescription": "Small platter portion, 4 oz (113 g)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 40.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        }
-      ],
-      "iconName": "riceWhiteBowl"
+     "id": "halal-guys.protein.beef-gyro",
+     "name": "Beef Gyro",
+     "servingDescription": "Regular platter portion, 6 oz (170 g)",
+     "macros": {
+      "calories": 620.0,
+      "proteinGrams": 22.0,
+      "carbGrams": 14.0,
+      "fatGrams": 52.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "breads",
-      "name": "Pita",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 2
-      },
-      "items": [
-        {
-          "id": "halal-guys.breads.pita",
-          "name": "Pita (Sandwich)",
-          "servingDescription": "1 sandwich pita, 79 g (oz column on source lists this as 3 oz)",
-          "macros": {
-            "calories": 225.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 42.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.breads.pita-side",
-          "name": "Pita (Served With Platter)",
-          "servingDescription": "1 side pita, 39 g (oz column on source lists this as 3 oz)",
-          "macros": {
-            "calories": 112.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 21.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.breads.pita-mini",
-          "name": "Pita (1 oz piece)",
-          "servingDescription": "1 piece, 28 g (oz column on source lists this as 1 oz); the piece served with a small platter or sandwich",
-          "macros": {
-            "calories": 65.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 13.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        }
-      ],
-      "iconName": "wheatFlat"
+     "id": "halal-guys.protein.falafel",
+     "name": "Falafel",
+     "servingDescription": "Regular platter portion, 7 oz (185 g)",
+     "macros": {
+      "calories": 673.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 62.0,
+      "fatGrams": 38.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
     },
     {
-      "id": "veggies",
-      "name": "Salad",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.veggies.lettuce",
-          "name": "Lettuce",
-          "servingDescription": "Platter portion, 4 oz (113 g)",
-          "macros": {
-            "calories": 17.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.veggies.tomatoes",
-          "name": "Tomatoes",
-          "servingDescription": "Platter portion, 2 oz (57 g)",
-          "macros": {
-            "calories": 9.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.veggies.lettuce-small-platter",
-          "name": "Lettuce (small platter portion, 3 oz)",
-          "servingDescription": "Small platter portion, 3 oz (71 g)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.veggies.lettuce-sandwich",
-          "name": "Lettuce (sandwich portion, 2 oz)",
-          "servingDescription": "Sandwich portion, 2 oz (57 g)",
-          "macros": {
-            "calories": 8.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "halal-guys.veggies.tomatoes-small",
-          "name": "Tomatoes (small platter / sandwich portion, 1 oz)",
-          "servingDescription": "Small platter or sandwich portion, 1 oz (28 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        }
-      ],
-      "iconName": "vegetables"
+     "id": "halal-guys.protein.bbq-chicken",
+     "name": "BBQ Chicken",
+     "servingDescription": "Platter portion, 5 oz (142 g)",
+     "macros": {
+      "calories": 229.0,
+      "proteinGrams": 38.0,
+      "carbGrams": 7.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "toppings",
-      "name": "Toppings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.toppings.onions",
-          "name": "Onions",
-          "servingDescription": "1 oz (28 g)",
-          "macros": {
-            "calories": 8.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.toppings.green-peppers",
-          "name": "Green Peppers",
-          "servingDescription": "1 oz (28 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.toppings.jalapenos",
-          "name": "Jalapenos",
-          "servingDescription": "1 oz (28 g)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.toppings.olives",
-          "name": "Olives",
-          "servingDescription": "1 oz (28 g)",
-          "macros": {
-            "calories": 49.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "vegetables"
+     "id": "halal-guys.protein.chicken-wings-platter",
+     "name": "Chicken Wings",
+     "servingDescription": "Platter portion, 5 oz (142 g)",
+     "macros": {
+      "calories": 413.0,
+      "proteinGrams": 42.0,
+      "carbGrams": 8.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "sauces",
-      "name": "Sauces",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.sauces.white-sauce",
-          "name": "White Sauce",
-          "servingDescription": "2 oz (57 g)",
-          "macros": {
-            "calories": 300.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 11.0,
-            "fatGrams": 28.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sauces.hot-sauce",
-          "name": "Hot Sauce",
-          "servingDescription": "0.25 oz (7 g)",
-          "macros": {
-            "calories": 7.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sauces.bbq-sauce",
-          "name": "BBQ Sauce",
-          "servingDescription": "0.2 oz (6 g)",
-          "macros": {
-            "calories": 11.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sauces.tahini-sauce",
-          "name": "Tahini Sauce",
-          "servingDescription": "1 oz (28 g)",
-          "macros": {
-            "calories": 92.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 3.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "salsa"
+     "id": "halal-guys.protein.chicken-small",
+     "name": "Chicken (small platter / sandwich portion, 4 oz)",
+     "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
+     "macros": {
+      "calories": 182.0,
+      "proteinGrams": 33.0,
+      "carbGrams": 2.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.sides.hummus",
-          "name": "Hummus",
-          "servingDescription": "Side, 6 oz (170 g)",
-          "macros": {
-            "calories": 377.0,
-            "proteinGrams": 12.0,
-            "carbGrams": 29.0,
-            "fatGrams": 24.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sides.tahini-side",
-          "name": "Tahini (Side)",
-          "servingDescription": "Side, 2 oz (57 g)",
-          "macros": {
-            "calories": 185.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 6.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "sesame",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sides.french-fries",
-          "name": "French Fries",
-          "servingDescription": "Side, 10 oz (283 g)",
-          "macros": {
-            "calories": 839.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 121.0,
-            "fatGrams": 35.0
-          },
-          "allergens": [
-            "milk",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "halal-guys.sides.chicken-wings-4pc",
-          "name": "Chicken Wings (4 pc)",
-          "servingDescription": "4 wings, 4 oz (113 g)",
-          "macros": {
-            "calories": 330.0,
-            "proteinGrams": 34.0,
-            "carbGrams": 7.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        }
-      ],
-      "iconName": "breadPita"
+     "id": "halal-guys.protein.beef-gyro-small",
+     "name": "Beef Gyro (small platter / sandwich portion, 4 oz)",
+     "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
+     "macros": {
+      "calories": 414.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 9.0,
+      "fatGrams": 35.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null
     },
     {
-      "id": "extras",
-      "name": "Dessert",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "halal-guys.extras.baklava",
-          "name": "Baklava",
-          "servingDescription": "1 piece, 3.2 oz (91 g)",
-          "macros": {
-            "calories": 410.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 56.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "peanut",
-            "sesame",
-            "soy",
-            "treenut",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        }
-      ],
-      "iconName": "chipsBaked"
+     "id": "halal-guys.protein.falafel-small",
+     "name": "Falafel (small platter / sandwich portion)",
+     "servingDescription": "Small platter or sandwich portion, 113 g (oz column lists 5 oz on the small platter and 4 oz on the sandwich for the same 113 g)",
+     "macros": {
+      "calories": 412.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 38.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    },
+    {
+     "id": "halal-guys.protein.chicken-wings-9oz",
+     "name": "Chicken Wings (9 oz platter portion)",
+     "servingDescription": "Platter portion, 9 oz (252 g); source lists this under the Platters Small heading despite it exceeding the 5 oz regular platter portion",
+     "macros": {
+      "calories": 733.0,
+      "proteinGrams": 75.0,
+      "carbGrams": 15.0,
+      "fatGrams": 41.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "meat"
+     ],
+     "notes": null,
+     "iconName": null
     }
-  ]
+   ],
+   "iconName": "chicken"
+  },
+  {
+   "id": "rice",
+   "name": "Rice",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "halal-guys.rice.rice",
+     "name": "Seasoned Rice",
+     "servingDescription": "Platter portion, 5 oz (142 g)",
+     "macros": {
+      "calories": 238.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 50.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.rice.rice-side-6oz",
+     "name": "Seasoned Rice (6 oz side)",
+     "servingDescription": "Side portion, 6 oz (170 g)",
+     "macros": {
+      "calories": 286.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 60.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    },
+    {
+     "id": "halal-guys.rice.rice-small-platter",
+     "name": "Seasoned Rice (small platter portion, 4 oz)",
+     "servingDescription": "Small platter portion, 4 oz (113 g)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 40.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    }
+   ],
+   "iconName": "riceWhiteBowl"
+  },
+  {
+   "id": "breads",
+   "name": "Pita",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 2
+   },
+   "items": [
+    {
+     "id": "halal-guys.breads.pita",
+     "name": "Pita (Sandwich)",
+     "servingDescription": "1 sandwich pita, 79 g (oz column on source lists this as 3 oz)",
+     "macros": {
+      "calories": 225.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 42.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.breads.pita-side",
+     "name": "Pita (Served With Platter)",
+     "servingDescription": "1 side pita, 39 g (oz column on source lists this as 3 oz)",
+     "macros": {
+      "calories": 112.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 21.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.breads.pita-mini",
+     "name": "Pita (1 oz piece)",
+     "servingDescription": "1 piece, 28 g (oz column on source lists this as 1 oz); the piece served with a small platter or sandwich",
+     "macros": {
+      "calories": 65.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 13.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    }
+   ],
+   "iconName": "wheatFlat"
+  },
+  {
+   "id": "veggies",
+   "name": "Salad",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.veggies.lettuce",
+     "name": "Lettuce",
+     "servingDescription": "Platter portion, 4 oz (113 g)",
+     "macros": {
+      "calories": 17.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.veggies.tomatoes",
+     "name": "Tomatoes",
+     "servingDescription": "Platter portion, 2 oz (57 g)",
+     "macros": {
+      "calories": 9.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.veggies.lettuce-small-platter",
+     "name": "Lettuce (small platter portion, 3 oz)",
+     "servingDescription": "Small platter portion, 3 oz (71 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    },
+    {
+     "id": "halal-guys.veggies.lettuce-sandwich",
+     "name": "Lettuce (sandwich portion, 2 oz)",
+     "servingDescription": "Sandwich portion, 2 oz (57 g)",
+     "macros": {
+      "calories": 8.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    },
+    {
+     "id": "halal-guys.veggies.tomatoes-small",
+     "name": "Tomatoes (small platter / sandwich portion, 1 oz)",
+     "servingDescription": "Small platter or sandwich portion, 1 oz (28 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null
+    }
+   ],
+   "iconName": "vegetables"
+  },
+  {
+   "id": "toppings",
+   "name": "Toppings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.toppings.onions",
+     "name": "Onions",
+     "servingDescription": "1 oz (28 g)",
+     "macros": {
+      "calories": 8.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.toppings.green-peppers",
+     "name": "Green Peppers",
+     "servingDescription": "1 oz (28 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.toppings.jalapenos",
+     "name": "Jalapenos",
+     "servingDescription": "1 oz (28 g)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.toppings.olives",
+     "name": "Olives",
+     "servingDescription": "1 oz (28 g)",
+     "macros": {
+      "calories": 49.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "vegetables"
+  },
+  {
+   "id": "sauces",
+   "name": "Sauces",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.sauces.white-sauce",
+     "name": "White Sauce",
+     "servingDescription": "2 oz (57 g)",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 11.0,
+      "fatGrams": 28.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sauces.hot-sauce",
+     "name": "Hot Sauce",
+     "servingDescription": "0.25 oz (7 g)",
+     "macros": {
+      "calories": 7.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sauces.bbq-sauce",
+     "name": "BBQ Sauce",
+     "servingDescription": "0.2 oz (6 g)",
+     "macros": {
+      "calories": 11.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sauces.tahini-sauce",
+     "name": "Tahini Sauce",
+     "servingDescription": "1 oz (28 g)",
+     "macros": {
+      "calories": 92.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 3.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "salsa"
+  },
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.sides.hummus",
+     "name": "Hummus",
+     "servingDescription": "Side, 6 oz (170 g)",
+     "macros": {
+      "calories": 377.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 29.0,
+      "fatGrams": 24.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sides.tahini-side",
+     "name": "Tahini (Side)",
+     "servingDescription": "Side, 2 oz (57 g)",
+     "macros": {
+      "calories": 185.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 6.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "sesame",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sides.french-fries",
+     "name": "French Fries",
+     "servingDescription": "Side, 10 oz (283 g)",
+     "macros": {
+      "calories": 839.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 121.0,
+      "fatGrams": 35.0
+     },
+     "allergens": [
+      "milk",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.sides.chicken-wings-4pc",
+     "name": "Chicken Wings (4 pc)",
+     "servingDescription": "4 wings, 4 oz (113 g)",
+     "macros": {
+      "calories": 330.0,
+      "proteinGrams": 34.0,
+      "carbGrams": 7.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    }
+   ],
+   "iconName": "breadPita"
+  },
+  {
+   "id": "extras",
+   "name": "Dessert",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.extras.baklava",
+     "name": "Baklava",
+     "servingDescription": "1 piece, 3.2 oz (91 g)",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 56.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "peanut",
+      "sesame",
+      "soy",
+      "treenut",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "chipsBaked"
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "halal-guys.drinks.coca-cola",
+     "name": "Coca-Cola",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 67.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.diet-coke",
+     "name": "Diet Coke",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.coca-cola-zero-sugar",
+     "name": "Coca-Cola Zero Sugar",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.fanta-orange",
+     "name": "Fanta Orange",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 67.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.fuze-sweet-tea",
+     "name": "Fuze Sweet Tea",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.fuze-unsweet-tea",
+     "name": "Fuze Unsweet Tea",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.fuze-raspberry-tea",
+     "name": "Fuze Raspberry Tea",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.gold-peak-sweetened-black-tea",
+     "name": "Gold Peak Sweetened Black Tea",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 52.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.hi-c-poppin-pink-lemonade",
+     "name": "Hi-C Poppin' Pink Lemonade",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 61.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.mello-yello",
+     "name": "Mello Yello",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 73.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.minute-maid-lemonade-pom-3-juice",
+     "name": "Minute Maid Lemonade POM (3% Juice)",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 67.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.minute-maid-light-lemonade",
+     "name": "Minute Maid Light Lemonade",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.powerade-mountain-berry-blast",
+     "name": "POWERade Mountain Berry Blast",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.seagram-s-ginger-ale",
+     "name": "Seagram's Ginger Ale",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 59.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.sprite",
+     "name": "Sprite",
+     "servingDescription": "20 oz (by weight, as printed) (567 g)",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 61.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.berry-mint-refresher",
+     "name": "BERRY MINT REFRESHER",
+     "servingDescription": "16 oz (by weight, as printed) (454 g)",
+     "macros": {
+      "calories": 183.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 47.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "halal-guys.size.drinks.berry-mint-refresher",
+     "sizeLabel": "16 fl oz",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.mango-black-tea",
+     "name": "MANGO BLACK TEA",
+     "servingDescription": "16 oz (by weight, as printed) (454 g)",
+     "macros": {
+      "calories": 116.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 30.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "halal-guys.size.drinks.mango-black-tea",
+     "sizeLabel": "16 fl oz",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.mango-citrus-refresher",
+     "name": "MANGO CITRUS REFRESHER",
+     "servingDescription": "16 oz (by weight, as printed) (454 g)",
+     "macros": {
+      "calories": 149.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "halal-guys.size.drinks.mango-citrus-refresher",
+     "sizeLabel": "16 fl oz",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.passion-fruit-refresher",
+     "name": "PASSION FRUIT REFRESHER",
+     "servingDescription": "16 oz (by weight, as printed) (454 g)",
+     "macros": {
+      "calories": 149.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "halal-guys.size.drinks.passion-fruit-refresher",
+     "sizeLabel": "16 fl oz",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "halal-guys.drinks.strawberry-citrus",
+     "name": "STRAWBERRY CITRUS",
+     "servingDescription": "16 oz (by weight, as printed) (454 g)",
+     "macros": {
+      "calories": 166.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 45.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "halal-guys.size.drinks.strawberry-citrus",
+     "sizeLabel": "16 fl oz",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

@@ -75,10 +75,13 @@ nonisolated extension SizeGroup {
         if let value = Double(leadingNumber) { return value }
 
         let ladder = [
-            "short": 0, "xs": 0, "mini": 0, "kids": 0, "kid": 0, "s": 1, "small": 1,
+            "short": 0, "xs": 0, "mini": 0, "kids": 0, "kid": 0, "kid's": 0,
+            "kid\u{2019}s": 0, "s": 1, "small": 1,
             "tall": 1, "cup": 1, "half": 1, "m": 2, "medium": 2, "regular": 2,
             "grande": 2, "bowl": 2, "whole": 2, "l": 3, "large": 3, "venti": 3,
-            "giant": 3, "bread bowl": 3, "xl": 4, "trenta": 4, "mega": 4,
+            "giant": 3, "bread bowl": 3, "xl": 4, "trenta": 4, "mega": 4, "jug": 5,
+            // Espresso pours are sizes of the same drink, so they share the ladder.
+            "solo": 1, "doppio": 2, "triple": 3, "quad": 4,
         ]
         if let rung = ladder[label] { return Double(rung) }
         // Unknown labels sort after the known ladder but keep a stable order.

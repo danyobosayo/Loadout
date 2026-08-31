@@ -1,1388 +1,2839 @@
 {
-  "id": "jersey-mikes",
-  "name": "Jersey Mike's Subs",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://www.jerseymikes.com/menu/nutrition",
-    "fetchedAt": "2026-08-07",
-    "fetchedBy": "research agent, verified against the official source",
-    "notes": "SOURCE. Jersey Mike's official nutrition page (jerseymikes.com/menu/nutrition) is a JS-only calculator that renders nothing in static HTML. I traced its Nuxt bundle to the first-party data API that backs it: GET https://subs.jerseymikes.com/nutrition/{productId}/{sizeId} (endpoint constants NUTRITION=\"/nutrition/data\" and PRODUCT_NUTRITION_DATA=\"/nutrition\" in chunk BTlHHIuq.js; baseURL = runtime config subsURLBase = https://subs.jerseymikes.com/). Every number below is a raw field from that API — no aggregator, no estimation. I pulled all 50 sub products at size_id=2 plus the sides products.\n\nSIZE BASIS. Everything is authored at size_id=2, which Jersey Mike's labels \"Regular\" (their sizes are Mini / Regular / Giant, confirmed on their FAQ). Caution on the brief's \"7-inch\": the official source never states an inch measurement for any size, so I did not put \"7-inch\" in any serving description. It is the Regular size, full stop.\n\nWHY PORTIONS ARE RECIPE-SPECIFIC (the one real modeling decision). The API returns nutrition per ingredient *per parent sub*, and portions genuinely differ by recipe — Turkey is 111.2 cal on #7 Turkey and Provolone but only 55.6 cal as one layer of the #8 Club Sub; Ham ranges 56.2–110.8 across five subs. There is no single published \"one serving of turkey\" figure. So each protein is authored at the portion from the sub where that meat is the star, and the serving description names that sub explicitly. Cheeses and toppings use the dominant standard value (e.g. Lettuce 11.9 cal on all 24 cold subs vs 7.9 on hot subs; cold-sub value used). Breads are identical across all 50 products, so they carry no ambiguity.\n\nVALUES ARE NOT REVERSE-ENGINEERED. These are line items as published, not back-solved from combo totals. Calories are rounded to whole numbers and macros to 1 decimal from the source's 6-decimal values.\n\nDEFAULTS = \"MIKE'S WAY\". The calculator marks ingredients with inclusion_type \"D\" as pre-selected. For cold subs those are exactly onions, lettuce, tomatoes, olive oil blend, red wine vinegar, oregano and salt — which matches Jersey Mike's own published definition of Mike's Way. So the presets below are each sub as served Mike's Way.\n\nHOW THE PRESET TOTALS WERE DERIVED. The site has no separate published sub-level total; its own footer sums the selected ingredient rows, applying FDA rounding to the calorie total only (helper: <5 → 0, ≤50 → nearest 5, >50 → nearest 10) and leaving protein raw. I reproduced that exact function, so publishedCalories/publishedProtein are the figures the official calculator displays for that sub in its default state. I only included a sub as a preset if every one of its default ingredients matches the canonical portion in my menu — that is why the 12 presets are all single-meat subs. Summing my components reproduces each published total within ±4 cal and ±0.1 g protein; that residual is only integer-rounding against the site's round-to-nearest-10, not a data disagreement.\n\nSAUCE CAVEAT. \"Ranch\" exists as two distinct ingredient ids at different portions (187.9 cal on #26 Bacon Ranch Chicken Cheese Steak, 205.3 cal on Grilled Turkey Bacon Ranch). I shipped the #26 portion. Olive Oil Blend (250 cal) and Mayo (261 cal) look large but are the source's actual full-sub pours — they are the single biggest lever on a Jersey Mike's sub and are correct as published."
-  },
-  "categories": [
+ "id": "jersey-mikes",
+ "name": "Jersey Mike's Subs",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://www.jerseymikes.com/menu/nutrition",
+  "fetchedAt": "2026-08-07",
+  "fetchedBy": "research agent, verified against the official source",
+  "notes": "SOURCE. Jersey Mike's official nutrition page (jerseymikes.com/menu/nutrition) is a JS-only calculator that renders nothing in static HTML. I traced its Nuxt bundle to the first-party data API that backs it: GET https://subs.jerseymikes.com/nutrition/{productId}/{sizeId} (endpoint constants NUTRITION=\"/nutrition/data\" and PRODUCT_NUTRITION_DATA=\"/nutrition\" in chunk BTlHHIuq.js; baseURL = runtime config subsURLBase = https://subs.jerseymikes.com/). Every number below is a raw field from that API \u2014 no aggregator, no estimation. I pulled all 50 sub products at size_id=2 plus the sides products.\n\nSIZE BASIS. Everything is authored at size_id=2, which Jersey Mike's labels \"Regular\" (their sizes are Mini / Regular / Giant, confirmed on their FAQ). Caution on the brief's \"7-inch\": the official source never states an inch measurement for any size, so I did not put \"7-inch\" in any serving description. It is the Regular size, full stop.\n\nWHY PORTIONS ARE RECIPE-SPECIFIC (the one real modeling decision). The API returns nutrition per ingredient *per parent sub*, and portions genuinely differ by recipe \u2014 Turkey is 111.2 cal on #7 Turkey and Provolone but only 55.6 cal as one layer of the #8 Club Sub; Ham ranges 56.2\u2013110.8 across five subs. There is no single published \"one serving of turkey\" figure. So each protein is authored at the portion from the sub where that meat is the star, and the serving description names that sub explicitly. Cheeses and toppings use the dominant standard value (e.g. Lettuce 11.9 cal on all 24 cold subs vs 7.9 on hot subs; cold-sub value used). Breads are identical across all 50 products, so they carry no ambiguity.\n\nVALUES ARE NOT REVERSE-ENGINEERED. These are line items as published, not back-solved from combo totals. Calories are rounded to whole numbers and macros to 1 decimal from the source's 6-decimal values.\n\nDEFAULTS = \"MIKE'S WAY\". The calculator marks ingredients with inclusion_type \"D\" as pre-selected. For cold subs those are exactly onions, lettuce, tomatoes, olive oil blend, red wine vinegar, oregano and salt \u2014 which matches Jersey Mike's own published definition of Mike's Way. So the presets below are each sub as served Mike's Way.\n\nHOW THE PRESET TOTALS WERE DERIVED. The site has no separate published sub-level total; its own footer sums the selected ingredient rows, applying FDA rounding to the calorie total only (helper: <5 \u2192 0, \u226450 \u2192 nearest 5, >50 \u2192 nearest 10) and leaving protein raw. I reproduced that exact function, so publishedCalories/publishedProtein are the figures the official calculator displays for that sub in its default state. I only included a sub as a preset if every one of its default ingredients matches the canonical portion in my menu \u2014 that is why the 12 presets are all single-meat subs. Summing my components reproduces each published total within \u00b14 cal and \u00b10.1 g protein; that residual is only integer-rounding against the site's round-to-nearest-10, not a data disagreement.\n\nSAUCE CAVEAT. \"Ranch\" exists as two distinct ingredient ids at different portions (187.9 cal on #26 Bacon Ranch Chicken Cheese Steak, 205.3 cal on Grilled Turkey Bacon Ranch). I shipped the #26 portion. Olive Oil Blend (250 cal) and Mayo (261 cal) look large but are the source's actual full-sub pours \u2014 they are the single biggest lever on a Jersey Mike's sub and are correct as published."
+ },
+ "categories": [
+  {
+   "id": "breads",
+   "name": "Bread",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
     {
-      "id": "breads",
-      "name": "Bread",
-      "selectionRule": {
-        "kind": "selectOne"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.breads.white-bread",
-          "name": "White Bread",
-          "servingDescription": "1 Regular sub roll",
-          "macros": {
-            "calories": 309.0,
-            "proteinGrams": 11.6,
-            "carbGrams": 58.7,
-            "fatGrams": 2.9
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.breads.wheat-bread",
-          "name": "Wheat Bread",
-          "servingDescription": "1 Regular sub roll",
-          "macros": {
-            "calories": 307.0,
-            "proteinGrams": 11.9,
-            "carbGrams": 59.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "jersey-mikes.breads.rosemary-parmesan-bread",
-          "name": "Rosemary Parmesan Bread",
-          "servingDescription": "1 Regular sub roll",
-          "macros": {
-            "calories": 340.0,
-            "proteinGrams": 13.8,
-            "carbGrams": 59.7,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.breads.seeded-italian-bread",
-          "name": "Seeded Italian Bread",
-          "servingDescription": "1 Regular sub roll",
-          "macros": {
-            "calories": 269.0,
-            "proteinGrams": 10.1,
-            "carbGrams": 49.8,
-            "fatGrams": 3.1
-          },
-          "allergens": [
-            "sesame",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.breads.gluten-free-bread",
-          "name": "Gluten Free Bread",
-          "servingDescription": "1 Regular gluten free roll",
-          "macros": {
-            "calories": 235.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 39.5,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.breads.white-bread-mini",
-          "name": "White Bread (Mini)",
-          "servingDescription": "1 Mini sub roll",
-          "macros": {
-            "calories": 204.0,
-            "proteinGrams": 7.7,
-            "carbGrams": 38.7,
-            "fatGrams": 1.9
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.white-bread-giant",
-          "name": "White Bread (Giant)",
-          "servingDescription": "1 Giant sub roll",
-          "macros": {
-            "calories": 618.0,
-            "proteinGrams": 23.2,
-            "carbGrams": 117.3,
-            "fatGrams": 5.8
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.wheat-bread-mini",
-          "name": "Wheat Bread (Mini)",
-          "servingDescription": "1 Mini sub roll",
-          "macros": {
-            "calories": 203.0,
-            "proteinGrams": 7.8,
-            "carbGrams": 38.9,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "honey"
-          ],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.wheat-bread-giant",
-          "name": "Wheat Bread (Giant)",
-          "servingDescription": "1 Giant sub roll",
-          "macros": {
-            "calories": 615.0,
-            "proteinGrams": 23.7,
-            "carbGrams": 118.0,
-            "fatGrams": 6.1
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "dietaryMarkers": [
-            "honey"
-          ],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.rosemary-parmesan-bread-mini",
-          "name": "Rosemary Parmesan Bread (Mini)",
-          "servingDescription": "1 Mini sub roll",
-          "macros": {
-            "calories": 224.0,
-            "proteinGrams": 9.1,
-            "carbGrams": 39.4,
-            "fatGrams": 3.3
-          },
-          "allergens": [
-            "milk",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.rosemary-parmesan-bread-giant",
-          "name": "Rosemary Parmesan Bread (Giant)",
-          "servingDescription": "1 Giant sub roll",
-          "macros": {
-            "calories": 679.0,
-            "proteinGrams": 27.6,
-            "carbGrams": 119.3,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "milk",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.seeded-italian-bread-mini",
-          "name": "Seeded Italian Bread (Mini)",
-          "servingDescription": "1 Mini sub roll",
-          "macros": {
-            "calories": 178.0,
-            "proteinGrams": 6.7,
-            "carbGrams": 32.8,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "sesame",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.seeded-italian-bread-giant",
-          "name": "Seeded Italian Bread (Giant)",
-          "servingDescription": "1 Giant sub roll",
-          "macros": {
-            "calories": 538.0,
-            "proteinGrams": 20.2,
-            "carbGrams": 99.5,
-            "fatGrams": 6.2
-          },
-          "allergens": [
-            "sesame",
-            "wheat"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        },
-        {
-          "id": "jersey-mikes.breads.gluten-free-bread-giant",
-          "name": "Gluten Free Bread (Giant)",
-          "servingDescription": "1 Giant gluten free roll",
-          "macros": {
-            "calories": 470.0,
-            "proteinGrams": 12.0,
-            "carbGrams": 79.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "dietaryMarkers": [],
-          "notes": null,
-          "iconName": null
-        }
-      ],
-      "iconName": "wheatFlat"
+     "id": "jersey-mikes.breads.white-bread",
+     "name": "White Bread",
+     "servingDescription": "1 Regular sub roll",
+     "macros": {
+      "calories": 309.0,
+      "proteinGrams": 11.6,
+      "carbGrams": 58.7,
+      "fatGrams": 2.9
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.white-bread",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
     },
     {
-      "id": "protein",
-      "name": "Protein",
-      "selectionRule": {
-        "kind": "selectOne"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.protein.turkey",
-          "name": "Turkey",
-          "servingDescription": "Meat portion on a Regular sub (as served on #7 Turkey and Provolone)",
-          "macros": {
-            "calories": 111.0,
-            "proteinGrams": 23.8,
-            "carbGrams": 0.6,
-            "fatGrams": 1.2
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.ham",
-          "name": "Ham",
-          "servingDescription": "Meat portion on a Regular sub (as served on #3 Ham and Provolone)",
-          "macros": {
-            "calories": 111.0,
-            "proteinGrams": 16.7,
-            "carbGrams": 2.0,
-            "fatGrams": 4.2
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.roast-beef",
-          "name": "Roast Beef",
-          "servingDescription": "Meat portion on a Regular sub (as served on #6 Roast Beef and Provolone)",
-          "macros": {
-            "calories": 207.0,
-            "proteinGrams": 35.4,
-            "carbGrams": 0.0,
-            "fatGrams": 6.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.philly-chicken",
-          "name": "Grilled Chicken (Philly)",
-          "servingDescription": "Meat portion on a Regular sub (as served on #16 Mike's Chicken Philly)",
-          "macros": {
-            "calories": 191.0,
-            "proteinGrams": 29.3,
-            "carbGrams": 3.6,
-            "fatGrams": 5.7
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.philly-steak",
-          "name": "Philly Steak",
-          "servingDescription": "Meat portion on a Regular sub (as served on #17 Mike's Famous Philly)",
-          "macros": {
-            "calories": 255.0,
-            "proteinGrams": 26.9,
-            "carbGrams": 4.7,
-            "fatGrams": 14.3
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.tuna-salad",
-          "name": "Tuna Salad",
-          "servingDescription": "Salad portion on a Regular sub (as served on #10 Tuna Fish)",
-          "macros": {
-            "calories": 474.0,
-            "proteinGrams": 20.1,
-            "carbGrams": 1.9,
-            "fatGrams": 43.6
-          },
-          "allergens": [
-            "egg",
-            "fish",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.protein.chicken-salad",
-          "name": "Chicken Salad",
-          "servingDescription": "Salad portion on a Regular sub (as served on the Chicken Salad sub)",
-          "macros": {
-            "calories": 365.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 3.2,
-            "fatGrams": 30.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.pastrami",
-          "name": "Pastrami",
-          "servingDescription": "Meat portion on a Regular sub (as served on #20 Grilled Pastrami Reuben)",
-          "macros": {
-            "calories": 142.0,
-            "proteinGrams": 22.3,
-            "carbGrams": 6.1,
-            "fatGrams": 4.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.hard-salami",
-          "name": "Hard Salami",
-          "servingDescription": "Meat portion on a Regular sub (as served on Salami and Cheese)",
-          "macros": {
-            "calories": 332.0,
-            "proteinGrams": 14.9,
-            "carbGrams": 2.9,
-            "fatGrams": 28.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "jersey-mikes.protein.pepperoni",
-          "name": "Pepperoni",
-          "servingDescription": "Meat portion on a Regular sub (as served on Pepperoni & Cheese)",
-          "macros": {
-            "calories": 298.0,
-            "proteinGrams": 11.9,
-            "carbGrams": 2.8,
-            "fatGrams": 26.6
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        }
-      ],
-      "iconName": "chicken"
+     "id": "jersey-mikes.breads.wheat-bread",
+     "name": "Wheat Bread",
+     "servingDescription": "1 Regular sub roll",
+     "macros": {
+      "calories": 307.0,
+      "proteinGrams": 11.9,
+      "carbGrams": 59.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ],
+     "sizeGroup": "jersey-mikes.size.wheat-bread",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
     },
     {
-      "id": "cheeses",
-      "name": "Cheese",
-      "selectionRule": {
-        "kind": "selectOne"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.cheeses.provolone",
-          "name": "Provolone",
-          "servingDescription": "Cheese portion on a Regular cold sub",
-          "macros": {
-            "calories": 118.0,
-            "proteinGrams": 8.5,
-            "carbGrams": 0.7,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.cheeses.swiss",
-          "name": "Swiss",
-          "servingDescription": "Cheese portion on a Regular sub (as served on #9 Club Supreme)",
-          "macros": {
-            "calories": 98.0,
-            "proteinGrams": 7.1,
-            "carbGrams": 0.6,
-            "fatGrams": 7.4
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.cheeses.white-american-cheese",
-          "name": "White American Cheese",
-          "servingDescription": "Cheese portion on a Regular cheese steak",
-          "macros": {
-            "calories": 153.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 3.1,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "milk",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "cheeseSlice"
+     "id": "jersey-mikes.breads.rosemary-parmesan-bread",
+     "name": "Rosemary Parmesan Bread",
+     "servingDescription": "1 Regular sub roll",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 13.8,
+      "carbGrams": 59.7,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.rosemary-parmesan-bread",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
     },
     {
-      "id": "veggies",
-      "name": "Toppings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.veggies.lettuce",
-          "name": "Lettuce",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 12.0,
-            "proteinGrams": 0.8,
-            "carbGrams": 2.5,
-            "fatGrams": 0.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.tomatoes",
-          "name": "Tomatoes",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.5,
-            "carbGrams": 2.2,
-            "fatGrams": 0.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.onions",
-          "name": "Onions",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 3.0,
-            "proteinGrams": 0.1,
-            "carbGrams": 0.8,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.grilled-onions",
-          "name": "Grilled Onions",
-          "servingDescription": "Standard portion on a Regular hot sub",
-          "macros": {
-            "calories": 14.0,
-            "proteinGrams": 0.4,
-            "carbGrams": 3.3,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.dill-pickles",
-          "name": "Dill Pickles",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 6.0,
-            "proteinGrams": 0.4,
-            "carbGrams": 1.3,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.banana-peppers",
-          "name": "Banana Peppers",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 4.0,
-            "proteinGrams": 0.1,
-            "carbGrams": 0.9,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.jalapeno-peppers",
-          "name": "Jalapeño Peppers",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 4.0,
-            "proteinGrams": 0.1,
-            "carbGrams": 0.8,
-            "fatGrams": 0.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.hot-chopped-pepper-relish",
-          "name": "Hot Chopped Pepper Relish",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 6.0,
-            "proteinGrams": 0.2,
-            "carbGrams": 1.3,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.mushrooms",
-          "name": "Mushrooms",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 2.0,
-            "proteinGrams": 0.3,
-            "carbGrams": 0.4,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.grilled-portabella-mushrooms",
-          "name": "Grilled Portabella Mushrooms",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 6.0,
-            "proteinGrams": 0.6,
-            "carbGrams": 1.1,
-            "fatGrams": 0.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.red-green-pepper-strips",
-          "name": "Red/Green Pepper Strips",
-          "servingDescription": "Standard portion on a Regular cheese steak",
-          "macros": {
-            "calories": 17.0,
-            "proteinGrams": 0.1,
-            "carbGrams": 4.3,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.green-bell-peppers",
-          "name": "Green Bell Peppers",
-          "servingDescription": "Standard portion on a Regular sub (as served on #14 The Veggie)",
-          "macros": {
-            "calories": 6.0,
-            "proteinGrams": 0.3,
-            "carbGrams": 1.5,
-            "fatGrams": 0.1
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.veggies.sauerkraut",
-          "name": "Sauerkraut",
-          "servingDescription": "Standard portion on a Regular sub (as served on #20 Grilled Pastrami Reuben)",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 0.7,
-            "carbGrams": 4.2,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "vegetables"
+     "id": "jersey-mikes.breads.seeded-italian-bread",
+     "name": "Seeded Italian Bread",
+     "servingDescription": "1 Regular sub roll",
+     "macros": {
+      "calories": 269.0,
+      "proteinGrams": 10.1,
+      "carbGrams": 49.8,
+      "fatGrams": 3.1
+     },
+     "allergens": [
+      "sesame",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.seeded-italian-bread",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
     },
     {
-      "id": "sauces",
-      "name": "Sauces & Seasonings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.sauces.olive-oil-blend",
-          "name": "Olive Oil Blend",
-          "servingDescription": "Standard pour on a Regular sub (part of Mike's Way)",
-          "macros": {
-            "calories": 250.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 28.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.red-wine-vinegar",
-          "name": "Red Wine Vinegar",
-          "servingDescription": "Standard pour on a Regular sub (part of Mike's Way)",
-          "macros": {
-            "calories": 3.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.6,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "alcohol"
-          ]
-        },
-        {
-          "id": "jersey-mikes.sauces.oregano",
-          "name": "Oregano",
-          "servingDescription": "Standard portion on a Regular sub (part of Mike's Way)",
-          "macros": {
-            "calories": 1.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.3,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.salt",
-          "name": "Salt",
-          "servingDescription": "Standard portion on a Regular sub (part of Mike's Way)",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.mayo",
-          "name": "Mayo",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 261.0,
-            "proteinGrams": 0.3,
-            "carbGrams": 0.7,
-            "fatGrams": 29.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.yellow-mustard",
-          "name": "Yellow Mustard",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 28.0,
-            "proteinGrams": 1.8,
-            "carbGrams": 1.9,
-            "fatGrams": 1.8
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.spicy-brown-mustard",
-          "name": "Spicy Brown Mustard",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 43.0,
-            "proteinGrams": 1.5,
-            "carbGrams": 1.7,
-            "fatGrams": 1.6
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.honey-mustard",
-          "name": "Honey Mustard",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 32.0,
-            "proteinGrams": 1.4,
-            "carbGrams": 2.2,
-            "fatGrams": 1.7
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "jersey-mikes.sauces.chipotle-mayo",
-          "name": "Chipotle Mayo",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 289.0,
-            "proteinGrams": 0.5,
-            "carbGrams": 1.7,
-            "fatGrams": 31.7
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.buffalo-sauce",
-          "name": "Buffalo Sauce",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 0.4,
-            "carbGrams": 1.6,
-            "fatGrams": 0.8
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.blue-cheese-dressing",
-          "name": "Blue Cheese Dressing",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 209.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 21.9
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.ranch",
-          "name": "Ranch Dressing",
-          "servingDescription": "Standard portion on a Regular sub (as served on #26 Bacon Ranch Chicken Cheese Steak)",
-          "macros": {
-            "calories": 188.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 19.8
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.thousand-island",
-          "name": "Thousand Island Dressing",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 154.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 4.7,
-            "fatGrams": 15.4
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.bbq-sauce",
-          "name": "BBQ Sauce",
-          "servingDescription": "Standard portion on a Regular sub",
-          "macros": {
-            "calories": 121.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 28.7,
-            "fatGrams": 0.2
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sauces.hot-honey",
-          "name": "Hot Honey",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 94.0,
-            "proteinGrams": 0.1,
-            "carbGrams": 23.4,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        }
-      ],
-      "iconName": "salsa"
+     "id": "jersey-mikes.breads.gluten-free-bread",
+     "name": "Gluten Free Bread",
+     "servingDescription": "1 Regular gluten free roll",
+     "macros": {
+      "calories": 235.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 39.5,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.gluten-free-bread",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
     },
     {
-      "id": "extras",
-      "name": "Extras",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.extras.extra-bacon",
-          "name": "Bacon",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 67.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 0.0,
-            "fatGrams": 5.3
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "jersey-mikes.extras.avocado",
-          "name": "Avocado",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 68.0,
-            "proteinGrams": 0.8,
-            "carbGrams": 3.6,
-            "fatGrams": 6.2
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.extras.extra-cheese",
-          "name": "Extra Cheese",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 119.0,
-            "proteinGrams": 8.7,
-            "carbGrams": 0.7,
-            "fatGrams": 9.1
-          },
-          "allergens": [
-            "milk",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.extras.extra-pepperoni",
-          "name": "Extra Pepperoni",
-          "servingDescription": "Add-on portion on a Regular sub",
-          "macros": {
-            "calories": 96.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 0.7,
-            "fatGrams": 8.6
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        }
-      ],
-      "iconName": "chipsBaked"
+     "id": "jersey-mikes.breads.white-bread-mini",
+     "name": "White Bread (Mini)",
+     "servingDescription": "1 Mini sub roll",
+     "macros": {
+      "calories": 204.0,
+      "proteinGrams": 7.7,
+      "carbGrams": 38.7,
+      "fatGrams": 1.9
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.white-bread",
+     "sizeLabel": "Mini",
+     "isDefaultSize": false
     },
     {
-      "id": "chips",
-      "name": "Chips",
-      "selectionRule": {
-        "kind": "selectOne"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.chips.lays-classic",
-          "name": "Lay's Classic",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 23.0,
-            "fatGrams": 16.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.lays-bbq",
-          "name": "Lay's BBQ",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 230.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 24.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.lays-sour-cream-and-onion",
-          "name": "Lay's Sour Cream and Onion",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 23.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.baked-lays",
-          "name": "Baked Lay's",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 24.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.doritos-nacho",
-          "name": "Doritos Nacho Cheese",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 28.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.doritos-cool-ranch",
-          "name": "Doritos Cool Ranch",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 260.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 31.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.sunchips-original",
-          "name": "SunChips Original",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 28.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.sunchips-harvest-cheddar",
-          "name": "SunChips Harvest Cheddar",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 27.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.ruffles-cheddar-sour-cream",
-          "name": "Ruffles Cheddar & Sour Cream",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 23.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.miss-vickies-jalapeno",
-          "name": "Miss Vickie's Jalapeño",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 22.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.miss-vickies-sea-salt-vinegar",
-          "name": "Miss Vickie's Sea Salt & Vinegar",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 23.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.cheetos",
-          "name": "Cheetos",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 310.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 26.0,
-            "fatGrams": 21.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.chips.fritos",
-          "name": "Fritos",
-          "servingDescription": "1 single-serve bag",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 32.0,
-            "fatGrams": 20.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "chipsBaked"
+     "id": "jersey-mikes.breads.white-bread-giant",
+     "name": "White Bread (Giant)",
+     "servingDescription": "1 Giant sub roll",
+     "macros": {
+      "calories": 618.0,
+      "proteinGrams": 23.2,
+      "carbGrams": 117.3,
+      "fatGrams": 5.8
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.white-bread",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false
     },
     {
-      "id": "sides",
-      "name": "Sides & Desserts",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "jersey-mikes.sides.french-fries-5oz",
-          "name": "French Fries (5 oz)",
-          "servingDescription": "5 oz serving",
-          "macros": {
-            "calories": 310.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 33.8,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sides.french-fries-6oz",
-          "name": "French Fries (6 oz)",
-          "servingDescription": "6 oz serving",
-          "macros": {
-            "calories": 372.0,
-            "proteinGrams": 3.7,
-            "carbGrams": 40.5,
-            "fatGrams": 22.8
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sides.chocolate-chunk-cookie",
-          "name": "Chocolate Chunk Cookie",
-          "servingDescription": "1 cookie",
-          "macros": {
-            "calories": 280.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 37.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sides.gf-snickerdoodle-cookie",
-          "name": "Udi's Gluten Free Snickerdoodle",
-          "servingDescription": "1 cookie",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 34.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "jersey-mikes.sides.brownie",
-          "name": "Brownie",
-          "servingDescription": "1 brownie",
-          "macros": {
-            "calories": 500.0,
-            "proteinGrams": 5.4,
-            "carbGrams": 62.3,
-            "fatGrams": 27.8
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "breadPita"
+     "id": "jersey-mikes.breads.wheat-bread-mini",
+     "name": "Wheat Bread (Mini)",
+     "servingDescription": "1 Mini sub roll",
+     "macros": {
+      "calories": 203.0,
+      "proteinGrams": 7.8,
+      "carbGrams": 38.9,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "honey"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.wheat-bread",
+     "sizeLabel": "Mini",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.wheat-bread-giant",
+     "name": "Wheat Bread (Giant)",
+     "servingDescription": "1 Giant sub roll",
+     "macros": {
+      "calories": 615.0,
+      "proteinGrams": 23.7,
+      "carbGrams": 118.0,
+      "fatGrams": 6.1
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "dietaryMarkers": [
+      "honey"
+     ],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.wheat-bread",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.rosemary-parmesan-bread-mini",
+     "name": "Rosemary Parmesan Bread (Mini)",
+     "servingDescription": "1 Mini sub roll",
+     "macros": {
+      "calories": 224.0,
+      "proteinGrams": 9.1,
+      "carbGrams": 39.4,
+      "fatGrams": 3.3
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.rosemary-parmesan-bread",
+     "sizeLabel": "Mini",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.rosemary-parmesan-bread-giant",
+     "name": "Rosemary Parmesan Bread (Giant)",
+     "servingDescription": "1 Giant sub roll",
+     "macros": {
+      "calories": 679.0,
+      "proteinGrams": 27.6,
+      "carbGrams": 119.3,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.rosemary-parmesan-bread",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.seeded-italian-bread-mini",
+     "name": "Seeded Italian Bread (Mini)",
+     "servingDescription": "1 Mini sub roll",
+     "macros": {
+      "calories": 178.0,
+      "proteinGrams": 6.7,
+      "carbGrams": 32.8,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "sesame",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.seeded-italian-bread",
+     "sizeLabel": "Mini",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.seeded-italian-bread-giant",
+     "name": "Seeded Italian Bread (Giant)",
+     "servingDescription": "1 Giant sub roll",
+     "macros": {
+      "calories": 538.0,
+      "proteinGrams": 20.2,
+      "carbGrams": 99.5,
+      "fatGrams": 6.2
+     },
+     "allergens": [
+      "sesame",
+      "wheat"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.seeded-italian-bread",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.breads.gluten-free-bread-giant",
+     "name": "Gluten Free Bread (Giant)",
+     "servingDescription": "1 Giant gluten free roll",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 79.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "dietaryMarkers": [],
+     "notes": null,
+     "iconName": null,
+     "sizeGroup": "jersey-mikes.size.gluten-free-bread",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false
     }
-  ]
+   ],
+   "iconName": "wheatFlat"
+  },
+  {
+   "id": "protein",
+   "name": "Protein",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.protein.turkey",
+     "name": "Turkey",
+     "servingDescription": "Meat portion on a Regular sub (as served on #7 Turkey and Provolone)",
+     "macros": {
+      "calories": 111.0,
+      "proteinGrams": 23.8,
+      "carbGrams": 0.6,
+      "fatGrams": 1.2
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.ham",
+     "name": "Ham",
+     "servingDescription": "Meat portion on a Regular sub (as served on #3 Ham and Provolone)",
+     "macros": {
+      "calories": 111.0,
+      "proteinGrams": 16.7,
+      "carbGrams": 2.0,
+      "fatGrams": 4.2
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.roast-beef",
+     "name": "Roast Beef",
+     "servingDescription": "Meat portion on a Regular sub (as served on #6 Roast Beef and Provolone)",
+     "macros": {
+      "calories": 207.0,
+      "proteinGrams": 35.4,
+      "carbGrams": 0.0,
+      "fatGrams": 6.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.philly-chicken",
+     "name": "Grilled Chicken (Philly)",
+     "servingDescription": "Meat portion on a Regular sub (as served on #16 Mike's Chicken Philly)",
+     "macros": {
+      "calories": 191.0,
+      "proteinGrams": 29.3,
+      "carbGrams": 3.6,
+      "fatGrams": 5.7
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.philly-steak",
+     "name": "Philly Steak",
+     "servingDescription": "Meat portion on a Regular sub (as served on #17 Mike's Famous Philly)",
+     "macros": {
+      "calories": 255.0,
+      "proteinGrams": 26.9,
+      "carbGrams": 4.7,
+      "fatGrams": 14.3
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.tuna-salad",
+     "name": "Tuna Salad",
+     "servingDescription": "Salad portion on a Regular sub (as served on #10 Tuna Fish)",
+     "macros": {
+      "calories": 474.0,
+      "proteinGrams": 20.1,
+      "carbGrams": 1.9,
+      "fatGrams": 43.6
+     },
+     "allergens": [
+      "egg",
+      "fish",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.protein.chicken-salad",
+     "name": "Chicken Salad",
+     "servingDescription": "Salad portion on a Regular sub (as served on the Chicken Salad sub)",
+     "macros": {
+      "calories": 365.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 3.2,
+      "fatGrams": 30.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.pastrami",
+     "name": "Pastrami",
+     "servingDescription": "Meat portion on a Regular sub (as served on #20 Grilled Pastrami Reuben)",
+     "macros": {
+      "calories": 142.0,
+      "proteinGrams": 22.3,
+      "carbGrams": 6.1,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.hard-salami",
+     "name": "Hard Salami",
+     "servingDescription": "Meat portion on a Regular sub (as served on Salami and Cheese)",
+     "macros": {
+      "calories": 332.0,
+      "proteinGrams": 14.9,
+      "carbGrams": 2.9,
+      "fatGrams": 28.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "jersey-mikes.protein.pepperoni",
+     "name": "Pepperoni",
+     "servingDescription": "Meat portion on a Regular sub (as served on Pepperoni & Cheese)",
+     "macros": {
+      "calories": 298.0,
+      "proteinGrams": 11.9,
+      "carbGrams": 2.8,
+      "fatGrams": 26.6
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    }
+   ],
+   "iconName": "chicken"
+  },
+  {
+   "id": "cheeses",
+   "name": "Cheese",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.cheeses.provolone",
+     "name": "Provolone",
+     "servingDescription": "Cheese portion on a Regular cold sub",
+     "macros": {
+      "calories": 118.0,
+      "proteinGrams": 8.5,
+      "carbGrams": 0.7,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.cheeses.swiss",
+     "name": "Swiss",
+     "servingDescription": "Cheese portion on a Regular sub (as served on #9 Club Supreme)",
+     "macros": {
+      "calories": 98.0,
+      "proteinGrams": 7.1,
+      "carbGrams": 0.6,
+      "fatGrams": 7.4
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.cheeses.white-american-cheese",
+     "name": "White American Cheese",
+     "servingDescription": "Cheese portion on a Regular cheese steak",
+     "macros": {
+      "calories": 153.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 3.1,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "milk",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "cheeseSlice"
+  },
+  {
+   "id": "veggies",
+   "name": "Toppings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.veggies.lettuce",
+     "name": "Lettuce",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 12.0,
+      "proteinGrams": 0.8,
+      "carbGrams": 2.5,
+      "fatGrams": 0.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.tomatoes",
+     "name": "Tomatoes",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.5,
+      "carbGrams": 2.2,
+      "fatGrams": 0.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.onions",
+     "name": "Onions",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 3.0,
+      "proteinGrams": 0.1,
+      "carbGrams": 0.8,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.grilled-onions",
+     "name": "Grilled Onions",
+     "servingDescription": "Standard portion on a Regular hot sub",
+     "macros": {
+      "calories": 14.0,
+      "proteinGrams": 0.4,
+      "carbGrams": 3.3,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.dill-pickles",
+     "name": "Dill Pickles",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 6.0,
+      "proteinGrams": 0.4,
+      "carbGrams": 1.3,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.banana-peppers",
+     "name": "Banana Peppers",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 4.0,
+      "proteinGrams": 0.1,
+      "carbGrams": 0.9,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.jalapeno-peppers",
+     "name": "Jalape\u00f1o Peppers",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 4.0,
+      "proteinGrams": 0.1,
+      "carbGrams": 0.8,
+      "fatGrams": 0.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.hot-chopped-pepper-relish",
+     "name": "Hot Chopped Pepper Relish",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 6.0,
+      "proteinGrams": 0.2,
+      "carbGrams": 1.3,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.mushrooms",
+     "name": "Mushrooms",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 2.0,
+      "proteinGrams": 0.3,
+      "carbGrams": 0.4,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.grilled-portabella-mushrooms",
+     "name": "Grilled Portabella Mushrooms",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 6.0,
+      "proteinGrams": 0.6,
+      "carbGrams": 1.1,
+      "fatGrams": 0.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.red-green-pepper-strips",
+     "name": "Red/Green Pepper Strips",
+     "servingDescription": "Standard portion on a Regular cheese steak",
+     "macros": {
+      "calories": 17.0,
+      "proteinGrams": 0.1,
+      "carbGrams": 4.3,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.green-bell-peppers",
+     "name": "Green Bell Peppers",
+     "servingDescription": "Standard portion on a Regular sub (as served on #14 The Veggie)",
+     "macros": {
+      "calories": 6.0,
+      "proteinGrams": 0.3,
+      "carbGrams": 1.5,
+      "fatGrams": 0.1
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.veggies.sauerkraut",
+     "name": "Sauerkraut",
+     "servingDescription": "Standard portion on a Regular sub (as served on #20 Grilled Pastrami Reuben)",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.7,
+      "carbGrams": 4.2,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "vegetables"
+  },
+  {
+   "id": "sauces",
+   "name": "Sauces & Seasonings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.sauces.olive-oil-blend",
+     "name": "Olive Oil Blend",
+     "servingDescription": "Standard pour on a Regular sub (part of Mike's Way)",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 28.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.red-wine-vinegar",
+     "name": "Red Wine Vinegar",
+     "servingDescription": "Standard pour on a Regular sub (part of Mike's Way)",
+     "macros": {
+      "calories": 3.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.6,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "alcohol"
+     ]
+    },
+    {
+     "id": "jersey-mikes.sauces.oregano",
+     "name": "Oregano",
+     "servingDescription": "Standard portion on a Regular sub (part of Mike's Way)",
+     "macros": {
+      "calories": 1.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.3,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.salt",
+     "name": "Salt",
+     "servingDescription": "Standard portion on a Regular sub (part of Mike's Way)",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.mayo",
+     "name": "Mayo",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 261.0,
+      "proteinGrams": 0.3,
+      "carbGrams": 0.7,
+      "fatGrams": 29.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.yellow-mustard",
+     "name": "Yellow Mustard",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 28.0,
+      "proteinGrams": 1.8,
+      "carbGrams": 1.9,
+      "fatGrams": 1.8
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.spicy-brown-mustard",
+     "name": "Spicy Brown Mustard",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 43.0,
+      "proteinGrams": 1.5,
+      "carbGrams": 1.7,
+      "fatGrams": 1.6
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.honey-mustard",
+     "name": "Honey Mustard",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 32.0,
+      "proteinGrams": 1.4,
+      "carbGrams": 2.2,
+      "fatGrams": 1.7
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "jersey-mikes.sauces.chipotle-mayo",
+     "name": "Chipotle Mayo",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 289.0,
+      "proteinGrams": 0.5,
+      "carbGrams": 1.7,
+      "fatGrams": 31.7
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.buffalo-sauce",
+     "name": "Buffalo Sauce",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.4,
+      "carbGrams": 1.6,
+      "fatGrams": 0.8
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.blue-cheese-dressing",
+     "name": "Blue Cheese Dressing",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 209.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 21.9
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.ranch",
+     "name": "Ranch Dressing",
+     "servingDescription": "Standard portion on a Regular sub (as served on #26 Bacon Ranch Chicken Cheese Steak)",
+     "macros": {
+      "calories": 188.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 19.8
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.thousand-island",
+     "name": "Thousand Island Dressing",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 154.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.7,
+      "fatGrams": 15.4
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.bbq-sauce",
+     "name": "BBQ Sauce",
+     "servingDescription": "Standard portion on a Regular sub",
+     "macros": {
+      "calories": 121.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 28.7,
+      "fatGrams": 0.2
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sauces.hot-honey",
+     "name": "Hot Honey",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 94.0,
+      "proteinGrams": 0.1,
+      "carbGrams": 23.4,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "salsa"
+  },
+  {
+   "id": "extras",
+   "name": "Extras",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.extras.extra-bacon",
+     "name": "Bacon",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 67.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 0.0,
+      "fatGrams": 5.3
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "jersey-mikes.extras.avocado",
+     "name": "Avocado",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 68.0,
+      "proteinGrams": 0.8,
+      "carbGrams": 3.6,
+      "fatGrams": 6.2
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.extras.extra-cheese",
+     "name": "Extra Cheese",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 119.0,
+      "proteinGrams": 8.7,
+      "carbGrams": 0.7,
+      "fatGrams": 9.1
+     },
+     "allergens": [
+      "milk",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.extras.extra-pepperoni",
+     "name": "Extra Pepperoni",
+     "servingDescription": "Add-on portion on a Regular sub",
+     "macros": {
+      "calories": 96.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 0.7,
+      "fatGrams": 8.6
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    }
+   ],
+   "iconName": "chipsBaked"
+  },
+  {
+   "id": "chips",
+   "name": "Chips",
+   "selectionRule": {
+    "kind": "selectOne"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.chips.lays-classic",
+     "name": "Lay's Classic",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 16.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.lays-bbq",
+     "name": "Lay's BBQ",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 24.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.lays-sour-cream-and-onion",
+     "name": "Lay's Sour Cream and Onion",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.baked-lays",
+     "name": "Baked Lay's",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 24.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.doritos-nacho",
+     "name": "Doritos Nacho Cheese",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 28.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.doritos-cool-ranch",
+     "name": "Doritos Cool Ranch",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 31.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.sunchips-original",
+     "name": "SunChips Original",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 28.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.sunchips-harvest-cheddar",
+     "name": "SunChips Harvest Cheddar",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 27.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.ruffles-cheddar-sour-cream",
+     "name": "Ruffles Cheddar & Sour Cream",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.miss-vickies-jalapeno",
+     "name": "Miss Vickie's Jalape\u00f1o",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 22.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.miss-vickies-sea-salt-vinegar",
+     "name": "Miss Vickie's Sea Salt & Vinegar",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.cheetos",
+     "name": "Cheetos",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 26.0,
+      "fatGrams": 21.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.chips.fritos",
+     "name": "Fritos",
+     "servingDescription": "1 single-serve bag",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 32.0,
+      "fatGrams": 20.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "chipsBaked"
+  },
+  {
+   "id": "sides",
+   "name": "Sides & Desserts",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.sides.french-fries-5oz",
+     "name": "French Fries (5 oz)",
+     "servingDescription": "5 oz serving",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 33.8,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.french-fries",
+     "sizeLabel": "5 oz",
+     "isDefaultSize": true
+    },
+    {
+     "id": "jersey-mikes.sides.french-fries-6oz",
+     "name": "French Fries (6 oz)",
+     "servingDescription": "6 oz serving",
+     "macros": {
+      "calories": 372.0,
+      "proteinGrams": 3.7,
+      "carbGrams": 40.5,
+      "fatGrams": 22.8
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [],
+     "sizeGroup": "jersey-mikes.size.french-fries",
+     "sizeLabel": "6 oz",
+     "isDefaultSize": false
+    },
+    {
+     "id": "jersey-mikes.sides.chocolate-chunk-cookie",
+     "name": "Chocolate Chunk Cookie",
+     "servingDescription": "1 cookie",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 37.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sides.gf-snickerdoodle-cookie",
+     "name": "Udi's Gluten Free Snickerdoodle",
+     "servingDescription": "1 cookie",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 34.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.sides.brownie",
+     "name": "Brownie",
+     "servingDescription": "1 brownie",
+     "macros": {
+      "calories": 500.0,
+      "proteinGrams": 5.4,
+      "carbGrams": 62.3,
+      "fatGrams": 27.8
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "breadPita"
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-pepsi",
+     "name": "Kid's Drink - Pepsi",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 152.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.4,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pepsi",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-diet-pepsi",
+     "name": "Kid's Drink - Diet Pepsi",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 0.6,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-pepsi",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-mt-dew",
+     "name": "Kid's Drink - Mt. Dew",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 163.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 43.9,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-mt-dew",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-pink-lemonade",
+     "name": "Kid's Drink - Pink Lemonade",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 154.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pink-lemonade",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-wild-cherry-pepsi",
+     "name": "Kid's Drink - Wild Cherry Pepsi",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 155.9,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.2,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-wild-cherry-pepsi",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-diet-mountain-dew",
+     "name": "Kid's Drink - Diet Mountain Dew",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 4.8,
+      "proteinGrams": 0.1,
+      "carbGrams": 0.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-mountain-dew",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-tropicana-fruit-punch",
+     "name": "Kid's Drink - Tropicana Fruit Punch",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 169.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 45.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-tropicana-fruit-punch",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-sobe-yumberry-pomegranate",
+     "name": "Kid's Drink - Sobe Yumberry Pomegranate",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 2.2,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.2,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-sobe-yumberry-pomegranate",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-classic-root-beer",
+     "name": "Kid's Drink - Classic Root Beer",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-classic-root-beer",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-lemonade",
+     "name": "Kid's Drink - Lemonade",
+     "servingDescription": "Kid's fountain cup",
+     "macros": {
+      "calories": 154.9,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-lemonade",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-pepsi",
+     "name": "Fountain Drink - Pepsi",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 278.7,
+      "proteinGrams": 0.0,
+      "carbGrams": 75.9,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pepsi",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-diet-pepsi",
+     "name": "Fountain Drink - Diet Pepsi",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 1.1,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.2,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-pepsi",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-mt-dew",
+     "name": "Fountain Drink - Mt. Dew",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 298.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 80.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-mt-dew",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-pink-lemonade",
+     "name": "Fountain Drink - Pink Lemonade",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 283.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 73.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pink-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-wild-cherry-pepsi",
+     "name": "Fountain Drink - Wild Cherry Pepsi",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 285.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.4,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-wild-cherry-pepsi",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-diet-mountain-dew",
+     "name": "Fountain Drink - Diet Mountain Dew",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 8.8,
+      "proteinGrams": 0.2,
+      "carbGrams": 0.9,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-mountain-dew",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-tropicana-fruit-punch",
+     "name": "Fountain Drink - Tropicana Fruit Punch",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 311.3,
+      "proteinGrams": 0.0,
+      "carbGrams": 82.7,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-tropicana-fruit-punch",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-sobe-yumberry-pomegranate",
+     "name": "Fountain Drink - Sobe Yumberry Pomegranate",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 4.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.4,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-sobe-yumberry-pomegranate",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-classic-root-beer",
+     "name": "Fountain Drink - Classic Root Beer",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 275.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-classic-root-beer",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-lemonade",
+     "name": "Fountain Drink - Lemonade",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 284.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 73.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-sweet-tea",
+     "name": "Fountain Drink - Sweet Tea",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 226.4,
+      "proteinGrams": 0.0,
+      "carbGrams": 58.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-sweet-tea",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-unsweet-tea",
+     "name": "Fountain Drink - UnSweet Tea",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-unsweet-tea",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-starry",
+     "name": "Fountain Drink - Starry",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 275.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-starry",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-dr-pepper",
+     "name": "Fountain Drink - Dr. Pepper",
+     "servingDescription": "Regular fountain cup",
+     "macros": {
+      "calories": 256.7,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.5,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-dr-pepper",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-pepsi-2",
+     "name": "Fountain Drink - Pepsi",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 405.4,
+      "proteinGrams": 0.0,
+      "carbGrams": 110.4,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pepsi",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-diet-pepsi-2",
+     "name": "Fountain Drink - Diet Pepsi",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 1.6,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.3,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-pepsi",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-mt-dew-2",
+     "name": "Fountain Drink - Mt. Dew",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 434.6,
+      "proteinGrams": 0.0,
+      "carbGrams": 117.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-mt-dew",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-pink-lemonade-2",
+     "name": "Fountain Drink - Pink Lemonade",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 412.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 106.9,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-pink-lemonade",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-wild-cherry-pepsi-2",
+     "name": "Fountain Drink - Wild Cherry Pepsi",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 415.7,
+      "proteinGrams": 0.0,
+      "carbGrams": 112.6,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-wild-cherry-pepsi",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-diet-mountain-dew-2",
+     "name": "Fountain Drink - Diet Mountain Dew",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 12.8,
+      "proteinGrams": 0.3,
+      "carbGrams": 1.3,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-diet-mountain-dew",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-tropicana-fruit-punch-2",
+     "name": "Fountain Drink - Tropicana Fruit Punch",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 452.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 120.3,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-tropicana-fruit-punch",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-sobe-yumberry-pomegranate-2",
+     "name": "Fountain Drink - Sobe Yumberry Pomegranate",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 5.8,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.6,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-sobe-yumberry-pomegranate",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-classic-root-beer-2",
+     "name": "Fountain Drink - Classic Root Beer",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 400.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-classic-root-beer",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-lemonade-2",
+     "name": "Fountain Drink - Lemonade",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 413.1,
+      "proteinGrams": 0.0,
+      "carbGrams": 106.9,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-lemonade",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-sweet-tea-2",
+     "name": "Fountain Drink - Sweet Tea",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 329.3,
+      "proteinGrams": 0.0,
+      "carbGrams": 85.1,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-sweet-tea",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-unsweet-tea-2",
+     "name": "Fountain Drink - UnSweet Tea",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-unsweet-tea",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-starry-2",
+     "name": "Fountain Drink - Starry",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 400.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-starry",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-dr-pepper-2",
+     "name": "Fountain Drink - Dr. Pepper",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 373.4,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.fountain-drink-dr-pepper",
+     "sizeLabel": "Giant",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-pepsi",
+     "name": "Soda Bottle - Pepsi",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 69.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-diet-pepsi",
+     "name": "Soda Bottle - Diet Pepsi",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-mug-root-beer",
+     "name": "Soda Bottle - Mug Root Beer",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-mountain-dew",
+     "name": "Soda Bottle - Mountain Dew",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-pink-lemonade",
+     "name": "Soda Bottle - Pink Lemonade",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-wild-cherry-pepsi",
+     "name": "Soda Bottle - Wild Cherry Pepsi",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 70.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-diet-mountain-dew",
+     "name": "Soda Bottle - Diet Mountain Dew",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-pepsi-zero-sugar",
+     "name": "Soda Bottle - Pepsi Zero Sugar",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-starry",
+     "name": "Soda Bottle - Starry",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 65.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-dole-lemonade",
+     "name": "Soda Bottle - Dole Lemonade",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.soda-bottle-strawberry-lemonade",
+     "name": "Soda Bottle - Strawberry Lemonade",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.bottled-water-aquafina-water",
+     "name": "Bottled Water - Aquafina Water",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.life-wtr-life-water",
+     "name": "Life WTR - Life Water",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-fruit-punch",
+     "name": "Gatorade - Fruit Punch",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-lemon-lime",
+     "name": "Gatorade - Lemon Lime",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-orange",
+     "name": "Gatorade - Orange",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-cool-blue",
+     "name": "Gatorade - Cool Blue",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-glacier-freeze",
+     "name": "Gatorade - Glacier Freeze",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.gatorade-fierce-grape",
+     "name": "Gatorade - Fierce Grape",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-lemon-tea",
+     "name": "Pure Leaf Tea - Lemon Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-unsweetened-black-tea",
+     "name": "Pure Leaf Tea - Unsweetened Black Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-raspberry-tea",
+     "name": "Pure Leaf Tea - Raspberry Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 46.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-sweet-tea",
+     "name": "Pure Leaf Tea - Sweet Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-green-tea",
+     "name": "Pure Leaf Tea - Green Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 25.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.pure-leaf-tea-peach-tea",
+     "name": "Pure Leaf Tea - Peach Tea",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-tropicana-orange-juice",
+     "name": "Juice - Tropicana Orange Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 51.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-tropicana-apple-juice",
+     "name": "Juice - Tropicana Apple Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 51.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-ocean-spray-cranberry-juice",
+     "name": "Juice - Ocean Spray Cranberry Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 53.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-ocean-spray-orange-juice",
+     "name": "Juice - Ocean Spray Orange Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 51.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-dole-orange-juice",
+     "name": "Juice - Dole Orange Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 52.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.juice-dole-apple-juice",
+     "name": "Juice - Dole Apple Juice",
+     "servingDescription": "Regular",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 51.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.stubborn-soda-classic-root-beer",
+     "name": "Stubborn Soda - Classic Root Beer",
+     "servingDescription": "can",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.stubborn-soda-black-cherry-with-tarragon",
+     "name": "Stubborn Soda - Black Cherry with Tarragon",
+     "servingDescription": "can",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.bubly-bubly-lime",
+     "name": "Bubly - Bubly Lime",
+     "servingDescription": "can",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.bubly-bubly-blackberry",
+     "name": "Bubly - Bubly Blackberry",
+     "servingDescription": "can",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.amp-energy-drink-amp-energy-original",
+     "name": "AMP Energy Drink - AMP Energy Original",
+     "servingDescription": "Each",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 58.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.amp-energy-drink-amp-energy-cherry-blast",
+     "name": "AMP Energy Drink - AMP Energy Cherry Blast",
+     "servingDescription": "Each",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 31.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.amp-energy-drink-amp-energy-strawberry-limeade",
+     "name": "AMP Energy Drink - AMP Energy Strawberry Limeade",
+     "servingDescription": "Each",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 58.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.amp-energy-drink-amp-energy-tropical-punch",
+     "name": "AMP Energy Drink - AMP Energy Tropical Punch",
+     "servingDescription": "Each",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 26.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.sobe-drink-sobe-yumberry-pomegranate",
+     "name": "Sobe Drink - Sobe Yumberry Pomegranate",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.sobe-drink-sobe-fuji-apple-pear",
+     "name": "Sobe Drink - Sobe Fuji Apple Pear",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.sobe-drink-sobe-black-blueberry",
+     "name": "Sobe Drink - Sobe Black & Blueberry",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.sobe-drink-sobe-straw-dragon-fruit",
+     "name": "Sobe Drink - Sobe Straw Dragon Fruit",
+     "servingDescription": "bottle",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.dr-pepper-giant",
+     "name": "Dr. Pepper - Giant",
+     "servingDescription": "Giant fountain cup",
+     "macros": {
+      "calories": 373.4,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "jersey-mikes.size.drinks.dr-pepper",
+     "sizeLabel": "Giant",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.kid-s-drink-agave-vanilla-cream",
+     "name": "Kid's Drink - Agave Vanilla Cream",
+     "servingDescription": "Kid's fountain cup, 12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Allergens from Jersey Mike's /nutrition/{product}/{size} endpoint, which reports every allergen flag 0 with missing_allergen_info 0.",
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.fountain-drink-agave-vanilla-cream",
+     "name": "Fountain Drink - Agave Vanilla Cream",
+     "servingDescription": "Regular fountain cup, 22 fl oz",
+     "macros": {
+      "calories": 275.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 69.7,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Allergens from Jersey Mike's /nutrition/{product}/{size} endpoint, which reports every allergen flag 0 with missing_allergen_info 0.",
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "jersey-mikes.drinks.stubborn-soda-agave-vanilla-cream",
+     "name": "Stubborn Soda - Agave Vanilla Cream",
+     "servingDescription": "12 oz can",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Allergens from Jersey Mike's /nutrition/{product}/{size} endpoint, which reports every allergen flag 0 with missing_allergen_info 0.",
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

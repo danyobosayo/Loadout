@@ -84,6 +84,32 @@ final class MealBuilderStore {
         }
     }
 
+    /// Adds — or updates — a configured item.
+    ///
+    /// Deliberately does NOT fold into an existing line the way `add` does: a Box
+    /// Combo with no slaw and a Box Combo with extra sauce are two different
+    /// orders that happen to share a menu id, and silently merging them would
+    /// throw away one of them. Pass `replacing` to edit a line already on the tray.
+    @discardableResult
+    func addConfigured(
+        _ item: MenuItem,
+        in category: MenuCategory,
+        configuration: ItemConfiguration,
+        quantity: Double = 1,
+        replacing lineItemId: UUID? = nil
+    ) -> AddOutcome {
+        let line = LineItem.snapshot(
+            of: item, in: category,
+            configuration: configuration, restaurant: restaurant, quantity: quantity
+        )
+        if let lineItemId, let idx = lineItems.firstIndex(where: { $0.id == lineItemId }) {
+            lineItems[idx] = line
+            return .incremented
+        }
+        lineItems.append(line)
+        return .added
+    }
+
     /// Seeds curated format items (`autoAdd`) by resolving each id against
     /// `restaurant` and routing through `add` — so dedup and selection
     /// rules still hold, unlike the raw `init(lineItems:)` seed path.
@@ -276,6 +302,29 @@ private extension LineItem {
         )
     }
 
+    /// A snapshot of a configured item — a Box Combo minus the slaw. `macros`
+    /// is the already-configured total, so every consumer downstream (tray,
+    /// export, HealthKit, solver) keeps treating a line as a flat number.
+    static func snapshot(
+        of item: MenuItem,
+        in category: MenuCategory,
+        configuration: ItemConfiguration,
+        restaurant: Restaurant,
+        quantity: Double = 1
+    ) -> LineItem {
+        LineItem(
+            id: UUID(),
+            menuItemId: item.id,
+            displayName: item.name,
+            servingDescription: item.servingDescription,
+            macros: item.macros(with: configuration, in: restaurant),
+            quantity: quantity,
+            iconName: item.iconName ?? category.iconName,
+            configuration: configuration,
+            configurationDetail: item.configurationSummary(configuration, in: restaurant)
+        )
+    }
+
     func withQuantity(_ newQuantity: Double) -> LineItem {
         LineItem(
             id: id,
@@ -284,7 +333,9 @@ private extension LineItem {
             servingDescription: servingDescription,
             macros: macros,
             quantity: newQuantity,
-            iconName: iconName
+            iconName: iconName,
+            configuration: configuration,
+            configurationDetail: configurationDetail
         )
     }
 }
