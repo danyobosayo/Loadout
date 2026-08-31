@@ -9,11 +9,15 @@ nonisolated struct Restaurant: Codable, Hashable, Sendable, Identifiable {
     /// How this place is ordered. Defaults to `.assembly` — the station-by-station
     /// builder Loadout started as — so an uncurated menu behaves exactly as before.
     let orderingModel: OrderingModel
+    /// Shared recipe definitions keep Starbucks' many cup-size rows compact:
+    /// each item references one product recipe, whose defaults vary by size.
+    let drinkRecipes: [DrinkRecipe]
 
     init(
         id: String, name: String, categories: [MenuCategory],
         dataSource: DataSource, schemaVersion: Int,
-        orderingModel: OrderingModel = .assembly
+        orderingModel: OrderingModel = .assembly,
+        drinkRecipes: [DrinkRecipe] = []
     ) {
         self.id = id
         self.name = name
@@ -21,10 +25,11 @@ nonisolated struct Restaurant: Codable, Hashable, Sendable, Identifiable {
         self.dataSource = dataSource
         self.schemaVersion = schemaVersion
         self.orderingModel = orderingModel
+        self.drinkRecipes = drinkRecipes
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, categories, dataSource, schemaVersion, orderingModel
+        case id, name, categories, dataSource, schemaVersion, orderingModel, drinkRecipes
     }
 
     init(from decoder: Decoder) throws {
@@ -35,8 +40,14 @@ nonisolated struct Restaurant: Codable, Hashable, Sendable, Identifiable {
             categories: try c.decode([MenuCategory].self, forKey: .categories),
             dataSource: try c.decode(DataSource.self, forKey: .dataSource),
             schemaVersion: try c.decode(Int.self, forKey: .schemaVersion),
-            orderingModel: try c.decodeIfPresent(OrderingModel.self, forKey: .orderingModel) ?? .assembly
+            orderingModel: try c.decodeIfPresent(OrderingModel.self, forKey: .orderingModel) ?? .assembly,
+            drinkRecipes: try c.decodeIfPresent([DrinkRecipe].self, forKey: .drinkRecipes) ?? []
         )
+    }
+
+    func drinkRecipe(for item: MenuItem) -> DrinkRecipe? {
+        guard let recipeId = item.recipeId else { return nil }
+        return drinkRecipes.first { $0.id == recipeId }
     }
 }
 

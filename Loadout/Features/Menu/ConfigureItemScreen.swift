@@ -30,9 +30,11 @@ struct ConfigureItemScreen: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var configuration: ItemConfiguration = .unchanged
+    @State private var expandedRecipeGroups: Set<String> = []
 
     private var macros: Macros { item.macros(with: configuration, in: restaurant) }
     private var delta: Double { macros.calories - item.macros.calories }
+    private var recipe: DrinkRecipe? { restaurant.drinkRecipe(for: item) }
 
     var body: some View {
         ScrollView {
@@ -51,6 +53,9 @@ struct ConfigureItemScreen: View {
                             row(component, isOn: addedQuantity(of: component.menuItemId) > 0)
                         }
                     }
+                }
+                if let recipe {
+                    recipeEditor(recipe)
                 }
             }
             .padding(Spacing.md)
@@ -90,12 +95,32 @@ struct ConfigureItemScreen: View {
                 }
                 MacroSegmentBar(macros: macros)
                 MacroStrip(macros: macros, showsCalories: false)
+                if item.sizeLabel != nil {
+                    Text(item.servingDescription)
+                        .font(.appCaption)
+                        .foregroundStyle(.textSecondary)
+                }
+                if configuration.hasRecipeChanges {
+                    standardRecipeNotice
+                }
                 if item.isEstimated, let notes = item.notes {
                     estimateNote(notes)
                 }
             }
         }
         .animation(Motion.snap, value: macros.calories)
+    }
+
+    private var standardRecipeNotice: some View {
+        HStack(alignment: .top, spacing: 6) {
+            Image(systemName: "info.circle.fill")
+                .font(.system(size: 11, weight: .semibold))
+            Text("Starbucks does not recalculate nutrition for customizations. Macros remain the published standard recipe for this size.")
+                .font(.appCaption)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .foregroundStyle(Color.textSecondary)
+        .accessibilityIdentifier("recipe.standardMacrosNotice")
     }
 
     /// An unofficial figure says so, in the colour reserved for "unverified".
@@ -168,6 +193,197 @@ struct ConfigureItemScreen: View {
         .buttonStyle(.pressable)
         .accessibilityLabel(accessibilityLabel(for: component, resolved: resolved, isOn: isOn))
         .accessibilityAddTraits(isOn ? [.isSelected] : [])
+    }
+
+    // MARK: Recipe editor
+
+    @ViewBuilder
+    private func recipeEditor(_ recipe: DrinkRecipe) -> some View {
+        ForEach(recipe.groups) { group in
+            section(group.name, subtitle: group.kind == .quantity ? "Match your order" : nil) {
+                switch group.kind {
+                case .single:
+                    recipeSingleRow(group, recipe: recipe)
+                case .quantity:
+                    if group.choices.count == 1 {
+                        ForEach(group.choices) { choice in
+                            recipeQuantityRow(choice, group: group, recipe: recipe)
+                        }
+                    } else {
+                        recipeQuantityDisclosure(group, recipe: recipe)
+                    }
+                }
+            }
+        }
+    }
+
+    private func recipeQuantityDisclosure(
+        _ group: RecipeOptionGroup,
+        recipe: DrinkRecipe
+    ) -> some View {
+        let total = group.choices.reduce(0) {
+            $0 + recipe.quantity(
+                for: $1, sizeLabel: item.sizeLabel, configuration: configuration
+            )
+        }
+        return Card(padding: Spacing.sm + Spacing.xs, highlight: total > 0 ? accent : nil) {
+            DisclosureGroup(isExpanded: recipeGroupBinding(group.id)) {
+                VStack(spacing: Spacing.sm) {
+                    ForEach(group.choices) { choice in
+                        recipeQuantityRow(choice, group: group, recipe: recipe)
+                    }
+                }
+                .padding(.top, Spacing.sm)
+            } label: {
+                HStack {
+                    Text(total == 0 ? "Choose amounts" : "\(total) selected")
+                        .font(.appHeadline)
+                        .foregroundStyle(total > 0 ? .textPrimary : .textSecondary)
+                    Spacer()
+                }
+            }
+            .tint(accent)
+        }
+        .accessibilityIdentifier("recipeGroup.\(group.id)")
+    }
+
+    private func recipeGroupBinding(_ groupId: String) -> Binding<Bool> {
+        Binding(
+            get: { expandedRecipeGroups.contains(groupId) },
+            set: { expanded in
+                if expanded {
+                    expandedRecipeGroups.insert(groupId)
+                } else {
+                    expandedRecipeGroups.remove(groupId)
+                }
+            }
+        )
+    }
+
+    private func recipeSingleRow(_ group: RecipeOptionGroup, recipe: DrinkRecipe) -> some View {
+        let selectedId = recipe.selection(
+            for: group, sizeLabel: item.sizeLabel, configuration: configuration
+        )
+        let selectedName = group.choices.first(where: { $0.id == selectedId })?.name ?? "None"
+
+        return Menu {
+            if group.allowsNone {
+                Button("None") { setRecipeSelection(nil, in: group, recipe: recipe) }
+            }
+            ForEach(group.choices) { choice in
+                Button {
+                    setRecipeSelection(choice.id, in: group, recipe: recipe)
+                } label: {
+                    if choice.id == selectedId {
+                        Label(choice.name, systemImage: "checkmark")
+                    } else {
+                        Text(choice.name)
+                    }
+                }
+            }
+        } label: {
+            Card(padding: Spacing.sm + Spacing.xs, highlight: accent) {
+                HStack(spacing: Spacing.md) {
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(accent)
+                    Text(selectedName)
+                        .font(.appHeadline)
+                        .foregroundStyle(.textPrimary)
+                    Spacer()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(.textTertiary)
+                }
+            }
+        }
+        .accessibilityIdentifier("recipeSingle.\(group.id)")
+    }
+
+    private func recipeQuantityRow(
+        _ choice: RecipeChoice,
+        group: RecipeOptionGroup,
+        recipe: DrinkRecipe
+    ) -> some View {
+        let quantity = recipe.quantity(
+            for: choice, sizeLabel: item.sizeLabel, configuration: configuration
+        )
+        let maximum = choice.maximumQuantity ?? 12
+
+        return Card(padding: Spacing.sm + Spacing.xs, highlight: quantity > 0 ? accent : nil) {
+            HStack(spacing: Spacing.md) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(choice.name)
+                        .font(.appHeadline)
+                        .foregroundStyle(quantity > 0 ? .textPrimary : .textSecondary)
+                    Text(quantity == 1 ? "1 serving" : "\(quantity) servings")
+                        .font(.appCaption)
+                        .foregroundStyle(.textTertiary)
+                }
+                Spacer()
+                Button {
+                    setRecipeQuantity(max(0, quantity - 1), for: choice, recipe: recipe)
+                } label: {
+                    Image(systemName: "minus.circle.fill")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(quantity > 0 ? accent : Color.textTertiary)
+                }
+                .buttonStyle(.plain)
+                .disabled(quantity == 0)
+                .accessibilityLabel("Remove one \(choice.name)")
+                .accessibilityIdentifier("recipeMinus.\(choice.id)")
+
+                Text("\(quantity)")
+                    .font(.numeralCompact)
+                    .foregroundStyle(.textPrimary)
+                    .frame(minWidth: 24)
+                    .accessibilityIdentifier("recipeQuantity.\(choice.id)")
+
+                Button {
+                    setRecipeQuantity(min(maximum, quantity + 1), for: choice, recipe: recipe)
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(accent)
+                }
+                .buttonStyle(.plain)
+                .disabled(quantity >= maximum)
+                .accessibilityLabel("Add one \(choice.name)")
+                .accessibilityIdentifier("recipePlus.\(choice.id)")
+            }
+        }
+    }
+
+    private func setRecipeSelection(
+        _ choiceId: String?,
+        in group: RecipeOptionGroup,
+        recipe: DrinkRecipe
+    ) {
+        let standard = recipe.defaults(for: item.sizeLabel).selections[group.id]
+        if choiceId == standard {
+            configuration.recipeSelectionChanges.remove(group.id)
+            configuration.recipeSelections.removeValue(forKey: group.id)
+        } else {
+            configuration.recipeSelectionChanges.insert(group.id)
+            if let choiceId {
+                configuration.recipeSelections[group.id] = choiceId
+            } else {
+                configuration.recipeSelections.removeValue(forKey: group.id)
+            }
+        }
+    }
+
+    private func setRecipeQuantity(
+        _ quantity: Int,
+        for choice: RecipeChoice,
+        recipe: DrinkRecipe
+    ) {
+        let standard = recipe.defaults(for: item.sizeLabel).quantities[choice.id] ?? 0
+        if quantity == standard {
+            configuration.recipeQuantities.removeValue(forKey: choice.id)
+        } else {
+            configuration.recipeQuantities[choice.id] = quantity
+        }
     }
 
     private func label(for component: ItemComponent, resolved: MenuItem?, extras: Double) -> String {

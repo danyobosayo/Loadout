@@ -109,8 +109,8 @@ final class SizePickerUITests: XCTestCase {
         attach(app, "05-guided-size-sheet")
     }
 
-    /// Picking a cup changes the macros on the row — the whole point of the
-    /// picker is that a Venti and a Short are different numbers.
+    /// Picking a cup enters that cup's recipe editor before it reaches the tray.
+    /// The editor must show the chosen serving and the cup-specific macros.
     @MainActor
     func testPickingACupChangesTheMacros() throws {
         let app = launchedApp()
@@ -120,14 +120,18 @@ final class SizePickerUITests: XCTestCase {
         XCTAssertTrue(latte.waitForExistence(timeout: 15))
         var scrolls = 0
         while !latte.isHittable && scrolls < 10 { app.swipeUp(); scrolls += 1 }
-        let grandeLabel = latte.label
         latte.tap()
         pickVenti(app)
 
+        XCTAssertTrue(app.staticTexts["Venti (20 fl oz)"].waitForExistence(timeout: 8),
+                      "the recipe editor should preserve the chosen Venti size")
+        XCTAssertTrue(app.staticTexts["250"].exists,
+                      "a standard Venti Caffè Latte should show 250 calories")
+        app.buttons["Add to meal"].tap()
+
         let switched = latteRow(app)
-        XCTAssertTrue(switched.waitForExistence(timeout: 5))
-        XCTAssertNotEqual(switched.label, grandeLabel, "switching cup should change the row's macros")
-        XCTAssertTrue(switched.label.contains("Venti"), "the row should now read as a Venti")
+        XCTAssertTrue(switched.waitForExistence(timeout: 8))
+        XCTAssertTrue(switched.label.contains("Venti"), "the added row should read as a Venti")
         attach(app, "02-venti-selected")
     }
 
@@ -144,6 +148,8 @@ final class SizePickerUITests: XCTestCase {
         while !latte.isHittable && scrolls < 10 { app.swipeUp(); scrolls += 1 }
         latte.tap()
         app.buttons["size.starbucks.hot-coffee.caffe-latte"].tap()   // Grande
+        XCTAssertTrue(app.buttons["Add to meal"].waitForExistence(timeout: 8))
+        app.buttons["Add to meal"].tap()
 
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(tray.waitForExistence(timeout: 5))
@@ -151,11 +157,68 @@ final class SizePickerUITests: XCTestCase {
 
         latteRow(app).tap()
         pickVenti(app)
+        XCTAssertTrue(app.buttons["Update"].waitForExistence(timeout: 8))
+        app.buttons["Update"].tap()
 
         XCTAssertTrue(tray.waitForExistence(timeout: 5))
         XCTAssertTrue(tray.label.contains("1 item"),
                       "changing cup should move the line, not add a second latte — tray reads \(tray.label)")
         attach(app, "03-tray-after-switch")
+    }
+
+    /// Starbucks itself keeps standard nutrition on screen after milk, shot,
+    /// and syrup changes. Loadout should reproduce the order controls while
+    /// stating that the displayed macros remain the standard recipe.
+    @MainActor
+    func testStarbucksMilkShotsAndPumpsAreConfigurableWithoutInventedMacros() throws {
+        let app = launchedApp()
+        openStarbucks(app)
+
+        let latte = latteRow(app)
+        XCTAssertTrue(latte.waitForExistence(timeout: 15))
+        var scrolls = 0
+        while !latte.isHittable && scrolls < 10 { app.swipeUp(); scrolls += 1 }
+        latte.tap()
+        app.buttons["size.starbucks.hot-coffee.caffe-latte"].tap()
+
+        let milk = app.buttons["recipeSingle.starbucks.recipe.group.milk-options"]
+        XCTAssertTrue(milk.waitForExistence(timeout: 8), "a latte should expose its official milk choices")
+        milk.tap()
+        XCTAssertTrue(app.buttons["Nonfat Milk"].waitForExistence(timeout: 5))
+        app.buttons["Nonfat Milk"].tap()
+
+        let shotMinus = app.buttons["recipeMinus.starbucks.recipe.choice.82.add"]
+        scrolls = 0
+        while !shotMinus.isHittable && scrolls < 20 { app.swipeUp(); scrolls += 1 }
+        XCTAssertTrue(shotMinus.isHittable, "the official shot count should be editable")
+        shotMinus.tap() // Grande standard: 2 → 1
+
+        let syrups = app.buttons["recipeGroup.starbucks.recipe.group.syrups"]
+        scrolls = 0
+        while !syrups.isHittable && scrolls < 12 { app.swipeDown(); scrolls += 1 }
+        XCTAssertTrue(syrups.isHittable, "the official syrup choices should be grouped, not a flat wall")
+        syrups.tap()
+        let vanillaPlus = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Add one Vanilla Syrup")
+        ).firstMatch
+        scrolls = 0
+        while !vanillaPlus.isHittable && scrolls < 15 { app.swipeUp(); scrolls += 1 }
+        XCTAssertTrue(vanillaPlus.isHittable, "Vanilla Syrup should expose a pump counter")
+        vanillaPlus.tap()
+
+        XCTAssertTrue(app.otherElements["recipe.standardMacrosNotice"].exists
+                      || app.staticTexts.containing(
+                        NSPredicate(format: "label CONTAINS %@", "standard recipe")
+                      ).firstMatch.exists,
+                      "customization must explain why the official macros stay unchanged")
+        attach(app, "07-starbucks-recipe-customized")
+        app.buttons["Add to meal"].tap()
+
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 8))
+        XCTAssertTrue(tray.label.contains("190"),
+                      "a customized Grande latte retains Starbucks' published 190-cal standard total")
+        attach(app, "08-starbucks-recipe-added")
     }
 
     /// Smoothie King is size-first in both its calculator and order flow. One
