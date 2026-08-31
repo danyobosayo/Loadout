@@ -118,6 +118,7 @@ nonisolated enum ExportService {
         "chipotle": "Chipotle",
         "cava": "CAVA",
         "panda-express": "Panda Express",
+        "smoothie-king": "Smoothie King",
         "sweetgreen": "Sweetgreen",
         "subway": "Subway"
     ]

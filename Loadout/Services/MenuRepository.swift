@@ -9,8 +9,7 @@ protocol MenuRepository: Sendable {
     /// build-your-own-only experience.
     func loadFormats(restaurantId: String) async throws -> [OrderFormat]
     /// The restaurant's published named meals (Harvest Bowl, Italian B.M.T.).
-    /// Absent for restaurants that don't publish any — Panda sells combos of
-    /// entrées, not named composed dishes — so a missing file is normal.
+    /// Absent for restaurants that don't publish any, so a missing file is normal.
     func loadPresets(restaurantId: String) async throws -> [MealPreset]
 }
 
@@ -28,6 +27,7 @@ nonisolated struct BundledMenuRepository: MenuRepository {
             "chipotle", "cava", "panda-express", "sweetgreen", "subway",
             "chick-fil-a", "starbucks", "panera", "qdoba", "moes",
             "jersey-mikes", "halal-guys", "mod-pizza", "raising-canes",
+            "smoothie-king",
         ]
     ) {
         self.bundle = bundle

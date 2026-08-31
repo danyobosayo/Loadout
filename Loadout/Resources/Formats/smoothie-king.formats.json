@@ -1,0 +1,122 @@
+{
+  "restaurantId": "smoothie-king",
+  "formats": [
+    {
+      "id": "get-fit",
+      "name": "Get Fit",
+      "blurb": "Recipes designed with protein-rich ingredients to help you meet your macros or recover faster.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "get-fit",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "feel-energized",
+      "name": "Feel Energized",
+      "blurb": "Purposefully blended to boost your energy and help you take on the day.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "feel-energized",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "manage-weight",
+      "name": "Manage Weight",
+      "blurb": "Recipes designed to help you stay on track.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "manage-weight",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "be-well",
+      "name": "Be Well",
+      "blurb": "Each Be Well smoothie is expertly crafted with vitamins essential to maintaining a healthy body.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "be-well",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "fruit-classics",
+      "name": "Fruit Classics",
+      "blurb": "Recipes designed to help you sip happy.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "fruit-classics",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "glp-1",
+      "name": "GLP-1",
+      "blurb": "Recipes designed to support your GLP-1 routine with protein, fiber, and 0g added sugar.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "glp-1",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "enhancers"
+      ]
+    },
+    {
+      "id": "kids",
+      "name": "Kids",
+      "blurb": "Recipes designed with flavors they’ll love.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "kids",
+          "promptCopy": "Choose your smoothie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": []
+    }
+  ]
+}

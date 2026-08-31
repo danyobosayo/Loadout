@@ -13,6 +13,7 @@ struct DietaryTests {
         "chipotle", "cava", "panda-express", "sweetgreen", "subway",
         "chick-fil-a", "starbucks", "panera", "qdoba", "moes",
         "jersey-mikes", "halal-guys", "mod-pizza", "raising-canes",
+        "smoothie-king",
     ]
 
     // MARK: Derivation

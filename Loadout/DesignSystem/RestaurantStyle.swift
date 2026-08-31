@@ -46,6 +46,7 @@ nonisolated extension Restaurant {
         "jersey-mikes":  RestaurantStyle(hue: Color(red: 0.55, green: 0.65, blue: 0.85), icon: "station.bread"),    // steel
         "halal-guys":    RestaurantStyle(hue: Color(red: 1.00, green: 0.45, blue: 0.68), icon: "station.rice"),     // rose
         "mod-pizza":     RestaurantStyle(hue: Color(red: 0.95, green: 0.86, blue: 0.48), icon: "station.slice"),    // butter
-        "raising-canes": RestaurantStyle(hue: Color(red: 0.80, green: 0.70, blue: 0.55), icon: "station.takeout")   // sand
+        "raising-canes": RestaurantStyle(hue: Color(red: 0.80, green: 0.70, blue: 0.55), icon: "station.takeout"),  // sand
+        "smoothie-king": RestaurantStyle(hue: Color(red: 0.40, green: 0.76, blue: 0.68), icon: "restaurant.smoothie-king") // seafoam
     ]
 }

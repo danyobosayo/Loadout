@@ -113,6 +113,23 @@ struct SizeGroupTests {
         #expect(pike.members.map(\.sizeLabel) == ["Short", "Tall", "Grande", "Venti"])
     }
 
+    @Test func smoothieKingUsesPublishedCupSizesAndTwentyOunceDefault() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "smoothie-king")
+        let getFit = try #require(restaurant.category(id: "get-fit"))
+        let group = try #require(
+            getFit.sizeGroups().first { $0.displayName == "Original High Protein Banana" }
+        )
+
+        #expect(group.members.map(\.sizeLabel) == ["20 oz", "32 oz", "44 oz"])
+        #expect(group.defaultMember.sizeLabel == "20 oz")
+        #expect(group.defaultMember.macros == Macros(
+            calories: 330, proteinGrams: 27, carbGrams: 33, fatGrams: 12
+        ))
+        #expect(group.member(labelled: "44 oz")?.macros == Macros(
+            calories: 660, proteinGrams: 54, carbGrams: 65, fatGrams: 25
+        ))
+    }
+
     @Test func namedTiersSortByLadderNotAlphabet() {
         #expect(SizeGroup.rank("Tall") < SizeGroup.rank("Grande"))
         #expect(SizeGroup.rank("Grande") < SizeGroup.rank("Venti"))
@@ -123,9 +140,10 @@ struct SizeGroupTests {
         #expect(SizeGroup.rank("M") < SizeGroup.rank("L"))
     }
 
-    /// The four flagship restaurants are curated — their groups must be real.
+    /// Curated restaurant groups must have one real default and named choices.
     @Test(arguments: ["chipotle", "chick-fil-a", "starbucks", "raising-canes",
-                      "cava", "panda-express", "panera", "jersey-mikes", "qdoba"])
+                      "cava", "panda-express", "panera", "jersey-mikes", "qdoba",
+                      "smoothie-king"])
     func curatedRestaurantsHaveExactlyOneDefaultPerGroup(_ id: String) async throws {
         let restaurant = try await BundledMenuRepository().loadRestaurant(id: id)
         for category in restaurant.categories {
@@ -212,7 +230,8 @@ struct SizeGroupTests {
         // in them, so it broke every time a station was curated — which trains
         // you to edit the number rather than read the failure.
         for (id, atLeast) in [("chick-fil-a", 12), ("chipotle", 3), ("starbucks", 99),
-                              ("panera", 8), ("jersey-mikes", 6), ("qdoba", 5)] {
+                              ("panera", 8), ("jersey-mikes", 6), ("qdoba", 5),
+                              ("smoothie-king", 100)] {
             let restaurant = try await repository.loadRestaurant(id: id)
             let grouped = restaurant.categories
                 .flatMap { $0.sizeGroups() }

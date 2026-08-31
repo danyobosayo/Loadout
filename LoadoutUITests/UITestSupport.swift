@@ -3,7 +3,7 @@ import XCTest
 extension XCUIApplication {
     /// Tap a restaurant card on the Build tab, scrolling it into view first.
     ///
-    /// The list is alphabetical and now 14 long, so the back half (Starbucks,
+    /// The list is alphabetical and now 15 long, so the back half (Starbucks,
     /// Subway, Sweetgreen, The Halal Guys) starts below the fold.
     /// `waitForExistence` is not enough on its own — a SwiftUI `ScrollView`
     /// reports off-screen cards as existing but not hittable, and tapping one
