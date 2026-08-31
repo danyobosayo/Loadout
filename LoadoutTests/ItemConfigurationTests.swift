@@ -273,12 +273,86 @@ struct ItemConfigurationTests {
     }
 
     /// Menus that predate components must decode and behave exactly as before.
-    @Test(arguments: ["chipotle", "panda-express", "starbucks"])
+    @Test(arguments: ["chipotle", "panda-express"])
     func uncuratedMenusCarryNoComponentsAndStayAssembly(_ id: String) async throws {
         let restaurant = try await BundledMenuRepository().loadRestaurant(id: id)
         #expect(restaurant.orderingModel == .assembly)
         for category in restaurant.categories {
             #expect(category.items.allSatisfy { !$0.isConfigurable })
+        }
+    }
+
+    // MARK: Starbucks — source-derived recipes, standard nutrition
+
+    @Test func starbucksIsARecipeRestaurantWithSizeSpecificDefaults() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        #expect(restaurant.orderingModel == .recipe)
+        let latte = try item(restaurant, "starbucks.hot-coffee.caffe-latte")
+        let recipe = try #require(restaurant.drinkRecipe(for: latte))
+        let defaults = recipe.defaults(for: "Grande")
+
+        #expect(defaults.quantities["starbucks.recipe.choice.82.add"] == 2)
+        #expect(
+            defaults.selections["starbucks.recipe.group.milk-options"]
+                == "starbucks.recipe.choice.63.add"
+        )
+    }
+
+    @Test func starbucksCustomizationRecordsTheOrderWithoutInventingMacros() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let latte = try item(restaurant, "starbucks.hot-coffee.caffe-latte")
+        let configuration = ItemConfiguration(
+            recipeSelections: [
+                "starbucks.recipe.group.milk-options": "starbucks.recipe.choice.61.add",
+            ],
+            recipeSelectionChanges: ["starbucks.recipe.group.milk-options"],
+            recipeQuantities: ["starbucks.recipe.choice.82.add": 1]
+        )
+
+        #expect(latte.macros(with: configuration, in: restaurant) == latte.macros)
+        let summary = try #require(latte.configurationSummary(configuration, in: restaurant))
+        #expect(summary.contains("nonfat milk"))
+        #expect(summary.contains("1 espresso shot"))
+        #expect(summary.hasSuffix("standard recipe macros"))
+    }
+
+    @Test func everyStarbucksRecipeReferenceAndSizeDefaultResolves() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let recipeIds = Set(restaurant.drinkRecipes.map(\.id))
+        #expect(recipeIds.count == restaurant.drinkRecipes.count)
+
+        for item in restaurant.categories.flatMap(\.items) {
+            guard let recipeId = item.recipeId else { continue }
+            #expect(recipeIds.contains(recipeId), "\(item.id) references missing \(recipeId)")
+            let recipe = try #require(restaurant.drinkRecipe(for: item))
+            if let size = item.sizeLabel {
+                #expect(recipe.defaultsBySize[size] != nil,
+                        "\(item.id) has no official recipe defaults for \(size)")
+            }
+        }
+
+        for recipe in restaurant.drinkRecipes {
+            let groupIds = Set(recipe.groups.map(\.id))
+            let choiceIds = Set(recipe.groups.flatMap(\.choices).map(\.id))
+            #expect(groupIds.count == recipe.groups.count)
+            #expect(choiceIds.count == recipe.groups.flatMap(\.choices).count)
+            for defaults in recipe.defaultsBySize.values {
+                #expect(Set(defaults.selections.keys).isSubset(of: groupIds))
+                #expect(Set(defaults.selections.values).isSubset(of: choiceIds))
+                #expect(Set(defaults.quantities.keys).isSubset(of: choiceIds))
+                #expect(defaults.quantities.values.allSatisfy { $0 >= 0 && $0 <= 12 })
+            }
+        }
+    }
+
+    @Test func starbucksCatalogKeepsDistinctiveDrinksAndDropsGenericPackagedDrinks() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let names = Set(restaurant.categories.flatMap(\.items).map(\.name))
+        #expect(names.contains { $0.contains("Energy Refresher") })
+        #expect(names.contains { $0.contains("Protein Cream Shaken Espresso") })
+        for excluded in ["Koia", "Horizon Organic", "Cold Milk", "Steamed Milk", "Blue Coconut"] {
+            #expect(!names.contains { $0.localizedCaseInsensitiveContains(excluded) },
+                    "generic or retired drink remains: \(excluded)")
         }
     }
 

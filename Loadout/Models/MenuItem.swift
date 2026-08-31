@@ -15,6 +15,10 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     /// The size a customer gets if they say nothing. Exactly one member of a
     /// group carries true.
     let isDefaultSize: Bool
+    /// References a source-derived recipe in `Restaurant.drinkRecipes`.
+    /// Size remains a menu-item concern; milk, shots, pumps, and preparation
+    /// choices belong to the recipe editor.
+    let recipeId: String?
     /// Non-nil when this item arrives already built — see `ItemComponent`. The
     /// item's own `macros` stay the as-served board figure; components describe
     /// what each part contributes so it can be declined.
@@ -42,6 +46,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         sizeGroup: String? = nil,
         sizeLabel: String? = nil,
         isDefaultSize: Bool = false,
+        recipeId: String? = nil,
         components: [ItemComponent]? = nil,
         isEstimated: Bool = false,
         allergens: [Allergen]? = nil,
@@ -56,6 +61,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         self.sizeGroup = sizeGroup
         self.sizeLabel = sizeLabel
         self.isDefaultSize = isDefaultSize
+        self.recipeId = recipeId
         self.components = components
         self.isEstimated = isEstimated
         self.allergens = allergens
@@ -67,7 +73,7 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
 
 nonisolated extension MenuItem {
     private enum CodingKeys: String, CodingKey {
-        case id, name, servingDescription, macros, sizeGroup, sizeLabel, isDefaultSize
+        case id, name, servingDescription, macros, sizeGroup, sizeLabel, isDefaultSize, recipeId
         case components, isEstimated, allergens, dietaryMarkers, notes, iconName
     }
 
@@ -81,6 +87,7 @@ nonisolated extension MenuItem {
             sizeGroup: try c.decodeIfPresent(String.self, forKey: .sizeGroup),
             sizeLabel: try c.decodeIfPresent(String.self, forKey: .sizeLabel),
             isDefaultSize: try c.decodeIfPresent(Bool.self, forKey: .isDefaultSize) ?? false,
+            recipeId: try c.decodeIfPresent(String.self, forKey: .recipeId),
             components: try c.decodeIfPresent([ItemComponent].self, forKey: .components),
             isEstimated: try c.decodeIfPresent(Bool.self, forKey: .isEstimated) ?? false,
             allergens: try c.decodeIfPresent([Allergen].self, forKey: .allergens),

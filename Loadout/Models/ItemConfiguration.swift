@@ -56,20 +56,57 @@ nonisolated struct ItemConfiguration: Codable, Hashable, Sendable {
     /// Extra components, including a second helping of something already default
     /// (two Chick-fil-A sauces, extra Cane's sauce).
     var added: [ItemComponent]
+    /// Actual source option ids chosen for single-choice recipe groups.
+    var recipeSelections: [String: String]
+    /// Distinguishes an explicit "none" from an unchanged group.
+    var recipeSelectionChanges: Set<String>
+    /// Actual counts for shots, syrups, and other quantity options. Missing
+    /// means use the source-published standard recipe for this cup size.
+    var recipeQuantities: [String: Int]
 
-    static let unchanged = ItemConfiguration(removed: [], added: [])
+    static let unchanged = ItemConfiguration()
 
-    var isUnchanged: Bool { removed.isEmpty && added.isEmpty }
+    var isUnchanged: Bool {
+        removed.isEmpty && added.isEmpty
+            && recipeSelectionChanges.isEmpty && recipeQuantities.isEmpty
+    }
 
-    init(removed: Set<String> = [], added: [ItemComponent] = []) {
+    var hasRecipeChanges: Bool {
+        !recipeSelectionChanges.isEmpty || !recipeQuantities.isEmpty
+    }
+
+    init(
+        removed: Set<String> = [], added: [ItemComponent] = [],
+        recipeSelections: [String: String] = [:],
+        recipeSelectionChanges: Set<String> = [],
+        recipeQuantities: [String: Int] = [:]
+    ) {
         self.removed = removed
         self.added = added
+        self.recipeSelections = recipeSelections
+        self.recipeSelectionChanges = recipeSelectionChanges
+        self.recipeQuantities = recipeQuantities
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case removed, added, recipeSelections, recipeSelectionChanges, recipeQuantities
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            removed: try c.decodeIfPresent(Set<String>.self, forKey: .removed) ?? [],
+            added: try c.decodeIfPresent([ItemComponent].self, forKey: .added) ?? [],
+            recipeSelections: try c.decodeIfPresent([String: String].self, forKey: .recipeSelections) ?? [:],
+            recipeSelectionChanges: try c.decodeIfPresent(Set<String>.self, forKey: .recipeSelectionChanges) ?? [],
+            recipeQuantities: try c.decodeIfPresent([String: Int].self, forKey: .recipeQuantities) ?? [:]
+        )
     }
 }
 
 nonisolated extension MenuItem {
     /// True when this item arrives built and can be configured.
-    var isConfigurable: Bool { !(components ?? []).isEmpty }
+    var isConfigurable: Bool { !(components ?? []).isEmpty || recipeId != nil }
 
     /// Components shown in the configure sheet: defaults the user can decline,
     /// plus anything addable. Unremovable defaults are deliberately absent —
@@ -134,6 +171,12 @@ nonisolated extension MenuItem {
             if let name = restaurant.resolve(menuItemId: component.menuItemId)?.item.name {
                 let prefix = component.quantity > 1 ? "\(Int(component.quantity))× " : "extra "
                 parts.append("\(prefix)\(name.lowercased())")
+            }
+        }
+        if let recipe = restaurant.drinkRecipe(for: self) {
+            parts.append(contentsOf: recipe.summary(for: configuration, sizeLabel: sizeLabel))
+            if configuration.hasRecipeChanges {
+                parts.append("standard recipe macros")
             }
         }
         return parts.isEmpty ? nil : parts.joined(separator: " · ")

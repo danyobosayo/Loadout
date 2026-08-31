@@ -190,6 +190,22 @@ struct MenuView: View {
                 quantityFor: { store.quantity(forMenuItemId: $0.id) }
             ) { picked in
                 guard let category = restaurant.category(id: choice.categoryId) else { return }
+                if picked.isConfigurable {
+                    let current = choice.group.members.first {
+                        store.quantity(forMenuItemId: $0.id) > 0
+                    }
+                    let line = current.flatMap { current in
+                        store.lineItems.first { $0.menuItemId == current.id }
+                    }
+                    Haptics.tap()
+                    configuring = ConfigurationTarget(
+                        item: picked,
+                        category: category,
+                        lineItemId: line?.id,
+                        configuration: line?.configuration ?? .unchanged
+                    )
+                    return
+                }
                 withAnimation(Motion.snap) {
                     // Switching size on something already in the tray moves the
                     // line rather than leaving both cups on the order.
