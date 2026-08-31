@@ -157,4 +157,59 @@ final class SizePickerUITests: XCTestCase {
                       "changing cup should move the line, not add a second latte — tray reads \(tray.label)")
         attach(app, "03-tray-after-switch")
     }
+
+    /// Smoothie King is size-first in both its calculator and order flow. One
+    /// conceptual smoothie should expose 20/32/44 oz, then keep enhancers as a
+    /// separate, sourced station rather than pretending removals are exact.
+    @MainActor
+    func testSmoothieKingUsesCupPickerAndSourcedEnhancers() throws {
+        let app = launchedApp()
+        app.buttons["Build"].tap()
+        app.tapRestaurant("Smoothie King,")
+
+        let getFit = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Get Fit")
+        ).firstMatch
+        XCTAssertTrue(getFit.waitForExistence(timeout: 15))
+        getFit.tap()
+
+        let smoothie = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Original High Protein Banana,")
+        ).firstMatch
+        XCTAssertTrue(smoothie.waitForExistence(timeout: 12))
+        var scrolls = 0
+        while !smoothie.isHittable && scrolls < 12 { app.swipeUp(); scrolls += 1 }
+        XCTAssertTrue(smoothie.label.contains("20 fl oz") && smoothie.label.contains("330"),
+                      "The row should start at the official 20 oz nutrition basis: \(smoothie.label)")
+        smoothie.tap()
+
+        let fortyFour = app.buttons[
+            "size.smoothie-king.get-fit.original-high-protein-banana.44-oz"
+        ]
+        XCTAssertTrue(fortyFour.waitForExistence(timeout: 8))
+        fortyFour.tap()
+
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 6) && tray.label.contains("660"),
+                      "The selected 44 oz smoothie should contribute 660 calories: \(tray.label)")
+        let enhancers = app.buttons["Enhancers station"]
+        XCTAssertTrue(enhancers.exists,
+                      "The guided flow should expose separately sourced enhancer servings")
+        enhancers.tap()
+        let whey = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Whey Protein,")
+        ).firstMatch
+        XCTAssertTrue(whey.waitForExistence(timeout: 6))
+        whey.tap()
+        let updatedTotal = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "label CONTAINS %@", "688"),
+            object: tray
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [updatedTotal], timeout: 8),
+            .completed,
+            "The published 27.8-calorie whey serving should update the rounded tray total: \(tray.label)"
+        )
+        attach(app, "06-smoothie-king-44oz")
+    }
 }

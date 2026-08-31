@@ -11,6 +11,7 @@ struct FormatIntegrityTests {
         "chipotle", "cava", "panda-express", "sweetgreen", "subway",
         "chick-fil-a", "starbucks", "panera", "qdoba", "moes",
         "jersey-mikes", "halal-guys", "mod-pizza", "raising-canes",
+        "smoothie-king",
     ]
 
     private static func load(_ id: String) async throws -> (restaurant: Restaurant, formats: [OrderFormat]) {
@@ -306,5 +307,60 @@ struct FormatIntegrityTests {
         )
         #expect(entreeGreens.macros == sideGreens.macros)
         #expect(entreeGreens.macros.calories == 130)
+    }
+
+    /// Smoothie King's first-party pages publish a complete standard recipe per
+    /// cup. Pin the product count, size ladder, enhancer boundary, and seasonal
+    /// exclusions so a refresh cannot quietly turn the flagship into estimates.
+    @Test func smoothieKingMatchesCurrentOfficialMenuAndCalculator() async throws {
+        let (restaurant, formats) = try await Self.load("smoothie-king")
+        let smoothieCategories = restaurant.categories.filter { $0.id != "enhancers" }
+
+        #expect(restaurant.orderingModel == .recipe)
+        #expect(smoothieCategories.map(\.id) == [
+            "get-fit", "feel-energized", "manage-weight", "be-well",
+            "fruit-classics", "glp-1", "kids",
+        ])
+        #expect(formats.map(\.id) == smoothieCategories.map(\.id))
+
+        let groups = smoothieCategories.flatMap { $0.sizeGroups() }
+        #expect(groups.count == 113)
+        #expect(smoothieCategories.flatMap(\.items).count == 323)
+
+        for category in smoothieCategories where category.id != "kids" {
+            for group in category.sizeGroups() {
+                let expectedSizes: [String?] = group.displayName
+                    == "High Protein Greek Yogurt Gut Health Pineapple Mango"
+                    ? ["20 oz", "32 oz", "40 oz"]
+                    : ["20 oz", "32 oz", "44 oz"]
+                #expect(group.members.map(\.sizeLabel) == expectedSizes)
+                #expect(group.defaultMember.sizeLabel == "20 oz")
+            }
+        }
+
+        let kids = try #require(restaurant.category(id: "kids"))
+        #expect(kids.items.count == 8)
+        #expect(kids.items.allSatisfy { $0.servingDescription == "12 fl oz — standard recipe" })
+
+        let enhancers = try #require(restaurant.category(id: "enhancers"))
+        #expect(enhancers.selectionRule == .selectUpTo(8))
+        #expect(enhancers.items.count == 16)
+        #expect(enhancers.items.allSatisfy {
+            $0.macros.calories >= 0 && $0.macros.proteinGrams >= 0
+                && $0.macros.carbGrams >= 0 && $0.macros.fatGrams >= 0
+        })
+        #expect(enhancers.items.contains { $0.name == "Gladiator® Protein" })
+        #expect(enhancers.items.contains { $0.name == "Whey Protein" })
+
+        let allNames = restaurant.categories.flatMap(\.items).map { $0.name.lowercased() }
+        #expect(allNames.allSatisfy { !$0.contains("pumpkin") && !$0.contains("watermelon") })
+        #expect(smoothieCategories.flatMap(\.items).allSatisfy { $0.components == nil })
+
+        for format in formats {
+            #expect(format.prompts.count == 1)
+            #expect(format.prompts.first?.categoryId == format.id)
+            #expect(format.prompts.first?.choose == .selectOne)
+            #expect(format.optionalCategoryIds == (format.id == "kids" ? [] : ["enhancers"]))
+        }
     }
 }

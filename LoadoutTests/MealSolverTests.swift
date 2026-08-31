@@ -4,7 +4,9 @@ import Testing
 
 struct MealSolverTests {
     private let repo = BundledMenuRepository()
-    private static let restaurants = ["chipotle", "cava", "panda-express", "subway", "sweetgreen"]
+    private static let restaurants = [
+        "chipotle", "cava", "panda-express", "smoothie-king", "subway", "sweetgreen",
+    ]
 
     /// A suggestion must respect every category's portion policy AND its real
     /// selectionRule (the stricter of the two).
