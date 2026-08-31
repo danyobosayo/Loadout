@@ -244,4 +244,67 @@ struct FormatIntegrityTests {
         }
         #expect(cheeseBaseCalories == 880)
     }
+
+    /// Panda publishes standard serving macros separately from its live combo
+    /// builder. Pin the verified combo counts, half-side math, current crafted
+    /// drinks, and documented exclusions so a later refresh cannot restore the
+    /// former wall of generic fountain drinks or a promotional entrée.
+    @Test func pandaMatchesCurrentOfficialTableAndBuilder() async throws {
+        let (restaurant, formats) = try await Self.load("panda-express")
+
+        #expect(Set(formats.map(\.id)) == [
+            "bowl", "plate", "bigger-plate", "a-la-carte",
+        ])
+        #expect(formats.allSatisfy { $0.optionalCategoryIds.contains("drinks") })
+
+        let expectedEntreeCaps = [
+            "bowl": SelectionRule.selectUpTo(1),
+            "plate": SelectionRule.selectUpTo(2),
+            "bigger-plate": SelectionRule.selectUpTo(3),
+        ]
+        for (formatId, cap) in expectedEntreeCaps {
+            let format = try #require(formats.first { $0.id == formatId })
+            #expect(format.prompts.first { $0.categoryId == "sides" }?.choose == .selectOne)
+            #expect(format.prompts.first { $0.categoryId == "entrees" }?.choose == cap)
+        }
+
+        let aLaCarte = try #require(formats.first { $0.id == "a-la-carte" })
+        #expect(aLaCarte.prompts.isEmpty)
+        #expect(aLaCarte.optionalCategoryIds.prefix(2) == ["sides", "entrees"])
+
+        let whiteRice = try #require(
+            restaurant.resolve(menuItemId: "panda-express.sides.white-steamed-rice")?.item
+        )
+        let chowMein = try #require(
+            restaurant.resolve(menuItemId: "panda-express.sides.chow-mein")?.item
+        )
+        #expect(whiteRice.macros.calories / 2 + chowMein.macros.calories / 2 == 560)
+
+        let drinks = try #require(restaurant.category(id: "drinks"))
+        #expect(Set(drinks.items.map(\.id)) == [
+            "panda-express.drinks.peach-lychee-refresher",
+            "panda-express.drinks.pomegranate-pineapple-lemonade",
+            "panda-express.drinks.watermelon-mango-refresher",
+        ])
+        #expect(drinks.items.allSatisfy { $0.servingDescription == "24 fl oz" })
+        #expect(drinks.items.allSatisfy { $0.sizeGroup == nil })
+
+        for itemId in [
+            "panda-express.entrees.hot-orange-chicken",
+            "panda-express.drinks.mango-guava-tea",
+            "panda-express.drinks.strawberry-dragonfruit-refresher",
+            "panda-express.drinks.coca-cola.small",
+        ] {
+            #expect(restaurant.resolve(menuItemId: itemId) == nil)
+        }
+
+        let entreeGreens = try #require(
+            restaurant.resolve(menuItemId: "panda-express.entrees.super-greens-entree")?.item
+        )
+        let sideGreens = try #require(
+            restaurant.resolve(menuItemId: "panda-express.sides.super-greens")?.item
+        )
+        #expect(entreeGreens.macros == sideGreens.macros)
+        #expect(entreeGreens.macros.calories == 130)
+    }
 }

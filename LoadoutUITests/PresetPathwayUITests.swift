@@ -117,17 +117,25 @@ final class PresetPathwayUITests: XCTestCase {
         attach(app, "05-jersey-mikes-in-tray")
     }
 
-    /// A restaurant that publishes no named meals shows no section — the file
-    /// is absent for Panda by design.
+    /// Panda's Balanced Protein Plates are current named macro-focused meals,
+    /// so they should lead into the same editable tray as other presets.
     @MainActor
-    func testRestaurantWithoutPresetsShowsNoSection() throws {
+    func testPandaShowsBalancedProteinPresets() throws {
         let app = launchedApp()
         app.buttons["Build"].tap()
         app.tapRestaurant("Panda Express,")
 
-        XCTAssertTrue(app.staticTexts["Build to order"].waitForExistence(timeout: 10),
-                      "Panda should still offer its formats")
-        XCTAssertFalse(app.staticTexts["On the menu"].exists,
-                       "Panda publishes no named meals, so the section should be absent")
+        XCTAssertTrue(app.staticTexts["On the menu"].waitForExistence(timeout: 10),
+                      "Panda's Balanced Protein Plates should appear as named meals")
+        let plate = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Double Protein Plate,")
+        ).firstMatch
+        XCTAssertTrue(plate.waitForExistence(timeout: 5))
+        XCTAssertTrue(plate.label.contains("875"), "The card should show Panda's published total")
+        plate.tap()
+
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 8) && tray.label.contains("875"),
+                      "The published plate should open as an editable 875-calorie tray")
     }
 }
