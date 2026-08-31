@@ -145,6 +145,67 @@ final class PortionControlUITests: XCTestCase {
         attach(app, "03b-cava-pita-three-dips")
     }
 
+    /// Mirrors Chipotle's current quesadilla builder: the tortilla and three
+    /// cheese portions are implicit, protein is chosen for the filling, three
+    /// included sides are allowed, and distinctive Tractor drinks remain
+    /// available afterward.
+    @MainActor
+    func testChipotleQuesadillaSeedsCheeseAndCapsIncludedSides() throws {
+        let app = launchedApp()
+
+        app.tapRestaurant("Chipotle,")
+        let quesadilla = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Quesadilla.")
+        ).firstMatch
+        XCTAssertTrue(quesadilla.waitForExistence(timeout: 15),
+                      "Chipotle should offer its Quesadilla format")
+        XCTAssertTrue(app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Cheese Quesadilla.")
+        ).firstMatch.exists, "Chipotle should also offer its Cheese Only path")
+        quesadilla.tap()
+
+        let tray = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Meal tray")
+        ).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 10) && tray.label.contains("650"),
+                      "Tortilla plus three cheese portions should seed 650 calories — tray: \(tray.label)")
+
+        let chicken = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Chicken,")
+        ).firstMatch
+        XCTAssertTrue(chicken.waitForExistence(timeout: 5))
+        chicken.tap()
+        XCTAssertTrue(tray.label.contains("830"),
+                      "Adding chicken should bring the quesadilla to 830 calories — tray: \(tray.label)")
+
+        let sidesPrompt = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Choose up to three included sides")
+        ).firstMatch
+        XCTAssertTrue(sidesPrompt.waitForExistence(timeout: 5))
+        sidesPrompt.tap()
+
+        let tomato = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Fresh Tomato Salsa,")
+        ).firstMatch
+        XCTAssertTrue(tomato.waitForExistence(timeout: 5))
+        tomato.tap()
+        tomato.tap()
+        tomato.tap()
+        XCTAssertTrue(tray.label.contains("905"),
+                      "Three 25-calorie salsa sides should total 905 calories — tray: \(tray.label)")
+
+        XCTAssertTrue(sidesPrompt.waitForExistence(timeout: 5))
+        sidesPrompt.tap()
+        XCTAssertTrue(tomato.waitForExistence(timeout: 5))
+        tomato.tap()
+        XCTAssertTrue(tray.label.contains("905"),
+                      "A fourth included side should be rejected — tray: \(tray.label)")
+
+        XCTAssertTrue(app.buttons["Drinks station"].exists,
+                      "Quesadilla should keep Tractor drinks as an optional station")
+        attach(app, "03c-chipotle-quesadilla")
+    }
+
     @MainActor
     func testPandaBiggerPlateCountsEntrees() throws {
         let app = launchedApp()
