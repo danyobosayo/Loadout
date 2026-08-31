@@ -8,6 +8,7 @@ struct LoadoutApp: App {
     @State private var profile = ProfileStore()
     @State private var health = HealthStore()
     @State private var pro = ProStore()
+    @State private var appreciation = AppreciationStore()
 
     var body: some Scene {
         WindowGroup {
@@ -17,6 +18,7 @@ struct LoadoutApp: App {
                 .environment(profile)
                 .environment(health)
                 .environment(pro)
+                .environment(appreciation)
                 // Share the container with App Intents so a recipe logged by
                 // Siri and one logged in the app are the same row. The fallback
                 // is only reachable if the store is unreadable, where

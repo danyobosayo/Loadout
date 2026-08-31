@@ -5,12 +5,15 @@ struct SettingsView: View {
     @Environment(ProfileStore.self) private var profile
     @Environment(HealthStore.self) private var health
     @Environment(ProStore.self) private var pro
+    @Environment(AppreciationStore.self) private var appreciation
     @Environment(\.menuRepository) private var menuRepository
     @Environment(\.openURL) private var openURL
     @State private var restaurants: [Restaurant] = []
     @State private var launchFailed = false
     @State private var showGoalSheet = false
     @State private var showPaywall = false
+    @State private var showRestaurantRequest = false
+    @State private var mailFailed = false
 
     var body: some View {
         @Bindable var settings = settings
@@ -157,6 +160,37 @@ struct SettingsView: View {
                             }
                         }
 
+                        section("Say hello") {
+                            Card {
+                                VStack(alignment: .leading, spacing: Spacing.sm) {
+                                    Text("Loadout is a one-person passion project. Every menu in it was checked by hand, so if something looks wrong — or something's missing — telling me is genuinely the fastest way it gets fixed.")
+                                        .font(.appCaption)
+                                        .foregroundStyle(.textSecondary)
+                                        .fixedSize(horizontal: false, vertical: true)
+
+                                    linkRow("Request a restaurant", "storefront") {
+                                        Haptics.tap()
+                                        showRestaurantRequest = true
+                                    }
+                                    Divider().overlay(Color.hairline)
+                                    linkRow("Send feedback", "envelope") { sendFeedback() }
+
+                                    if let website = IndieLinks.websiteURL {
+                                        Divider().overlay(Color.hairline)
+                                        linkRow("Loadout on the web", "safari") { openURL(website) }
+                                    }
+
+                                    // Hidden entirely before there's a listing to
+                                    // review — a button that can't do its job is
+                                    // worse than no button.
+                                    if IndieLinks.isPublished {
+                                        Divider().overlay(Color.hairline)
+                                        linkRow("Leave a review", "star") { leaveReview() }
+                                    }
+                                }
+                            }
+                        }
+
                         section("About") {
                             Card {
                                 VStack(alignment: .leading, spacing: Spacing.sm) {
@@ -195,6 +229,18 @@ struct SettingsView: View {
                 .presentationCornerRadius(Radius.sheet)
                 .presentationBackground(Color.void)
                 .presentationDragIndicator(.visible)
+            }
+            .alert("Couldn't open Mail", isPresented: $mailFailed) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("You can reach me at \(IndieLinks.feedbackEmail).")
+            }
+            .sheet(isPresented: $showRestaurantRequest) {
+                RestaurantRequestSheet()
+                    .presentationDetents([.large])
+                    .presentationCornerRadius(Radius.sheet)
+                    .presentationBackground(Color.void)
+                    .presentationDragIndicator(.visible)
             }
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
@@ -455,6 +501,45 @@ struct SettingsView: View {
             Text(label).font(.appCaption).foregroundStyle(.textSecondary)
             MacroBar(macros: macros, style: .inline)
         }
+    }
+
+    private func linkRow(_ label: String, _ symbol: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: symbol)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.volt)
+                    .frame(width: 22)
+                    .accessibilityHidden(true)
+                Text(label)
+                    .font(.appBody)
+                    .foregroundStyle(.textPrimary)
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(.textTertiary)
+                    .accessibilityHidden(true)
+            }
+            .contentShape(Rectangle())
+            .padding(.vertical, 2)
+        }
+        .buttonStyle(.pressable)
+    }
+
+    private func sendFeedback() {
+        Haptics.tap()
+        guard let url = IndieLinks.mail(
+            subject: "Loadout feedback",
+            body: "\n\n— Loadout \(IndieLinks.appVersion)"
+        ) else { return }
+        openURL(url) { opened in if !opened { mailFailed = true } }
+    }
+
+    private func leaveReview() {
+        Haptics.tap()
+        guard let url = IndieLinks.writeReviewURL else { return }
+        appreciation.markReviewRequested()
+        openURL(url)
     }
 
     private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
