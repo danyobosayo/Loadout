@@ -1,103 +1,248 @@
-"""
-Tools/menu-import/build_chipotle_json.py
+"""Build Loadout's durable Chipotle menu from the audited CSV.
 
-Converts chipotle-source.csv into Loadout/Resources/Menus/chipotle.json,
-shaped to PROJECT.md §5/§6 (Restaurant / MenuCategory / MenuItem / DataSource
-+ SelectionRule). Run after editing the CSV.
-
-The CSV carries fiber/sugar/sodium too, but the app only tracks the four
-macros locked in commit 66ac6a0, so only kcal/p/c/f are emitted.
-
-Usage:
-    python3 Tools/menu-import/build_chipotle_json.py
+The CSV retains the older first-party fountain tables for provenance, but the
+app intentionally ships only Chipotle's distinctive Tractor beverages. Current
+ordering rules that combine ingredients from several stations are represented
+as hidden, format-only categories.
 """
 
 import csv
 import json
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 CSV_PATH = Path(__file__).resolve().parent / "chipotle-source.csv"
 JSON_PATH = ROOT / "Loadout" / "Resources" / "Menus" / "chipotle.json"
 
-# (display name, selection rule, fallback icon) per category id, in Chipotle
-# line order. The fallback icon is a token from MacroFactor's `Icon`
-# vocabulary; it's used by `MenuItemIconResolver` when a row's own `icon`
-# column is empty. selectUpTo(1) = at most one of this category in a meal
-# (typical for tortilla/rice/beans/dressing/chips where doubling up makes
-# no sense at the line). selectMany = any number, with quantity expressing
-# "extra" (proteins, veggies, salsas, toppings).
 CATEGORY_META = {
     "tortilla": ("Tortilla", {"kind": "selectUpTo", "max": 1}, "wheatFlat"),
-    "rice":     ("Rice",     {"kind": "selectUpTo", "max": 1}, "riceWhiteBowl"),
-    "beans":    ("Beans",    {"kind": "selectUpTo", "max": 1}, "beansPan"),
-    "protein":  ("Protein",  {"kind": "selectMany"},           "chicken"),
-    "veggies":  ("Veggies",  {"kind": "selectMany"},           "vegetables"),
-    "salsa":    ("Salsa",    {"kind": "selectMany"},           "salsa"),
-    "toppings": ("Toppings", {"kind": "selectMany"},           "cheeseSlice"),
+    "rice": ("Rice", {"kind": "selectUpTo", "max": 1}, "riceWhiteBowl"),
+    "beans": ("Beans", {"kind": "selectUpTo", "max": 1}, "beansPan"),
+    "protein": ("Protein", {"kind": "selectMany"}, "chicken"),
+    "veggies": ("Veggies", {"kind": "selectMany"}, "vegetables"),
+    "salsa": ("Salsa", {"kind": "selectMany"}, "salsa"),
+    "toppings": ("Toppings", {"kind": "selectMany"}, "cheeseSlice"),
     "dressing": ("Dressing", {"kind": "selectUpTo", "max": 1}, "oil"),
-    "chips":    ("Chips",    {"kind": "selectUpTo", "max": 1}, "chipsBaked"),
+    "chips": ("Chips", {"kind": "selectUpTo", "max": 1}, "chipsBaked"),
+    "drinks": ("Drinks", {"kind": "selectMany"}, None),
 }
 
-# Drinks aren't shipped: Loadout's job is fast-food entrée + side macros
-# pre-order, and 35 soda variants bury the actual food in the menu. The
-# CSV keeps the drinks rows so the file stays faithful to the source PDF —
-# filtering happens here. If a future restaurant treats beverages as the
-# menu (e.g. Starbucks), drop its category id from this set in that
-# restaurant's build script.
-EXCLUDED_CATEGORIES: set[str] = {"drinks"}
+TRACTOR_DRINKS = {
+    "chipotle.drinks.tractor-berry-22": (
+        "chipotle.drinks.22-fl-oz-tractor-organic-berry-agua-fresca",
+        "22 fl oz Tractor Organic Berry Agua Fresca", "Regular", True,
+        "chipotle.size.drinks.tractor-organic-berry-agua-fresca",
+    ),
+    "chipotle.drinks.tractor-berry-32": (
+        "chipotle.drinks.32-fl-oz-tractor-organic-berry-agua-fresca",
+        "32 fl oz Tractor Organic Berry Agua Fresca", "Large", False,
+        "chipotle.size.drinks.tractor-organic-berry-agua-fresca",
+    ),
+    "chipotle.drinks.tractor-watermelon-22": (
+        "chipotle.drinks.22-fl-oz-tractor-organic-watermelon-limeade",
+        "22 fl oz Tractor Organic Watermelon Limeade", "Regular", True,
+        "chipotle.size.drinks.tractor-organic-watermelon-limeade",
+    ),
+    "chipotle.drinks.tractor-watermelon-32": (
+        "chipotle.drinks.32-fl-oz-tractor-organic-watermelon-limeade",
+        "32 fl oz Tractor Organic Watermelon Limeade", "Large", False,
+        "chipotle.size.drinks.tractor-organic-watermelon-limeade",
+    ),
+    "chipotle.drinks.tractor-lemonade-22": (
+        "chipotle.drinks.22-fl-oz-tractor-organic-lemonade",
+        "22 fl oz Tractor Organic Lemonade", "Regular", True,
+        "chipotle.size.drinks.tractor-organic-lemonade",
+    ),
+    "chipotle.drinks.tractor-lemonade-32": (
+        "chipotle.drinks.32-fl-oz-tractor-organic-lemonade",
+        "32 fl oz Tractor Organic Lemonade", "Large", False,
+        "chipotle.size.drinks.tractor-organic-lemonade",
+    ),
+    "chipotle.drinks.tractor-mandarin-22": (
+        "chipotle.drinks.22-fl-oz-tractor-organic-mandarin-agua-fresca",
+        "22 fl oz Tractor Organic Mandarin Agua Fresca", "Regular", True,
+        "chipotle.size.drinks.tractor-organic-mandarin-agua-fresca",
+    ),
+    "chipotle.drinks.tractor-mandarin-32": (
+        "chipotle.drinks.32-fl-oz-tractor-organic-mandarin-agua-fresca",
+        "32 fl oz Tractor Organic Mandarin Agua Fresca", "Large", False,
+        "chipotle.size.drinks.tractor-organic-mandarin-agua-fresca",
+    ),
+}
+
+TACO_TOPPING_IDS = [
+    "chipotle.rice.cilantro-lime-white", "chipotle.rice.cilantro-lime-brown",
+    "chipotle.beans.black", "chipotle.beans.pinto",
+    "chipotle.salsa.fresh-tomato", "chipotle.salsa.roasted-corn",
+    "chipotle.salsa.tomatillo-green", "chipotle.salsa.tomatillo-red",
+    "chipotle.toppings.sour-cream", "chipotle.veggies.fajita-vegetables",
+    "chipotle.toppings.cheese", "chipotle.veggies.romaine",
+]
+
+QUESADILLA_SIDE_IDS = [
+    "chipotle.salsa.fresh-tomato", "chipotle.salsa.roasted-corn",
+    "chipotle.salsa.tomatillo-green", "chipotle.salsa.tomatillo-red",
+    "chipotle.toppings.sour-cream",
+    "chipotle.rice.cilantro-lime-white", "chipotle.rice.cilantro-lime-brown",
+    "chipotle.beans.black", "chipotle.beans.pinto",
+    "chipotle.dressing.chipotle-honey-vinaigrette",
+]
+
+TACO_ADD_ON_IDS = [
+    "chipotle.toppings.guacamole", "chipotle.toppings.queso-entree",
+]
+
+QUESADILLA_ADD_ON_IDS = [
+    "chipotle.toppings.guacamole", "chipotle.toppings.queso-side",
+]
+
+BURRITO_OPTION_IDS = [
+    "chipotle.tortilla.flour-burrito",
+]
+
+# Retain historical source rows in the CSV, but never ship temporary proteins
+# in the durable menu. The current Pollo Asado and earlier Carne Asada are both
+# excluded under PROJECT.md's no-limited-time-items policy.
+EXCLUDED_ITEM_IDS = {
+    "chipotle.protein.carne-asada",
+    "chipotle.protein.pollo-asado",
+}
 
 
-def parse_macro(s: str) -> float | None:
-    if s is None or s.strip() == "":
-        return None
-    return float(s)
+def number(value: str) -> float:
+    return float(value)
+
+
+def markers(item_id: str) -> list[str]:
+    if item_id in {
+        "chipotle.protein.chicken", "chipotle.protein.steak",
+        "chipotle.protein.barbacoa", "chipotle.protein.carnitas",
+    }:
+        result = ["meat"]
+        if item_id.endswith("carnitas"):
+            result.append("pork")
+        return result
+    if item_id == "chipotle.dressing.chipotle-honey-vinaigrette":
+        return ["honey"]
+    return []
+
+
+def allergens(item_id: str) -> list[str]:
+    if item_id in {
+        "chipotle.tortilla.flour-burrito", "chipotle.tortilla.flour-taco",
+    }:
+        return ["wheat"]
+    if item_id == "chipotle.protein.sofritas":
+        return ["soy"]
+    if item_id in {
+        "chipotle.toppings.cheese", "chipotle.toppings.sour-cream",
+        "chipotle.toppings.queso-entree", "chipotle.toppings.queso-side",
+        "chipotle.toppings.queso-large",
+    }:
+        return ["milk"]
+    return []
+
+
+def make_item(row: dict[str, str]) -> dict:
+    item_id = row["id"]
+    item = {
+        "id": item_id,
+        "name": "Beef Barbacoa" if item_id == "chipotle.protein.barbacoa" else row["name"],
+        "servingDescription": row["servingDescription"],
+        "macros": {
+            "calories": number(row["calories"]),
+            "proteinGrams": number(row["protein_g"]),
+            "carbGrams": number(row["carbs_g"]),
+            "fatGrams": number(row["fat_g"]),
+        },
+        "allergens": allergens(item_id),
+        "notes": row["notes"] or None,
+        "iconName": row.get("icon") or None,
+        "dietaryMarkers": markers(item_id),
+    }
+    if item_id in TRACTOR_DRINKS:
+        new_id, name, size_label, is_default, size_group = TRACTOR_DRINKS[item_id]
+        item.update({
+            "id": new_id,
+            "name": name,
+            "sizeGroup": size_group,
+            "sizeLabel": size_label,
+            "isDefaultSize": is_default,
+        })
+    return item
+
+
+def hidden_category(
+    category_id: str,
+    name: str,
+    source_ids: list[str],
+    by_id: dict[str, dict],
+    selection_rule: dict | None = None,
+) -> dict:
+    items = []
+    for source_id in source_ids:
+        source = deepcopy(by_id[source_id])
+        suffix = source_id.removeprefix("chipotle.").replace(".", "-")
+        source["id"] = f"chipotle.{category_id}.{suffix}"
+        source["notes"] = f"Format-only copy of {source_id}."
+        items.append(source)
+    return {
+        "id": category_id,
+        "name": name,
+        "selectionRule": selection_rule or {"kind": "selectMany"},
+        "items": items,
+        "iconName": None,
+        "isCompleteMeal": False,
+        "isHidden": True,
+    }
 
 
 def main() -> None:
-    with CSV_PATH.open() as f:
-        rows = list(csv.DictReader(f))
-
+    rows = list(csv.DictReader(CSV_PATH.open(encoding="utf-8")))
     categories: dict[str, dict] = {}
-    skipped: list[str] = []
-    excluded_count = 0
+    by_id: dict[str, dict] = {}
 
     for row in rows:
-        cat_id = row["category"]
-        if cat_id in EXCLUDED_CATEGORIES:
-            excluded_count += 1
+        category_id = row["category"]
+        if row["id"] in EXCLUDED_ITEM_IDS:
             continue
-        if cat_id not in categories:
-            name, rule, fallback_icon = CATEGORY_META.get(
-                cat_id, (cat_id.title(), {"kind": "selectMany"}, None)
-            )
-            categories[cat_id] = {
-                "id": cat_id,
-                "name": name,
-                "selectionRule": rule,
-                "items": [],
-                "iconName": fallback_icon,
-            }
-
-        macros = {
-            "calories":     parse_macro(row["calories"]),
-            "proteinGrams": parse_macro(row["protein_g"]),
-            "carbGrams":    parse_macro(row["carbs_g"]),
-            "fatGrams":     parse_macro(row["fat_g"]),
-        }
-        if any(v is None for v in macros.values()):
-            skipped.append(f"{row['id']} (missing: {[k for k, v in macros.items() if v is None]})")
+        if category_id == "drinks" and row["id"] not in TRACTOR_DRINKS:
             continue
-
-        categories[cat_id]["items"].append({
-            "id":                 row["id"],
-            "name":               row["name"],
-            "servingDescription": row["servingDescription"],
-            "macros":             macros,
-            "allergens":          None,
-            "notes":              row["notes"] or None,
-            "iconName":           row.get("icon") or None,
+        name, rule, fallback_icon = CATEGORY_META[category_id]
+        category = categories.setdefault(category_id, {
+            "id": category_id,
+            "name": name,
+            "selectionRule": rule,
+            "items": [],
+            "iconName": fallback_icon,
+            "isCompleteMeal": False,
         })
+        item = make_item(row)
+        category["items"].append(item)
+        by_id[row["id"]] = item
+
+    categories["taco-toppings"] = hidden_category(
+        "taco-toppings", "Included Toppings", TACO_TOPPING_IDS, by_id,
+    )
+    categories["quesadilla-sides"] = hidden_category(
+        "quesadilla-sides", "Included Sides", QUESADILLA_SIDE_IDS, by_id,
+    )
+    categories["taco-add-ons"] = hidden_category(
+        "taco-add-ons", "Add-Ons", TACO_ADD_ON_IDS, by_id,
+    )
+    categories["quesadilla-add-ons"] = hidden_category(
+        "quesadilla-add-ons", "Add-Ons", QUESADILLA_ADD_ON_IDS, by_id,
+    )
+    categories["burrito-options"] = hidden_category(
+        "burrito-options", "Double Wrap", BURRITO_OPTION_IDS, by_id,
+        {"kind": "selectUpTo", "max": 1},
+    )
+    categories["burrito-options"]["items"][0].update({
+        "id": "chipotle.burrito-options.double-wrap",
+        "name": "Extra Flour Tortilla (Double Wrap)",
+        "notes": "Format-only second tortilla for Chipotle's Double Wrap option.",
+    })
 
     restaurant = {
         "id": "chipotle",
@@ -105,31 +250,20 @@ def main() -> None:
         "schemaVersion": 1,
         "dataSource": {
             "url": "https://www.chipotle.com/nutrition-calculator",
-            "fetchedAt": "2026-05-09",
+            "fetchedAt": "2026-08-31",
             "fetchedBy": "manual",
             "notes": (
-                "Per Chipotle Nutrition PDF (codes OCT-2024-US-CK / OCT-2024-US-PPS). "
-                "See build_chipotle_csv.py for sourcing/exclusion notes."
+                "Stable ingredient macros checked against Chipotle's current calculator and "
+                "March 2025 US nutrition PDF. Ordering rules checked at restaurant 1800. "
+                "Limited-time items and generic fountain/bottled drinks are intentionally excluded."
             ),
         },
         "categories": list(categories.values()),
     }
-
-    JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with JSON_PATH.open("w") as f:
-        json.dump(restaurant, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-
-    total_items = sum(len(c["items"]) for c in restaurant["categories"])
-    rel = JSON_PATH.relative_to(ROOT)
-    print(f"Wrote {rel}: {len(restaurant['categories'])} categories, {total_items} items")
-    if excluded_count:
-        excluded = sorted(EXCLUDED_CATEGORIES)
-        print(f"Excluded {excluded_count} rows by category: {excluded}")
-    if skipped:
-        print(f"Skipped {len(skipped)} rows with incomplete macros:")
-        for s in skipped:
-            print(f"  - {s}")
+    JSON_PATH.write_text(json.dumps(restaurant, indent=1) + "\n", encoding="utf-8")
+    visible = [c for c in restaurant["categories"] if not c.get("isHidden")]
+    item_count = sum(len(c["items"]) for c in visible)
+    print(f"Wrote {JSON_PATH.relative_to(ROOT)}: {len(visible)} visible categories, {item_count} items")
 
 
 if __name__ == "__main__":

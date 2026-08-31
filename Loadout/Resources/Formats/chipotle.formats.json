@@ -1,181 +1,268 @@
 {
- "restaurantId": "chipotle",
- "formats": [
-  {
-   "id": "bowl",
-   "name": "Burrito Bowl",
-   "blurb": "Everything in a bowl. Add a tortilla on the side if you want one.",
-   "autoAdd": [],
-   "prompts": [
+  "restaurantId": "chipotle",
+  "formats": [
     {
-     "categoryId": "rice",
-     "promptCopy": "Choose your rice",
-     "choose": "one",
-     "required": false
+      "id": "bowl",
+      "name": "Burrito Bowl",
+      "blurb": "Everything in a bowl. Add a tortilla on the side if you want one.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "salsa",
+        "toppings",
+        "veggies",
+        "tortilla",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "beans",
-     "promptCopy": "Choose your beans",
-     "choose": "one",
-     "required": false
+      "id": "burrito",
+      "name": "Burrito",
+      "blurb": "A warm flour tortilla with protein and your choice of fillings.",
+      "autoAdd": [
+        {
+          "menuItemId": "chipotle.tortilla.flour-burrito",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "rice",
+          "promptCopy": "Choose your rice",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "beans",
+          "promptCopy": "Choose your beans",
+          "choose": "one",
+          "required": false
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "salsa",
+        "toppings",
+        "veggies",
+        "burrito-options",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "protein",
-     "promptCopy": "Choose your protein",
-     "choose": "one",
-     "required": true
-    }
-   ],
-   "optionalCategoryIds": [
-    "salsa",
-    "toppings",
-    "veggies",
-    "tortilla",
-    "chips"
-   ]
-  },
-  {
-   "id": "burrito",
-   "name": "Burrito",
-   "blurb": "Everything rolled in a warm flour tortilla.",
-   "autoAdd": [
-    {
-     "menuItemId": "chipotle.tortilla.flour-burrito",
-     "quantity": 1
-    }
-   ],
-   "prompts": [
-    {
-     "categoryId": "rice",
-     "promptCopy": "Choose your rice",
-     "choose": "one",
-     "required": false
+      "id": "tacos",
+      "name": "Three Tacos",
+      "blurb": "Three tacos with one shell style and up to five included toppings.",
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "tortilla",
+          "promptCopy": "Choose your shell",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "chipotle.tortilla.crispy-corn",
+            "chipotle.tortilla.flour-taco"
+          ],
+          "quantityPerPick": 3
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "taco-toppings",
+          "promptCopy": "Choose up to five included toppings",
+          "choose": "upTo:5",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "taco-add-ons",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "beans",
-     "promptCopy": "Choose your beans",
-     "choose": "one",
-     "required": false
+      "id": "single-taco",
+      "name": "Single Taco",
+      "blurb": "One taco with one-third portions and up to five included toppings.",
+      "portionMultiplier": 0.3333333333333333,
+      "autoAdd": [],
+      "prompts": [
+        {
+          "categoryId": "tortilla",
+          "promptCopy": "Choose your shell",
+          "choose": "one",
+          "required": true,
+          "subsetItemIds": [
+            "chipotle.tortilla.crispy-corn",
+            "chipotle.tortilla.flour-taco"
+          ],
+          "quantityPerPick": 3
+        },
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "taco-toppings",
+          "promptCopy": "Choose up to five included toppings",
+          "choose": "upTo:5",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "taco-add-ons",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "protein",
-     "promptCopy": "Choose your protein",
-     "choose": "one",
-     "required": true
-    }
-   ],
-   "optionalCategoryIds": [
-    "salsa",
-    "toppings",
-    "veggies",
-    "chips"
-   ]
-  },
-  {
-   "id": "tacos",
-   "name": "Tacos",
-   "blurb": "Three tacos in your choice of shell.",
-   "autoAdd": [],
-   "prompts": [
-    {
-     "categoryId": "tortilla",
-     "promptCopy": "Choose your shell",
-     "choose": "one",
-     "required": true,
-     "subsetItemIds": [
-      "chipotle.tortilla.crispy-corn",
-      "chipotle.tortilla.flour-taco"
-     ],
-     "quantityPerPick": 3
+      "id": "salad",
+      "name": "Salad",
+      "blurb": "Supergreens with protein and vinaigrette selected by default.",
+      "autoAdd": [
+        {
+          "menuItemId": "chipotle.veggies.supergreens-mix",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.dressing.chipotle-honey-vinaigrette",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        }
+      ],
+      "optionalCategoryIds": [
+        "rice",
+        "beans",
+        "salsa",
+        "toppings",
+        "veggies",
+        "dressing",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "protein",
-     "promptCopy": "Choose your protein",
-     "choose": "one",
-     "required": true
-    }
-   ],
-   "optionalCategoryIds": [
-    "rice",
-    "beans",
-    "salsa",
-    "toppings",
-    "veggies",
-    "chips"
-   ]
-  },
-  {
-   "id": "salad",
-   "name": "Salad",
-   "blurb": "Supergreens with your protein and the honey vinaigrette.",
-   "autoAdd": [
-    {
-     "menuItemId": "chipotle.veggies.supergreens-mix",
-     "quantity": 1
-    }
-   ],
-   "prompts": [
-    {
-     "categoryId": "protein",
-     "promptCopy": "Choose your protein",
-     "choose": "one",
-     "required": true
+      "id": "quesadilla",
+      "name": "Quesadilla",
+      "blurb": "A flour tortilla with three cheese portions and up to three included sides.",
+      "autoAdd": [
+        {
+          "menuItemId": "chipotle.tortilla.flour-burrito",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.toppings.cheese",
+          "quantity": 3
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein or veggie",
+          "choose": "one",
+          "required": true
+        },
+        {
+          "categoryId": "veggies",
+          "promptCopy": "Add fajita veggies inside",
+          "choose": "one",
+          "required": false,
+          "subsetItemIds": [
+            "chipotle.veggies.fajita-vegetables"
+          ]
+        },
+        {
+          "categoryId": "quesadilla-sides",
+          "promptCopy": "Choose up to three included sides",
+          "choose": "upTo:3",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "quesadilla-add-ons",
+        "chips",
+        "drinks"
+      ]
     },
     {
-     "categoryId": "dressing",
-     "promptCopy": "Choose your dressing",
-     "choose": "one",
-     "required": false
+      "id": "cheese-quesadilla",
+      "name": "Cheese Quesadilla",
+      "blurb": "Cheese only, with included guacamole and up to three included sides.",
+      "autoAdd": [
+        {
+          "menuItemId": "chipotle.tortilla.flour-burrito",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "chipotle.toppings.cheese",
+          "quantity": 3
+        },
+        {
+          "menuItemId": "chipotle.toppings.guacamole",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "veggies",
+          "promptCopy": "Add fajita veggies inside",
+          "choose": "one",
+          "required": false,
+          "subsetItemIds": [
+            "chipotle.veggies.fajita-vegetables"
+          ]
+        },
+        {
+          "categoryId": "quesadilla-sides",
+          "promptCopy": "Choose up to three included sides",
+          "choose": "upTo:3",
+          "required": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "quesadilla-add-ons",
+        "chips",
+        "drinks"
+      ]
     }
-   ],
-   "optionalCategoryIds": [
-    "rice",
-    "beans",
-    "salsa",
-    "toppings",
-    "veggies",
-    "chips"
-   ]
-  },
-  {
-   "id": "quesadilla",
-   "name": "Quesadilla",
-   "blurb": "Grilled flour tortilla with melted cheese. Everything else comes on the side.",
-   "autoAdd": [
-    {
-     "menuItemId": "chipotle.tortilla.flour-burrito",
-     "quantity": 1
-    },
-    {
-     "menuItemId": "chipotle.toppings.cheese",
-     "quantity": 1
-    }
-   ],
-   "prompts": [
-    {
-     "categoryId": "protein",
-     "promptCopy": "Choose your protein",
-     "choose": "one",
-     "required": true
-    },
-    {
-     "categoryId": "veggies",
-     "promptCopy": "Add fajita veggies inside",
-     "choose": "one",
-     "required": false,
-     "subsetItemIds": [
-      "chipotle.veggies.fajita-vegetables"
-     ]
-    }
-   ],
-   "optionalCategoryIds": [
-    "rice",
-    "beans",
-    "salsa",
-    "toppings",
-    "veggies",
-    "chips"
-   ]
-  }
- ]
+  ]
 }

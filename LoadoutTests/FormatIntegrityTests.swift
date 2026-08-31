@@ -160,4 +160,88 @@ struct FormatIntegrityTests {
         #expect(!pita.optionalCategoryIds.contains("bases"))
         #expect(pita.prompts.first { $0.categoryId == "dips" }?.choose == .selectUpTo(3))
     }
+
+    /// Chipotle's public calculator and live order builder divide tacos by
+    /// quantity, give a quesadilla three cheese portions and up to three
+    /// included sides, and expose only its Tractor drinks as distinctive
+    /// house beverages. Pin those rules so historical CSV rows cannot leak
+    /// back into the app during a later data refresh.
+    @Test func chipotleMatchesCurrentOfficialCalculatorAndBuilder() async throws {
+        let (restaurant, formats) = try await Self.load("chipotle")
+
+        #expect(Set(formats.map(\.id)) == [
+            "bowl", "burrito", "tacos", "single-taco", "salad", "quesadilla",
+            "cheese-quesadilla",
+        ])
+        #expect(formats.allSatisfy { $0.optionalCategoryIds.contains("drinks") })
+
+        let drinks = try #require(restaurant.category(id: "drinks"))
+        #expect(drinks.items.count == 8)
+        #expect(Set(drinks.items.compactMap(\.sizeGroup)) == [
+            "chipotle.size.drinks.tractor-organic-berry-agua-fresca",
+            "chipotle.size.drinks.tractor-organic-mandarin-agua-fresca",
+            "chipotle.size.drinks.tractor-organic-lemonade",
+            "chipotle.size.drinks.tractor-organic-watermelon-limeade",
+        ])
+        #expect(drinks.items.allSatisfy { $0.name.contains("Tractor") })
+
+        let prohibitedIds = [
+            "chipotle.protein.carne-asada",
+            "chipotle.protein.pollo-asado",
+            "chipotle.salsa.cilantro-lime-sauce",
+            "chipotle.chips.chili-lime",
+        ]
+        for itemId in prohibitedIds {
+            #expect(restaurant.resolve(menuItemId: itemId) == nil)
+        }
+
+        let threeTacos = try #require(formats.first { $0.id == "tacos" })
+        let threeShells = try #require(threeTacos.prompts.first { $0.categoryId == "tortilla" })
+        #expect(threeShells.quantityPerPick == 3)
+        #expect(threeTacos.prompts.first { $0.categoryId == "taco-toppings" }?.choose == .selectUpTo(5))
+
+        let flour = try #require(
+            restaurant.resolve(menuItemId: "chipotle.tortilla.flour-taco")?.item
+        )
+        let crispy = try #require(
+            restaurant.resolve(menuItemId: "chipotle.tortilla.crispy-corn")?.item
+        )
+        #expect(abs(flour.macros.calories * threeShells.quantityPerPick - 250) < 0.001)
+        #expect(abs(crispy.macros.calories * threeShells.quantityPerPick - 200) < 0.001)
+
+        let singleTaco = try #require(formats.first { $0.id == "single-taco" })
+        #expect(abs(singleTaco.portionMultiplier - (1.0 / 3.0)) < 0.000_001)
+        #expect(singleTaco.prompts.first { $0.categoryId == "tortilla" }?.quantityPerPick == 3)
+
+        let burrito = try #require(formats.first { $0.id == "burrito" })
+        #expect(burrito.optionalCategoryIds.contains("burrito-options"))
+        let doubleWrap = try #require(restaurant.category(id: "burrito-options"))
+        #expect(doubleWrap.isHidden)
+        #expect(doubleWrap.selectionRule == .selectUpTo(1))
+        #expect(doubleWrap.items.first?.id == "chipotle.burrito-options.double-wrap")
+        #expect(doubleWrap.items.first?.macros.calories == 320)
+
+        let salad = try #require(formats.first { $0.id == "salad" })
+        #expect(salad.autoAdd.contains {
+            $0.menuItemId == "chipotle.dressing.chipotle-honey-vinaigrette" && $0.quantity == 1
+        })
+
+        let quesadilla = try #require(formats.first { $0.id == "quesadilla" })
+        #expect(quesadilla.autoAdd.contains {
+            $0.menuItemId == "chipotle.toppings.cheese" && $0.quantity == 3
+        })
+        #expect(quesadilla.prompts.first { $0.categoryId == "quesadilla-sides" }?.choose == .selectUpTo(3))
+
+        let cheeseQuesadilla = try #require(formats.first { $0.id == "cheese-quesadilla" })
+        #expect(!cheeseQuesadilla.prompts.contains { $0.categoryId == "protein" })
+        #expect(cheeseQuesadilla.autoAdd.contains {
+            $0.menuItemId == "chipotle.toppings.guacamole" && $0.quantity == 1
+        })
+        var cheeseBaseCalories = 0.0
+        for seed in cheeseQuesadilla.autoAdd {
+            let item = try #require(restaurant.resolve(menuItemId: seed.menuItemId)?.item)
+            cheeseBaseCalories += item.macros.calories * seed.quantity
+        }
+        #expect(cheeseBaseCalories == 880)
+    }
 }

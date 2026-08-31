@@ -155,9 +155,13 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
 - **Official sources only.** Each restaurant's own nutrition page or PDF. No MyFitnessPal community entries.
 - **Date every file.** `fetchedAt` is required. Stale data is the #1 risk.
 - **Document assumptions.** If the source lists "Chicken Bowl" combos but not raw line items, reverse-engineer per item and write down the math in `notes`.
-- **Match the real order.** Include food and drinks that matter to the flagship
-  journey, but keep drinks out of automatic solver suggestions. Never invent a
-  modifier's macro effect merely because the ordering UI exposes it.
+- **Match the real order.** Include food and restaurant-specific drinks that
+  matter to the flagship journey—CAVA juices, Chipotle and Cane's lemonades,
+  shakes, and similar house beverages—but omit ordinary fountain sodas from
+  each restaurant's catalog. Generic soda belongs in a future shared cup-size
+  calculator instead of being duplicated across menus. Keep every drink out of
+  automatic solver suggestions, and never invent a modifier's macro effect
+  merely because the ordering UI exposes it.
 - **No limited-time or seasonal items.** They go stale fastest and a cached menu can't tell.
 - **Refresh cadence:** quarterly check, or whenever a user reports a discrepancy.
 - **Versioning:** bump `schemaVersion` on breaking changes; bump a per-item `revision` field on macro changes so we can show a "menu updated" indicator if useful.

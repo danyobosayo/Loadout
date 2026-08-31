@@ -7,9 +7,9 @@ Source: Chipotle Nutrition PDF, codes OCT-2024-US-CK and OCT-2024-US-PPS
 
 Outputs: chipotle-source.csv with one row per nutritionally-distinct item.
 
-Schema (extends PROJECT.md §5 with fiber/sugar/sodium per stretch-goal note):
+Schema (extends PROJECT.md §5 with fiber/sugar/sodium and icon metadata):
     category, id, name, servingDescription, calories,
-    protein_g, carbs_g, fat_g, fiber_g, sugar_g, sodium_mg, notes
+    protein_g, carbs_g, fat_g, fiber_g, sugar_g, sodium_mg, notes, icon
 
 Conventions:
     - id format:  chipotle.{category}.{slug}
@@ -37,8 +37,11 @@ ITEMS = [
 
     # Tortillas (for burritos / tacos)
     ("tortilla", "flour-burrito",   "Flour Tortilla (burrito)", "1 tortilla", 320,  8, 50,  9,    3, 0,   600, ""),
-    ("tortilla", "flour-taco",      "Flour Tortilla (taco)",    "1 tortilla",  80,  2, 13,  2.5,  0.5, 0, 160, ""),
-    ("tortilla", "crispy-corn",     "Crispy Corn Tortilla",     "1 tortilla",  70,  1, 10,  3,    1, 0,   0,   ""),
+    # The current calculator publishes the taco shells as a three-taco
+    # serving (250/7P/40C/8F flour; 200/3P/29C/9F crispy). Store one-third
+    # here so the format can scale accurately between one and three tacos.
+    ("tortilla", "flour-taco",      "Soft Flour Tortilla",      "1/3 of 3-taco serving", 250/3, 7/3, 40/3, 8/3, 0.5, 0, 160, "Current calculator"),
+    ("tortilla", "crispy-corn",     "Crispy Corn Tortilla",     "1/3 of 3-taco serving", 200/3, 1,   29/3, 3,   1,   0,   0, "Current calculator"),
 
     # Rice
     ("rice", "cilantro-lime-white", "Cilantro-Lime White Rice", "4 oz",       210,  4, 40,  4,    1, 0,   350, ""),
@@ -158,19 +161,39 @@ ITEMS = [
 HEADERS = [
     "category", "id", "name", "servingDescription",
     "calories", "protein_g", "carbs_g", "fat_g",
-    "fiber_g", "sugar_g", "sodium_mg", "notes",
+    "fiber_g", "sugar_g", "sodium_mg", "notes", "icon",
 ]
 
 
 def build_csv(output_path: Path) -> None:
     """Generate the CSV from the in-source data table.
 
-    Validates basic invariants before writing so we fail loud, not silent.
+    Existing icon enrichments and separately audited historical rows are
+    retained. This lets the base PDF table stay reproducible without erasing
+    provenance that was added directly to the reviewed CSV.
     """
+    existing_by_id: dict[str, dict[str, str]] = {}
+    if output_path.exists():
+        with output_path.open(encoding="utf-8") as existing_file:
+            existing_by_id = {
+                row["id"]: row for row in csv.DictReader(existing_file)
+            }
+
+    generated_ids = {
+        f"chipotle.{category}.{slug}" for category, slug, *_ in ITEMS
+    }
+    extra_rows_by_category: dict[str, list[dict[str, str]]] = {}
+    for item_id, row in existing_by_id.items():
+        if item_id not in generated_ids:
+            extra_rows_by_category.setdefault(row["category"], []).append(row)
+
     seen_ids: set[str] = set()
     rows: list[dict[str, object]] = []
+    previous_category: str | None = None
 
     for category, slug, name, serving, cal, p, c, f, fiber, sugar, sodium, notes in ITEMS:
+        if previous_category is not None and category != previous_category:
+            rows.extend(extra_rows_by_category.pop(previous_category, []))
         item_id = f"chipotle.{category}.{slug}"
 
         # Invariants — would rather crash than emit bad data.
@@ -192,11 +215,18 @@ def build_csv(output_path: Path) -> None:
             "sugar_g":            sugar,
             "sodium_mg":          sodium,
             "notes":              notes,
+            "icon":               existing_by_id.get(item_id, {}).get("icon", ""),
         })
+        previous_category = category
+
+    if previous_category is not None:
+        rows.extend(extra_rows_by_category.pop(previous_category, []))
+    for extras in extra_rows_by_category.values():
+        rows.extend(extras)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=HEADERS)
+        writer = csv.DictWriter(fh, fieldnames=HEADERS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

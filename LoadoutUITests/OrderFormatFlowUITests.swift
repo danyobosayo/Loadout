@@ -46,7 +46,8 @@ final class OrderFormatFlowUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Build your own"].waitForExistence(timeout: 10),
                       "Format picker should offer Build your own")
         XCTAssertTrue(app.staticTexts["Burrito"].exists, "Format picker should list Burrito")
-        XCTAssertTrue(app.staticTexts["Tacos"].exists, "Format picker should list Tacos")
+        XCTAssertTrue(app.staticTexts["Three Tacos"].exists, "Format picker should list Three Tacos")
+        XCTAssertTrue(app.staticTexts["Single Taco"].exists, "Format picker should list Single Taco")
         attach(app, "01-format-picker")
 
         // Pick Burrito (BEGINSWITH 'Burrito.' excludes 'Burrito Bowl').
@@ -55,7 +56,7 @@ final class OrderFormatFlowUITests: XCTestCase {
         burrito.tap()
 
         // Guided MenuView: the defining picks are prompted, add-ons below.
-        XCTAssertTrue(app.staticTexts["Choose your protein"].waitForExistence(timeout: 10),
+        XCTAssertTrue(app.staticTexts["Choose your protein or veggie"].waitForExistence(timeout: 10),
                       "Burrito should guide the protein pick")
         XCTAssertTrue(app.staticTexts["Choose your rice"].exists, "Burrito should guide the rice pick")
         XCTAssertTrue(app.staticTexts["Choose your beans"].exists, "Burrito should guide the beans pick")
@@ -79,11 +80,24 @@ final class OrderFormatFlowUITests: XCTestCase {
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(tray.waitForExistence(timeout: 5), "Tray bar should be present")
         XCTAssertFalse(tray.label.contains("Empty"), "Burrito should have seeded the tortilla into the tray")
+
+        app.buttons["Double Wrap station"].tap()
+        let doubleWrap = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Extra Flour Tortilla (Double Wrap),")
+        ).firstMatch
+        XCTAssertTrue(doubleWrap.waitForExistence(timeout: 5),
+                      "Burrito should expose Chipotle's Double Wrap option")
+        doubleWrap.tap()
+        XCTAssertTrue(tray.label.contains("850"),
+                      "Two tortillas plus the split rice should total 850 calories — tray: \(tray.label)")
+
         tray.tap()
         XCTAssertTrue(app.staticTexts["Flour Tortilla (burrito)"].waitForExistence(timeout: 10),
                       "The seeded flour tortilla should be in the tray")
+        XCTAssertTrue(app.staticTexts["Extra Flour Tortilla (Double Wrap)"].exists,
+                      "The second tortilla should be labeled as Double Wrap in the tray")
         // Protein was never picked, so the tray softly nudges for it.
-        XCTAssertTrue(app.staticTexts["Still to add: Protein"].waitForExistence(timeout: 5),
+        XCTAssertTrue(app.staticTexts["Still to add: Protein or veggie"].waitForExistence(timeout: 5),
                       "Tray should nudge for the unpicked required protein")
         attach(app, "03-tray-seeded-tortilla")
     }
@@ -134,7 +148,7 @@ final class OrderFormatFlowUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Protein · choose 1"].waitForExistence(timeout: 10)
                       || app.staticTexts["Protein"].waitForExistence(timeout: 2),
                       "Build-your-own should show the raw station list")
-        XCTAssertFalse(app.staticTexts["Choose your protein"].exists,
+        XCTAssertFalse(app.staticTexts["Choose your protein or veggie"].exists,
                        "Build-your-own must not show guided prompts")
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(tray.waitForExistence(timeout: 5))

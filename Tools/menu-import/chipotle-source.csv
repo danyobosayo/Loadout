@@ -1,7 +1,7 @@
 category,id,name,servingDescription,calories,protein_g,carbs_g,fat_g,fiber_g,sugar_g,sodium_mg,notes,icon
 tortilla,chipotle.tortilla.flour-burrito,Flour Tortilla (burrito),1 tortilla,320,8,50,9,3,0,600,,wheatFlat
-tortilla,chipotle.tortilla.flour-taco,Flour Tortilla (taco),1 tortilla,80,2,13,2.5,0.5,0,160,,wheatFlat
-tortilla,chipotle.tortilla.crispy-corn,Crispy Corn Tortilla,1 tortilla,70,1,10,3,1,0,0,,wheatFlat
+tortilla,chipotle.tortilla.flour-taco,Soft Flour Tortilla,1/3 of 3-taco serving,83.33333333333333,2.3333333333333335,13.333333333333334,2.6666666666666665,0.5,0,160,Current calculator,wheatFlat
+tortilla,chipotle.tortilla.crispy-corn,Crispy Corn Tortilla,1/3 of 3-taco serving,66.66666666666667,1,9.666666666666666,3,1,0,0,Current calculator,wheatFlat
 rice,chipotle.rice.cilantro-lime-white,Cilantro-Lime White Rice,4 oz,210,4,40,4,1,0,350,,riceWhiteBowl
 rice,chipotle.rice.cilantro-lime-brown,Cilantro-Lime Brown Rice,4 oz,210,4,36,6,2,0,190,,riceBrownBowl
 beans,chipotle.beans.black,Black Beans,4 oz,130,8,22,1.5,7,2,210,,beansPan
