@@ -211,13 +211,17 @@ final class PortionControlUITests: XCTestCase {
         let app = launchedApp()
 
         app.tapRestaurant("Panda Express,")
+        XCTAssertTrue(app.staticTexts["À La Carte"].waitForExistence(timeout: 15),
+                      "Panda should expose its standard-serving à la carte path")
         let bigger = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Bigger Plate")).firstMatch
-        XCTAssertTrue(bigger.waitForExistence(timeout: 15), "Panda should offer a Bigger Plate")
+        XCTAssertTrue(bigger.waitForExistence(timeout: 5), "Panda should offer a Bigger Plate")
         bigger.tap()
 
         // Entrées is a capped counter (up to 3): 2 orange chicken + 1 mushroom.
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Choose 3 entrées")).firstMatch.tap()
-        let orange = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Orange Chicken,")).firstMatch
+        let orange = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "The Original Orange Chicken,")
+        ).firstMatch
         XCTAssertTrue(orange.waitForExistence(timeout: 8))
         orange.tap()
         orange.tap()   // 2 portions orange chicken
@@ -229,6 +233,8 @@ final class PortionControlUITests: XCTestCase {
         let pandaTray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(pandaTray.waitForExistence(timeout: 5) && pandaTray.label.contains("1240"),
                       "Two orange chicken + one mushroom should total 1240 — tray: \(pandaTray.label)")
+        XCTAssertTrue(app.buttons["Drinks station"].exists,
+                      "Bigger Plate should keep sourced Panda Crafted Beverages available")
 
         // Open the tray so the 4-digit ring total is on screen (must fit on
         // one line, not wrap).

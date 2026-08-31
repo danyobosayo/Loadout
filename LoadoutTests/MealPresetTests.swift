@@ -11,9 +11,9 @@ import Testing
 struct MealPresetTests {
     private let repository = BundledMenuRepository(bundle: .main)
 
-    // Restaurants that publish named composed meals. Panda sells combos of
-    // entrées rather than named dishes, so it ships no presets — that's the
-    // graceful-degradation case, covered separately below.
+    // Restaurants that publish named composed meals. Panda's macro-focused
+    // Balanced Protein Plates are published compositions, not ordinary combos,
+    // so they belong here alongside the other named meals.
     //
     // Chick-fil-A dropped off this list deliberately. Its only presets were the
     // three salads, and those are now configurable menu items carrying their
@@ -21,7 +21,7 @@ struct MealPresetTests {
     // landing screen like every other headline item.
     // `nonisolated` so the `@Test(arguments:)` macro can read it off the actor.
     nonisolated static let restaurantsWithPresets = [
-        "sweetgreen", "chipotle", "moes", "jersey-mikes", "cava",
+        "sweetgreen", "chipotle", "moes", "jersey-mikes", "cava", "panda-express",
     ]
 
     @Test(arguments: restaurantsWithPresets)
@@ -68,6 +68,8 @@ struct MealPresetTests {
         ("sweetgreen", "sweetgreen.presets.plate-hot-honey-chicken", 845.0, 49.0),
         // Chipotle's "light rice" half portion and "extra lettuce" double.
         ("chipotle", "chipotle.presets.double-high-protein", 760.0, 81.0),
+        ("panda-express", "panda-express.presets.double-protein-plate", 875.0, 76.0),
+        ("panda-express", "panda-express.presets.harmonious-macros-plate", 555.0, 57.0),
     ])
     func macrosMatchThePublishedTotals(
         restaurantId: String, id: String, calories: Double, protein: Double
@@ -98,7 +100,7 @@ struct MealPresetTests {
 
     /// A restaurant with no presets file is normal, not an error.
     @Test func missingPresetsFileReturnsEmpty() async throws {
-        #expect(try await repository.loadPresets(restaurantId: "panda-express").isEmpty)
+        #expect(try await repository.loadPresets(restaurantId: "chick-fil-a").isEmpty)
         #expect(try await repository.loadPresets(restaurantId: "not-a-restaurant").isEmpty)
     }
 

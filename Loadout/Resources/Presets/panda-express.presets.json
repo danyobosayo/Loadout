@@ -1,0 +1,45 @@
+{
+  "restaurantId": "panda-express",
+  "presets": [
+    {
+      "id": "panda-express.presets.double-protein-plate",
+      "name": "Double Protein Plate",
+      "blurb": "Double teriyaki chicken with half rice and half greens. 875 kcal, 76g protein.",
+      "items": [
+        {
+          "menuItemId": "panda-express.entrees.grilled-teriyaki-chicken",
+          "quantity": 2
+        },
+        {
+          "menuItemId": "panda-express.sides.white-steamed-rice",
+          "quantity": 0.5
+        },
+        {
+          "menuItemId": "panda-express.sides.super-greens",
+          "quantity": 0.5
+        }
+      ],
+      "sourceNote": "Composition and published 875 kcal / 76 g protein from Panda Express's live Balanced Protein Plates builder at Golden Link Blvd. & E Aurora Rd (reviewed 2026-08-31). The builder offers Teriyaki Sauce separately and does not include it in the plate's displayed total, so the preset omits it."
+    },
+    {
+      "id": "panda-express.presets.harmonious-macros-plate",
+      "name": "Harmonious Macros Plate",
+      "blurb": "Teriyaki chicken and broccoli beef with Super Greens. 555 kcal, 57g protein.",
+      "items": [
+        {
+          "menuItemId": "panda-express.entrees.grilled-teriyaki-chicken",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "panda-express.entrees.broccoli-beef",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "panda-express.sides.super-greens",
+          "quantity": 1
+        }
+      ],
+      "sourceNote": "Composition and published 555 kcal / 57 g protein from Panda Express's live Balanced Protein Plates builder at Golden Link Blvd. & E Aurora Rd (reviewed 2026-08-31). The builder offers Teriyaki Sauce separately and does not include it in the plate's displayed total, so the preset omits it."
+    }
+  ]
+}

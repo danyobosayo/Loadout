@@ -44,7 +44,7 @@ final class GuidedAdvanceUITests: XCTestCase {
         XCTAssertTrue(prompt.waitForExistence(timeout: 10), "Plate should guide two entrées")
         prompt.tap()
 
-        let first = row(app, "Orange Chicken")
+        let first = row(app, "The Original Orange Chicken")
         XCTAssertTrue(first.waitForExistence(timeout: 5), "Entrée options should expand")
         first.tap()
 
