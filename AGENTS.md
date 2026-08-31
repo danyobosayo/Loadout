@@ -5,6 +5,8 @@
 - Read `PROJECT.md` for product scope and architecture.
 - Read `STYLE_GUIDE.md` and the relevant data or feature documentation before
   changing user-facing behavior.
+- Read `docs/RESTAURANT_WORKFLOW_RESEARCH.md` before changing a restaurant's
+  menu data, configuration model, or ordering flow.
 - Preserve existing uncommitted work. Use a separate worktree when another session
   is editing this repository.
 

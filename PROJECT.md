@@ -17,9 +17,9 @@ A free, ad-free, privacy-respecting iOS app that lets you build a custom meal at
 ## 2. Goals & Non-Goals
 
 ### Goals (v1)
-- Build custom meals at **fourteen restaurants**: Chipotle, CAVA, Panda Express, Sweetgreen,
-  Subway, Chick-fil-A, Starbucks, Panera Bread, Qdoba, Moe's Southwest Grill, Jersey Mike's,
-  The Halal Guys, MOD Pizza, Raising Cane's.
+- Make the minimum flagship set excellent: **CAVA, Chipotle, Panda Express,
+  Smoothie King, and Starbucks**. Other bundled restaurant data may remain for
+  later correction or expansion, but it must not dilute the primary experience.
 - Live macro totals (calories, protein, carbs, fat) as items are added/removed.
 - Save meals to **Favorites**.
 - Local **Order History** (last N meals, automatic).
@@ -155,18 +155,20 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
 - **Official sources only.** Each restaurant's own nutrition page or PDF. No MyFitnessPal community entries.
 - **Date every file.** `fetchedAt` is required. Stale data is the #1 risk.
 - **Document assumptions.** If the source lists "Chicken Bowl" combos but not raw line items, reverse-engineer per item and write down the math in `notes`.
-- **Food only.** Drinks are excluded at the JSON-build step even when the source publishes
-  them — they are not what someone opens a macro builder to log. **Starbucks is the one
-  exception**: there the drinks *are* the menu, so they ship as their own stations.
+- **Match the real order.** Include food and drinks that matter to the flagship
+  journey, but keep drinks out of automatic solver suggestions. Never invent a
+  modifier's macro effect merely because the ordering UI exposes it.
 - **No limited-time or seasonal items.** They go stale fastest and a cached menu can't tell.
 - **Refresh cadence:** quarterly check, or whenever a user reports a discrepancy.
 - **Versioning:** bump `schemaVersion` on breaking changes; bump a per-item `revision` field on macro changes so we can show a "menu updated" indicator if useful.
 
 ### Sourcing workflow (manual, repeatable)
-1. Visit the restaurant's official nutrition page.
+1. Follow `docs/RESTAURANT_WORKFLOW_RESEARCH.md` to map the official nutrition
+   source and live ordering flow separately.
 2. Capture per-item macros into a working spreadsheet.
 3. Convert to JSON via a small script in `Tools/menu-import/`.
-4. Run `swift test --filter MenuDataIntegrityTests` — this validates schema, no negative values, no orphan IDs, etc.
+4. Run the focused menu-data checks — these validate schema, no negative values,
+   no orphan IDs, and restaurant-specific rules.
 5. Commit JSON + the script's input spreadsheet for auditability.
 
 ### Presets (`Resources/Presets/{id}.presets.json`)
@@ -206,7 +208,8 @@ by design.
 ## 7. Core Features (MVP detail)
 
 ### 7.1 Browse
-- Tab 1: **Restaurants** — list of 6 restaurants, alphabetical or by recency-of-use.
+- Tab 1: **Restaurants** — the five flagships are the primary catalog, ordered
+  consistently or by recency of use.
 - Tap a restaurant → menu screen showing categories.
 - Tap a category → items in that category with per-item macros visible.
 

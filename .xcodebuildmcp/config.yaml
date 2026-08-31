@@ -1,0 +1,11 @@
+schemaVersion: 1
+enabledWorkflows: ["simulator", "ui-automation", "debugging", "logging"]
+sentryDisabled: true
+sessionDefaults:
+  projectPath: "./Loadout.xcodeproj"
+  scheme: "Loadout"
+  simulatorName: "General iOS"
+  configuration: "Debug"
+  platform: "iOS"
+  useLatestOS: true
+  extraArgs: ["-parallel-testing-enabled", "NO"]
