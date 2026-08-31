@@ -14,9 +14,14 @@ struct MealPresetTests {
     // Restaurants that publish named composed meals. Panda sells combos of
     // entrées rather than named dishes, so it ships no presets — that's the
     // graceful-degradation case, covered separately below.
+    //
+    // Chick-fil-A dropped off this list deliberately. Its only presets were the
+    // three salads, and those are now configurable menu items carrying their
+    // as-served totals — strictly better than a preset, and reached from the
+    // landing screen like every other headline item.
     // `nonisolated` so the `@Test(arguments:)` macro can read it off the actor.
     nonisolated static let restaurantsWithPresets = [
-        "sweetgreen", "chipotle", "chick-fil-a", "moes", "jersey-mikes",
+        "sweetgreen", "chipotle", "moes", "jersey-mikes", "cava",
     ]
 
     @Test(arguments: restaurantsWithPresets)

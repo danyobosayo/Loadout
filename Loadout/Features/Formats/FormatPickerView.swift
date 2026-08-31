@@ -16,6 +16,10 @@ nonisolated struct MenuRoute: Hashable {
     /// upstream: `LineItem` ids are fresh UUIDs, and regenerating them per body
     /// pass would churn the route's hash and break the link's identity.
     var seed: [LineItem] = []
+    /// A headline item picked on the landing screen. `MenuView` opens straight
+    /// into its configurator, so "what are you having?" hands directly to "how do
+    /// you want it?" without a menu screen in between.
+    var configureItemId: String?
 }
 
 /// The counter moment — shown when a restaurant is tapped, before the
@@ -34,6 +38,10 @@ struct FormatPickerView: View {
     @Query private var savedMeals: [FavoriteMeal]
     @State private var formats: [OrderFormat] = []
     @State private var presets: [ResolvedPreset] = []
+    /// Nil until the async load finishes. Without it the view would decide it
+    /// has nothing to offer on the first body pass — before formats and presets
+    /// arrive — and flash the station list at every restaurant.
+    @State private var loaded = false
 
     /// Keeping more than a few here would turn the counter moment into a second
     /// Recipes tab — which is one tap away in the tab bar.
@@ -70,7 +78,45 @@ struct FormatPickerView: View {
         return (target, false)
     }
 
+    /// True when this screen would show a single "Build your own" card and
+    /// nothing else — no saved recipes, no published meals, no formats, no
+    /// macro-fit. A screen with one destination is a tap that asks nothing, so
+    /// it hands straight over to the stations instead. Cane's is the first to
+    /// hit this: it is ordered top-down, so its combos ARE the entry point and a
+    /// picker in front of them is pure friction.
+    private var hasNothingToChoose: Bool {
+        loaded && formats.isEmpty && presets.isEmpty && shownSavedMeals.isEmpty
+            && restaurant.headlineCategories.isEmpty
+            && !(budget.map { MealSolver.canBuild(budget: $0.macros) } ?? false)
+    }
+
     var body: some View {
+        Group {
+            if hasNothingToChoose {
+                MenuView(restaurant: restaurant, format: nil)
+            } else {
+                picker
+            }
+        }
+        .task {
+            formats = (try? await menuRepository.loadFormats(restaurantId: restaurant.id)) ?? []
+            let loadedPresets = (try? await menuRepository.loadPresets(restaurantId: restaurant.id)) ?? []
+            // A preset whose lines no longer all resolve would show macros that
+            // undercount the real order — drop it rather than mislead.
+            presets = loadedPresets
+                .filter { $0.isComplete(in: restaurant) }
+                .map {
+                    ResolvedPreset(
+                        preset: $0,
+                        lineItems: $0.lineItems(in: restaurant),
+                        macros: $0.macros(in: restaurant)
+                    )
+                }
+            loaded = true
+        }
+    }
+
+    private var picker: some View {
         ZStack {
             Backdrop(tint: restaurant.style.hue, intensity: 0.12)
 
@@ -108,6 +154,29 @@ struct FormatPickerView: View {
                         }
                     }
 
+                    if !headlineSections.isEmpty {
+                        ForEach(headlineSections, id: \.category.id) { section in
+                            sectionLabel(section.category.name)
+                            ForEach(Array(section.groups.enumerated()), id: \.element.id) { index, group in
+                                NavigationLink(value: MenuRoute(
+                                    restaurant: restaurant, format: nil,
+                                    configureItemId: group.defaultMember.id
+                                )) {
+                                    CompleteMealCard(
+                                        name: group.displayName,
+                                        blurb: headlineBlurb(group),
+                                        itemCount: 0,
+                                        macros: group.defaultMember.macros,
+                                        symbol: "fork.knife",
+                                        hue: restaurant.style.hue
+                                    )
+                                }
+                                .buttonStyle(.pressable)
+                                .entrance(headlineEntranceBase + index)
+                            }
+                        }
+                    }
+
                     if !presets.isEmpty {
                         sectionLabel("On the menu")
                         ForEach(Array(presets.enumerated()), id: \.element.id) { index, resolved in
@@ -138,7 +207,7 @@ struct FormatPickerView: View {
                     }
 
                     NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil)) {
-                        BuildYourOwnCard()
+                        BuildYourOwnCard(browsing: !headlineSections.isEmpty)
                     }
                     .buttonStyle(.pressable)
                     .entrance(formatsEntranceBase + formats.count)
@@ -151,27 +220,31 @@ struct FormatPickerView: View {
         .navigationTitle(restaurant.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
-        .task {
-            formats = (try? await menuRepository.loadFormats(restaurantId: restaurant.id)) ?? []
-            let loaded = (try? await menuRepository.loadPresets(restaurantId: restaurant.id)) ?? []
-            // A preset whose lines no longer all resolve would show macros that
-            // undercount the real order — drop it rather than mislead.
-            presets = loaded
-                .filter { $0.isComplete(in: restaurant) }
-                .map {
-                    ResolvedPreset(
-                        preset: $0,
-                        lineItems: $0.lineItems(in: restaurant),
-                        macros: $0.macros(in: restaurant)
-                    )
-                }
-        }
     }
 
     // The entrance stagger runs continuously down the page, so each section's
     // base is simply what came before it (0 is the masthead / Fit my macros).
     private var savedMealsEntranceBase: Int { 1 }
-    private var presetsEntranceBase: Int { savedMealsEntranceBase + shownSavedMeals.count }
+    private var headlineEntranceBase: Int { savedMealsEntranceBase + shownSavedMeals.count }
+
+    /// The stations that hold whole orderable things, collapsed by size so a
+    /// drink in four cups is one card. Empty for assembly restaurants, which
+    /// offer formats instead.
+    private var headlineSections: [(category: MenuCategory, groups: [SizeGroup])] {
+        restaurant.headlineCategories.map { ($0, $0.sizeGroups()) }
+    }
+
+    /// What a headline card says under its name: the serving as the restaurant
+    /// prints it, plus the number of cups when there's a choice. Deliberately not
+    /// a component count — "13 items" on a Box Combo counted the things you could
+    /// toggle, which is not a fact about the combo.
+    private func headlineBlurb(_ group: SizeGroup) -> String {
+        let serving = group.defaultMember.servingDescription
+        guard group.hasChoices else { return serving }
+        return "\(serving) · \(group.members.count) sizes"
+    }
+
+    private var presetsEntranceBase: Int { headlineEntranceBase + headlineSections.reduce(0) { $0 + $1.groups.count } }
     private var formatsEntranceBase: Int { presetsEntranceBase + presets.count }
 
     /// "High protein · no sauces" — the active auto-build settings in one line.
@@ -270,11 +343,21 @@ private struct CompleteMealCard: View {
                         .foregroundStyle(.textPrimary)
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(blurb ?? "^[\(itemCount) item](inflect: true)")
-                        .font(.appCaption)
-                        .foregroundStyle(.textSecondary)
-                        .lineLimit(2)
-                        .fixedSize(horizontal: false, vertical: true)
+                    // Branch rather than `blurb ?? "…"`: the coalesce produces a
+                    // String, which selects `Text(verbatim:)` and renders the
+                    // inflection markup literally — "^[13 item](inflect: true)"
+                    // on screen. Only a bare literal reaches `LocalizedStringKey`.
+                    Group {
+                        if let blurb {
+                            Text(blurb)
+                        } else {
+                            Text("^[\(itemCount) item](inflect: true)")
+                        }
+                    }
+                    .font(.appCaption)
+                    .foregroundStyle(.textSecondary)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
                     MacroBar(macros: macros, style: .inline)
                 }
 
@@ -333,6 +416,15 @@ private struct FormatCard: View {
 /// The escape hatch — the full flat station list, no guidance. Rendered
 /// quieter than the format cards so it reads as "advanced".
 private struct BuildYourOwnCard: View {
+    /// True when the screen already lists the menu above this card, so the card
+    /// is an escape hatch to sides, drinks and sauces rather than the only way in.
+    var browsing = false
+
+    private var title: String { browsing ? "Browse the full menu" : "Build your own" }
+    private var subtitle: String {
+        browsing ? "Sides, drinks, sauces and everything else" : "Start from the full station list"
+    }
+
     var body: some View {
         Card {
             HStack(spacing: Spacing.md) {
@@ -351,10 +443,10 @@ private struct BuildYourOwnCard: View {
                     .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("Build your own")
+                    Text(title)
                         .font(.appHeadline)
                         .foregroundStyle(.textPrimary)
-                    Text("Start from the full station list")
+                    Text(subtitle)
                         .font(.appCaption)
                         .foregroundStyle(.textSecondary)
                 }
@@ -367,6 +459,6 @@ private struct BuildYourOwnCard: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Build your own, start from the full station list")
+        .accessibilityLabel("\(title), \(subtitle.lowercased())")
     }
 }

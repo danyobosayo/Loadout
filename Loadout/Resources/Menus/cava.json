@@ -1,904 +1,1687 @@
 {
-  "id": "cava",
-  "name": "CAVA",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://cava.com/nutrition",
-    "fetchedAt": "2026-05-09",
-    "fetchedBy": "manual",
-    "notes": "Per CAVA Nutrition and Allergen Guide PDF (code CAVA-REC-GID-0326-AllergReg). The PDF reports per-recipe macros without explicit gram/oz weights, so every servingDescription is '1 portion' (with '1 pita' / '1 piece' for sides where it's clearly singular). Curated bowls/pitas, kids meals, and drinks are intentionally excluded — see build_cava_csv.py."
-  },
-  "categories": [
+ "id": "cava",
+ "name": "CAVA",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://cava.com/nutrition",
+  "fetchedAt": "2026-05-09",
+  "fetchedBy": "manual",
+  "notes": "Per CAVA Nutrition and Allergen Guide PDF (code CAVA-REC-GID-0326-AllergReg). The PDF reports per-recipe macros without explicit gram/oz weights, so every servingDescription is '1 portion' (with '1 pita' / '1 piece' for sides where it's clearly singular). Curated bowls/pitas, kids meals, and drinks are intentionally excluded \u2014 see build_cava_csv.py.\n\nDRINKS ADDED 2026-08-10 from the same first-party guide as the food (NUTRITION AND ALLERGEN GUIDE). 44 rows across 20 groups at Kids 12 oz / Small 16 oz / Large 22 oz; Small is the default pour. A full re-diff of all 51 pre-existing food items against this guide found ZERO macro mismatches, so no food figure was touched. The 8 curated bowls and 3 curated pitas are deliberately NOT carried: the guide publishes their totals but not their compositions, and a preset that isn't composed from real menu items can't be verified by summation."
+ },
+ "categories": [
+  {
+   "id": "bases",
+   "name": "Bases",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
     {
-      "id": "bases",
-      "name": "Bases",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "cava.bases.brown-rice",
-          "name": "Brown Rice",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 310.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 48.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "riceBrownBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.saffron-basmati",
-          "name": "Saffron Basmati Rice",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 290.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 54.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "riceWhiteBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.black-lentils",
-          "name": "Black Lentils",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 270.0,
-            "proteinGrams": 18.0,
-            "carbGrams": 37.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lentils",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.super-greens",
-          "name": "Super Greens",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 6.0,
-            "fatGrams": 0.5
-          },
-          "allergens": [],
-          "notes": "Salad base",
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.arugula",
-          "name": "Arugula",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.baby-spinach",
-          "name": "Baby Spinach",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.romaine",
-          "name": "Romaine",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.bases.power-greens",
-          "name": "Power Greens",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "lettuce"
+     "id": "cava.bases.brown-rice",
+     "name": "Brown Rice",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 48.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "riceBrownBowl",
+     "dietaryMarkers": []
     },
     {
-      "id": "dips",
-      "name": "Dips & Spreads",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 2
-      },
-      "items": [
-        {
-          "id": "cava.dips.tzatziki",
-          "name": "Tzatziki",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 1.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "yogurt",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dips.hummus",
-          "name": "Hummus",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 50.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 4.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "hummus",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dips.roasted-eggplant",
-          "name": "Roasted Eggplant",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 50.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "eggplant",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dips.crazy-feta",
-          "name": "Crazy Feta",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 1.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dips.harissa",
-          "name": "Harissa",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 5.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dips.red-pepper-hummus",
-          "name": "Red Pepper Hummus",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 40.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 5.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "hummus",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "hummus"
+     "id": "cava.bases.saffron-basmati",
+     "name": "Saffron Basmati Rice",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 54.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "riceWhiteBowl",
+     "dietaryMarkers": []
     },
     {
-      "id": "mains",
-      "name": "Mains",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "cava.mains.braised-lamb",
-          "name": "Braised Lamb",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 24.0,
-            "carbGrams": 2.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "meatballs",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "cava.mains.grilled-chicken",
-          "name": "Grilled Chicken",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 250.0,
-            "proteinGrams": 28.0,
-            "carbGrams": 3.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chickenGrilled",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "cava.mains.falafel",
-          "name": "Falafel",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 350.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 24.0,
-            "fatGrams": 26.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": "Vegan",
-          "iconName": "falafel",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.mains.grilled-steak",
-          "name": "Grilled Steak",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 23.0,
-            "carbGrams": 1.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "cava.mains.harissa-honey-chicken",
-          "name": "Harissa Honey Chicken",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 260.0,
-            "proteinGrams": 26.0,
-            "carbGrams": 7.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ]
-        },
-        {
-          "id": "cava.mains.roasted-vegetables",
-          "name": "Roasted Vegetables",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 100.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 14.0,
-            "fatGrams": 4.5
-          },
-          "allergens": [],
-          "notes": "Vegan",
-          "iconName": "vegetables",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.mains.spicy-lamb-meatballs",
-          "name": "Spicy Lamb Meatballs",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 300.0,
-            "proteinGrams": 24.0,
-            "carbGrams": 3.0,
-            "fatGrams": 21.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "meatballs",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "cava.mains.glazed-salmon",
-          "name": "Glazed Salmon",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 23.0,
-            "carbGrams": 5.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "fish"
-          ],
-          "notes": null,
-          "iconName": "salmonFilet",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "chickenGrilled"
+     "id": "cava.bases.black-lentils",
+     "name": "Black Lentils",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 18.0,
+      "carbGrams": 37.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lentils",
+     "dietaryMarkers": []
     },
     {
-      "id": "toppings",
-      "name": "Toppings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "cava.toppings.shredded-romaine",
-          "name": "Shredded Romaine",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.pita-crisps",
-          "name": "Pita Crisps",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 6.0,
-            "fatGrams": 11.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.sumac-slaw",
-          "name": "Sumac Slaw",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cabbage",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.tomato-onion",
-          "name": "Tomato + Onion",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.persian-cucumber",
-          "name": "Persian Cucumber",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cucumber",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.tomato-cucumber",
-          "name": "Tomato + Cucumber",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.kalamata-olives",
-          "name": "Kalamata Olives",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oliveBlack",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.fiery-broccoli",
-          "name": "Fiery Broccoli",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 2.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "broccoli",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.pickled-onions",
-          "name": "Pickled Onions",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 5.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "onion",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.salt-brined-pickles",
-          "name": "Salt-Brined Pickles",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "cucumber",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.crumbled-feta",
-          "name": "Crumbled Feta",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 0.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.fire-roasted-corn",
-          "name": "Fire-Roasted Corn",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 45.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 5.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "corn",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.toppings.avocado",
-          "name": "Avocado",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 6.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "avocado",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "vegetables"
+     "id": "cava.bases.super-greens",
+     "name": "Super Greens",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 6.0,
+      "fatGrams": 0.5
+     },
+     "allergens": [],
+     "notes": "Salad base",
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "dressings",
-      "name": "Dressings",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
-      },
-      "items": [
-        {
-          "id": "cava.dressings.balsamic-date",
-          "name": "Balsamic Date Vinaigrette",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 7.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.yogurt-dill",
-          "name": "Yogurt Dill",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 1.0,
-            "fatGrams": 2.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "yogurt",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.lemon-herb-tahini",
-          "name": "Lemon Herb Tahini",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 4.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.strawberry-sesame",
-          "name": "Strawberry Sesame",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 60.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "strawberry",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "cava.dressings.greek-vinaigrette",
-          "name": "Greek Vinaigrette",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "oil",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.skhug",
-          "name": "Skhug",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [],
-          "notes": "Spicy",
-          "iconName": "spicesGround",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.hot-harissa-vinaigrette",
-          "name": "Hot Harissa Vinaigrette",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [],
-          "notes": "Spicy",
-          "iconName": "spicesGround",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.dressings.garlic-dressing",
-          "name": "Garlic Dressing",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 180.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 20.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "garlic",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "oil"
+     "id": "cava.bases.arugula",
+     "name": "Arugula",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "cava.sides.whole-pita",
-          "name": "Whole Pita",
-          "servingDescription": "1 pita",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 54.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.side-pita",
-          "name": "Side Pita",
-          "servingDescription": "1 pita",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 14.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.pita-chips",
-          "name": "Pita Chips",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 280.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 41.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.sumac-pita-chips",
-          "name": "Sumac Sour Cream + Onion Pita Chips",
-          "servingDescription": "1 portion",
-          "macros": {
-            "calories": 290.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 43.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chipsBakedSeasoned",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.greyston-blondie",
-          "name": "Greyston Chocolate Chip Blondie",
-          "servingDescription": "1 piece",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 22.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "cakeSquareChocolate",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.greyston-brownie",
-          "name": "Greyston Brownie",
-          "servingDescription": "1 piece",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 17.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "cakeSquareChocolate",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "cava.sides.whisked-apricot-honey",
-          "name": "Whisked! Apricot Honey",
-          "servingDescription": "1 piece",
-          "macros": {
-            "calories": 220.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 34.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": "DMV regional",
-          "iconName": "biscotti",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "cava.sides.whisked-dark-chocolate",
-          "name": "Whisked! Salted Dark Chocolate Oat Cookie",
-          "servingDescription": "1 piece",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 31.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "biscotti",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "breadPita"
+     "id": "cava.bases.baby-spinach",
+     "name": "Baby Spinach",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.bases.romaine",
+     "name": "Romaine",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.bases.power-greens",
+     "name": "Power Greens",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
     }
-  ]
+   ],
+   "iconName": "lettuce"
+  },
+  {
+   "id": "dips",
+   "name": "Dips & Spreads",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 2
+   },
+   "items": [
+    {
+     "id": "cava.dips.tzatziki",
+     "name": "Tzatziki",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 1.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "yogurt",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dips.hummus",
+     "name": "Hummus",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 4.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "hummus",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dips.roasted-eggplant",
+     "name": "Roasted Eggplant",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 50.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "eggplant",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dips.crazy-feta",
+     "name": "Crazy Feta",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 1.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dips.harissa",
+     "name": "Harissa",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 5.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dips.red-pepper-hummus",
+     "name": "Red Pepper Hummus",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 40.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 5.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "hummus",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "hummus"
+  },
+  {
+   "id": "mains",
+   "name": "Mains",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "cava.mains.braised-lamb",
+     "name": "Braised Lamb",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 24.0,
+      "carbGrams": 2.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "meatballs",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "cava.mains.grilled-chicken",
+     "name": "Grilled Chicken",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 28.0,
+      "carbGrams": 3.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chickenGrilled",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "cava.mains.falafel",
+     "name": "Falafel",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 350.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 24.0,
+      "fatGrams": 26.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": "Vegan",
+     "iconName": "falafel",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.mains.grilled-steak",
+     "name": "Grilled Steak",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 1.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "cava.mains.harissa-honey-chicken",
+     "name": "Harissa Honey Chicken",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 26.0,
+      "carbGrams": 7.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "cava.mains.roasted-vegetables",
+     "name": "Roasted Vegetables",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 14.0,
+      "fatGrams": 4.5
+     },
+     "allergens": [],
+     "notes": "Vegan",
+     "iconName": "vegetables",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.mains.spicy-lamb-meatballs",
+     "name": "Spicy Lamb Meatballs",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 24.0,
+      "carbGrams": 3.0,
+      "fatGrams": 21.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "meatballs",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "cava.mains.glazed-salmon",
+     "name": "Glazed Salmon",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 5.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "fish"
+     ],
+     "notes": null,
+     "iconName": "salmonFilet",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "chickenGrilled"
+  },
+  {
+   "id": "toppings",
+   "name": "Toppings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "cava.toppings.shredded-romaine",
+     "name": "Shredded Romaine",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.pita-crisps",
+     "name": "Pita Crisps",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 6.0,
+      "fatGrams": 11.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.sumac-slaw",
+     "name": "Sumac Slaw",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cabbage",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.tomato-onion",
+     "name": "Tomato + Onion",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.persian-cucumber",
+     "name": "Persian Cucumber",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cucumber",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.tomato-cucumber",
+     "name": "Tomato + Cucumber",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.kalamata-olives",
+     "name": "Kalamata Olives",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oliveBlack",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.fiery-broccoli",
+     "name": "Fiery Broccoli",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 2.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "broccoli",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.pickled-onions",
+     "name": "Pickled Onions",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 5.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "onion",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.salt-brined-pickles",
+     "name": "Salt-Brined Pickles",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "cucumber",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.crumbled-feta",
+     "name": "Crumbled Feta",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 0.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.fire-roasted-corn",
+     "name": "Fire-Roasted Corn",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 45.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 5.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "corn",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.toppings.avocado",
+     "name": "Avocado",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 6.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "avocado",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "vegetables"
+  },
+  {
+   "id": "dressings",
+   "name": "Dressings",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 1
+   },
+   "items": [
+    {
+     "id": "cava.dressings.balsamic-date",
+     "name": "Balsamic Date Vinaigrette",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 7.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.yogurt-dill",
+     "name": "Yogurt Dill",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 1.0,
+      "fatGrams": 2.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "yogurt",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.lemon-herb-tahini",
+     "name": "Lemon Herb Tahini",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 4.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.strawberry-sesame",
+     "name": "Strawberry Sesame",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "strawberry",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "cava.dressings.greek-vinaigrette",
+     "name": "Greek Vinaigrette",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "oil",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.skhug",
+     "name": "Skhug",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [],
+     "notes": "Spicy",
+     "iconName": "spicesGround",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.hot-harissa-vinaigrette",
+     "name": "Hot Harissa Vinaigrette",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": "Spicy",
+     "iconName": "spicesGround",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.dressings.garlic-dressing",
+     "name": "Garlic Dressing",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 20.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "garlic",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "oil"
+  },
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "cava.sides.whole-pita",
+     "name": "Whole Pita",
+     "servingDescription": "1 pita",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 54.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.side-pita",
+     "name": "Side Pita",
+     "servingDescription": "1 pita",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 14.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.pita-chips",
+     "name": "Pita Chips",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 41.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.sumac-pita-chips",
+     "name": "Sumac Sour Cream + Onion Pita Chips",
+     "servingDescription": "1 portion",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 43.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chipsBakedSeasoned",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.greyston-blondie",
+     "name": "Greyston Chocolate Chip Blondie",
+     "servingDescription": "1 piece",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 22.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "cakeSquareChocolate",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.greyston-brownie",
+     "name": "Greyston Brownie",
+     "servingDescription": "1 piece",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 17.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "cakeSquareChocolate",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.sides.whisked-apricot-honey",
+     "name": "Whisked! Apricot Honey",
+     "servingDescription": "1 piece",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 34.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": "DMV regional",
+     "iconName": "biscotti",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "cava.sides.whisked-dark-chocolate",
+     "name": "Whisked! Salted Dark Chocolate Oat Cookie",
+     "servingDescription": "1 piece",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 31.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "biscotti",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "breadPita"
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "cava.drinks.classic-lemonade.kids",
+     "name": "Classic Lemonade (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 52.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.classic-lemonade.small",
+     "name": "Classic Lemonade (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 69.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.classic-lemonade.large",
+     "name": "Classic Lemonade (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 360.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 95.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.classic-lemonade-ca.kids",
+     "name": "Classic Lemonade (CA) (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade-ca",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.classic-lemonade-ca.small",
+     "name": "Classic Lemonade (CA) (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 55.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade-ca",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.classic-lemonade-ca.large",
+     "name": "Classic Lemonade (CA) (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 75.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.classic-lemonade-ca",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.black-tea-unsweetened.kids",
+     "name": "Black Tea Unsweetened (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.black-tea-unsweetened",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.black-tea-unsweetened.small",
+     "name": "Black Tea Unsweetened (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.black-tea-unsweetened",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.black-tea-unsweetened.large",
+     "name": "Black Tea Unsweetened (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.black-tea-unsweetened",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.sweet-tea.kids",
+     "name": "Sweet Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 28.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.sweet-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.sweet-tea.small",
+     "name": "Sweet Tea (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.sweet-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.sweet-tea.large",
+     "name": "Sweet Tea (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 51.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.sweet-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.jasmine-green-tea.kids",
+     "name": "Jasmine Green Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.jasmine-green-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.jasmine-green-tea.small",
+     "name": "Jasmine Green Tea (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.jasmine-green-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.jasmine-green-tea.large",
+     "name": "Jasmine Green Tea (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.jasmine-green-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.strawberry-citrus.kids",
+     "name": "Strawberry Citrus (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 26.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.strawberry-citrus.small",
+     "name": "Strawberry Citrus (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.strawberry-citrus.large",
+     "name": "Strawberry Citrus (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 48.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.strawberry-citrus",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.cucumber-mint-lime.kids",
+     "name": "Cucumber Mint Lime (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 33.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.cucumber-mint-lime",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.cucumber-mint-lime.small",
+     "name": "Cucumber Mint Lime (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.cucumber-mint-lime",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.cucumber-mint-lime.large",
+     "name": "Cucumber Mint Lime (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 61.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.cucumber-mint-lime",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.blueberry-lavender.kids",
+     "name": "Blueberry Lavender (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 27.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.blueberry-lavender",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.blueberry-lavender.small",
+     "name": "Blueberry Lavender (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.blueberry-lavender",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.blueberry-lavender.large",
+     "name": "Blueberry Lavender (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 50.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.blueberry-lavender",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.pineapple-apple-mint-juice.kids",
+     "name": "Pineapple Apple Mint Juice (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.pineapple-apple-mint-juice.small",
+     "name": "Pineapple Apple Mint Juice (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 29.0,
+      "fatGrams": 0.5
+     },
+     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.pineapple-apple-mint-juice.large",
+     "name": "Pineapple Apple Mint Juice (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.5
+     },
+     "sizeGroup": "cava.drinks.pineapple-apple-mint-juice",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.tangerine-aleppo.kids",
+     "name": "Tangerine Aleppo (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.tangerine-aleppo",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.tangerine-aleppo.small",
+     "name": "Tangerine Aleppo (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 49.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.tangerine-aleppo",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.tangerine-aleppo.large",
+     "name": "Tangerine Aleppo (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 67.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.tangerine-aleppo",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-soda-fountain.kids",
+     "name": "Maine Root Soda (Fountain) (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 145.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-soda-fountain",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-soda-fountain.small",
+     "name": "Maine Root Soda (Fountain) (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 50.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-soda-fountain",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-soda-fountain.large",
+     "name": "Maine Root Soda (Fountain) (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 60.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-soda-fountain",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-soda-bottled",
+     "name": "Maine Root Soda (Bottled)",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 145.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-diet-soda-fountain.kids",
+     "name": "Maine Root Diet Soda (Fountain) (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-diet-soda-fountain",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-diet-soda-fountain.small",
+     "name": "Maine Root Diet Soda (Fountain) (Small)",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-diet-soda-fountain",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.maine-root-diet-soda-fountain.large",
+     "name": "Maine Root Diet Soda (Fountain) (Large)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "cava.drinks.maine-root-diet-soda-fountain",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.spindrift-grapefruit",
+     "name": "Spindrift Grapefruit",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 17.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.spindrift-raspberry-lime",
+     "name": "Spindrift Raspberry Lime",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.spindrift-lemon",
+     "name": "Spindrift Lemon",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 3.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.spindrift-half-tea-half-lemon",
+     "name": "Spindrift Half Tea + Half Lemon",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.chocolate-milk",
+     "name": "Chocolate Milk",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 22.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.1-milk",
+     "name": "1% Milk",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 12.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "cava.drinks.honest-apple-juice",
+     "name": "Honest Apple Juice",
+     "servingDescription": "1 serving",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

@@ -70,19 +70,24 @@ struct MacroSegmentBar: View {
 /// (`MacroBar`) lives in the tray, where decisions get reviewed.
 struct MacroStrip: View {
     let macros: Macros
+    /// Off where a bigger calorie figure already sits directly above, so the
+    /// same number isn't printed twice in one card.
+    var showsCalories = true
 
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: Spacing.sm + Spacing.xs) {
-            HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(macros.calories, format: .number.precision(.fractionLength(0)))
-                    .font(.numeral)
-                    .foregroundStyle(.textPrimary)
-                    .contentTransition(.numericText(value: macros.calories))
-                    .animation(Motion.snap, value: macros.calories)
-                    .numeralFitting()
-                Text("kcal")
-                    .microLabelStyle(.kcal)
-                    .fixedSize()
+            if showsCalories {
+                HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    Text(macros.calories, format: .number.precision(.fractionLength(0)))
+                        .font(.numeral)
+                        .foregroundStyle(.textPrimary)
+                        .contentTransition(.numericText(value: macros.calories))
+                        .animation(Motion.snap, value: macros.calories)
+                        .numeralFitting()
+                    Text("kcal")
+                        .microLabelStyle(.kcal)
+                        .fixedSize()
+                }
             }
             pair(macros.proteinGrams, "P", .protein)
             pair(macros.carbGrams, "C", .carbs)

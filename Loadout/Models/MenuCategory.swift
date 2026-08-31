@@ -13,6 +13,20 @@ nonisolated struct MenuCategory: Codable, Hashable, Sendable, Identifiable {
     /// to anything by hand, but auto-build must not stack a complete bowl on
     /// top of its own rice and protein, which is two meals in one tray.
     let isCompleteMeal: Bool
+    /// A pantry station: its items exist so `ItemComponent`s can resolve to real
+    /// curated macros, but it is never shown and never solved against. Cane's
+    /// combo-portion fries live here — they are a real part of a Box Combo, but
+    /// you cannot walk up and order one.
+    let isHidden: Bool
+    /// A station that holds whole orderable things — Cane's combos, Chick-fil-A's
+    /// sandwiches — as opposed to sides, sauces and drinks. These are what the
+    /// landing screen lists when it asks "what are you having?".
+    ///
+    /// Needed because that list used to come from a hand-written presets file,
+    /// which was arbitrary: Jersey Mike's had 12 subs and looked right, while
+    /// Chick-fil-A had 3 salads and Cane's had no file at all — so Cane's landed
+    /// on a screen offering nothing but "Build your own".
+    let isHeadline: Bool
 
     init(
         id: String,
@@ -20,7 +34,9 @@ nonisolated struct MenuCategory: Codable, Hashable, Sendable, Identifiable {
         selectionRule: SelectionRule,
         items: [MenuItem],
         iconName: String? = nil,
-        isCompleteMeal: Bool = false
+        isCompleteMeal: Bool = false,
+        isHidden: Bool = false,
+        isHeadline: Bool = false
     ) {
         self.id = id
         self.name = name
@@ -28,10 +44,12 @@ nonisolated struct MenuCategory: Codable, Hashable, Sendable, Identifiable {
         self.items = items
         self.iconName = iconName
         self.isCompleteMeal = isCompleteMeal
+        self.isHidden = isHidden
+        self.isHeadline = isHeadline
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, selectionRule, items, iconName, isCompleteMeal
+        case id, name, selectionRule, items, iconName, isCompleteMeal, isHidden, isHeadline
     }
 
     // Absent in most menu files, so decode leniently rather than requiring the
@@ -44,6 +62,8 @@ nonisolated struct MenuCategory: Codable, Hashable, Sendable, Identifiable {
         items = try c.decode([MenuItem].self, forKey: .items)
         iconName = try c.decodeIfPresent(String.self, forKey: .iconName)
         isCompleteMeal = try c.decodeIfPresent(Bool.self, forKey: .isCompleteMeal) ?? false
+        isHidden = try c.decodeIfPresent(Bool.self, forKey: .isHidden) ?? false
+        isHeadline = try c.decodeIfPresent(Bool.self, forKey: .isHeadline) ?? false
     }
 }
 

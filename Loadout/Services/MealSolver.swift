@@ -69,6 +69,14 @@ nonisolated enum MealSolver {
     /// Stations that read as vegetables for the veg-forward focus.
     private static let vegetableCategoryIds: Set<String> = ["veggies", "toppings", "ingredients", "salsa"]
 
+    /// Stations auto-build never touches.
+    ///
+    /// A drink is a decision, not a macro lever. Left in the pool the solver will
+    /// happily close a carb gap with a large lemonade — CAVA's is 360 cal, more
+    /// than a grilled chicken — and hand back a "meal" nobody asked for. People
+    /// pick their drink; the solver builds the food around it.
+    private static let neverSolvedCategoryIds: Set<String> = ["drinks"]
+
     /// Whether there's a sensible meal to build for this budget (drives the
     /// entry point's visibility). Budgets can be signed (Health remaining), so
     /// a non-positive / tiny budget means "nothing to build."
@@ -425,8 +433,8 @@ nonisolated enum MealSolver {
         restrictions: Set<DietaryRestriction>
     ) -> [Candidate] {
         let blocked = exclusions.reduce(into: Set<String>()) { $0.formUnion($1.excludedCategoryIds) }
-        return restaurant.categories
-            .filter { !blocked.contains($0.id) }
+        return restaurant.orderableCategories
+            .filter { !blocked.contains($0.id) && !neverSolvedCategoryIds.contains($0.id) }
             .flatMap { category in
                 // An item we haven't flagged is dropped too, not waved through:
                 // auto-build is the one place where "we don't know" has to mean
@@ -457,7 +465,7 @@ nonisolated enum MealSolver {
     /// scattered the base into the middle of the tray, which is why a Chipotle
     /// suggestion read as a pile of toppings with no visible foundation.
     private static func categoryOrder(_ restaurant: Restaurant) -> [String: Int] {
-        Dictionary(uniqueKeysWithValues: restaurant.categories.enumerated().map { ($1.id, $0) })
+        Dictionary(uniqueKeysWithValues: restaurant.orderableCategories.enumerated().map { ($1.id, $0) })
     }
 
     private static func suggestion(

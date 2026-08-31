@@ -1,585 +1,903 @@
 {
-  "id": "chipotle",
-  "name": "Chipotle",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://www.chipotle.com/nutrition-calculator",
-    "fetchedAt": "2026-05-09",
-    "fetchedBy": "manual",
-    "notes": "Per Chipotle Nutrition PDF (codes OCT-2024-US-CK / OCT-2024-US-PPS). See build_chipotle_csv.py for sourcing/exclusion notes."
-  },
-  "categories": [
+ "id": "chipotle",
+ "name": "Chipotle",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://www.chipotle.com/nutrition-calculator",
+  "fetchedAt": "2026-05-09",
+  "fetchedBy": "manual",
+  "notes": "Per Chipotle Nutrition PDF (codes OCT-2024-US-CK / OCT-2024-US-PPS). See build_chipotle_csv.py for sourcing/exclusion notes."
+ },
+ "categories": [
+  {
+   "id": "tortilla",
+   "name": "Tortilla",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 1
+   },
+   "items": [
     {
-      "id": "tortilla",
-      "name": "Tortilla",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
-      },
-      "items": [
-        {
-          "id": "chipotle.tortilla.flour-burrito",
-          "name": "Flour Tortilla (burrito)",
-          "servingDescription": "1 tortilla",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 50.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "wheatFlat",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.tortilla.flour-taco",
-          "name": "Flour Tortilla (taco)",
-          "servingDescription": "1 tortilla",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 13.0,
-            "fatGrams": 2.5
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "wheatFlat",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.tortilla.crispy-corn",
-          "name": "Crispy Corn Tortilla",
-          "servingDescription": "1 tortilla",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 10.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "wheatFlat",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "wheatFlat"
+     "id": "chipotle.tortilla.flour-burrito",
+     "name": "Flour Tortilla (burrito)",
+     "servingDescription": "1 tortilla",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 50.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "wheatFlat",
+     "dietaryMarkers": []
     },
     {
-      "id": "rice",
-      "name": "Rice",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.rice.cilantro-lime-white",
-          "name": "Cilantro-Lime White Rice",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 40.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "riceWhiteBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.rice.cilantro-lime-brown",
-          "name": "Cilantro-Lime Brown Rice",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 36.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "riceBrownBowl",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "riceWhiteBowl"
+     "id": "chipotle.tortilla.flour-taco",
+     "name": "Flour Tortilla (taco)",
+     "servingDescription": "1 tortilla",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 13.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "wheatFlat",
+     "dietaryMarkers": []
     },
     {
-      "id": "beans",
-      "name": "Beans",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.beans.black",
-          "name": "Black Beans",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 22.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "beansPan",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.beans.pinto",
-          "name": "Pinto Beans",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 21.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "beansPan",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "beansPan"
-    },
-    {
-      "id": "protein",
-      "name": "Protein",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.protein.chicken",
-          "name": "Chicken",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 180.0,
-            "proteinGrams": 32.0,
-            "carbGrams": 0.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chipotle.protein.steak",
-          "name": "Steak",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 21.0,
-            "carbGrams": 1.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chipotle.protein.barbacoa",
-          "name": "Barbacoa",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 170.0,
-            "proteinGrams": 24.0,
-            "carbGrams": 2.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "chipotle.protein.carnitas",
-          "name": "Carnitas",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 23.0,
-            "carbGrams": 0.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "porkLoin",
-          "dietaryMarkers": [
-            "meat",
-            "pork"
-          ]
-        },
-        {
-          "id": "chipotle.protein.sofritas",
-          "name": "Sofritas",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 9.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "soy"
-          ],
-          "notes": "Plant-based",
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.protein.carne-asada",
-          "name": "Carne Asada",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 250.0,
-            "proteinGrams": 29.0,
-            "carbGrams": 1.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [],
-          "notes": "Sodium missing from source; refresh from chipotle.com",
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        }
-      ],
-      "iconName": "chicken"
-    },
-    {
-      "id": "veggies",
-      "name": "Veggies",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.veggies.fajita-vegetables",
-          "name": "Fajita Vegetables",
-          "servingDescription": "2 oz",
-          "macros": {
-            "calories": 20.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 5.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "bellPepperGreen",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.veggies.supergreens-mix",
-          "name": "Supergreens Salad Mix",
-          "servingDescription": "3 oz",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": "Salad base",
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.veggies.romaine",
-          "name": "Romaine Lettuce",
-          "servingDescription": "1 oz",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 1.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "vegetables"
-    },
-    {
-      "id": "salsa",
-      "name": "Salsa",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.salsa.fresh-tomato",
-          "name": "Fresh Tomato Salsa",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 25.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": "Mild",
-          "iconName": "tomato",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.salsa.roasted-corn",
-          "name": "Roasted Chili-Corn Salsa",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 80.0,
-            "proteinGrams": 3.0,
-            "carbGrams": 16.0,
-            "fatGrams": 1.5
-          },
-          "allergens": [],
-          "notes": "Medium",
-          "iconName": "corn",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.salsa.tomatillo-green",
-          "name": "Tomatillo-Green Chili Salsa",
-          "servingDescription": "2 fl oz",
-          "macros": {
-            "calories": 15.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": "Medium-hot",
-          "iconName": "salsa",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.salsa.tomatillo-red",
-          "name": "Tomatillo-Red Chili Salsa",
-          "servingDescription": "2 fl oz",
-          "macros": {
-            "calories": 30.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 4.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": "Hot",
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "salsa"
-    },
-    {
-      "id": "toppings",
-      "name": "Toppings",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "chipotle.toppings.cheese",
-          "name": "Cheese",
-          "servingDescription": "1 oz",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 1.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.sour-cream",
-          "name": "Sour Cream",
-          "servingDescription": "2 oz",
-          "macros": {
-            "calories": 110.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 2.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": null,
-          "iconName": "sourCream",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.guacamole",
-          "name": "Guacamole",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 230.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 8.0,
-            "fatGrams": 22.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "guacamole",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.guacamole-large",
-          "name": "Guacamole (large side)",
-          "servingDescription": "8 oz",
-          "macros": {
-            "calories": 460.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 16.0,
-            "fatGrams": 44.0
-          },
-          "allergens": [],
-          "notes": "Side portion",
-          "iconName": "guacamole",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.queso-entree",
-          "name": "Queso Blanco (entrée)",
-          "servingDescription": "2 oz",
-          "macros": {
-            "calories": 120.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 4.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": "Bowl/burrito add-in",
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.queso-side",
-          "name": "Queso Blanco (side)",
-          "servingDescription": "4 oz",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 7.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": "Side portion",
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.toppings.queso-large",
-          "name": "Queso Blanco (large side)",
-          "servingDescription": "8 oz",
-          "macros": {
-            "calories": 480.0,
-            "proteinGrams": 20.0,
-            "carbGrams": 14.0,
-            "fatGrams": 37.0
-          },
-          "allergens": [
-            "milk"
-          ],
-          "notes": "Large side",
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "cheeseSlice"
-    },
-    {
-      "id": "dressing",
-      "name": "Dressing",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
-      },
-      "items": [
-        {
-          "id": "chipotle.dressing.chipotle-honey-vinaigrette",
-          "name": "Chipotle-Honey Vinaigrette",
-          "servingDescription": "2 fl oz",
-          "macros": {
-            "calories": 220.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 18.0,
-            "fatGrams": 16.0
-          },
-          "allergens": [],
-          "notes": "Salad dressing",
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        }
-      ],
-      "iconName": "oil"
-    },
-    {
-      "id": "chips",
-      "name": "Chips",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 1
-      },
-      "items": [
-        {
-          "id": "chipotle.chips.regular",
-          "name": "Chips",
-          "servingDescription": "4 oz (regular)",
-          "macros": {
-            "calories": 540.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 73.0,
-            "fatGrams": 25.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "chipotle.chips.large",
-          "name": "Chips (large)",
-          "servingDescription": "6 oz (large)",
-          "macros": {
-            "calories": 810.0,
-            "proteinGrams": 11.0,
-            "carbGrams": 110.0,
-            "fatGrams": 38.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chipsBaked",
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "chipsBaked"
+     "id": "chipotle.tortilla.crispy-corn",
+     "name": "Crispy Corn Tortilla",
+     "servingDescription": "1 tortilla",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 10.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "wheatFlat",
+     "dietaryMarkers": []
     }
-  ]
+   ],
+   "iconName": "wheatFlat"
+  },
+  {
+   "id": "rice",
+   "name": "Rice",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.rice.cilantro-lime-white",
+     "name": "Cilantro-Lime White Rice",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 40.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "riceWhiteBowl",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.rice.cilantro-lime-brown",
+     "name": "Cilantro-Lime Brown Rice",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 36.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "riceBrownBowl",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "riceWhiteBowl"
+  },
+  {
+   "id": "beans",
+   "name": "Beans",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.beans.black",
+     "name": "Black Beans",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 22.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "beansPan",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.beans.pinto",
+     "name": "Pinto Beans",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 21.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "beansPan",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "beansPan"
+  },
+  {
+   "id": "protein",
+   "name": "Protein",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.protein.chicken",
+     "name": "Chicken",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 32.0,
+      "carbGrams": 0.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chipotle.protein.steak",
+     "name": "Steak",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 21.0,
+      "carbGrams": 1.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chipotle.protein.barbacoa",
+     "name": "Barbacoa",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 24.0,
+      "carbGrams": 2.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "chipotle.protein.carnitas",
+     "name": "Carnitas",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 23.0,
+      "carbGrams": 0.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "porkLoin",
+     "dietaryMarkers": [
+      "meat",
+      "pork"
+     ]
+    },
+    {
+     "id": "chipotle.protein.sofritas",
+     "name": "Sofritas",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 9.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "soy"
+     ],
+     "notes": "Plant-based",
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.protein.carne-asada",
+     "name": "Carne Asada",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 29.0,
+      "carbGrams": 1.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [],
+     "notes": "Sodium missing from source; refresh from chipotle.com",
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    }
+   ],
+   "iconName": "chicken"
+  },
+  {
+   "id": "veggies",
+   "name": "Veggies",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.veggies.fajita-vegetables",
+     "name": "Fajita Vegetables",
+     "servingDescription": "2 oz",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 5.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "bellPepperGreen",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.veggies.supergreens-mix",
+     "name": "Supergreens Salad Mix",
+     "servingDescription": "3 oz",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Salad base",
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.veggies.romaine",
+     "name": "Romaine Lettuce",
+     "servingDescription": "1 oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "vegetables"
+  },
+  {
+   "id": "salsa",
+   "name": "Salsa",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.salsa.fresh-tomato",
+     "name": "Fresh Tomato Salsa",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Mild",
+     "iconName": "tomato",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.salsa.roasted-corn",
+     "name": "Roasted Chili-Corn Salsa",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 16.0,
+      "fatGrams": 1.5
+     },
+     "allergens": [],
+     "notes": "Medium",
+     "iconName": "corn",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.salsa.tomatillo-green",
+     "name": "Tomatillo-Green Chili Salsa",
+     "servingDescription": "2 fl oz",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Medium-hot",
+     "iconName": "salsa",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.salsa.tomatillo-red",
+     "name": "Tomatillo-Red Chili Salsa",
+     "servingDescription": "2 fl oz",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": "Hot",
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": "salsa"
+  },
+  {
+   "id": "toppings",
+   "name": "Toppings",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.toppings.cheese",
+     "name": "Cheese",
+     "servingDescription": "1 oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 1.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.toppings.sour-cream",
+     "name": "Sour Cream",
+     "servingDescription": "2 oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 2.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": "sourCream",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.toppings.guacamole",
+     "name": "Guacamole",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 8.0,
+      "fatGrams": 22.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "guacamole",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.guacamole",
+     "sizeLabel": "4 oz",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chipotle.toppings.guacamole-large",
+     "name": "Guacamole (large side)",
+     "servingDescription": "8 oz",
+     "macros": {
+      "calories": 460.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 16.0,
+      "fatGrams": 44.0
+     },
+     "allergens": [],
+     "notes": "Side portion",
+     "iconName": "guacamole",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.guacamole",
+     "sizeLabel": "8 oz",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chipotle.toppings.queso-entree",
+     "name": "Queso Blanco (entr\u00e9e)",
+     "servingDescription": "2 oz",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 4.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": "Bowl/burrito add-in",
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.queso-blanco",
+     "sizeLabel": "2 oz",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chipotle.toppings.queso-side",
+     "name": "Queso Blanco (side)",
+     "servingDescription": "4 oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 7.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": "Side portion",
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.queso-blanco",
+     "sizeLabel": "4 oz",
+     "isDefaultSize": false
+    },
+    {
+     "id": "chipotle.toppings.queso-large",
+     "name": "Queso Blanco (large side)",
+     "servingDescription": "8 oz",
+     "macros": {
+      "calories": 480.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 14.0,
+      "fatGrams": 37.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": "Large side",
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.queso-blanco",
+     "sizeLabel": "8 oz",
+     "isDefaultSize": false
+    }
+   ],
+   "iconName": "cheeseSlice"
+  },
+  {
+   "id": "dressing",
+   "name": "Dressing",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 1
+   },
+   "items": [
+    {
+     "id": "chipotle.dressing.chipotle-honey-vinaigrette",
+     "name": "Chipotle-Honey Vinaigrette",
+     "servingDescription": "2 fl oz",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 18.0,
+      "fatGrams": 16.0
+     },
+     "allergens": [],
+     "notes": "Salad dressing",
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    }
+   ],
+   "iconName": "oil"
+  },
+  {
+   "id": "chips",
+   "name": "Chips",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 1
+   },
+   "items": [
+    {
+     "id": "chipotle.chips.regular",
+     "name": "Chips",
+     "servingDescription": "4 oz (regular)",
+     "macros": {
+      "calories": 540.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 73.0,
+      "fatGrams": 25.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.chips",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true
+    },
+    {
+     "id": "chipotle.chips.large",
+     "name": "Chips (large)",
+     "servingDescription": "6 oz (large)",
+     "macros": {
+      "calories": 810.0,
+      "proteinGrams": 11.0,
+      "carbGrams": 110.0,
+      "fatGrams": 38.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chipsBaked",
+     "dietaryMarkers": [],
+     "sizeGroup": "chipotle.size.chips",
+     "sizeLabel": "Large",
+     "isDefaultSize": false
+    }
+   ],
+   "iconName": "chipsBaked"
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "chipotle.drinks.22-fl-oz-tractor-organic-lemonade",
+     "name": "22 fl oz Tractor Organic Lemonade",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 43.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chipotle.size.drinks.tractor-organic-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.32-fl-oz-tractor-organic-lemonade",
+     "name": "32 fl oz Tractor Organic Lemonade",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 62.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chipotle.size.drinks.tractor-organic-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.22-fl-oz-tractor-organic-watermelon-limeade",
+     "name": "22 fl oz Tractor Organic Watermelon Limeade",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 56.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chipotle.size.drinks.tractor-organic-watermelon-limeade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.32-fl-oz-tractor-organic-watermelon-limeade",
+     "name": "32 fl oz Tractor Organic Watermelon Limeade",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 330.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 82.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "chipotle.size.drinks.tractor-organic-watermelon-limeade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.tractor-organic-lemonade",
+     "name": "Tractor Organic Lemonade",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 36.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.mexican-coca-cola",
+     "name": "Mexican Coca-Cola",
+     "servingDescription": "355 mL",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.mexican-sprite",
+     "name": "Mexican Sprite",
+     "servingDescription": "355 mL",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.coke-zero",
+     "name": "Coke Zero",
+     "servingDescription": "20 oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.san-pellegrino-sparkling",
+     "name": "San Pellegrino Sparkling",
+     "servingDescription": "500 mL",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.poppi-orange",
+     "name": "Poppi Orange",
+     "servingDescription": "12 oz",
+     "macros": {
+      "calories": 25.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.poppi-strawberry-lemon",
+     "name": "Poppi Strawberry Lemon",
+     "servingDescription": "12 oz",
+     "macros": {
+      "calories": 30.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.jarritos-mango",
+     "name": "Jarritos Mango",
+     "servingDescription": "370 mL",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.jarritos-guava",
+     "name": "Jarritos Guava",
+     "servingDescription": "370 mL",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 26.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.apple-juice",
+     "name": "Apple Juice",
+     "servingDescription": "16 fl oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 60.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.open-water-still",
+     "name": "Open Water Still",
+     "servingDescription": "16 oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.organic-chocolate-milk",
+     "name": "Organic Chocolate Milk",
+     "servingDescription": "8 oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 24.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.organic-milk",
+     "name": "Organic Milk",
+     "servingDescription": "8 oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 12.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "chipotle.drinks.organic-apple-juice",
+     "name": "Organic Apple Juice",
+     "servingDescription": "6.75 oz",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 25.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

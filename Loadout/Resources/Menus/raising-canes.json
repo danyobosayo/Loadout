@@ -1,241 +1,2443 @@
 {
-  "id": "raising-canes",
-  "name": "Raising Cane's",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://raisingcanes.cdn.prismic.io/raisingcanes/aHquuUMqNJQqIHQh_35074AllergenNutritionInfo_ALL_ENGLISH_DIGITAL.pdf",
-    "fetchedAt": "2026-08-07",
-    "fetchedBy": "research agent, verified against the official source",
-    "notes": "SOURCING / PROVENANCE. raisingcanes.com is behind Cloudflare and returns 403 to every non-browser fetch; the /nutrition and /allergens pages also render a blank body in a real browser (no PDF request is ever made — the official allergen page is effectively broken as of this run). I recovered the real document by pulling the Gatsby page payload at https://www.raisingcanes.com/page-data/allergens/page-data.json, which names the PDF Cane's itself embeds. That PDF is hosted on Cane's own Prismic CMS CDN and is titled \"JULY 2025 | Nutritional & Allergen Information (WEB)\". It is a first-party Raising Cane's document, so sourceIsOfficial=true. No aggregator was used at any point.\n\nCOLUMN MAPPING VERIFIED. The PDF's header row extracts out of order, so I confirmed the real data-row order (Name | Serving Size | Calories | Total Fat | Sat Fat | Trans Fat | Cholesterol | Sodium | Carbs | Fiber | Sugar | Protein | Allergen) with an Atwater cross-check on every item. All pass: fries 20x9+50x4+5x4=400 exactly; mayo 10x9=90 exactly; sandwich 41x9+69x4+47x4=833 vs 830; sauce 18x9+6x4=186 vs 190. Macros are verbatim from the PDF, not recomputed or reverse-engineered.\n\n\"< 1 g\" HANDLING. The PDF prints \"< 1 g\" rather than a number for Honey Mustard protein; I recorded 0.5 g (midpoint). That is the only non-verbatim macro value in this menu.\n\nPRESET TOTALS DO NOT EQUAL THE SUM OF THE LINE ITEMS — READ BEFORE VERIFYING. Cane's publishes combos as their own lab-analyzed rows, derived from combo-specific portions, not as the sum of the a la carte rows. The combo rows are internally consistent (Box Combo 72x9+98x4+62x4=1288 vs published 1290; Sandwich Combo 56x9+108x4+51x4=1140 exactly), so both sets of numbers are individually correct — they simply describe different portions. Summing my components will overshoot published calories by roughly 2-8%: Box 1360 vs 1290, 3 Finger 1130 vs 1050, Caniac 1810 vs 1840 (under), Sandwich 1230 vs 1140. Protein tracks much closer (Box 62 vs 62 exact, 3 Finger 48 vs 48 exact, Caniac 88 vs 90, Sandwich 52 vs 51). A recurring -11 g carb / -4.5 g fat offset across three combos suggests a smaller combo fries or toast portion that Cane's does not publish separately. I did not fudge any component to force the sums to reconcile.\n\nCOMBO TOTALS ARE DRINK-FREE. Each published combo figure equals the menu page's LOW end of its calorie range (Box 1290 of \"1290-1720\"), i.e. it assumes a zero-calorie drink. So these totals are directly usable as food-only numbers despite the combos nominally including a fountain drink.\n\nUNRESOLVED CONFLICT ON THE SANDWICH. The nutrition PDF lists Chicken Sandwich at 830 Cal; raisingcanes.com/menu lists \"Sandwich 780 Cal per sandwich\". I used 830 because it is the only figure that comes with a full macro row, and mixing a calorie count from one source with macros from another would be worse. Flagging it as the one item worth re-checking when Cane's next updates the PDF.\n\nSTATION LAYOUT. Cane's has no true build-your-own line, so I mapped it to how you actually order: pick your chicken (fingers by the each, or the sandwich), add sides, add dips. Reused vocabulary ids throughout — mains, sides, dips (3-scoop cap fits Cane's extra-sauce ordering exactly), sauces. No new category ids invented."
-  },
-  "categories": [
+ "id": "raising-canes",
+ "name": "Raising Cane's",
+ "orderingModel": "configuration",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://raisingcanes.cdn.prismic.io/raisingcanes/aHquuUMqNJQqIHQh_35074AllergenNutritionInfo_ALL_ENGLISH_DIGITAL.pdf",
+  "fetchedAt": "2026-08-07",
+  "fetchedBy": "research agent, verified against the official source",
+  "notes": "SOURCING / PROVENANCE. raisingcanes.com is behind Cloudflare and returns 403 to every non-browser fetch; the /nutrition and /allergens pages also render a blank body in a real browser (no PDF request is ever made \u2014 the official allergen page is effectively broken as of this run). I recovered the real document by pulling the Gatsby page payload at https://www.raisingcanes.com/page-data/allergens/page-data.json, which names the PDF Cane's itself embeds. That PDF is hosted on Cane's own Prismic CMS CDN and is titled \"JULY 2025 | Nutritional & Allergen Information (WEB)\". It is a first-party Raising Cane's document, so sourceIsOfficial=true. No aggregator was used at any point.\n\nCOLUMN MAPPING VERIFIED. The PDF's header row extracts out of order, so I confirmed the real data-row order (Name | Serving Size | Calories | Total Fat | Sat Fat | Trans Fat | Cholesterol | Sodium | Carbs | Fiber | Sugar | Protein | Allergen) with an Atwater cross-check on every item. All pass: fries 20x9+50x4+5x4=400 exactly; mayo 10x9=90 exactly; sandwich 41x9+69x4+47x4=833 vs 830; sauce 18x9+6x4=186 vs 190. Macros are verbatim from the PDF, not recomputed or reverse-engineered.\n\n\"< 1 g\" HANDLING. The PDF prints \"< 1 g\" rather than a number for Honey Mustard protein; I recorded 0.5 g (midpoint). That is the only non-verbatim macro value in this menu.\n\nCOMBOS RECONCILE ONCE THE COMBO FRY IS SPLIT OUT. An earlier pass summed combos using the a la carte 400-cal fries and overshot by 2-8%. Cane's serves a smaller fry in the 3 Finger, Box and Sandwich combos and a smaller one still in the Kid's, but publishes neither. Sandwich Combo minus Chicken Sandwich gives 310/4/39/15 on all four macros exactly, and that figure then closes the carb column EXACTLY on the 3 Finger (83 g) and Box (98 g) combos. Kid's Combo minus 2 fingers minus a sauce gives 200/3/23/9, exact on all four. Both live in a hidden `pantry` station so they resolve as components but cannot be ordered. Remaining residuals are small and one-directional (3 Finger -10 cal, Box -20, Caniac -30, Sandwich and Kid's exact); the published total ships as-is and components only ever subtract from it.\n\nCOMBO TOTALS ARE DRINK-FREE, and each equals the low end of the menu page's calorie range, i.e. a zero-calorie drink. Drinks are therefore a separate station you add to a combo rather than something baked into the combo figure.\n\nDRINKS are the full published list, 87 rows across 4 cup sizes (Kid's 12 fl oz, Regular 22, Large 32, Jug 1 gallon), collapsed into size groups. Cane's own cup names are kept rather than normalised to S/M/L \u2014 replicating your real order matters more than cross-chain tidiness, and the fluid ounces make sizes comparable anyway.\n\nONE ESTIMATED ITEM. Chicken Finger (Naked) carries isEstimated=true. Cane's publishes nothing for unbreaded fingers and the delta cannot be derived from any published pair, so this is a community figure (70 cal / 13 P / 0 C / 2 F), shown flagged rather than presented as sourced. It is the only non-published, non-derived macro in this file."
+ },
+ "categories": [
+  {
+   "id": "combos",
+   "name": "Combos",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
     {
-      "id": "entrees",
-      "name": "Entrées",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "raising-canes.combos.box-combo",
+     "name": "Box Combo",
+     "servingDescription": "1 combo \u2014 4 fingers",
+     "macros": {
+      "calories": 1290.0,
+      "proteinGrams": 62.0,
+      "carbGrams": 98.0,
+      "fatGrams": 72.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 4.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "raising-canes.entrees.chicken-finger",
-          "name": "Chicken Finger",
-          "servingDescription": "1 finger — 1.9 oz (55 g)",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 5.0,
-            "fatGrams": 7.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "raising-canes.entrees.chicken-sandwich",
-          "name": "Chicken Sandwich",
-          "servingDescription": "1 sandwich — 10.4 oz (296 g)",
-          "macros": {
-            "calories": 830.0,
-            "proteinGrams": 47.0,
-            "carbGrams": 69.0,
-            "fatGrams": 41.0
-          },
-          "allergens": [
-            "egg",
-            "fish",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "meat"
-          ]
-        }
-      ],
-      "iconName": "chickenGrilled"
+      {
+       "menuItemId": "raising-canes.pantry.fries-combo",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "raising-canes.combos.3-finger-combo",
+     "name": "3 Finger Combo",
+     "servingDescription": "1 combo \u2014 3 fingers",
+     "macros": {
+      "calories": 1050.0,
+      "proteinGrams": 48.0,
+      "carbGrams": 83.0,
+      "fatGrams": 59.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 3.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "raising-canes.sides.crinkle-cut-fries",
-          "name": "Crinkle-Cut Fries",
-          "servingDescription": "1 regular serving — 5.1 oz (144 g)",
-          "macros": {
-            "calories": 400.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 50.0,
-            "fatGrams": 20.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "raising-canes.sides.texas-toast",
-          "name": "Texas Toast",
-          "servingDescription": "1 slice — 1.7 oz (48 g)",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 23.0,
-            "fatGrams": 4.5
-          },
-          "allergens": [
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "raising-canes.sides.coleslaw",
-          "name": "Coleslaw",
-          "servingDescription": "1 serving — 3.1 oz (87 g)",
-          "macros": {
-            "calories": 100.0,
-            "proteinGrams": 1.0,
-            "carbGrams": 10.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "breadPita"
+      {
+       "menuItemId": "raising-canes.pantry.fries-combo",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "dips",
-      "name": "Dipping Sauces",
-      "selectionRule": {
-        "kind": "selectUpTo",
-        "max": 3
+     "id": "raising-canes.combos.caniac-combo",
+     "name": "Caniac Combo",
+     "servingDescription": "1 combo \u2014 6 fingers",
+     "macros": {
+      "calories": 1840.0,
+      "proteinGrams": 90.0,
+      "carbGrams": 125.0,
+      "fatGrams": 108.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 6.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "raising-canes.dips.canes-sauce",
-          "name": "Cane's Sauce",
-          "servingDescription": "1 dipping cup — 1.5 oz (43 g)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 6.0,
-            "fatGrams": 18.0
-          },
-          "allergens": [
-            "egg",
-            "fish",
-            "soy"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "raising-canes.dips.honey-mustard",
-          "name": "Honey Mustard",
-          "servingDescription": "1 dipping cup — 1.7 oz (48 g)",
-          "macros": {
-            "calories": 140.0,
-            "proteinGrams": 0.5,
-            "carbGrams": 16.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "egg",
-            "milk"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "raising-canes.dips.ketchup",
-          "name": "Ketchup",
-          "servingDescription": "1 Dip N Squeeze cup — 27 g",
-          "macros": {
-            "calories": 35.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 8.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "hummus"
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 2.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     },
     {
-      "id": "sauces",
-      "name": "Condiment Packets",
-      "selectionRule": {
-        "kind": "selectMany"
+     "id": "raising-canes.combos.sandwich-combo",
+     "name": "Sandwich Combo",
+     "servingDescription": "1 combo",
+     "macros": {
+      "calories": 1140.0,
+      "proteinGrams": 51.0,
+      "carbGrams": 108.0,
+      "fatGrams": 56.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-sandwich",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": false
       },
-      "items": [
-        {
-          "id": "raising-canes.sauces.louisiana-hot-sauce",
-          "name": "Louisiana Hot Sauce",
-          "servingDescription": "1 packet — 7 g",
-          "macros": {
-            "calories": 0.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "raising-canes.sauces.kraft-mayonnaise",
-          "name": "Kraft Mayonnaise",
-          "servingDescription": "1 packet — 12.4 g",
-          "macros": {
-            "calories": 90.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "egg"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ],
-      "iconName": "salsa"
+      {
+       "menuItemId": "raising-canes.pantry.fries-combo",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "raising-canes.combos.kids-combo",
+     "name": "Kid's Combo",
+     "servingDescription": "1 combo \u2014 2 fingers",
+     "macros": {
+      "calories": 650.0,
+      "proteinGrams": 29.0,
+      "carbGrams": 39.0,
+      "fatGrams": 41.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 2.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "raising-canes.pantry.fries-kids",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": true,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.crinkle-cut-fries",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
     }
-  ]
+   ],
+   "iconName": null,
+   "isCompleteMeal": true,
+   "isHeadline": true
+  },
+  {
+   "id": "entrees",
+   "name": "Chicken",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "raising-canes.entrees.chicken-finger",
+     "name": "Chicken Finger",
+     "servingDescription": "1 finger \u2014 1.9 oz (55 g)",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 5.0,
+      "fatGrams": 7.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "raising-canes.entrees.naked-bird",
+     "name": "Chicken Finger (Naked)",
+     "servingDescription": "1 finger, no breading",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 0.0,
+      "fatGrams": 2.0
+     },
+     "isEstimated": true,
+     "allergens": [],
+     "notes": "Off-menu request for unbreaded fingers. Cane's publishes no figure for these; this is a widely-circulated community estimate, not official data. It is internally consistent \u2014 protein matches the breaded finger exactly and Atwater closes to the calorie \u2014 but treat it as approximate.",
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "raising-canes.entrees.chicken-sandwich",
+     "name": "Chicken Sandwich",
+     "servingDescription": "10.4 oz (296 g)",
+     "macros": {
+      "calories": 830.0,
+      "proteinGrams": 47.0,
+      "carbGrams": 69.0,
+      "fatGrams": 41.0
+     },
+     "components": [
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 3.0,
+       "isDefault": true,
+       "isRemovable": false
+      },
+      {
+       "menuItemId": "raising-canes.entrees.chicken-finger",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.canes-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.honey-mustard",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.dips.ketchup",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.texas-toast",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sides.coleslaw",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.louisiana-hot-sauce",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      },
+      {
+       "menuItemId": "raising-canes.sauces.kraft-mayonnaise",
+       "quantity": 1.0,
+       "isDefault": false,
+       "isRemovable": true
+      }
+     ],
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "meat"
+     ]
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": true
+  },
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "raising-canes.sides.crinkle-cut-fries",
+     "name": "Crinkle-Cut Fries",
+     "servingDescription": "5.1 oz (144 g)",
+     "macros": {
+      "calories": 400.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 50.0,
+      "fatGrams": 20.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.sides.texas-toast",
+     "name": "Texas Toast",
+     "servingDescription": "1 slice \u2014 1.7 oz (48 g)",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 23.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.sides.coleslaw",
+     "name": "Coleslaw",
+     "servingDescription": "1 serving \u2014 3 oz (85 g)",
+     "macros": {
+      "calories": 100.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 10.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "dips",
+   "name": "Dipping Sauces",
+   "selectionRule": {
+    "kind": "selectUpTo",
+    "max": 3
+   },
+   "items": [
+    {
+     "id": "raising-canes.dips.canes-sauce",
+     "name": "Cane's Sauce",
+     "servingDescription": "1 serving \u2014 1.5 oz (43 g)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 6.0,
+      "fatGrams": 18.0
+     },
+     "allergens": [
+      "egg",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.dips.honey-mustard",
+     "name": "Honey Mustard",
+     "servingDescription": "1 serving \u2014 1.5 oz (43 g)",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.5,
+      "carbGrams": 16.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "raising-canes.dips.ketchup",
+     "name": "Ketchup",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 8.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "sauces",
+   "name": "Condiment Packets",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "raising-canes.sauces.louisiana-hot-sauce",
+     "name": "Louisiana Hot Sauce",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.sauces.kraft-mayonnaise",
+     "name": "Kraft Mayonnaise",
+     "servingDescription": "1 packet",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "egg"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "raising-canes.drinks.sweet-tea.kid-s",
+     "name": "Sweet Tea (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 33.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sweet-tea",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sweet-tea.regular",
+     "name": "Sweet Tea (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 60.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sweet-tea",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sweet-tea.large",
+     "name": "Sweet Tea (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 88.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sweet-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sweet-tea.jug",
+     "name": "Sweet Tea (Jug)",
+     "servingDescription": "1 gallon",
+     "macros": {
+      "calories": 1360.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 352.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sweet-tea",
+     "sizeLabel": "Jug",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.unsweet-tea.kid-s",
+     "name": "Unsweet Tea (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.unsweet-tea",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.unsweet-tea.regular",
+     "name": "Unsweet Tea (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.unsweet-tea",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.unsweet-tea.large",
+     "name": "Unsweet Tea (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.unsweet-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.unsweet-tea.jug",
+     "name": "Unsweet Tea (Jug)",
+     "servingDescription": "1 gallon",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.unsweet-tea",
+     "sizeLabel": "Jug",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.lemonade.kid-s",
+     "name": "Lemonade (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.lemonade",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.lemonade.regular",
+     "name": "Lemonade (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 76.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.lemonade.large",
+     "name": "Lemonade (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 420.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 111.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-lemonade.kid-s",
+     "name": "Half Sweet/Half Lemonade (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-lemonade",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-lemonade.regular",
+     "name": "Half Sweet/Half Lemonade (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 68.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-lemonade.large",
+     "name": "Half Sweet/Half Lemonade (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 99.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-unsweet-half-lemonade.kid-s",
+     "name": "Half Unsweet/Half Lemonade (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 20.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-unsweet-half-lemonade",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-unsweet-half-lemonade.regular",
+     "name": "Half Unsweet/Half Lemonade (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-unsweet-half-lemonade",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-unsweet-half-lemonade.large",
+     "name": "Half Unsweet/Half Lemonade (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 55.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-unsweet-half-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-unsweet.kid-s",
+     "name": "Half Sweet/Half Unsweet (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 60.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-unsweet",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-unsweet.regular",
+     "name": "Half Sweet/Half Unsweet (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 120.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 30.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-unsweet",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.half-sweet-half-unsweet.large",
+     "name": "Half Sweet/Half Unsweet (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.half-sweet-half-unsweet",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.barq-s-root-beer.kid-s",
+     "name": "Barq\u2019s Root Beer (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.barq-s-root-beer",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.barq-s-root-beer.regular",
+     "name": "Barq\u2019s Root Beer (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.barq-s-root-beer",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.barq-s-root-beer.large",
+     "name": "Barq\u2019s Root Beer (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 112.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.barq-s-root-beer",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-cherry.kid-s",
+     "name": "Coca-Cola Cherry (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-cherry",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-cherry.regular",
+     "name": "Coca-Cola Cherry (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 80.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-cherry",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-cherry.large",
+     "name": "Coca-Cola Cherry (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 430.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 116.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-cherry",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola.kid-s",
+     "name": "Coca-Cola (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola.regular",
+     "name": "Coca-Cola (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola.large",
+     "name": "Coca-Cola (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 111.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-zero.kid-s",
+     "name": "Coca-Cola Zero (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-zero",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-zero.regular",
+     "name": "Coca-Cola Zero (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-zero",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.coca-cola-zero.large",
+     "name": "Coca-Cola Zero (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.coca-cola-zero",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-coke.kid-s",
+     "name": "Diet Coke (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-coke",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-coke.regular",
+     "name": "Diet Coke (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-coke",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-coke.large",
+     "name": "Diet Coke (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-coke",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-pepsi.kid-s",
+     "name": "Diet Pepsi (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-pepsi",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-pepsi.regular",
+     "name": "Diet Pepsi (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-pepsi",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.diet-pepsi.large",
+     "name": "Diet Pepsi (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.diet-pepsi",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.dr-pepper.kid-s",
+     "name": "Dr Pepper (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.dr-pepper",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.dr-pepper.regular",
+     "name": "Dr Pepper (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 72.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.dr-pepper",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.dr-pepper.large",
+     "name": "Dr Pepper (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.dr-pepper",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-fruit-punch.kid-s",
+     "name": "Fanta Fruit Punch (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 63.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-fruit-punch",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-fruit-punch.regular",
+     "name": "Fanta Fruit Punch (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 430.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 116.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-fruit-punch",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-fruit-punch.large",
+     "name": "Fanta Fruit Punch (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 630.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 168.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-orange.kid-s",
+     "name": "Fanta Orange (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-orange",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-orange.regular",
+     "name": "Fanta Orange (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 76.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-orange",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.fanta-orange.large",
+     "name": "Fanta Orange (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 111.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.fanta-orange",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.gatorade-fruit-punch.kid-s",
+     "name": "Gatorade Fruit Punch (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.gatorade-fruit-punch",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.gatorade-fruit-punch.regular",
+     "name": "Gatorade Fruit Punch (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.gatorade-fruit-punch",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.gatorade-fruit-punch.large",
+     "name": "Gatorade Fruit Punch (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 58.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.gatorade-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.hi-c-flashin-fruit-punch.kid-s",
+     "name": "Hi-C Flashin Fruit Punch (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.hi-c-flashin-fruit-punch.regular",
+     "name": "Hi-C Flashin Fruit Punch (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 81.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.hi-c-flashin-fruit-punch.large",
+     "name": "Hi-C Flashin Fruit Punch (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 430.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 118.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mello-yello.kid-s",
+     "name": "Mello Yello (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 45.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mello-yello",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mello-yello.regular",
+     "name": "Mello Yello (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 83.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mello-yello",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mello-yello.large",
+     "name": "Mello Yello (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 440.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 121.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mello-yello",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mountain-dew.kid-s",
+     "name": "Mountain Dew (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mountain-dew",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mountain-dew.regular",
+     "name": "Mountain Dew (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 81.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mountain-dew",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mountain-dew.large",
+     "name": "Mountain Dew (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 117.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mountain-dew",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mug-root-beer.kid-s",
+     "name": "Mug Root Beer (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mug-root-beer",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mug-root-beer.regular",
+     "name": "Mug Root Beer (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 70.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mug-root-beer",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.mug-root-beer.large",
+     "name": "Mug Root Beer (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 102.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.mug-root-beer",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.orange-crush.kid-s",
+     "name": "Orange Crush (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.orange-crush",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.orange-crush.regular",
+     "name": "Orange Crush (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 81.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.orange-crush",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.orange-crush.large",
+     "name": "Orange Crush (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 440.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 117.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.orange-crush",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pepsi.kid-s",
+     "name": "Pepsi (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pepsi",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pepsi.regular",
+     "name": "Pepsi (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 76.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pepsi",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pepsi.large",
+     "name": "Pepsi (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 110.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pepsi",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pepsi-zero.kid-s",
+     "name": "Pepsi Zero (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pepsi-zero",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pepsi-zero.regular",
+     "name": "Pepsi Zero (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pepsi-zero",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pibb-xtra.kid-s",
+     "name": "Pibb Xtra (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pibb-xtra",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pibb-xtra.regular",
+     "name": "Pibb Xtra (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 70.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pibb-xtra",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.pibb-xtra.large",
+     "name": "Pibb Xtra (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 102.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.pibb-xtra",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.powerade-mtn-berry-blast.kid-s",
+     "name": "Powerade Mtn Berry Blast (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 23.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.powerade-mtn-berry-blast",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.powerade-mtn-berry-blast.regular",
+     "name": "Powerade Mtn Berry Blast (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.powerade-mtn-berry-blast",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.powerade-mtn-berry-blast.large",
+     "name": "Powerade Mtn Berry Blast (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 230.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 61.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.powerade-mtn-berry-blast",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sprite.kid-s",
+     "name": "Sprite (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 38.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sprite",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sprite.regular",
+     "name": "Sprite (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 70.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sprite",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.sprite.large",
+     "name": "Sprite (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 101.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.sprite",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.starry.kid-s",
+     "name": "Starry (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.starry",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.starry.regular",
+     "name": "Starry (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.starry",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.starry.large",
+     "name": "Starry (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 390.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.starry",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.tropicana-fruit-punch.kid-s",
+     "name": "Tropicana Fruit Punch (Kid's)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 170.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 45.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.tropicana-fruit-punch",
+     "sizeLabel": "Kid's",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.tropicana-fruit-punch.regular",
+     "name": "Tropicana Fruit Punch (Regular)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 83.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.tropicana-fruit-punch",
+     "sizeLabel": "Regular",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.tropicana-fruit-punch.large",
+     "name": "Tropicana Fruit Punch (Large)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 120.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "raising-canes.drinks.tropicana-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.apple-juice-drink-pouch",
+     "name": "Apple Juice Drink Pouch",
+     "servingDescription": "6 fl oz",
+     "macros": {
+      "calories": 35.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 9.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.drinks.milk-1-box",
+     "name": "Milk 1% Box",
+     "servingDescription": "8 fl oz",
+     "macros": {
+      "calories": 110.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 13.0,
+      "fatGrams": 2.5
+     },
+     "allergens": [
+      "milk"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHeadline": false
+  },
+  {
+   "id": "pantry",
+   "name": "Combo portions",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "raising-canes.pantry.fries-combo",
+     "name": "Crinkle-Cut Fries (combo portion)",
+     "servingDescription": "combo portion",
+     "macros": {
+      "calories": 310.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 39.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [],
+     "notes": "Derived by subtraction from three published combo totals; Cane's does not publish this portion separately.",
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "raising-canes.pantry.fries-kids",
+     "name": "Crinkle-Cut Fries (kid's portion)",
+     "servingDescription": "kid's portion",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 23.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [],
+     "notes": "Derived by subtraction from the published Kid's Combo total.",
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false,
+   "isHidden": true,
+   "isHeadline": false
+  }
+ ]
 }

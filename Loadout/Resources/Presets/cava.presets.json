@@ -1,0 +1,485 @@
+{
+ "restaurantId": "cava",
+ "presets": [
+  {
+   "id": "cava.presets.spicy-lamb-avocado",
+   "name": "Spicy Lamb + Avocado",
+   "blurb": "Spicy lamb meatballs, avocado, Crazy Feta\u00ae, red pepper hummus, pickled onions, cucumber, tomato + onion, Super Greens, lentils, lemon herb tahini",
+   "items": [
+    {
+     "menuItemId": "cava.bases.black-lentils",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.super-greens",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.red-pepper-hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.spicy-lamb-meatballs",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.avocado",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pickled-onions",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.lemon-herb-tahini",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/spicy-lamb-avocado-bowl; total of 800 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 798 cal (-0.3%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.steak-harissa",
+   "name": "Steak + Harissa",
+   "blurb": "Grilled steak, Crazy Feta\u00ae, red pepper hummus, tomato + onion, cucumber, feta, sumac cabbage slaw, brown rice, Super Greens, harissa vinaigrette",
+   "items": [
+    {
+     "menuItemId": "cava.bases.brown-rice",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.super-greens",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.red-pepper-hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.grilled-steak",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.sumac-slaw",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.hot-harissa-vinaigrette",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/steak-harissa-bowl; total of 620 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 622 cal (+0.4%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.harissa-avocado",
+   "name": "Harissa Avocado",
+   "blurb": "Harissa honey chicken, Crazy Feta\u00ae, hummus, avocado, corn, cucumber, feta, pickled onions, basmati rice, Super Greens, harissa vinaigrette",
+   "items": [
+    {
+     "menuItemId": "cava.bases.saffron-basmati",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.super-greens",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.harissa-honey-chicken",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.avocado",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.fire-roasted-corn",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pickled-onions",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.hot-harissa-vinaigrette",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/harissa-avocado-bowl; total of 830 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 838 cal (+0.9%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.chicken-rice",
+   "name": "Chicken + Rice",
+   "blurb": "Grilled chicken, hummus, tzatziki, pickled onions, tomato + onion, cucumber, feta, arugula, brown rice, Greek vinaigrette",
+   "items": [
+    {
+     "menuItemId": "cava.bases.brown-rice",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.arugula",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.tzatziki",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.grilled-chicken",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pickled-onions",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.greek-vinaigrette",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/chicken-rice-bowl; total of 700 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 715 cal (+2.1%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.greek-salad",
+   "name": "Greek Salad",
+   "blurb": "Grilled chicken, tzatziki, hummus, feta, tomato + onion, cucumber, olives, romaine, arugula, Greek vinaigrette",
+   "items": [
+    {
+     "menuItemId": "cava.bases.romaine",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.arugula",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.tzatziki",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.grilled-chicken",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.kalamata-olives",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.greek-vinaigrette",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/greek-salad-bowl; total of 580 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 585 cal (+0.9%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.falafel-crunch",
+   "name": "Falafel Crunch",
+   "blurb": "Half falafel, half roasted veggies, hummus, Crazy Feta\u00ae, cucumber, sumac cabbage slaw, romaine, pickled onions, tomato + onion, pita crisps, rice, lentils, skhu",
+   "items": [
+    {
+     "menuItemId": "cava.bases.saffron-basmati",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.black-lentils",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.romaine",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.falafel",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.mains.roasted-vegetables",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pickled-onions",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.sumac-slaw",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pita-crisps",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.skhug",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/falafel-crunch-bowl; total of 860 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 870 cal (+1.2%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.salmon-yogurt-dill",
+   "name": "Salmon + Yogurt Dill",
+   "blurb": "Glazed salmon, Crazy Feta\u00ae, hummus, fire-roasted corn, tomato + onion, cucumber, rice, arugula, and yogurt dill dressing",
+   "items": [
+    {
+     "menuItemId": "cava.bases.saffron-basmati",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.arugula",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.glazed-salmon",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.fire-roasted-corn",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.yogurt-dill",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/salmon-yogurt-dill-bowl; total of 710 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 705 cal (-0.7%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.salmon-strawberry-sesame",
+   "name": "Salmon + Strawberry Sesame",
+   "blurb": "Glazed salmon, tzatziki, red pepper hummus, cucumber, feta, tomato + onion, sumac slaw, brown rice, spinach, and strawberry sesame dressing",
+   "items": [
+    {
+     "menuItemId": "cava.bases.brown-rice",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.bases.baby-spinach",
+     "quantity": 0.5
+    },
+    {
+     "menuItemId": "cava.dips.tzatziki",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.red-pepper-hummus",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.glazed-salmon",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.persian-cucumber",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.sumac-slaw",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.strawberry-sesame",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/salmon-strawberry-sesame-bowl; total of 700 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 715 cal (+2.1%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.greek-chicken",
+   "name": "Greek Chicken",
+   "blurb": "Grilled chicken, tzatziki, tomato + onion, olives, feta, romaine, yogurt dill dressing, pita",
+   "items": [
+    {
+     "menuItemId": "cava.sides.whole-pita",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.bases.romaine",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.tzatziki",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.grilled-chicken",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.tomato-onion",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.kalamata-olives",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.yogurt-dill",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/greek-chicken-pita; total of 720 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 740 cal (+2.8%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  },
+  {
+   "id": "cava.presets.spicy-chicken-avocado",
+   "name": "Spicy Chicken + Avocado",
+   "blurb": "Harissa honey chicken, Crazy Feta\u00ae, avocado, pickles, corn, feta, pickled onions, harissa vinaigrette, pita",
+   "items": [
+    {
+     "menuItemId": "cava.sides.whole-pita",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dips.crazy-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.mains.harissa-honey-chicken",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.avocado",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.salt-brined-pickles",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.fire-roasted-corn",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.crumbled-feta",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.toppings.pickled-onions",
+     "quantity": 1
+    },
+    {
+     "menuItemId": "cava.dressings.hot-harissa-vinaigrette",
+     "quantity": 1
+    }
+   ],
+   "sourceNote": "Composition published on https://cava.com/menu/spicy-chicken-avocado-pita; total of 930 cal from CAVA's Nutrition and Allergen Guide. Composing it from this app's own CAVA items sums to 935 cal (+0.5%), which is the verification. cava.com 403s any programmatic fetch, so this is only visible in a real browser \u2014 which is why it was previously believed unpublished."
+  }
+ ]
+}

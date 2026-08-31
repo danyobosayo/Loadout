@@ -29,10 +29,12 @@ struct RootView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(MacroFactorExport.self) private var macroFactorExport
     @Environment(HealthStore.self) private var health
+    @Environment(AppreciationStore.self) private var appreciation
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.modelContext) private var modelContext
     @State private var tab: AppTab = .build
     @State private var bannerDismiss: Task<Void, Never>?
+    @State private var showThankYou = false
 
     var body: some View {
         // All four tabs stay mounted (opacity-switched) so scroll
@@ -54,7 +56,13 @@ struct RootView: View {
         // A quick crossfade for the content — the springy Motion.snap that
         // slides the pill would ghost a full-screen opacity switch for ~0.5s.
         .animation(.easeInOut(duration: 0.18), value: tab)
-        .onAppear { Haptics.prepare(); resetLibraryIfRequested() }
+        .onAppear {
+            Haptics.prepare()
+            resetLibraryIfRequested()
+            consumePendingIntentRoute()
+            appreciation.markActive()
+            offerThankYou()
+        }
         .overlay(alignment: .bottom) {
             FloatingTabBar(selection: $tab)
         }
@@ -71,13 +79,26 @@ struct RootView: View {
             if health.status == .connected { await health.refreshToday() }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active, health.status == .connected {
+            guard phase == .active else { return }
+            if health.status == .connected {
                 Task { await health.refreshToday() }
             }
+            // An intent can park a route while we're backgrounded, so pick it
+            // up on the way back in, not only on first appear.
+            consumePendingIntentRoute()
+            appreciation.markActive()
+            offerThankYou()
         }
         // The MacroFactor Shortcut returns here via loadout:// when it
         // finishes — so we log to history + confirm only on a real success.
         .onOpenURL { url in handleCallback(url) }
+        .sheet(isPresented: $showThankYou) {
+            ThankYouSheet { showThankYou = false }
+                .presentationDetents([.medium, .large])
+                .presentationCornerRadius(Radius.sheet)
+                .presentationBackground(Color.void)
+                .presentationDragIndicator(.visible)
+        }
         .onChange(of: macroFactorExport.lastOutcome) { _, outcome in
             bannerDismiss?.cancel()
             guard let outcome else { return }
@@ -109,6 +130,15 @@ struct RootView: View {
         }
     }
 
+    /// `OpenRecipeIntent` can't push navigation itself — it runs before the UI
+    /// exists — so it parks a recipe id and the app picks it up here, landing
+    /// on Recipes where the saved meal is one tap from the tray.
+    private func consumePendingIntentRoute() {
+        guard PendingIntentRoute.shared.recipeToOpen != nil else { return }
+        PendingIntentRoute.shared.recipeToOpen = nil
+        withAnimation(Motion.snap) { tab = .recipes }
+    }
+
     /// Test hook: `-loadout.debug.resetLibrary YES` launches with no saved
     /// recipes or history. UI test classes share one simulator, so a recipe
     /// saved by an earlier class otherwise appears in the "Your recipes"
@@ -134,7 +164,16 @@ struct RootView: View {
         }
     }
 
+    /// Shows the one-time thank-you note, but never on top of something else and
+    /// never in the same breath as the log that earned it — `markActive` is what
+    /// makes "on the way back in" the only moment this can fire.
+    private func offerThankYou() {
+        guard appreciation.shouldShowThankYou else { return }
+        showThankYou = true
+    }
+
     private func recordHistory(meal: BuiltMeal) {
+        appreciation.recordMealLogged()
         let logged = LoggedMeal(
             restaurantId: meal.restaurantId,
             loggedAt: meal.createdAt,

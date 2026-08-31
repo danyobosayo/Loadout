@@ -19,10 +19,26 @@ struct FormatIntegrityTests {
         return try await (restaurant, formats)
     }
 
-    @Test func everyRestaurantHasAtLeastOneFormat() async throws {
+    /// Assembly restaurants need an entry point — "Burrito or bowl?" — because
+    /// starting from an empty station list is a hard place to begin. Top-down
+    /// restaurants don't: their combos ARE the entry point, and interposing a
+    /// format picker in front of the Box Combo just adds a screen. So the rule
+    /// is per ordering model, not universal.
+    @Test func everyAssemblyRestaurantHasAtLeastOneFormat() async throws {
         for id in Self.restaurantIds {
+            let restaurant = try await Self.repository.loadRestaurant(id: id)
             let formats = try await Self.repository.loadFormats(restaurantId: id)
-            #expect(!formats.isEmpty, "\(id) has no formats")
+            switch restaurant.orderingModel {
+            case .assembly, .hybrid, .recipe:
+                #expect(!formats.isEmpty, "\(id) assembles, so it needs a format to start from")
+            case .configuration:
+                #expect(formats.isEmpty,
+                        "\(id) is ordered top-down; its combos are the entry point, not a format picker")
+                #expect(
+                    restaurant.orderableCategories.first?.items.contains { $0.isConfigurable } == true,
+                    "\(id) should open on a station of configurable items"
+                )
+            }
         }
     }
 

@@ -1,752 +1,2620 @@
 {
-  "id": "panda-express",
-  "name": "Panda Express",
-  "schemaVersion": 1,
-  "dataSource": {
-    "url": "https://www.pandaexpress.com/nutritioninformation",
-    "fetchedAt": "2026-07-02",
-    "fetchedBy": "web-research",
-    "notes": "Full nutrition table scraped from the official Panda Express (US) nutrition information page on 2026-07-02. Serving sizes are the standard adult portions as listed by Panda Express (side portion for sides, entree portion for entrees); portion weights in oz come directly from the source's 'Portion (oz)' column. Kids/'cub meal' portion variants, pre-configured Cub Meals, beverages, soups, fortune cookie, and apple crisps were excluded. All calorie/protein/carb/fat values are copied verbatim from the official table; no values were estimated."
-  },
-  "categories": [
+ "id": "panda-express",
+ "name": "Panda Express",
+ "schemaVersion": 1,
+ "dataSource": {
+  "url": "https://www.pandaexpress.com/nutritioninformation",
+  "fetchedAt": "2026-07-02",
+  "fetchedBy": "web-research",
+  "notes": "Full nutrition table scraped from the official Panda Express (US) nutrition information page on 2026-07-02. Serving sizes are the standard adult portions as listed by Panda Express (side portion for sides, entree portion for entrees); portion weights in oz come directly from the source's 'Portion (oz)' column. Kids/'cub meal' portion variants, pre-configured Cub Meals, beverages, soups, fortune cookie, and apple crisps were excluded. All calorie/protein/carb/fat values are copied verbatim from the official table; no values were estimated.\n\nDRINKS ADDED 2026-08-10 from the same first-party nutrition table as the food. 102 items across 25 sized groups at Kids 12 / Small 22 / Medium 30 / Large 42 fl oz; the teas pour 22/32/40, so fluid ounces are stored per item rather than inferred from the size label. Small is the default pour. Panda's own table contains the typo 'sprite - meddium', normalised here. A full re-diff of all 36 pre-existing items against the 178 published rows found ZERO macro mismatches; only the appetizer serving lines changed, to carry the published piece counts.\n\nOMITTED DELIBERATELY: the region-locked duplicates (Fanta Orange 'PR only', Fanta Strawberry 'TX only'), which already exist nationally with different macros \u2014 two identically-named rows is worse than one. Also Hot & Sour Soup: its macros and allergens are published, but nothing states whether the broth is meat-based, and hot & sour soup usually is. Shipping dietaryMarkers: [] would assert 'verified free of meat' on a guess."
+ },
+ "categories": [
+  {
+   "id": "sides",
+   "name": "Sides",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
     {
-      "id": "sides",
-      "name": "Sides",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "panda-express.sides.chow-mein",
-          "name": "Chow Mein",
-          "servingDescription": "1 side (11.0 oz)",
-          "macros": {
-            "calories": 600.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 94.0,
-            "fatGrams": 23.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sides.fried-rice",
-          "name": "Fried Rice",
-          "servingDescription": "1 side (11.0 oz)",
-          "macros": {
-            "calories": 620.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 101.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "egg",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "riceWhiteBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sides.white-steamed-rice",
-          "name": "White Steamed Rice",
-          "servingDescription": "1 side (11.0 oz)",
-          "macros": {
-            "calories": 520.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 118.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "riceWhiteBowl",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sides.super-greens",
-          "name": "Super Greens",
-          "servingDescription": "1 side (10.0 oz)",
-          "macros": {
-            "calories": 130.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 14.0,
-            "fatGrams": 4.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sides.chow-fun",
-          "name": "Chow Fun",
-          "servingDescription": "1 side (8.5 oz)",
-          "macros": {
-            "calories": 410.0,
-            "proteinGrams": 9.0,
-            "carbGrams": 73.0,
-            "fatGrams": 9.0
-          },
-          "allergens": [
-            "milk",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": null,
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "panda-express.sides.chow-mein",
+     "name": "Chow Mein",
+     "servingDescription": "1 side (11.0 oz)",
+     "macros": {
+      "calories": 600.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 94.0,
+      "fatGrams": 23.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
     },
     {
-      "id": "entrees",
-      "name": "Entrees",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "panda-express.entrees.orange-chicken",
-          "name": "Orange Chicken",
-          "servingDescription": "1 entree (5.92 oz)",
-          "macros": {
-            "calories": 510.0,
-            "proteinGrams": 16.0,
-            "carbGrams": 53.0,
-            "fatGrams": 24.0
-          },
-          "allergens": [
-            "egg",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.hot-orange-chicken",
-          "name": "Hot Orange Chicken",
-          "servingDescription": "1 entree (5.92 oz)",
-          "macros": {
-            "calories": 550.0,
-            "proteinGrams": 17.0,
-            "carbGrams": 59.0,
-            "fatGrams": 27.0
-          },
-          "allergens": [
-            "egg",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.grilled-teriyaki-chicken",
-          "name": "Grilled Teriyaki Chicken",
-          "servingDescription": "1 entree (6.0 oz)",
-          "macros": {
-            "calories": 275.0,
-            "proteinGrams": 33.0,
-            "carbGrams": 14.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chickenGrilled",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.teriyaki-chicken",
-          "name": "Teriyaki Chicken",
-          "servingDescription": "1 entree (6.0 oz)",
-          "macros": {
-            "calories": 340.0,
-            "proteinGrams": 41.0,
-            "carbGrams": 14.0,
-            "fatGrams": 13.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chickenGrilled",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.black-pepper-chicken",
-          "name": "Black Pepper Chicken",
-          "servingDescription": "1 entree (6.3 oz)",
-          "macros": {
-            "calories": 280.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 15.0,
-            "fatGrams": 19.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.kung-pao-chicken",
-          "name": "Kung Pao Chicken",
-          "servingDescription": "1 entree (6.73 oz)",
-          "macros": {
-            "calories": 320.0,
-            "proteinGrams": 17.0,
-            "carbGrams": 15.0,
-            "fatGrams": 21.0
-          },
-          "allergens": [
-            "peanut",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.mushroom-chicken",
-          "name": "Mushroom Chicken",
-          "servingDescription": "1 entree (5.7 oz)",
-          "macros": {
-            "calories": 220.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 10.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.potato-chicken",
-          "name": "Potato Chicken",
-          "servingDescription": "1 entree (5.2 oz)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 8.0,
-            "carbGrams": 18.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.honey-sesame-chicken-breast",
-          "name": "Honey Sesame Chicken Breast",
-          "servingDescription": "1 entree (5.3 oz)",
-          "macros": {
-            "calories": 340.0,
-            "proteinGrams": 16.0,
-            "carbGrams": 35.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "sesame",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "honey",
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.string-bean-chicken-breast",
-          "name": "String Bean Chicken Breast",
-          "servingDescription": "1 entree (5.6 oz)",
-          "macros": {
-            "calories": 210.0,
-            "proteinGrams": 12.0,
-            "carbGrams": 13.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.sweet-and-sour-chicken-breast",
-          "name": "Sweet & Sour Chicken Breast",
-          "servingDescription": "1 entree (5.5 oz)",
-          "macros": {
-            "calories": 300.0,
-            "proteinGrams": 10.0,
-            "carbGrams": 40.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.sweetfire-chicken-breast",
-          "name": "SweetFire Chicken Breast",
-          "servingDescription": "1 entree (5.8 oz)",
-          "macros": {
-            "calories": 360.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 40.0,
-            "fatGrams": 15.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.beijing-beef",
-          "name": "Beijing Beef",
-          "servingDescription": "1 entree (5.6 oz)",
-          "macros": {
-            "calories": 470.0,
-            "proteinGrams": 14.0,
-            "carbGrams": 46.0,
-            "fatGrams": 27.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.broccoli-beef",
-          "name": "Broccoli Beef",
-          "servingDescription": "1 entree (5.44 oz)",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 12.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.black-pepper-sirloin-steak",
-          "name": "Black Pepper Sirloin Steak",
-          "servingDescription": "1 entree (5.1 oz)",
-          "macros": {
-            "calories": 180.0,
-            "proteinGrams": 19.0,
-            "carbGrams": 12.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "steakBoneIn",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.honey-walnut-shrimp",
-          "name": "Honey Walnut Shrimp",
-          "servingDescription": "1 entree (4.39 oz)",
-          "macros": {
-            "calories": 430.0,
-            "proteinGrams": 13.0,
-            "carbGrams": 32.0,
-            "fatGrams": 28.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "shellfish",
-            "soy",
-            "treenut",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "salmonFilet",
-          "dietaryMarkers": [
-            "honey"
-          ]
-        },
-        {
-          "id": "panda-express.entrees.wok-fired-shrimp",
-          "name": "Wok-Fired Shrimp",
-          "servingDescription": "1 entree (6.0 oz)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 17.0,
-            "carbGrams": 19.0,
-            "fatGrams": 5.0
-          },
-          "allergens": [
-            "shellfish",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "salmonFilet",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.entrees.steamed-ginger-fish",
-          "name": "Steamed Ginger Fish",
-          "servingDescription": "1 entree (6.0 oz)",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 15.0,
-            "carbGrams": 8.0,
-            "fatGrams": 12.0
-          },
-          "allergens": [
-            "fish",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "salmonFilet",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.entrees.eggplant-tofu",
-          "name": "Eggplant Tofu",
-          "servingDescription": "1 entree (6.1 oz)",
-          "macros": {
-            "calories": 340.0,
-            "proteinGrams": 7.0,
-            "carbGrams": 23.0,
-            "fatGrams": 24.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "eggplant",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.entrees.super-greens-entree",
-          "name": "Super Greens (Entree)",
-          "servingDescription": "1 entree (7.0 oz)",
-          "macros": {
-            "calories": 90.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 10.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "lettuce",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "panda-express.sides.fried-rice",
+     "name": "Fried Rice",
+     "servingDescription": "1 side (11.0 oz)",
+     "macros": {
+      "calories": 620.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 101.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "egg",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "riceWhiteBowl",
+     "dietaryMarkers": []
     },
     {
-      "id": "appetizers",
-      "name": "Appetizers",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "panda-express.appetizers.chicken-egg-roll",
-          "name": "Chicken Egg Roll",
-          "servingDescription": "1 roll (2.75 oz)",
-          "macros": {
-            "calories": 200.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 20.0,
-            "fatGrams": 10.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.appetizers.veggie-spring-roll",
-          "name": "Veggie Spring Roll",
-          "servingDescription": "2 rolls (3.5 oz)",
-          "macros": {
-            "calories": 240.0,
-            "proteinGrams": 4.0,
-            "carbGrams": 24.0,
-            "fatGrams": 14.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "broccoli",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.appetizers.cream-cheese-rangoon",
-          "name": "Cream Cheese Rangoon",
-          "servingDescription": "3 pieces (2.4 oz)",
-          "macros": {
-            "calories": 190.0,
-            "proteinGrams": 5.0,
-            "carbGrams": 24.0,
-            "fatGrams": 8.0
-          },
-          "allergens": [
-            "egg",
-            "milk",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "cheeseSlice",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.appetizers.chicken-potsticker",
-          "name": "Chicken Potsticker",
-          "servingDescription": "3 pieces (3.3 oz)",
-          "macros": {
-            "calories": 160.0,
-            "proteinGrams": 6.0,
-            "carbGrams": 20.0,
-            "fatGrams": 6.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "chicken",
-          "dietaryMarkers": [
-            "meat"
-          ]
-        },
-        {
-          "id": "panda-express.appetizers.apple-pie-roll",
-          "name": "Apple Pie Roll",
-          "servingDescription": "1 roll (1.94 oz)",
-          "macros": {
-            "calories": 150.0,
-            "proteinGrams": 2.0,
-            "carbGrams": 30.0,
-            "fatGrams": 3.0
-          },
-          "allergens": [
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "breadPita",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "panda-express.sides.white-steamed-rice",
+     "name": "White Steamed Rice",
+     "servingDescription": "1 side (11.0 oz)",
+     "macros": {
+      "calories": 520.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 118.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "riceWhiteBowl",
+     "dietaryMarkers": []
     },
     {
-      "id": "sauces",
-      "name": "Sauces",
-      "selectionRule": {
-        "kind": "selectMany"
-      },
-      "items": [
-        {
-          "id": "panda-express.sauces.soy-sauce",
-          "name": "Soy Sauce",
-          "servingDescription": "1 serving (0.21 oz)",
-          "macros": {
-            "calories": 5.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sauces.sweet-and-sour-sauce",
-          "name": "Sweet & Sour Sauce",
-          "servingDescription": "1 serving (1.8 oz)",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 21.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sauces.chili-sauce",
-          "name": "Chili Sauce",
-          "servingDescription": "1 serving (0.25 oz)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 2.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sauces.teriyaki-sauce",
-          "name": "Teriyaki Sauce",
-          "servingDescription": "1 serving (1.8 oz)",
-          "macros": {
-            "calories": 70.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 16.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sauces.hot-mustard",
-          "name": "Hot Mustard",
-          "servingDescription": "1 serving (0.25 oz)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 0.0,
-            "fatGrams": 1.0
-          },
-          "allergens": [
-            "sesame"
-          ],
-          "notes": null,
-          "iconName": "chiliPeppersRed",
-          "dietaryMarkers": []
-        },
-        {
-          "id": "panda-express.sauces.potsticker-sauce",
-          "name": "Potsticker Sauce",
-          "servingDescription": "1 serving (0.4 oz)",
-          "macros": {
-            "calories": 10.0,
-            "proteinGrams": 0.0,
-            "carbGrams": 3.0,
-            "fatGrams": 0.0
-          },
-          "allergens": [
-            "sesame",
-            "soy",
-            "wheat"
-          ],
-          "notes": null,
-          "iconName": "sauceBBQWorcestershire",
-          "dietaryMarkers": []
-        }
-      ]
+     "id": "panda-express.sides.super-greens",
+     "name": "Super Greens",
+     "servingDescription": "1 side (10.0 oz)",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 14.0,
+      "fatGrams": 4.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sides.chow-fun",
+     "name": "Chow Fun",
+     "servingDescription": "1 side (8.5 oz)",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 9.0,
+      "carbGrams": 73.0,
+      "fatGrams": 9.0
+     },
+     "allergens": [
+      "milk",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
     }
-  ]
+   ]
+  },
+  {
+   "id": "entrees",
+   "name": "Entrees",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "panda-express.entrees.orange-chicken",
+     "name": "Orange Chicken",
+     "servingDescription": "1 entree (5.92 oz)",
+     "macros": {
+      "calories": 510.0,
+      "proteinGrams": 16.0,
+      "carbGrams": 53.0,
+      "fatGrams": 24.0
+     },
+     "allergens": [
+      "egg",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.hot-orange-chicken",
+     "name": "Hot Orange Chicken",
+     "servingDescription": "1 entree (5.92 oz)",
+     "macros": {
+      "calories": 550.0,
+      "proteinGrams": 17.0,
+      "carbGrams": 59.0,
+      "fatGrams": 27.0
+     },
+     "allergens": [
+      "egg",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.grilled-teriyaki-chicken",
+     "name": "Grilled Teriyaki Chicken",
+     "servingDescription": "1 entree (6.0 oz)",
+     "macros": {
+      "calories": 275.0,
+      "proteinGrams": 33.0,
+      "carbGrams": 14.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chickenGrilled",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.teriyaki-chicken",
+     "name": "Teriyaki Chicken",
+     "servingDescription": "1 entree (6.0 oz)",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 41.0,
+      "carbGrams": 14.0,
+      "fatGrams": 13.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chickenGrilled",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.black-pepper-chicken",
+     "name": "Black Pepper Chicken",
+     "servingDescription": "1 entree (6.3 oz)",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 15.0,
+      "fatGrams": 19.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.kung-pao-chicken",
+     "name": "Kung Pao Chicken",
+     "servingDescription": "1 entree (6.73 oz)",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 17.0,
+      "carbGrams": 15.0,
+      "fatGrams": 21.0
+     },
+     "allergens": [
+      "peanut",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.mushroom-chicken",
+     "name": "Mushroom Chicken",
+     "servingDescription": "1 entree (5.7 oz)",
+     "macros": {
+      "calories": 220.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 10.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.potato-chicken",
+     "name": "Potato Chicken",
+     "servingDescription": "1 entree (5.2 oz)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 8.0,
+      "carbGrams": 18.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.honey-sesame-chicken-breast",
+     "name": "Honey Sesame Chicken Breast",
+     "servingDescription": "1 entree (5.3 oz)",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 16.0,
+      "carbGrams": 35.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "sesame",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "honey",
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.string-bean-chicken-breast",
+     "name": "String Bean Chicken Breast",
+     "servingDescription": "1 entree (5.6 oz)",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 12.0,
+      "carbGrams": 13.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.sweet-and-sour-chicken-breast",
+     "name": "Sweet & Sour Chicken Breast",
+     "servingDescription": "1 entree (5.5 oz)",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 10.0,
+      "carbGrams": 40.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.sweetfire-chicken-breast",
+     "name": "SweetFire Chicken Breast",
+     "servingDescription": "1 entree (5.8 oz)",
+     "macros": {
+      "calories": 360.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 40.0,
+      "fatGrams": 15.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.beijing-beef",
+     "name": "Beijing Beef",
+     "servingDescription": "1 entree (5.6 oz)",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 14.0,
+      "carbGrams": 46.0,
+      "fatGrams": 27.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.broccoli-beef",
+     "name": "Broccoli Beef",
+     "servingDescription": "1 entree (5.44 oz)",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 12.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.black-pepper-sirloin-steak",
+     "name": "Black Pepper Sirloin Steak",
+     "servingDescription": "1 entree (5.1 oz)",
+     "macros": {
+      "calories": 180.0,
+      "proteinGrams": 19.0,
+      "carbGrams": 12.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "steakBoneIn",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.honey-walnut-shrimp",
+     "name": "Honey Walnut Shrimp",
+     "servingDescription": "1 entree (4.39 oz)",
+     "macros": {
+      "calories": 430.0,
+      "proteinGrams": 13.0,
+      "carbGrams": 32.0,
+      "fatGrams": 28.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "shellfish",
+      "soy",
+      "treenut",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "salmonFilet",
+     "dietaryMarkers": [
+      "honey"
+     ]
+    },
+    {
+     "id": "panda-express.entrees.wok-fired-shrimp",
+     "name": "Wok-Fired Shrimp",
+     "servingDescription": "1 entree (6.0 oz)",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 17.0,
+      "carbGrams": 19.0,
+      "fatGrams": 5.0
+     },
+     "allergens": [
+      "shellfish",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "salmonFilet",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.entrees.steamed-ginger-fish",
+     "name": "Steamed Ginger Fish",
+     "servingDescription": "1 entree (6.0 oz)",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 15.0,
+      "carbGrams": 8.0,
+      "fatGrams": 12.0
+     },
+     "allergens": [
+      "fish",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "salmonFilet",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.entrees.eggplant-tofu",
+     "name": "Eggplant Tofu",
+     "servingDescription": "1 entree (6.1 oz)",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 7.0,
+      "carbGrams": 23.0,
+      "fatGrams": 24.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "eggplant",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.entrees.super-greens-entree",
+     "name": "Super Greens (Entree)",
+     "servingDescription": "1 entree (7.0 oz)",
+     "macros": {
+      "calories": 90.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 10.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "lettuce",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "appetizers",
+   "name": "Appetizers",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "panda-express.appetizers.chicken-egg-roll",
+     "name": "Chicken Egg Roll",
+     "servingDescription": "1 roll \u2014 2.8 oz",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 20.0,
+      "fatGrams": 10.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.appetizers.veggie-spring-roll",
+     "name": "Veggie Spring Roll",
+     "servingDescription": "2 rolls \u2014 3.5 oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 4.0,
+      "carbGrams": 24.0,
+      "fatGrams": 14.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "broccoli",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.appetizers.cream-cheese-rangoon",
+     "name": "Cream Cheese Rangoon",
+     "servingDescription": "3 pcs \u2014 2.4 oz",
+     "macros": {
+      "calories": 190.0,
+      "proteinGrams": 5.0,
+      "carbGrams": 24.0,
+      "fatGrams": 8.0
+     },
+     "allergens": [
+      "egg",
+      "milk",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "cheeseSlice",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.appetizers.chicken-potsticker",
+     "name": "Chicken Potsticker",
+     "servingDescription": "3 pcs \u2014 3.3 oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 6.0,
+      "carbGrams": 20.0,
+      "fatGrams": 6.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "chicken",
+     "dietaryMarkers": [
+      "meat"
+     ]
+    },
+    {
+     "id": "panda-express.appetizers.apple-pie-roll",
+     "name": "Apple Pie Roll",
+     "servingDescription": "1 roll (1.94 oz)",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 30.0,
+      "fatGrams": 3.0
+     },
+     "allergens": [
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "breadPita",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.appetizers.fortune-cookie",
+     "name": "Fortune Cookie",
+     "servingDescription": "0.18 oz",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 5.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "wheat",
+      "soy"
+     ],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.appetizers.tree-top-apple-crisps",
+     "name": "Tree Top Apple Crisps",
+     "servingDescription": "0.34 oz",
+     "macros": {
+      "calories": 40.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 10.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "sauces",
+   "name": "Sauces",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "panda-express.sauces.soy-sauce",
+     "name": "Soy Sauce",
+     "servingDescription": "1 serving (0.21 oz)",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sauces.sweet-and-sour-sauce",
+     "name": "Sweet & Sour Sauce",
+     "servingDescription": "1 serving (1.8 oz)",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 21.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sauces.chili-sauce",
+     "name": "Chili Sauce",
+     "servingDescription": "1 serving (0.25 oz)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sauces.teriyaki-sauce",
+     "name": "Teriyaki Sauce",
+     "servingDescription": "1 serving (1.8 oz)",
+     "macros": {
+      "calories": 70.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 16.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sauces.hot-mustard",
+     "name": "Hot Mustard",
+     "servingDescription": "1 serving (0.25 oz)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 1.0
+     },
+     "allergens": [
+      "sesame"
+     ],
+     "notes": null,
+     "iconName": "chiliPeppersRed",
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.sauces.potsticker-sauce",
+     "name": "Potsticker Sauce",
+     "servingDescription": "1 serving (0.4 oz)",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [
+      "sesame",
+      "soy",
+      "wheat"
+     ],
+     "notes": null,
+     "iconName": "sauceBBQWorcestershire",
+     "dietaryMarkers": []
+    }
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "selectionRule": {
+    "kind": "selectMany"
+   },
+   "items": [
+    {
+     "id": "panda-express.drinks.barq-s-root-beer.kids",
+     "name": "Barq's Root Beer (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 44.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.barq-s-root-beer",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.barq-s-root-beer.small",
+     "name": "Barq's Root Beer (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 80.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.barq-s-root-beer",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.barq-s-root-beer.large",
+     "name": "Barq's Root Beer (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 560.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 153.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.barq-s-root-beer",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.black-tea.kids",
+     "name": "Black Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.black-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.black-tea.small",
+     "name": "Black Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.black-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.black-tea.medium",
+     "name": "Black Tea (Medium)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.black-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.black-tea.large",
+     "name": "Black Tea (Large)",
+     "servingDescription": "40 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.black-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.cherry-coca-cola.kids",
+     "name": "Cherry Coca-Cola (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.cherry-coca-cola",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.cherry-coca-cola.small",
+     "name": "Cherry Coca-Cola (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.cherry-coca-cola",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.cherry-coca-cola.medium",
+     "name": "Cherry Coca-Cola (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 105.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.cherry-coca-cola",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.cherry-coca-cola.large",
+     "name": "Cherry Coca-Cola (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 540.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 147.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.cherry-coca-cola",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola.kids",
+     "name": "Coca-Cola (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola.small",
+     "name": "Coca-Cola (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 73.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola.medium",
+     "name": "Coca-Cola (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 100.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola.large",
+     "name": "Coca-Cola (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 510.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 140.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola-zero-sugar.kids",
+     "name": "Coca-Cola Zero Sugar (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola-zero-sugar",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola-zero-sugar.small",
+     "name": "Coca-Cola Zero Sugar (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola-zero-sugar",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola-zero-sugar.medium",
+     "name": "Coca-Cola Zero Sugar (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola-zero-sugar",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.coca-cola-zero-sugar.large",
+     "name": "Coca-Cola Zero Sugar (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.coca-cola-zero-sugar",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.diet-coke.kids",
+     "name": "Diet Coke (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.diet-coke",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.diet-coke.small",
+     "name": "Diet Coke (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.diet-coke",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.diet-coke.medium",
+     "name": "Diet Coke (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.diet-coke",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.diet-coke.large",
+     "name": "Diet Coke (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.diet-coke",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.dr-pepper.kids",
+     "name": "Dr Pepper (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.dr-pepper",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.dr-pepper.small",
+     "name": "Dr Pepper (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 260.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 72.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.dr-pepper",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.dr-pepper.medium",
+     "name": "Dr Pepper (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 360.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 98.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.dr-pepper",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.dr-pepper.large",
+     "name": "Dr Pepper (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 500.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 137.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.dr-pepper",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-fruit-punch.kids",
+     "name": "Fanta Fruit Punch (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-fruit-punch",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-fruit-punch.small",
+     "name": "Fanta Fruit Punch (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 76.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-fruit-punch",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-fruit-punch.medium",
+     "name": "Fanta Fruit Punch (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 380.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 104.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-fruit-punch",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-fruit-punch.large",
+     "name": "Fanta Fruit Punch (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 530.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 145.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-orange.kids",
+     "name": "Fanta Orange (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-orange",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-orange.small",
+     "name": "Fanta Orange (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 270.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 74.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-orange",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-orange.medium",
+     "name": "Fanta Orange (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 370.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 101.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-orange",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-orange.large",
+     "name": "Fanta Orange (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 520.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 142.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-orange",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-strawberry.kids",
+     "name": "Fanta Strawberry (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 43.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-strawberry",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-strawberry.small",
+     "name": "Fanta Strawberry (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 79.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-strawberry",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-strawberry.medium",
+     "name": "Fanta Strawberry (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 390.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 107.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-strawberry",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fanta-strawberry.large",
+     "name": "Fanta Strawberry (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 550.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 150.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fanta-strawberry",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-lemon-black-tea.kids",
+     "name": "Fuze Lemon Black Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-lemon-black-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-lemon-black-tea.small",
+     "name": "Fuze Lemon Black Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-lemon-black-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-lemon-black-tea.medium",
+     "name": "Fuze Lemon Black Tea (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 56.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-lemon-black-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-lemon-black-tea.large",
+     "name": "Fuze Lemon Black Tea (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 78.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-lemon-black-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-raspberry-tea.kids",
+     "name": "Fuze Raspberry Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-raspberry-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-raspberry-tea.small",
+     "name": "Fuze Raspberry Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 41.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-raspberry-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-raspberry-tea.medium",
+     "name": "Fuze Raspberry Tea (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 56.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-raspberry-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.fuze-raspberry-tea.large",
+     "name": "Fuze Raspberry Tea (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 300.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 78.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.fuze-raspberry-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero.kids",
+     "name": "Glaceau Vitaminwater Squeezed Zero (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero.small",
+     "name": "Glaceau Vitaminwater Squeezed Zero (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero.medium",
+     "name": "Glaceau Vitaminwater Squeezed Zero (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero.large",
+     "name": "Glaceau Vitaminwater Squeezed Zero (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.glaceau-vitaminwater-squeezed-zero",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.gold-peak-premium-unsweetened-tea.kids",
+     "name": "Gold Peak Premium Unsweetened Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.gold-peak-premium-unsweetened-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.gold-peak-premium-unsweetened-tea.small",
+     "name": "Gold Peak Premium Unsweetened Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.gold-peak-premium-unsweetened-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.gold-peak-premium-unsweetened-tea.medium",
+     "name": "Gold Peak Premium Unsweetened Tea (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.gold-peak-premium-unsweetened-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.gold-peak-premium-unsweetened-tea.large",
+     "name": "Gold Peak Premium Unsweetened Tea (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.gold-peak-premium-unsweetened-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.hi-c-flashin-fruit-punch.kids",
+     "name": "Hi-C Flashin Fruit Punch (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 42.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.hi-c-flashin-fruit-punch.small",
+     "name": "Hi-C Flashin Fruit Punch (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 78.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.hi-c-flashin-fruit-punch.medium",
+     "name": "Hi-C Flashin Fruit Punch (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 390.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 106.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.hi-c-flashin-fruit-punch.large",
+     "name": "Hi-C Flashin Fruit Punch (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 540.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 148.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.hi-c-flashin-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.lemon-green-tea.small",
+     "name": "Lemon Green Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 1.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.lemon-green-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.lemon-green-tea.medium",
+     "name": "Lemon Green Tea (Medium)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 2.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.lemon-green-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.lemon-green-tea.large",
+     "name": "Lemon Green Tea (Large)",
+     "servingDescription": "40 fl oz",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 3.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.lemon-green-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-lemonade.kids",
+     "name": "Minute Maid Lemonade (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 160.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-lemonade",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-lemonade.small",
+     "name": "Minute Maid Lemonade (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 72.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-lemonade.medium",
+     "name": "Minute Maid Lemonade (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 390.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 99.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-lemonade.large",
+     "name": "Minute Maid Lemonade (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 550.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 138.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-light-lemonade.kids",
+     "name": "Minute Maid Light Lemonade (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-light-lemonade",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-light-lemonade.small",
+     "name": "Minute Maid Light Lemonade (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-light-lemonade",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-light-lemonade.medium",
+     "name": "Minute Maid Light Lemonade (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 5.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-light-lemonade",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.minute-maid-light-lemonade.large",
+     "name": "Minute Maid Light Lemonade (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 7.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.minute-maid-light-lemonade",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.passionfruit-mango-black-tea.kids",
+     "name": "Passionfruit Mango Black Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 1.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.passionfruit-mango-black-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.passionfruit-mango-black-tea.small",
+     "name": "Passionfruit Mango Black Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 2.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.passionfruit-mango-black-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.passionfruit-mango-black-tea.medium",
+     "name": "Passionfruit Mango Black Tea (Medium)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 3.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.passionfruit-mango-black-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.passionfruit-mango-black-tea.large",
+     "name": "Passionfruit Mango Black Tea (Large)",
+     "servingDescription": "40 fl oz",
+     "macros": {
+      "calories": 15.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 4.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.passionfruit-mango-black-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-fruit-punch.kids",
+     "name": "Powerade Fruit Punch (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 21.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-fruit-punch",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-fruit-punch.small",
+     "name": "Powerade Fruit Punch (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-fruit-punch",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-fruit-punch.medium",
+     "name": "Powerade Fruit Punch (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 200.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 53.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-fruit-punch",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-fruit-punch.large",
+     "name": "Powerade Fruit Punch (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 75.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-fruit-punch",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-mountain-berry-blast.kids",
+     "name": "Powerade Mountain Berry Blast (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 80.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 22.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-mountain-berry-blast",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-mountain-berry-blast.small",
+     "name": "Powerade Mountain Berry Blast (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 40.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-mountain-berry-blast",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-mountain-berry-blast.medium",
+     "name": "Powerade Mountain Berry Blast (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 55.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-mountain-berry-blast",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.powerade-mountain-berry-blast.large",
+     "name": "Powerade Mountain Berry Blast (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 290.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 77.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.powerade-mountain-berry-blast",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.seagram-s-ginger-ale.kids",
+     "name": "Seagram's Ginger Ale (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 130.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 35.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.seagram-s-ginger-ale",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.seagram-s-ginger-ale.small",
+     "name": "Seagram's Ginger Ale (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 64.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.seagram-s-ginger-ale",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.seagram-s-ginger-ale.medium",
+     "name": "Seagram's Ginger Ale (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 320.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 87.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.seagram-s-ginger-ale",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.seagram-s-ginger-ale.large",
+     "name": "Seagram's Ginger Ale (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 450.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 121.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.seagram-s-ginger-ale",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite.kids",
+     "name": "Sprite (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 140.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 37.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite.small",
+     "name": "Sprite (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 250.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 68.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite.medium",
+     "name": "Sprite (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 340.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 92.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite.large",
+     "name": "Sprite (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 470.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 129.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite-zero.kids",
+     "name": "Sprite Zero (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 0.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite-zero",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite-zero.small",
+     "name": "Sprite Zero (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite-zero",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite-zero.medium",
+     "name": "Sprite Zero (Medium)",
+     "servingDescription": "30 fl oz",
+     "macros": {
+      "calories": 5.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite-zero",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sprite-zero.large",
+     "name": "Sprite Zero (Large)",
+     "servingDescription": "42 fl oz",
+     "macros": {
+      "calories": 10.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 0.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sprite-zero",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sweet-tea.kids",
+     "name": "Sweet Tea (Kids)",
+     "servingDescription": "12 fl oz",
+     "macros": {
+      "calories": 150.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 39.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sweet-tea",
+     "sizeLabel": "Kids",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sweet-tea.small",
+     "name": "Sweet Tea (Small)",
+     "servingDescription": "22 fl oz",
+     "macros": {
+      "calories": 280.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 71.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sweet-tea",
+     "sizeLabel": "Small",
+     "isDefaultSize": true,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sweet-tea.medium",
+     "name": "Sweet Tea (Medium)",
+     "servingDescription": "32 fl oz",
+     "macros": {
+      "calories": 410.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 103.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sweet-tea",
+     "sizeLabel": "Medium",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.sweet-tea.large",
+     "name": "Sweet Tea (Large)",
+     "servingDescription": "40 fl oz",
+     "macros": {
+      "calories": 510.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 129.0,
+      "fatGrams": 0.0
+     },
+     "sizeGroup": "panda-express.drinks.sweet-tea",
+     "sizeLabel": "Large",
+     "isDefaultSize": false,
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.mango-guava-tea",
+     "name": "Mango Guava Tea",
+     "servingDescription": "24 fl oz",
+     "macros": {
+      "calories": 195.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 46.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.peach-lychee-refresher",
+     "name": "Peach Lychee Refresher",
+     "servingDescription": "24 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 53.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.pomegranate-pineapple-lemonade",
+     "name": "Pomegranate Pineapple Lemonade",
+     "servingDescription": "24 fl oz",
+     "macros": {
+      "calories": 240.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 62.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    },
+    {
+     "id": "panda-express.drinks.watermelon-mango-refresher",
+     "name": "Watermelon Mango Refresher",
+     "servingDescription": "24 fl oz",
+     "macros": {
+      "calories": 210.0,
+      "proteinGrams": 0.0,
+      "carbGrams": 53.0,
+      "fatGrams": 0.0
+     },
+     "allergens": [],
+     "notes": null,
+     "iconName": null,
+     "dietaryMarkers": []
+    }
+   ],
+   "iconName": null,
+   "isCompleteMeal": false
+  }
+ ]
 }

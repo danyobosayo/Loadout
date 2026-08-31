@@ -36,8 +36,14 @@ final class PresetPathwayUITests: XCTestCase {
         app.tapRestaurant("Sweetgreen,")
     }
 
+    /// A preset lands in the BUILDER, not in the tray.
+    ///
+    /// It used to open the tray sheet directly, which read as "done, log it"
+    /// while every other route lands somewhere you adjust first. Screen 2 answers
+    /// "how do you want it?" for everything now — the meal arrives already built,
+    /// with the tray bar carrying the total and the tray one tap away.
     @MainActor
-    func testPresetLandsInTheTrayReadyToLog() throws {
+    func testPresetLandsInTheBuilderAlreadyBuilt() throws {
         let app = launchedApp()
         openSweetgreen(app)
 
@@ -49,14 +55,23 @@ final class PresetPathwayUITests: XCTestCase {
         attach(app, "01-preset-cards")
         harvest.tap()
 
-        // Straight into the tray, fully populated and loggable.
-        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8),
-                      "A preset should open the tray directly")
+        // The builder, with the meal already in it — no tray sheet in the way.
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 8),
+                      "A preset should land in the builder with its tray bar")
+        XCTAssertFalse(app.staticTexts["Your tray"].exists,
+                       "the tray sheet should not open over the builder")
+        XCTAssertFalse(tray.label.contains("Empty"), "the preset's items should already be loaded")
+        attach(app, "02-preset-in-builder")
+
+        // …and the tray is still one tap away when you're ready to log.
+        tray.tap()
+        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8))
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Roasted Chicken")).firstMatch.exists,
                       "The tray should hold the preset's line items")
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Log")).firstMatch.exists,
                       "The preset should be loggable without further edits")
-        attach(app, "02-preset-in-tray")
+        attach(app, "02b-preset-tray")
     }
 
     @MainActor
@@ -67,13 +82,12 @@ final class PresetPathwayUITests: XCTestCase {
         let kale = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Kale Caesar,")).firstMatch
         XCTAssertTrue(kale.waitForExistence(timeout: 10))
         kale.tap()
-        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8))
 
-        // Dismissing the tray drops into the stations — the "modify it" path.
-        app.swipeDown(velocity: .fast)
+        // No dismissal step any more: you land in the stations, meal loaded.
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(tray.waitForExistence(timeout: 8),
-                      "Dismissing the tray should land in the stations with the meal still loaded")
+                      "A preset should land in the stations with the meal still loaded")
+        XCTAssertFalse(tray.label.contains("Empty"))
         attach(app, "03-preset-editable")
     }
 
@@ -93,9 +107,12 @@ final class PresetPathwayUITests: XCTestCase {
         attach(app, "04-jersey-mikes-presets")
         sub.tap()
 
-        XCTAssertTrue(app.staticTexts["Your tray"].waitForExistence(timeout: 8),
-                      "A preset should open the tray directly")
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Turkey")).firstMatch.exists,
+        let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 8),
+                      "A preset should land in the builder with its tray bar")
+        XCTAssertFalse(tray.label.contains("Empty"), "the sub's items should already be loaded")
+        tray.tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Turkey")).firstMatch.waitForExistence(timeout: 8),
                       "The tray should hold the sub's line items")
         attach(app, "05-jersey-mikes-in-tray")
     }

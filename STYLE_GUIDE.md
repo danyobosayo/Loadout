@@ -28,9 +28,9 @@ All tokens live in `Colors.swift`. Never use a literal color in a feature view.
 
 | Token | Hex | Role |
 |---|---|---|
-| `Color.void` | `#0B0B0F` | App background. The bottom of the world. |
-| `Color.surface` | `#131318` | Cards, rows, rails. |
-| `Color.surfaceElevated` | `#1B1B22` | Sheets, tray, floating bars, pressed rows. |
+| `Color.void` | `#0C0B0A` | App background. The bottom of the world. Warm-neutral, not blue-grey — a blue-leaning dark is the default every editor ships; a degree of warmth reads as chosen. |
+| `Color.surface` | `#141312` | Cards, rows, rails. |
+| `Color.surfaceElevated` | `#1C1B19` | Sheets, tray, floating bars, pressed rows. |
 | `Color.hairline` | `white 8%` | 1 pt strokes — the only edge treatment in the app. |
 | `Color.textPrimary` | `#F5F5F7` | Titles, values. |
 | `Color.textSecondary` | `#9C9CA8` | Serving sizes, metadata. |
@@ -44,14 +44,35 @@ All tokens live in `Colors.swift`. Never use a literal color in a feature view.
 
 Volt is loud on purpose and therefore rationed: **at most one volt-filled element per screen region.** Text sitting on volt is always `#0B0B0F`, never white. Volt never glows, never gradients — its saturation against the void *is* the emphasis.
 
-### 1.3 Macro semantics (fixed, never re-themed)
+### 1.3 Macro semantics — a ladder, not a rainbow
 
-| Token | Hex | Macro |
+| Token | Value | Macro |
 |---|---|---|
 | `Color.kcal` | `#C8FF4D` | Calories (shares volt — energy *is* the brand) |
-| `Color.protein` | `#FF7A6B` | Protein |
-| `Color.carbs` | `#56C8F5` | Carbs |
-| `Color.fat` | `#FFC94D` | Fat |
+| `Color.protein` | `white 92%` | Protein |
+| `Color.carbs` | `white 66%` | Carbs |
+| `Color.fat` | `white 46%` | Fat |
+
+**Macros are not colour-coded, and that is the point.** A red/blue/yellow macro row
+is the exact mechanism by which every tracker in the category reads as generic —
+five saturated hues on one viewport and the app has no signature left. Macros are
+already distinguishable by **fixed order, a trailing letter, and position**
+(`540 · 34P 22C 41F`), so colour is freed to carry *hierarchy* instead of identity.
+
+The ladder stops well above a 30% floor because these tint the P/C/F labels as
+well as the bars, and an illegible label is a worse trade than a flatter ladder.
+Nothing in the app signals by colour alone (PROJECT.md §9).
+
+### 1.3a Feedback
+
+| Token | Hex | Role |
+|---|---|---|
+| `Color.overTarget` | `#FFB020` | Over target, capped stations, unverified values, diet conflicts. |
+| `Color.destructiveRed` | `#FF5D5D` | Destructive actions and genuine errors *only* — Clear, Delete, "menus didn't load". |
+
+**Amber, never red, for going over.** Exceeding your macros is information, not a
+failure; a red bowl is an uninstall. Red is reserved for actions that destroy
+something or states that are actually broken.
 
 ### 1.4 Restaurant identities
 
@@ -233,3 +254,39 @@ Contrast: `textPrimary` on `surface` ≥ 12:1; volt on void 13.9:1; macro colors
 - [ ] Empty, loading, and error states designed
 - [ ] Reduce Motion path verified
 - [ ] VoiceOver: composite rows read as one sentence
+
+
+## Dynamic Type — scales, capped at xxLarge
+
+The type scale follows the system text size through the normal range and stops
+before the accessibility sizes. Rationale: a row carrying four macros, an icon
+and a chevron cannot stay on one line at AX sizes, and stacking it vertically
+turns one combo into most of a screen. Capping covers the large majority of
+people who bump text up a notch without destroying the dense rows.
+
+**The cap is enforced inside the metric, not by a modifier.**
+`Typography.obsidianScaled` clamps the content size category and passes it to
+`UIFontMetrics.scaledValue(for:compatibleWith:)`. `.dynamicTypeSize()` at the
+root bounds the SwiftUI environment, but `UIFontMetrics` reads UIKit's trait
+collection — relying on the two staying in step is how a cap silently stops
+working.
+
+Before this, every font was a fixed point size and the app rendered
+*pixel-identically* at Medium and at Accessibility XXL. Someone who enlarges
+text for legibility got nothing.
+
+### The rule that broke first
+
+"Numerals never wrap and never truncate — they shrink." Making text scale
+immediately violated it: at the largest size a Caniac Combo rendered as
+`KCAL …` and a Sandwich Combo as `KCAL 1,1…`. The cause was the unit label
+being `.fixedSize()`, so it refused to shrink and squeezed the number until it
+clipped. The label now yields first (`minimumScaleFactor(0.7)`) and the number
+shrinks further (`0.5`) before either gives up — so a crowded row clips `KC…`,
+never the figure.
+
+`DynamicTypeUITests` pins both halves: that text genuinely scales, and that all
+four macros survive at the largest size the app will render. Note the first
+version of that test passed while the screen was visibly broken — the
+accessibility label carries the full number even when the glyphs are clipped.
+Tests read labels; only looking reads layout.
