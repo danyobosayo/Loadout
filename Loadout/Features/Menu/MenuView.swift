@@ -773,7 +773,7 @@ private struct MenuItemRow: View {
     /// timeouts. The row stays exactly as it was; picking a size opens a sheet.
     private var sizeControl: some View {
         HStack(spacing: 3) {
-            Text(item.servingDescription)
+            Text(servingText)
                 .lineLimit(1)
                 .truncationMode(.tail)
             if sizes.count > 1 {
@@ -783,6 +783,10 @@ private struct MenuItemRow: View {
         }
         .font(.appCaption)
         .foregroundStyle(sizes.count > 1 ? accent : Color.textTertiary)
+    }
+
+    private var servingText: String {
+        item.isEstimated ? "\(item.servingDescription) · estimated" : item.servingDescription
     }
 
     @ViewBuilder
@@ -811,6 +815,7 @@ private struct MenuItemRow: View {
         // Menu, its text no longer folds into the container's combined label.
         var parts = [displayName ?? item.name, item.servingDescription,
                      "\(Int(item.macros.calories.rounded())) calories"]
+        if item.isEstimated { parts.append("nutrition estimated") }
         switch dietary {
         case .excluded: parts.append("does not fit your diet settings")
         case .unknown:  parts.append("not checked for your diet settings")
@@ -1182,7 +1187,7 @@ private struct GuidedItemRow: View {
                                 .lineLimit(2)
                             Spacer(minLength: Spacing.xs)
                             HStack(spacing: 3) {
-                                Text(item.servingDescription)
+                                Text(servingText)
                                     .lineLimit(1)
                                 if hasSizes {
                                     Image(systemName: "chevron.right")
@@ -1231,9 +1236,14 @@ private struct GuidedItemRow: View {
         return "×\(quantity.formatted(.number.precision(.fractionLength(0...2))))"
     }
 
+    private var servingText: String {
+        item.isEstimated ? "\(item.servingDescription) · estimated" : item.servingDescription
+    }
+
     private var accessibilityText: String {
         var parts = [displayName ?? item.name, item.servingDescription,
                      "\(Int(item.macros.calories.rounded())) calories"]
+        if item.isEstimated { parts.append("nutrition estimated") }
         if hasSizes { parts.append("\(sizeCount) sizes") }
         if isSelected { parts.append(isCounter ? "\(Int(quantity.rounded())) selected" : "selected") }
         return parts.joined(separator: ", ")

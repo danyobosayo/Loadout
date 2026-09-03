@@ -96,6 +96,22 @@ final class HeadlineMenuUITests: XCTestCase {
         attach(app, "02-canes-configurator")
     }
 
+    /// Best-estimate nutrition stays useful and visible without turning a menu
+    /// card into a warning panel.
+    @MainActor
+    func testEstimatedHeadlineItemUsesACompactDisclosure() throws {
+        let app = launchedApp()
+        app.buttons["Build"].tap()
+        app.tapRestaurant("Raising Cane's,")
+
+        let naked = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Chicken Finger (Naked),")
+        ).firstMatch
+        XCTAssertTrue(naked.waitForExistence(timeout: 15))
+        XCTAssertTrue(naked.label.contains("nutrition estimated"))
+        XCTAssertTrue(app.staticTexts["1 finger, no breading · estimated"].exists)
+    }
+
     /// Chick-fil-A's sandwiches were reachable only via "Build your own" while
     /// three salads sat on the landing screen.
     @MainActor

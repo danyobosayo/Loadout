@@ -23,8 +23,9 @@ nonisolated struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     /// item's own `macros` stay the as-served board figure; components describe
     /// what each part contributes so it can be declined.
     let components: [ItemComponent]?
-    /// True when this item's macros come from an unofficial source and are an
-    /// estimate. Rendered in amber, the token reserved for "unverified".
+    /// True when any of this item's macros are best-supported estimates rather
+    /// than exact published figures. The UI labels this briefly; `notes` keeps
+    /// the source, method, assumptions, and confidence for auditability.
     let isEstimated: Bool
     let allergens: [Allergen]?
     /// Animal/derived content beyond the allergen list — what vegetarian, vegan
