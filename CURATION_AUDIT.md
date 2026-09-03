@@ -167,7 +167,7 @@ Four orderable sizes plus two format-sizes, all living in ONE dimension in Jerse
   - **gap:** A light / extra / no-juice intensity control. Loadout can only add or remove the oil at full pour, but the real counter interaction is a dial, and it is the one modification a macro-tracking customer most wants to make.
 - **Bowl (formerly 'Sub in a Tub')**. The whole sub built in a bowl with no bread. It is a SIZE at Jersey Mike's, not a separate format — you pick it where you'd pick Mini/Regular/Giant. Meat drops to the Wrap/Bowl portion tier (Turkey 93 cal vs 111 on a Regular), and croutons are offered as an add-on.
   - **gap:** Croutons (90 cal) — an Add-On offered on every Bowl and absent from our menu
-  - **gap:** The Wrap/Bowl portion tier: picking Bowl in Loadout keeps the full Regular meat and cheese portions, so a Bowl build overstates protein and calories
+  - **partially resolved:** Loadout's Bowl format now applies a labeled estimated 0.84 multiplier to guided meat and cheese picks, matching the API's Turkey example. A future size-first model must apply recipe-specific Bowl portions to every component.
 - **Wrap**. Same build rolled in a tortilla. Also a SIZE, chosen alongside Mini/Regular/Giant, with its own set of five tortillas and the same reduced meat portion as a Bowl. Loadout has no representation of this at all.
   - **gap:** White Wrap (290 cal, the default)
   - **gap:** Wheat Wrap (310 cal)
@@ -213,7 +213,7 @@ Recommended sequence: Size → Bread (skipped for Bowl) → Meat → Cheese → 
 
 ### Naming
 
-- 'Sub in a Tub' (our format id sub-in-a-tub, name 'Sub in a Tub') is the retired name. The board, the app and Jersey Mike's own API all say BOWL. The only place '-tub' survives is legacy image filenames. A customer looking for this in Loadout would find a term staff have stopped using.
+- 'Sub in a Tub' was retired in Loadout's format picker; it now uses the current board and API name, 'Bowl'.
 - We have no 'Wrap' anywhere, but Wrap is a first-class option on the board sitting right next to Mini/Regular/Giant. Someone who orders wraps cannot find their order in the app.
 - 'White Bread (Giant)', 'Wheat Bread (Mini)' etc. — nobody says this out loud. You say 'a giant on white'. Size belongs to the sandwich; our names attach it to the bread, which reads as a different product rather than a different size.
 - 'Grilled Chicken (Philly)' — the board says '#16 Mike's Chicken Philly', staff say 'chicken philly' or just 'chicken', and the API ingredient is 'Philly Chicken'. Our parenthetical inverts the actual word order.

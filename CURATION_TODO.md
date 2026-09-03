@@ -489,5 +489,7 @@ around it.
 
 ### Jersey Mike's — Bowl overstates protein
 Bowl is a *size*, not a format, and drops meat to the Wrap/Bowl portion tier. We
-keep the full Regular portion, so a Bowl build overstates protein and calories.
-Not in the flagship four, but it is a wrong number rather than a missing feature.
+now apply an estimated 0.84 multiplier to guided meat and cheese picks, matching
+the official API's Turkey example (93 calories for Bowl vs 111 for Regular).
+The format is visibly labeled estimated. A later size-first redesign still needs
+to scale every other recipe-specific component and add Wrap.

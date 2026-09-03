@@ -124,6 +124,19 @@ struct FormatIntegrityTests {
         #expect(formats.isEmpty)
     }
 
+    @Test func jerseyMikesBowlUsesTheObservedBowlPortionTier() async throws {
+        let (restaurant, formats) = try await Self.load("jersey-mikes")
+        let bowl = try #require(formats.first { $0.id == "bowl" })
+        #expect(formats.allSatisfy { $0.id != "sub-in-a-tub" })
+        #expect(abs(bowl.portionMultiplier - 0.84) < 0.000_001)
+        #expect(bowl.blurb.localizedCaseInsensitiveContains("estimated"))
+
+        let turkey = try #require(
+            restaurant.resolve(menuItemId: "jersey-mikes.protein.turkey")?.item
+        )
+        #expect((turkey.macros.calories * bowl.portionMultiplier).rounded() == 93)
+    }
+
     /// The Halal Guys chooses the container and its size before the protein.
     /// Rice or pita, salad, and both signature sauces are standard inclusions,
     /// not optional extras the customer must remember to add. The official
