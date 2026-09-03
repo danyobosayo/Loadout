@@ -14,10 +14,10 @@ import SwiftUI
 /// one tap flips either way. There is no separate "remove" mode and no list of
 /// checkboxes; the lit/unlit state is the whole model.
 ///
-/// The header total is the published figure until you touch something, because
-/// that is the number on the menu board and the number the restaurant will hand
-/// you. Every change from there is a subtraction or addition of a sourced
-/// component, never a recomputation.
+/// The header total is the published figure until you touch something. Every
+/// change from there is a subtraction or addition against that exact baseline:
+/// a sourced component where available, or a documented Starbucks modifier
+/// estimate where the restaurant does not publish customized nutrition.
 struct ConfigureItemScreen: View {
     let item: MenuItem
     let category: MenuCategory
@@ -101,7 +101,7 @@ struct ConfigureItemScreen: View {
                         .foregroundStyle(.textSecondary)
                 }
                 if configuration.hasRecipeChanges {
-                    standardRecipeNotice
+                    recipeEstimateNotice
                 }
                 if item.isEstimated, let notes = item.notes {
                     estimateNote(notes)
@@ -111,16 +111,12 @@ struct ConfigureItemScreen: View {
         .animation(Motion.snap, value: macros.calories)
     }
 
-    private var standardRecipeNotice: some View {
-        HStack(alignment: .top, spacing: 6) {
-            Image(systemName: "info.circle.fill")
-                .font(.system(size: 11, weight: .semibold))
-            Text("Starbucks does not recalculate nutrition for customizations. Macros remain the published standard recipe for this size.")
-                .font(.appCaption)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .foregroundStyle(Color.textSecondary)
-        .accessibilityIdentifier("recipe.standardMacrosNotice")
+    private var recipeEstimateNotice: some View {
+        Text("Estimated nutrition")
+            .font(.appCaption)
+            .foregroundStyle(Color.textSecondary)
+            .accessibilityIdentifier("recipe.estimatedNutritionNotice")
+            .accessibilityHint("Uses best-supported estimates for customized ingredients")
     }
 
     /// Keep uncertainty visible without turning it into the focus of the meal.

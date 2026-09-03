@@ -166,11 +166,11 @@ final class SizePickerUITests: XCTestCase {
         attach(app, "03-tray-after-switch")
     }
 
-    /// Starbucks itself keeps standard nutrition on screen after milk, shot,
-    /// and syrup changes. Loadout should reproduce the order controls while
-    /// stating that the displayed macros remain the standard recipe.
+    /// Starbucks keeps standard nutrition on screen after milk, shot, and syrup
+    /// changes. Loadout should estimate the changed ingredients from that exact
+    /// baseline and identify the customized total briefly.
     @MainActor
-    func testStarbucksMilkShotsAndPumpsAreConfigurableWithoutInventedMacros() throws {
+    func testStarbucksMilkShotsAndPumpsUpdateEstimatedMacros() throws {
         let app = launchedApp()
         openStarbucks(app)
 
@@ -206,18 +206,18 @@ final class SizePickerUITests: XCTestCase {
         XCTAssertTrue(vanillaPlus.isHittable, "Vanilla Syrup should expose a pump counter")
         vanillaPlus.tap()
 
-        XCTAssertTrue(app.otherElements["recipe.standardMacrosNotice"].exists
+        XCTAssertTrue(app.staticTexts["recipe.estimatedNutritionNotice"].exists
                       || app.staticTexts.containing(
-                        NSPredicate(format: "label CONTAINS %@", "standard recipe")
+                        NSPredicate(format: "label CONTAINS %@", "Estimated nutrition")
                       ).firstMatch.exists,
-                      "customization must explain why the official macros stay unchanged")
+                      "customized macros should carry a concise estimate label")
         attach(app, "07-starbucks-recipe-customized")
         app.buttons["Add to meal"].tap()
 
         let tray = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Meal tray")).firstMatch
         XCTAssertTrue(tray.waitForExistence(timeout: 8))
-        XCTAssertTrue(tray.label.contains("190"),
-                      "a customized Grande latte retains Starbucks' published 190-cal standard total")
+        XCTAssertTrue(tray.label.contains("147"),
+                      "nonfat milk, one shot, and one vanilla pump should estimate 147 cal")
         attach(app, "08-starbucks-recipe-added")
     }
 
