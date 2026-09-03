@@ -26,6 +26,51 @@ final class HeadlineMenuUITests: XCTestCase {
         shot.name = name; shot.lifetime = .keepAlways; add(shot)
     }
 
+    @MainActor
+    private func buttonIndex(in app: XCUIApplication, labelPrefix: String) -> Int? {
+        app.buttons.allElementsBoundByIndex.firstIndex { $0.label.hasPrefix(labelPrefix) }
+    }
+
+    /// Assembly and sandwich shops should ask what the person is building
+    /// before offering named recipes. This is deliberately shared behavior:
+    /// each new build-to-order restaurant gets it by supplying formats rather
+    /// than relying on another hand-sorted list.
+    @MainActor
+    func testBuildToOrderRestaurantsLeadWithBuildOptions() throws {
+        let app = launchedApp()
+        app.buttons["Build"].tap()
+
+        app.tapRestaurant("CAVA,")
+        let grainBowl = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Grain Bowl")
+        ).firstMatch
+        let spicyLamb = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Spicy Lamb + Avocado")
+        ).firstMatch
+        XCTAssertTrue(grainBowl.waitForExistence(timeout: 15))
+        XCTAssertTrue(spicyLamb.waitForExistence(timeout: 5))
+        XCTAssertLessThan(
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "Grain Bowl")),
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "Spicy Lamb + Avocado"))
+        )
+
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.tapRestaurant("Subway,")
+        let sandwichFormat = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "6-inch Sandwich")
+        ).firstMatch
+        let steakPhilly = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Steak Philly")
+        ).firstMatch
+        XCTAssertTrue(sandwichFormat.waitForExistence(timeout: 15))
+        XCTAssertTrue(steakPhilly.waitForExistence(timeout: 5))
+        XCTAssertLessThan(
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "6-inch Sandwich")),
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "Steak Philly"))
+        )
+        attach(app, "00-build-options-first")
+    }
+
     /// Cane's has no presets file, and used to land on an empty-feeling screen.
     @MainActor
     func testCanesListsItsCombosOnTheLandingScreen() throws {
@@ -37,6 +82,11 @@ final class HeadlineMenuUITests: XCTestCase {
         XCTAssertTrue(box.waitForExistence(timeout: 15),
                       "the landing screen should list Cane's combos, not just Build your own")
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Caniac Combo")).firstMatch.exists)
+        XCTAssertLessThan(
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "Box Combo")),
+            try XCTUnwrap(buttonIndex(in: app, labelPrefix: "Browse the full menu")),
+            "a top-down restaurant should still lead with its actual combos"
+        )
         attach(app, "01-canes-landing")
 
         // …and picking one goes straight to "how do you want it?".

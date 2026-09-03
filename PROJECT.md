@@ -214,6 +214,11 @@ sells combos of entrées rather than named dishes and ships none by design.
 - Tab 1: **Restaurants** — the five flagships are the primary catalog, ordered
   consistently or by recency of use.
 - Tap a restaurant → menu screen showing categories.
+- A build-to-order restaurant leads with its formats (bowl, burrito, pizza,
+  sub, salad, and similar choices) before saved or published meals. A top-down
+  restaurant with no formats leads with the combos or entrées it actually
+  sells. The presence of curated presets must never push "build your own" below
+  named meals at an assembly line or sandwich shop.
 - Tap a category → items in that category with per-item macros visible.
 
 ### 7.2 Build a Meal
