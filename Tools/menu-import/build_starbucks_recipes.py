@@ -4,8 +4,8 @@
 Starbucks' official ordering API publishes which milk, espresso, preparation,
 and flavor controls apply to each product and the standard recipe for every cup
 size. It does *not* recalculate nutrition after a customization. This importer
-therefore records the order controls and exact defaults, while the app continues
-to display the official standard-recipe nutrition with an explicit notice.
+therefore records the order controls and exact defaults; Loadout applies
+documented modifier estimates on top of the exact standard total.
 
 The bundled menu remains the stable product whitelist. A live seasonal product
 is never added implicitly; an unavailable bundled drink is reported for review.
@@ -16,6 +16,7 @@ fast and do not provoke Starbucks' edge rate limits.
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import re
 import time
@@ -65,6 +66,11 @@ GROUP_POLICY = {
     "Espresso Roast Options": ("single", False),
     "Ristretto or Long Shot": ("single", False),
     "Whipped Cream": ("single", True),
+    "Topping Options": ("single", True),
+    "Drizzle": ("single", True),
+    "Protein Cold Foam (15g)*": ("single", True),
+    "Cold Foam": ("single", True),
+    "Nondairy Cold Foam": ("single", True),
     "Espresso Shots": ("quantity", False),
     "Syrups": ("quantity", False),
     "Sauces": ("quantity", False),
@@ -82,6 +88,11 @@ GROUP_ORDER = [
     "Milk Foam",
     "Milk Temperature",
     "Whipped Cream",
+    "Topping Options",
+    "Drizzle",
+    "Protein Cold Foam (15g)*",
+    "Cold Foam",
+    "Nondairy Cold Foam",
     "Liquid Sweeteners",
     "Sweetener Packets",
 ]
@@ -94,6 +105,42 @@ POPULAR_CHOICE_ORDER = [
     "Brown Sugar Syrup",
     "Cinnamon Dolce Syrup",
 ]
+
+REGULAR_ONLY_GROUPS = {
+    "Topping Options",
+    "Drizzle",
+    "Protein Cold Foam (15g)*",
+    "Cold Foam",
+    "Nondairy Cold Foam",
+}
+
+FREQUENT_SINGLE_CHOICES = {
+    "Topping Options": {
+        "Caramel Crunch Topping",
+        "Cinnamon Dolce Sprinkles",
+        "Cookie Crumble Topping",
+    },
+    "Drizzle": {"Caramel Drizzle", "Mocha Drizzle"},
+    "Protein Cold Foam (15g)*": {
+        "Chocolate Protein Cold Foam",
+        "Matcha Protein Cold Foam",
+        "Salted Caramel Protein Cold Foam",
+        "Strawberry Protein Cold Foam (13g)*",
+        "Vanilla Protein Cold Foam",
+    },
+    "Cold Foam": {
+        "Chocolate Cream Cold Foam",
+        "Vanilla Sweet Cream Cold Foam",
+        "Matcha Cream Cold Foam",
+        "Salted Caramel Cream Cold Foam",
+    },
+    "Nondairy Cold Foam": {
+        "Nondairy Chocolate Cream Cold Foam",
+        "Nondairy Matcha Cream Cold Foam",
+        "Nondairy Salted Caramel Cream Cold Foam",
+        "Nondairy Vanilla Sweet Cream Cold Foam",
+    },
+}
 
 
 def fetch_json(url: str, attempts: int = 4) -> dict:
@@ -232,6 +279,9 @@ def clean_choice_name(group_name: str, value: str) -> str:
 def choice_rows(group_name: str, products: list[dict], kind: str) -> list[dict]:
     output: list[dict] = []
     for product in products:
+        frequent = FREQUENT_SINGLE_CHOICES.get(group_name)
+        if frequent is not None and product["form"]["name"] not in frequent:
+            continue
         number = int(product["productNumber"])
         form = product["form"]
         sizes = form.get("sizes") or []
@@ -244,7 +294,10 @@ def choice_rows(group_name: str, products: list[dict], kind: str) -> list[dict]:
                     "maximumQuantity": 12,
                 })
             continue
-        for size in sizes:
+        selected_sizes = sizes
+        if group_name in REGULAR_ONLY_GROUPS:
+            selected_sizes = [size for size in sizes if size.get("sizeCode") == "regular"]
+        for size in selected_sizes:
             output.append({
                 "id": choice_id(number, size["sizeCode"]),
                 "name": clean_choice_name(group_name, size.get("name") or form["name"]),
@@ -418,7 +471,8 @@ def build(cache_dir: Path | None, delay: float) -> tuple[dict, list[str]]:
 
     menu["orderingModel"] = "recipe"
     menu["drinkRecipes"] = recipes
-    menu["dataSource"]["fetchedAt"] = "2026-08-31"
+    fetched_at = datetime.date.today().isoformat()
+    menu["dataSource"]["fetchedAt"] = fetched_at
     item_count = sum(len(category["items"]) for category in menu["categories"])
     concept_count = sum(
         sum(item.get("isDefaultSize") is True or item.get("sizeGroup") is None for item in category["items"])
@@ -427,7 +481,7 @@ def build(cache_dir: Path | None, delay: float) -> tuple[dict, list[str]]:
     menu["dataSource"]["notes"] = (
         "CURRENT OFFICIAL SNAPSHOT. The national US category tree and every included "
         "beverage detail were re-fetched from Starbucks' first-party ordering API on "
-        "2026-08-31. Food rows retain their exact August 7 first-party nutrition after "
+        f"{fetched_at}. Food rows retain their exact August 7 first-party nutrition after "
         "their continued presence was checked in the current national tree. The bundled "
         "stable catalog contains "
         f"{concept_count} orderable concepts and {item_count} exact size/item rows. "
@@ -445,8 +499,11 @@ def build(cache_dir: Path | None, delay: float) -> tuple[dict, list[str]]:
         "espresso, shot, syrup, sauce, and sweetener controls are generated from each "
         "product's official ordering detail, including size-specific standard defaults. "
         "Starbucks' own ordering page continues to show standard-recipe nutrition after "
-        "customization, so Loadout records the customized order and clearly retains the "
-        "published standard macros rather than inventing modifier deltas."
+        "customization. Loadout therefore preserves that value as the unchanged baseline, "
+        "then applies documented best-supported estimates for milk, shots, pumps, "
+        "sweeteners, whip, toppings, drizzles, and cold foams. Customized totals are "
+        "labelled estimated. Preparation choices without a defensible nutrition effect "
+        "remain neutral."
     )
     return menu, [f"{len(recipes)} product recipes"]
 

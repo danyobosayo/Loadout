@@ -132,6 +132,9 @@ nonisolated extension MenuItem {
     /// so a component's macros are always the curated ones.
     func macros(with configuration: ItemConfiguration, in restaurant: Restaurant) -> Macros {
         var total = macros
+        if let recipe = restaurant.drinkRecipe(for: self) {
+            total = recipe.estimatedMacros(for: self, configuration: configuration)
+        }
         for component in components ?? [] where configuration.removed.contains(component.menuItemId) {
             // Belt and braces: only a default that is actually removable may be
             // subtracted. A stale configuration naming an unremovable part, or an
@@ -176,7 +179,7 @@ nonisolated extension MenuItem {
         if let recipe = restaurant.drinkRecipe(for: self) {
             parts.append(contentsOf: recipe.summary(for: configuration, sizeLabel: sizeLabel))
             if configuration.hasRecipeChanges {
-                parts.append("standard recipe macros")
+                parts.append("estimated nutrition")
             }
         }
         return parts.isEmpty ? nil : parts.joined(separator: " · ")

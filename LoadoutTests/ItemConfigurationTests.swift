@@ -282,7 +282,7 @@ struct ItemConfigurationTests {
         }
     }
 
-    // MARK: Starbucks — source-derived recipes, standard nutrition
+    // MARK: Starbucks — source-derived recipes, estimated modifier nutrition
 
     @Test func starbucksIsARecipeRestaurantWithSizeSpecificDefaults() async throws {
         let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
@@ -298,7 +298,7 @@ struct ItemConfigurationTests {
         )
     }
 
-    @Test func starbucksCustomizationRecordsTheOrderWithoutInventingMacros() async throws {
+    @Test func starbucksCustomizationUpdatesMacrosFromTheExactStandardBaseline() async throws {
         let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
         let latte = try item(restaurant, "starbucks.hot-coffee.caffe-latte")
         let configuration = ItemConfiguration(
@@ -306,14 +306,71 @@ struct ItemConfigurationTests {
                 "starbucks.recipe.group.milk-options": "starbucks.recipe.choice.61.add",
             ],
             recipeSelectionChanges: ["starbucks.recipe.group.milk-options"],
-            recipeQuantities: ["starbucks.recipe.choice.82.add": 1]
+            recipeQuantities: [
+                "starbucks.recipe.choice.82.add": 1,
+                "starbucks.recipe.choice.111.add": 1,
+            ]
         )
 
-        #expect(latte.macros(with: configuration, in: restaurant) == latte.macros)
+        let customized = latte.macros(with: configuration, in: restaurant)
+        #expect(abs(customized.calories - 146.5) < 0.001)
+        #expect(abs(customized.proteinGrams - 12.95) < 0.001)
+        #expect(abs(customized.carbGrams - 23.3) < 0.001)
+        #expect(abs(customized.fatGrams - 0.1) < 0.001)
         let summary = try #require(latte.configurationSummary(configuration, in: restaurant))
         #expect(summary.contains("nonfat milk"))
         #expect(summary.contains("1 espresso shot"))
-        #expect(summary.hasSuffix("standard recipe macros"))
+        #expect(summary.contains("1 vanilla syrup"))
+        #expect(summary.hasSuffix("estimated nutrition"))
+    }
+
+    @Test func unchangedStarbucksRecipesAlwaysKeepPublishedMacros() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        for item in restaurant.categories.flatMap(\.items) where item.recipeId != nil {
+            #expect(item.macros(with: .unchanged, in: restaurant) == item.macros)
+        }
+    }
+
+    @Test func starbucksNoWhipSubtractsTheSizeSpecificOfficialAddon() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let mocha = try item(restaurant, "starbucks.hot-coffee.caffe-mocha")
+        let configuration = ItemConfiguration(
+            recipeSelectionChanges: ["starbucks.recipe.group.whipped-cream"]
+        )
+        let customized = mocha.macros(with: configuration, in: restaurant)
+        #expect(customized == Macros(
+            calories: 300, proteinGrams: 14, carbGrams: 41, fatGrams: 8
+        ))
+    }
+
+    @Test func starbucksProteinColdFoamAddsEstimatedProteinAndMacros() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let coldBrew = try item(restaurant, "starbucks.cold-coffee.cold-brew")
+        let groupId = "starbucks.recipe.group.protein-cold-foam-15g"
+        let configuration = ItemConfiguration(
+            recipeSelections: [
+                groupId: "starbucks.recipe.choice.28493.regular",
+            ],
+            recipeSelectionChanges: [groupId]
+        )
+        let customized = coldBrew.macros(with: configuration, in: restaurant)
+        #expect(customized == Macros(
+            calories: 260, proteinGrams: 17, carbGrams: 13, fatGrams: 16
+        ))
+    }
+
+    @Test func starbucksRemovingDefaultColdFoamLeavesCoffeeAndSyrup() async throws {
+        let restaurant = try await BundledMenuRepository().loadRestaurant(id: "starbucks")
+        let drink = try item(
+            restaurant, "starbucks.cold-coffee.salted-caramel-cream-cold-brew"
+        )
+        let configuration = ItemConfiguration(
+            recipeSelectionChanges: ["starbucks.recipe.group.cold-foam"]
+        )
+        let customized = drink.macros(with: configuration, in: restaurant)
+        #expect(customized == Macros(
+            calories: 45, proteinGrams: 0, carbGrams: 10, fatGrams: 0
+        ))
     }
 
     @Test func everyStarbucksRecipeReferenceAndSizeDefaultResolves() async throws {
@@ -343,6 +400,13 @@ struct ItemConfigurationTests {
                 #expect(defaults.quantities.values.allSatisfy { $0 >= 0 && $0 <= 12 })
             }
         }
+
+        let latte = try item(restaurant, "starbucks.hot-coffee.caffe-latte")
+        let latteGroups = try #require(restaurant.drinkRecipe(for: latte)).groups
+        #expect(latteGroups.contains { $0.name == "Cold Foam" })
+        #expect(latteGroups.contains { $0.name == "Protein Cold Foam (15g)*" })
+        #expect(latteGroups.contains { $0.name == "Topping Options" })
+        #expect(latteGroups.contains { $0.name == "Drizzle" })
     }
 
     @Test func starbucksCatalogKeepsDistinctiveDrinksAndDropsGenericPackagedDrinks() async throws {
