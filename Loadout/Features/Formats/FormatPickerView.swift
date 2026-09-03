@@ -23,10 +23,12 @@ nonisolated struct MenuRoute: Hashable {
 }
 
 /// The counter moment — shown when a restaurant is tapped, before the
-/// stations. Three ways in, ordered most-personal to most-manual: the meals
-/// you've saved here, the restaurant's own published meals, then the formats
-/// that scaffold a build. Everything loads async and every section hides when
-/// empty, so this never dead-ends — build-your-own is always the floor.
+/// stations. Restaurants that assemble an order lead with their formats: a
+/// person at CAVA, Chipotle, a pizza counter, or a sandwich shop first decides
+/// what they are building. Top-down restaurants with no formats lead with the
+/// combos or entrées they actually sell. Everything loads async and every
+/// section hides when empty, so this never dead-ends — the full menu is always
+/// available.
 struct FormatPickerView: View {
     let restaurant: Restaurant
     @Environment(\.menuRepository) private var menuRepository
@@ -126,12 +128,30 @@ struct FormatPickerView: View {
                         .padding(.top, Spacing.sm)
                         .padding(.bottom, Spacing.sm)
 
+                    if !formats.isEmpty {
+                        sectionLabel("Build to order")
+                        ForEach(Array(formats.enumerated()), id: \.element.id) { index, format in
+                            NavigationLink(value: MenuRoute(restaurant: restaurant, format: format)) {
+                                FormatCard(format: format, hue: restaurant.style.hue)
+                            }
+                            .buttonStyle(.pressable)
+                            .entrance(buildOptionsEntranceBase + index)
+                        }
+
+                        NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil)) {
+                            BuildYourOwnCard(browsing: !headlineSections.isEmpty)
+                        }
+                        .buttonStyle(.pressable)
+                        .entrance(buildOptionsEntranceBase + formats.count)
+                        .padding(.top, Spacing.xs)
+                    }
+
                     if let budget, MealSolver.canBuild(budget: budget.macros) {
                         NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil, autoBuild: true)) {
                             fitMyMacrosCard(isRemaining: budget.isRemaining, calories: budget.macros.calories)
                         }
                         .buttonStyle(.pressable)
-                        .entrance(0)
+                        .entrance(fitMyMacrosEntranceBase)
                         .padding(.bottom, Spacing.xs)
                     }
 
@@ -197,21 +217,14 @@ struct FormatPickerView: View {
                         }
                     }
 
-                    if !formats.isEmpty { sectionLabel("Build to order") }
-                    ForEach(Array(formats.enumerated()), id: \.element.id) { index, format in
-                        NavigationLink(value: MenuRoute(restaurant: restaurant, format: format)) {
-                            FormatCard(format: format, hue: restaurant.style.hue)
+                    if formats.isEmpty {
+                        NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil)) {
+                            BuildYourOwnCard(browsing: !headlineSections.isEmpty)
                         }
                         .buttonStyle(.pressable)
-                        .entrance(formatsEntranceBase + index)
+                        .entrance(fullMenuEntranceBase)
+                        .padding(.top, Spacing.xs)
                     }
-
-                    NavigationLink(value: MenuRoute(restaurant: restaurant, format: nil)) {
-                        BuildYourOwnCard(browsing: !headlineSections.isEmpty)
-                    }
-                    .buttonStyle(.pressable)
-                    .entrance(formatsEntranceBase + formats.count)
-                    .padding(.top, Spacing.xs)
                 }
                 .padding(.horizontal, Spacing.md)
             }
@@ -222,9 +235,14 @@ struct FormatPickerView: View {
         .toolbarBackground(.hidden, for: .navigationBar)
     }
 
-    // The entrance stagger runs continuously down the page, so each section's
-    // base is simply what came before it (0 is the masthead / Fit my macros).
-    private var savedMealsEntranceBase: Int { 1 }
+    // The entrance stagger runs continuously down the page. Format-driven
+    // restaurants reserve the first slots for their build choices so the
+    // animation order matches the visual and accessibility order.
+    private var buildOptionsEntranceBase: Int { 1 }
+    private var fitMyMacrosEntranceBase: Int {
+        buildOptionsEntranceBase + formats.count + (formats.isEmpty ? 0 : 1)
+    }
+    private var savedMealsEntranceBase: Int { fitMyMacrosEntranceBase + 1 }
     private var headlineEntranceBase: Int { savedMealsEntranceBase + shownSavedMeals.count }
 
     /// The stations that hold whole orderable things, collapsed by size so a
@@ -245,7 +263,7 @@ struct FormatPickerView: View {
     }
 
     private var presetsEntranceBase: Int { headlineEntranceBase + headlineSections.reduce(0) { $0 + $1.groups.count } }
-    private var formatsEntranceBase: Int { presetsEntranceBase + presets.count }
+    private var fullMenuEntranceBase: Int { presetsEntranceBase + presets.count }
 
     /// "High protein · no sauces" — the active auto-build settings in one line.
     private var autoBuildSummary: String {
