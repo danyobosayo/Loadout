@@ -363,7 +363,18 @@ struct ItemConfigurationTests {
             .flatMap(\.categories)
             .flatMap(\.items)
             .filter(\.isEstimated)
-        #expect(estimated.contains { $0.id == "raising-canes.entrees.naked-bird" })
+        let estimatedIds = Set(estimated.map(\.id))
+        let expectedEstimateIds: Set<String> = [
+            "raising-canes.entrees.naked-bird",
+            "qdoba.veggies.seasoned-potatoes",
+            "qdoba.salsa.salsa-verde",
+            "mod-pizza.cheeses.ricotta",
+            "panera.mains.bacon-turkey-bravo",
+            "panera.mains.turkey-cheddar-sandwich",
+            "panera.mains.fuji-apple-chicken-salad",
+            "panera.entrees.fuji-apple-chicken-salad-stuffer",
+        ]
+        #expect(expectedEstimateIds.isSubset(of: estimatedIds))
         #expect(estimated.allSatisfy { $0.notes?.isEmpty == false },
                 "every estimate must retain its source, method and assumptions")
 
@@ -371,5 +382,18 @@ struct ItemConfigurationTests {
         // Protein is unchanged from a breaded finger; the breading is the delta.
         #expect(naked.macros.proteinGrams == 13)
         #expect(naked.macros.carbGrams == 0)
+
+        let qdoba = try await BundledMenuRepository().loadRestaurant(id: "qdoba")
+        #expect(try item(qdoba, "qdoba.veggies.seasoned-potatoes").macros.fatGrams == 5)
+        #expect(try item(qdoba, "qdoba.salsa.salsa-verde").macros.carbGrams == 2)
+
+        let mod = try await BundledMenuRepository().loadRestaurant(id: "mod-pizza")
+        #expect(try item(mod, "mod-pizza.cheeses.ricotta").macros.calories == 100)
+
+        let panera = try await BundledMenuRepository().loadRestaurant(id: "panera")
+        #expect(try item(panera, "panera.mains.bacon-turkey-bravo").macros.calories == 850)
+        #expect(try item(panera, "panera.mains.turkey-cheddar-sandwich").macros.calories == 830)
+        #expect(try item(panera, "panera.mains.fuji-apple-chicken-salad").macros.calories == 700)
+        #expect(try item(panera, "panera.entrees.fuji-apple-chicken-salad-stuffer").macros.calories == 690)
     }
 }

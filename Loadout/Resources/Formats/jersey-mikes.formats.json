@@ -35,9 +35,10 @@
       ]
     },
     {
-      "id": "sub-in-a-tub",
-      "name": "Sub in a Tub",
-      "blurb": "No bread — the whole sub in a bowl.",
+      "id": "bowl",
+      "name": "Bowl",
+      "blurb": "No bread · estimated Bowl portions for meat and cheese.",
+      "portionMultiplier": 0.84,
       "autoAdd": [],
       "prompts": [
         {

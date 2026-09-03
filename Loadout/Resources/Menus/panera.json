@@ -6,7 +6,7 @@
   "url": "https://www.panerabread.com/content/dam/panerabread/documents/c6-26-nutrition-guide.pdf",
   "fetchedAt": "2026-08-07",
   "fetchedBy": "research agent, verified against the official source",
-  "notes": "SOURCE: Panera's own \"Panera Bread\u00ae Nutrition Guide\", Effective 6/17/2026, Edition 1 (c6-26-nutrition-guide.pdf), linked from panerabread.com/en-us/menu/nutritious-eating/allergen-and-nutrition-information.html. NOTE the lead URL in the task (nutrition-and-allergens.html) is a 404 \u2014 the live nav points to the allergen-and-nutrition-information.html path above, which is where I got the current PDF link.\n\nACCESS: panerabread.com is behind Akamai bot protection; plain fetches returned 403. The PDF was retrieved with a full browser header set including a same-origin Referer. Everything below comes from that official PDF \u2014 no aggregator was used.\n\nEXTRACTION + VERIFICATION: The PDF has 36 pages of tables with columns Serving Size / Calories / Calories-from-Fat / Fat / Sat Fat / Trans / Cholesterol / Sodium / Carbs / Fiber / Sugars / Protein. I parsed all 576 data rows and ran a checksum on every one: calories-from-fat vs fat x 9. All 576 rows passed, which confirms no column drift or misalignment in the numbers I used. I then cross-checked calories against Panera's live menu pages (soups, salads, sandwiches, market bowls, sides): every soup, market bowl, side, and 15 of 18 sandwiches matched the PDF exactly.\n\nFOUR KNOWN DISCREPANCIES (PDF vs live site, all 10 kcal, site lower). I used the PDF because it is the only source publishing full macros; the site publishes calories only: Bacon Turkey Bravo whole PDF 860 / site 850; Turkey & Cheddar whole PDF 840 / site 830; Fuji Apple Chicken Salad whole PDF 710 / site 700; Fuji Apple Chicken Salad Stuffer PDF 700 / site 690. Likely a recipe tweak landing on the site ahead of the PDF. Treat those four as +/-10 kcal.\n\nONE PDF GAP RESOLVED BY COLUMN POSITION: the Kettle Cooked Potato Chips row has a blank Fiber cell, so it carries only 10 of 11 values. I measured character offsets against known-complete rows to confirm the blank is Fiber and that carbs=17, sugars=<1, protein=2. Fiber is simply not published for that item; the four macros I report are the stated ones.\n\nPORTIONS: All macros are per one of the stated serving description, exactly as the guide states it (1 Sandwich, 1 Salad, 1 Bowl, 1 Cup, 1 1/2 Cups, 1 dressing cup, 2 oz slice, etc.). Nothing was reverse-engineered or divided \u2014 every number is printed in the guide.\n\nCATEGORY DESIGN: \"mains\" holds only whole sandwiches, whole salads, and Market Bowls \u2014 every one of which Panera separately publishes a matching half portion, so the split-base rule maps cleanly onto Panera's You Pick Two. Panera's published halves are rounded independently and can differ from exactly half the whole by up to ~10 kcal (e.g. Fuji Apple whole 710, published half 350). \"entrees\" holds items with no published half: Soups & Mac in all three published sizes, Salad Stuffers, and the two Asiago Bagel Stacks \u2014 these are deliberately kept out of \"mains\" so the split rule never invents a half portion Panera does not publish. Bread bowls and Salad Stuffers are modeled as whole items rather than presets because their published totals do NOT equal soup + bread bowl or half-salad + roll (Panera uses less soup and hollows the loaf; e.g. Broccoli Cheddar bowl 420 + Sourdough Soup Bowl 650 = 1070 but the published bread bowl is 930)."
+  "notes": "SOURCE: Panera's own \"Panera Bread\u00ae Nutrition Guide\", Effective 6/17/2026, Edition 1 (c6-26-nutrition-guide.pdf), linked from panerabread.com/en-us/menu/nutritious-eating/allergen-and-nutrition-information.html. NOTE the lead URL in the task (nutrition-and-allergens.html) is a 404 \u2014 the live nav points to the allergen-and-nutrition-information.html path above, which is where I got the current PDF link.\n\nACCESS: panerabread.com is behind Akamai bot protection; plain fetches returned 403. The PDF was retrieved with a full browser header set including a same-origin Referer. Complete macros below come from that official PDF; the four documented calorie updates come from Panera's own live menu pages. No aggregator was used.\n\nEXTRACTION + VERIFICATION: The PDF has 36 pages of tables with columns Serving Size / Calories / Calories-from-Fat / Fat / Sat Fat / Trans / Cholesterol / Sodium / Carbs / Fiber / Sugars / Protein. I parsed all 576 data rows and ran a checksum on every one: calories-from-fat vs fat x 9. All 576 rows passed, which confirms no column drift or misalignment in the numbers I used. I then cross-checked calories against Panera's live menu pages (soups, salads, sandwiches, market bowls, sides): every soup, market bowl, side, and 15 of 18 sandwiches matched the PDF exactly.\n\nFOUR KNOWN DISCREPANCIES (PDF vs live site, all 10 kcal, site lower). Loadout uses the newer site calories and retains protein, carbohydrate, and fat from the complete PDF, labeling each mixed-source row estimated: Bacon Turkey Bravo whole PDF 860 / site 850; Turkey & Cheddar whole PDF 840 / site 830; Fuji Apple Chicken Salad whole PDF 710 / site 700; Fuji Apple Chicken Salad Stuffer PDF 700 / site 690. Likely a recipe tweak landing on the site ahead of the PDF. The 10-calorie source disagreement remains documented on each affected item.\n\nONE PDF GAP RESOLVED BY COLUMN POSITION: the Kettle Cooked Potato Chips row has a blank Fiber cell, so it carries only 10 of 11 values. I measured character offsets against known-complete rows to confirm the blank is Fiber and that carbs=17, sugars=<1, protein=2. Fiber is simply not published for that item; the four macros I report are the stated ones.\n\nPORTIONS: All macros are per one of the stated serving description, exactly as the guide states it (1 Sandwich, 1 Salad, 1 Bowl, 1 Cup, 1 1/2 Cups, 1 dressing cup, 2 oz slice, etc.). Nothing was reverse-engineered or divided \u2014 every number is printed in the guide.\n\nCATEGORY DESIGN: \"mains\" holds only whole sandwiches, whole salads, and Market Bowls \u2014 every one of which Panera separately publishes a matching half portion, so the split-base rule maps cleanly onto Panera's You Pick Two. Panera's published halves are rounded independently and can differ from exactly half the whole by up to ~10 kcal (e.g. Fuji Apple whole 710, published half 350). \"entrees\" holds items with no published half: Soups & Mac in all three published sizes, Salad Stuffers, and the two Asiago Bagel Stacks \u2014 these are deliberately kept out of \"mains\" so the split rule never invents a half portion Panera does not publish. Bread bowls and Salad Stuffers are modeled as whole items rather than presets because their published totals do NOT equal soup + bread bowl or half-salad + roll (Panera uses less soup and hollows the loaf; e.g. Broccoli Cheddar bowl 420 + Sourdough Soup Bowl 650 = 1070 but the published bread bowl is 930)."
  },
  "categories": [
   {
@@ -86,7 +86,7 @@
      "name": "Bacon Turkey Bravo on Tomato Basil",
      "servingDescription": "1 Sandwich (whole)",
      "macros": {
-      "calories": 860.0,
+      "calories": 850.0,
       "proteinGrams": 47.0,
       "carbGrams": 80.0,
       "fatGrams": 39.0
@@ -97,7 +97,8 @@
       "sesame",
       "wheat"
      ],
-     "notes": null,
+     "isEstimated": true,
+     "notes": "Mixed-source estimate: Panera's current menu page publishes 850 calories, 10 fewer than the June 2026 full nutrition guide. Protein, carbohydrate, and fat retain the latest complete official guide values. High confidence in calories; medium confidence in exact macro consistency.",
      "iconName": null,
      "dietaryMarkers": [
       "meat",
@@ -325,7 +326,7 @@
      "name": "Turkey & Cheddar on Country Rustic Sourdough",
      "servingDescription": "1 Sandwich (whole)",
      "macros": {
-      "calories": 840.0,
+      "calories": 830.0,
       "proteinGrams": 40.0,
       "carbGrams": 63.0,
       "fatGrams": 47.0
@@ -336,7 +337,8 @@
       "sesame",
       "wheat"
      ],
-     "notes": null,
+     "isEstimated": true,
+     "notes": "Mixed-source estimate: Panera's current menu page publishes 830 calories, 10 fewer than the June 2026 full nutrition guide. Protein, carbohydrate, and fat retain the latest complete official guide values. High confidence in calories; medium confidence in exact macro consistency.",
      "iconName": null,
      "dietaryMarkers": [
       "meat"
@@ -429,7 +431,7 @@
      "name": "Fuji Apple Chicken Salad",
      "servingDescription": "1 Salad (whole)",
      "macros": {
-      "calories": 710.0,
+      "calories": 700.0,
       "proteinGrams": 28.0,
       "carbGrams": 49.0,
       "fatGrams": 44.0
@@ -438,7 +440,8 @@
       "milk",
       "treenut"
      ],
-     "notes": null,
+     "isEstimated": true,
+     "notes": "Mixed-source estimate: Panera's current menu page publishes 700 calories, 10 fewer than the June 2026 full nutrition guide. Protein, carbohydrate, and fat retain the latest complete official guide values. High confidence in calories; medium confidence in exact macro consistency.",
      "iconName": null,
      "dietaryMarkers": [
       "meat"
@@ -1386,7 +1389,7 @@
      "name": "Fuji Apple Chicken Salad Stuffer",
      "servingDescription": "1 Stuffer",
      "macros": {
-      "calories": 700.0,
+      "calories": 690.0,
       "proteinGrams": 21.0,
       "carbGrams": 74.0,
       "fatGrams": 34.0
@@ -1396,7 +1399,8 @@
       "treenut",
       "wheat"
      ],
-     "notes": null,
+     "isEstimated": true,
+     "notes": "Mixed-source estimate: Panera's current menu page publishes 690 calories, 10 fewer than the June 2026 full nutrition guide. Protein, carbohydrate, and fat retain the latest complete official guide values. High confidence in calories; medium confidence in exact macro consistency.",
      "iconName": null,
      "dietaryMarkers": [
       "meat"
