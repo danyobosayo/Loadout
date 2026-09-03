@@ -2,7 +2,7 @@
 
 Use this workflow before changing a flagship restaurant's menu data or ordering
 model. Its purpose is to make Loadout resemble how the restaurant is actually
-ordered without assigning nutrition values that the restaurant does not support.
+ordered while giving people the best defensible nutrition figures available.
 
 The minimum flagship sequence is CAVA, Chipotle, Panda Express, Smoothie King,
 then Starbucks. Product OS owns the active work and acceptance criteria; this
@@ -17,9 +17,12 @@ document defines the repeatable research method.
 | Official native restaurant app | Native-only navigation, presentation, and behavior that differs from the web flow | Better nutrition evidence merely because the control exists |
 | Current Loadout build | What the app presently offers and where it diverges from first-party evidence | What the restaurant itself intends |
 
-When sources disagree, preserve the disagreement in the restaurant evidence and
-keep the Loadout behavior conservative. A selectable modifier with no supported
-nutrition delta must remain unavailable, informational, or explicitly uncertain.
+When sources disagree or an exact value is missing, preserve the disagreement in
+the restaurant evidence and choose the best-supported estimate. Prefer official
+arithmetic and close official analogues before reputable secondary or community
+figures. Mark the result as estimated, state the assumptions and confidence in
+durable notes, and round it to the precision the evidence supports. Do not apply
+this policy to allergens or dietary safety, which remain unknown without evidence.
 
 ## Research loop
 
@@ -39,8 +42,10 @@ nutrition delta must remain unavailable, informational, or explicitly uncertain.
    - the final line-item and cart description.
 5. Compare the live flow with the nutrition source and Loadout's menu, formats,
    presets, tray wording, saved-meal restoration, solver behavior, and export.
-6. Correct only confirmed restaurant-specific problems. Put a source URL, date,
-   and explanation beside every data or modeling decision that is not obvious.
+6. Correct confirmed restaurant-specific problems and replace unsupported gaps
+   with the best defensible estimate when doing so makes a common order usable.
+   Put a source URL, date, method, assumptions, and confidence beside every
+   estimated or non-obvious data decision.
 7. Run semantic data checks and focused unit/UI tests, then build and drive Loadout
    on the shared `General iOS` simulator with XcodeBuildMCP.
 8. Record remaining physical-device and owner-judgment checks on the Product OS

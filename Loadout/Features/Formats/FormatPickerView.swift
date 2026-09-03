@@ -188,7 +188,8 @@ struct FormatPickerView: View {
                                         itemCount: 0,
                                         macros: group.defaultMember.macros,
                                         symbol: "fork.knife",
-                                        hue: restaurant.style.hue
+                                        hue: restaurant.style.hue,
+                                        isEstimated: group.defaultMember.isEstimated
                                     )
                                 }
                                 .buttonStyle(.pressable)
@@ -258,8 +259,9 @@ struct FormatPickerView: View {
     /// toggle, which is not a fact about the combo.
     private func headlineBlurb(_ group: SizeGroup) -> String {
         let serving = group.defaultMember.servingDescription
-        guard group.hasChoices else { return serving }
-        return "\(serving) · \(group.members.count) sizes"
+        let sizeNote = group.hasChoices ? " · \(group.members.count) sizes" : ""
+        let estimateNote = group.defaultMember.isEstimated ? " · estimated" : ""
+        return serving + sizeNote + estimateNote
     }
 
     private var presetsEntranceBase: Int { headlineEntranceBase + headlineSections.reduce(0) { $0 + $1.groups.count } }
@@ -341,6 +343,7 @@ private struct CompleteMealCard: View {
     let macros: Macros
     let symbol: String
     let hue: Color
+    var isEstimated = false
 
     var body: some View {
         Card {
@@ -387,7 +390,10 @@ private struct CompleteMealCard: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(name), \(ExportService.summaryLine(macros))")
+        .accessibilityLabel(
+            "\(name), \(ExportService.summaryLine(macros))"
+            + (isEstimated ? ", nutrition estimated" : "")
+        )
         .accessibilityHint("Opens in your tray, ready to log or edit")
     }
 }

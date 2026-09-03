@@ -28,8 +28,11 @@ the app. Two are placeholders and the UI is built to notice:
   Drinks get their own station, sizes carry both label and fluid ounces
   ("Medium · 30 fl oz") because a Medium differs by chain.
 - **Unremovable defaults are hidden**, not shown greyed out.
-- **Never estimate a component delta.** Derive it by subtracting two published
-  figures, or the component is not removable. Listed in `dataGaps`.
+- **Prefer a labeled best estimate to a known gap.** Use official subtraction or
+  scaling first, then a close official analogue, then a reputable secondary or
+  community value that survives a plausibility check. Set `isEstimated`, keep
+  the method and confidence in the data notes, and show only a brief disclosure
+  in the menu. Allergens and dietary safety are never estimated.
 - **Chick-fil-A breakfast is not a daypart fork** — the whole menu shows all day.
 - **Nuggets stay separate items** (grilled vs breaded) rather than one parent
   with a variant picker. The name already carries the distinction.
@@ -50,18 +53,18 @@ four macros exactly, and that figure then closes the carb column exactly on the
 3 Finger (83 g) and Box (98 g) combos. Kid's derives exact on all four. Three
 independent subtractions agreeing to the gram — a derivation, not an estimate.
 
-### "Naked Birds" — shipped as the app's only flagged estimate
+### "Naked Birds" — shipped as the first flagged estimate
 Resolved 2026-08-10. The user supplied a community figure (70 cal / 13 P / 0 C /
 2 F per finger). It is not official, but it survives two checks: protein is
 unchanged from the published breaded finger's 13 g, and Atwater on 13P/0C/2F gives
-exactly 70. It ships as `Chicken Finger (Naked)` with `isEstimated: true`, an
-amber warning in the configure sheet, and a note saying plainly that it is a
+exactly 70. It ships as `Chicken Finger (Naked)` with `isEstimated: true`, a
+brief amber estimate label, and a data note saying plainly that it is a
 community estimate.
 
-This is the **one** deliberate exception to the no-estimate rule, and it is
-labelled rather than silent. `ItemConfigurationTests` asserts it stays the only
-`isEstimated` item in the entire app — if a second one appears, that test fails,
-which is the point.
+This established the estimate pattern: label it rather than hiding uncertainty,
+retain the reasoning in data notes, and replace it when stronger evidence becomes
+available. `ItemConfigurationTests` now requires every estimate to retain its
+explanation instead of preventing additional well-supported estimates.
 
 ## Chick-fil-A — DONE (two live wrong numbers, both fixed)
 

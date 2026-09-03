@@ -123,17 +123,20 @@ struct ConfigureItemScreen: View {
         .accessibilityIdentifier("recipe.standardMacrosNotice")
     }
 
-    /// An unofficial figure says so, in the colour reserved for "unverified".
+    /// Keep uncertainty visible without turning it into the focus of the meal.
+    /// The data notes remain available to VoiceOver and to the curation audit.
     private func estimateNote(_ notes: String) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 10, weight: .bold))
-            Text(notes)
+            Image(systemName: "info.circle.fill")
+                .font(.system(size: 10, weight: .semibold))
+            Text("Estimated nutrition")
                 .font(.appCaption)
-                .fixedSize(horizontal: false, vertical: true)
         }
         .foregroundStyle(Color.overTarget)
         .padding(.top, 2)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Estimated nutrition")
+        .accessibilityHint(notes)
     }
 
     // MARK: Rows

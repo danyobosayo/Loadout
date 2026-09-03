@@ -356,18 +356,18 @@ struct ItemConfigurationTests {
         }
     }
 
-    /// The one unofficial figure in the app must stay flagged, and stay the only
-    /// one — an estimate that loses its label is worse than no estimate.
-    @Test func nakedFingersAreTheOnlyEstimateAndAreLabelled() async throws {
+    /// Estimates are allowed when they improve a common ordering flow, but none
+    /// may lose the durable explanation behind the concise customer label.
+    @Test func everyEstimateIsLabelledAndDocumented() async throws {
         let estimated = try await BundledMenuRepository().availableRestaurants()
             .flatMap(\.categories)
             .flatMap(\.items)
             .filter(\.isEstimated)
-            .map(\.id)
-        #expect(estimated == ["raising-canes.entrees.naked-bird"])
+        #expect(estimated.contains { $0.id == "raising-canes.entrees.naked-bird" })
+        #expect(estimated.allSatisfy { $0.notes?.isEmpty == false },
+                "every estimate must retain its source, method and assumptions")
 
         let naked = try item(try await canes(), "raising-canes.entrees.naked-bird")
-        #expect(naked.notes?.isEmpty == false, "an estimate must say why it is one")
         // Protein is unchanged from a breaded finger; the breading is the delta.
         #expect(naked.macros.proteinGrams == 13)
         #expect(naked.macros.carbGrams == 0)

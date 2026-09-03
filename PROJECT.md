@@ -152,7 +152,18 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
 ```
 
 ### Sourcing principles
-- **Official sources only.** Each restaurant's own nutrition page or PDF. No MyFitnessPal community entries.
+- **Use the best available nutrition evidence.** Prefer the restaurant's own
+  calculator, nutrition page, or PDF. When an exact value is unavailable,
+  prefer a useful, documented estimate over omitting a common order or leaving
+  a known-wrong value unchanged. Use this order: official value; arithmetic
+  derived from official values; a close official analogue or portion scaling;
+  then a reputable secondary or community value checked for plausibility.
+- **Label estimates without alarming people.** Set `isEstimated: true`, retain
+  the source, reasoning, assumptions, and confidence in `notes`, and avoid
+  false precision. The menu only needs a brief “estimated” disclosure; replace
+  the estimate when stronger first-party evidence becomes available.
+- **Do not estimate safety claims.** Allergens and dietary suitability stay
+  unknown unless supported by appropriate evidence.
 - **Date every file.** `fetchedAt` is required. Stale data is the #1 risk.
 - **Document assumptions.** If the source lists "Chicken Bowl" combos but not raw line items, reverse-engineer per item and write down the math in `notes`.
 - **Match the real order.** Include food and restaurant-specific drinks that
@@ -160,8 +171,8 @@ Each restaurant gets one bundled JSON file: `Resources/Menus/chipotle.json`, `ca
   shakes, and similar house beverages—but omit ordinary fountain sodas from
   each restaurant's catalog. Generic soda belongs in a future shared cup-size
   calculator instead of being duplicated across menus. Keep every drink out of
-  automatic solver suggestions, and never invent a modifier's macro effect
-  merely because the ordering UI exposes it.
+  automatic solver suggestions. A modifier exposed by the ordering UI may use
+  a clearly marked best estimate when its exact macro effect is unpublished.
 - **No limited-time or seasonal items.** They go stale fastest and a cached menu can't tell.
 - **Refresh cadence:** quarterly check, or whenever a user reports a discrepancy.
 - **Versioning:** bump `schemaVersion` on breaking changes; bump a per-item `revision` field on macro changes so we can show a "menu updated" indicator if useful.
