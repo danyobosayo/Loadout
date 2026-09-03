@@ -124,6 +124,86 @@ struct FormatIntegrityTests {
         #expect(formats.isEmpty)
     }
 
+    /// The Halal Guys chooses the container and its size before the protein.
+    /// Rice or pita, salad, and both signature sauces are standard inclusions,
+    /// not optional extras the customer must remember to add. The official
+    /// guide publishes separate regular, small, and sandwich portions, so each
+    /// format must offer only the protein rows that match its own portion tier.
+    @Test func halalGuysFormatsMatchThePublishedPortionTiersAndDefaults() async throws {
+        let (restaurant, formats) = try await Self.load("halal-guys")
+        #expect(formats.map(\.id) == ["regular-platter", "small-platter", "sandwich"])
+
+        let regular = try #require(formats.first { $0.id == "regular-platter" })
+        let small = try #require(formats.first { $0.id == "small-platter" })
+        let sandwich = try #require(formats.first { $0.id == "sandwich" })
+
+        #expect(Set(regular.autoAdd.map(\.menuItemId)) == [
+            "halal-guys.rice.rice",
+            "halal-guys.veggies.lettuce",
+            "halal-guys.veggies.tomatoes",
+            "halal-guys.breads.pita-side",
+            "halal-guys.sauces.white-sauce",
+            "halal-guys.sauces.hot-sauce",
+        ])
+        #expect(Set(small.autoAdd.map(\.menuItemId)) == [
+            "halal-guys.rice.rice-small-platter",
+            "halal-guys.veggies.lettuce-small-platter",
+            "halal-guys.veggies.tomatoes-small",
+            "halal-guys.breads.pita-mini",
+            "halal-guys.sauces.white-sauce",
+            "halal-guys.sauces.hot-sauce",
+        ])
+        #expect(Set(sandwich.autoAdd.map(\.menuItemId)) == [
+            "halal-guys.breads.pita",
+            "halal-guys.veggies.lettuce-sandwich",
+            "halal-guys.veggies.tomatoes-small",
+            "halal-guys.sauces.white-sauce",
+            "halal-guys.sauces.hot-sauce",
+        ])
+
+        let regularProtein = try #require(regular.prompts.first)
+        let smallProtein = try #require(small.prompts.first)
+        let sandwichProtein = try #require(sandwich.prompts.first)
+        #expect(regularProtein.choose == .selectOne)
+        #expect(smallProtein.choose == .selectOne)
+        #expect(sandwichProtein.choose == .selectOne)
+        #expect(!regularProtein.allowsSplit)
+        #expect(!smallProtein.allowsSplit)
+        #expect(!sandwichProtein.allowsSplit)
+        #expect(Set(regularProtein.subsetItemIds ?? []) == [
+            "halal-guys.protein.chicken",
+            "halal-guys.protein.beef-gyro",
+            "halal-guys.protein.falafel",
+        ])
+        let smallPortionProteins: Set<String> = [
+            "halal-guys.protein.chicken-small",
+            "halal-guys.protein.beef-gyro-small",
+            "halal-guys.protein.falafel-small",
+        ]
+        #expect(Set(smallProtein.subsetItemIds ?? []) == smallPortionProteins)
+        #expect(Set(sandwichProtein.subsetItemIds ?? []) == smallPortionProteins)
+
+        for format in formats {
+            #expect(format.optionalCategoryIds.contains("sauces"))
+            #expect(format.optionalCategoryIds.contains("drinks"))
+            #expect(!format.optionalCategoryIds.contains("rice"))
+            #expect(!format.optionalCategoryIds.contains("breads"))
+            #expect(!format.optionalCategoryIds.contains("veggies"))
+        }
+
+        func seededCalories(_ format: OrderFormat) throws -> Double {
+            var calories = 0.0
+            for seed in format.autoAdd {
+                let item = try #require(restaurant.resolve(menuItemId: seed.menuItemId)?.item)
+                calories += item.macros.calories * seed.quantity
+            }
+            return calories
+        }
+        #expect(try seededCalories(regular) == 683)
+        #expect(try seededCalories(small) == 577)
+        #expect(try seededCalories(sandwich) == 545)
+    }
+
     /// CAVA's public builder is stricter than a generic assembly menu, and the
     /// downloadable guide changes independently. Pin the live rules and the
     /// current guide's non-seasonal deltas so a later refresh cannot silently

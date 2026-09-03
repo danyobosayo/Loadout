@@ -75,7 +75,7 @@
     },
     {
      "id": "halal-guys.protein.bbq-chicken",
-     "name": "BBQ Chicken",
+     "name": "Spicy BBQ Chicken",
      "servingDescription": "Platter portion, 5 oz (142 g)",
      "macros": {
       "calories": 229.0,
@@ -115,7 +115,7 @@
     },
     {
      "id": "halal-guys.protein.chicken-small",
-     "name": "Chicken (small platter / sandwich portion, 4 oz)",
+     "name": "Chicken",
      "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
      "macros": {
       "calories": 182.0,
@@ -134,7 +134,7 @@
     },
     {
      "id": "halal-guys.protein.beef-gyro-small",
-     "name": "Beef Gyro (small platter / sandwich portion, 4 oz)",
+     "name": "Beef Gyro",
      "servingDescription": "Small platter or sandwich portion, 4 oz (113 g)",
      "macros": {
       "calories": 414.0,
@@ -154,7 +154,7 @@
     },
     {
      "id": "halal-guys.protein.falafel-small",
-     "name": "Falafel (small platter / sandwich portion)",
+     "name": "Falafel",
      "servingDescription": "Small platter or sandwich portion, 113 g (oz column lists 5 oz on the small platter and 4 oz on the sandwich for the same 113 g)",
      "macros": {
       "calories": 412.0,
@@ -203,7 +203,7 @@
    "items": [
     {
      "id": "halal-guys.rice.rice",
-     "name": "Seasoned Rice",
+     "name": "Basmati Rice",
      "servingDescription": "Platter portion, 5 oz (142 g)",
      "macros": {
       "calories": 238.0,
@@ -220,7 +220,7 @@
     },
     {
      "id": "halal-guys.rice.rice-side-6oz",
-     "name": "Seasoned Rice (6 oz side)",
+     "name": "Basmati Rice (Side)",
      "servingDescription": "Side portion, 6 oz (170 g)",
      "macros": {
       "calories": 286.0,
@@ -237,7 +237,7 @@
     },
     {
      "id": "halal-guys.rice.rice-small-platter",
-     "name": "Seasoned Rice (small platter portion, 4 oz)",
+     "name": "Basmati Rice",
      "servingDescription": "Small platter portion, 4 oz (113 g)",
      "macros": {
       "calories": 190.0,
@@ -265,7 +265,7 @@
    "items": [
     {
      "id": "halal-guys.breads.pita",
-     "name": "Pita (Sandwich)",
+     "name": "Pita",
      "servingDescription": "1 sandwich pita, 79 g (oz column on source lists this as 3 oz)",
      "macros": {
       "calories": 225.0,
@@ -285,7 +285,7 @@
     },
     {
      "id": "halal-guys.breads.pita-side",
-     "name": "Pita (Served With Platter)",
+     "name": "Pita",
      "servingDescription": "1 side pita, 39 g (oz column on source lists this as 3 oz)",
      "macros": {
       "calories": 112.0,
@@ -305,7 +305,7 @@
     },
     {
      "id": "halal-guys.breads.pita-mini",
-     "name": "Pita (1 oz piece)",
+     "name": "Pita",
      "servingDescription": "1 piece, 28 g (oz column on source lists this as 1 oz); the piece served with a small platter or sandwich",
      "macros": {
       "calories": 65.0,
@@ -365,7 +365,7 @@
     },
     {
      "id": "halal-guys.veggies.lettuce-small-platter",
-     "name": "Lettuce (small platter portion, 3 oz)",
+     "name": "Lettuce",
      "servingDescription": "Small platter portion, 3 oz (71 g)",
      "macros": {
       "calories": 10.0,
@@ -380,7 +380,7 @@
     },
     {
      "id": "halal-guys.veggies.lettuce-sandwich",
-     "name": "Lettuce (sandwich portion, 2 oz)",
+     "name": "Lettuce",
      "servingDescription": "Sandwich portion, 2 oz (57 g)",
      "macros": {
       "calories": 8.0,
@@ -395,7 +395,7 @@
     },
     {
      "id": "halal-guys.veggies.tomatoes-small",
-     "name": "Tomatoes (small platter / sandwich portion, 1 oz)",
+     "name": "Tomatoes",
      "servingDescription": "Small platter or sandwich portion, 1 oz (28 g)",
      "macros": {
       "calories": 5.0,
@@ -600,7 +600,7 @@
     },
     {
      "id": "halal-guys.sides.french-fries",
-     "name": "French Fries",
+     "name": "Fries",
      "servingDescription": "Side, 10 oz (283 g)",
      "macros": {
       "calories": 839.0,

@@ -135,6 +135,38 @@ final class OrderFormatFlowUITests: XCTestCase {
     }
 
     @MainActor
+    func testHalalGuysSmallPlatterUsesItsPublishedDefaultsAndPortions() throws {
+        let app = launchedApp()
+
+        app.tapRestaurant("The Halal Guys,")
+        let smallPlatter = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Small Platter.")
+        ).firstMatch
+        XCTAssertTrue(smallPlatter.waitForExistence(timeout: 15),
+                      "The Halal Guys should offer its published small platter tier")
+        smallPlatter.tap()
+
+        XCTAssertTrue(app.staticTexts["Choose your protein"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["Chicken"].exists)
+        XCTAssertTrue(app.staticTexts["Beef Gyro"].exists)
+        XCTAssertTrue(app.staticTexts["Falafel"].exists)
+
+        let tray = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Meal tray")
+        ).firstMatch
+        XCTAssertTrue(tray.waitForExistence(timeout: 5))
+        XCTAssertTrue(tray.label.contains("577"),
+                      "The seeded small platter defaults should total 577 calories — got: \(tray.label)")
+        XCTAssertTrue(tray.label.contains("6 item"),
+                      "Rice, lettuce, tomato, pita and both sauces should be included — got: \(tray.label)")
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Chicken,")).firstMatch.tap()
+        XCTAssertTrue(tray.label.contains("759"),
+                      "Small-portion chicken should bring the platter to 759 calories — got: \(tray.label)")
+        attach(app, "05-halal-guys-small-platter")
+    }
+
+    @MainActor
     func testBuildYourOwnBypassesGuidance() throws {
         let app = launchedApp()
 
