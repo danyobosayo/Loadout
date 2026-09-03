@@ -2,12 +2,32 @@
   "restaurantId": "halal-guys",
   "formats": [
     {
-      "id": "platter",
-      "name": "Platter",
-      "blurb": "Over rice, with white sauce and hot sauce.",
+      "id": "regular-platter",
+      "name": "Regular Platter",
+      "blurb": "Rice, lettuce, tomato, pita, white sauce and hot sauce included.",
       "autoAdd": [
         {
           "menuItemId": "halal-guys.rice.rice",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.lettuce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.tomatoes",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.breads.pita-side",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.white-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.hot-sauce",
           "quantity": 1
         }
       ],
@@ -15,26 +35,99 @@
         {
           "categoryId": "protein",
           "promptCopy": "Choose your protein",
-          "choose": "many",
-          "required": true
+          "choose": "one",
+          "subsetItemIds": [
+            "halal-guys.protein.chicken",
+            "halal-guys.protein.beef-gyro",
+            "halal-guys.protein.falafel"
+          ],
+          "required": true,
+          "allowsSplit": false
         }
       ],
       "optionalCategoryIds": [
-        "breads",
-        "veggies",
         "toppings",
         "sauces",
         "sides",
-        "extras"
+        "extras",
+        "drinks"
+      ]
+    },
+    {
+      "id": "small-platter",
+      "name": "Small Platter",
+      "blurb": "Small portions of rice, salad and pita, with both sauces included.",
+      "autoAdd": [
+        {
+          "menuItemId": "halal-guys.rice.rice-small-platter",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.lettuce-small-platter",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.tomatoes-small",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.breads.pita-mini",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.white-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.hot-sauce",
+          "quantity": 1
+        }
+      ],
+      "prompts": [
+        {
+          "categoryId": "protein",
+          "promptCopy": "Choose your protein",
+          "choose": "one",
+          "subsetItemIds": [
+            "halal-guys.protein.chicken-small",
+            "halal-guys.protein.beef-gyro-small",
+            "halal-guys.protein.falafel-small"
+          ],
+          "required": true,
+          "allowsSplit": false
+        }
+      ],
+      "optionalCategoryIds": [
+        "toppings",
+        "sauces",
+        "sides",
+        "extras",
+        "drinks"
       ]
     },
     {
       "id": "sandwich",
       "name": "Sandwich",
-      "blurb": "The same fillings, wrapped in pita.",
+      "blurb": "Pita, lettuce, tomato, white sauce and hot sauce included.",
       "autoAdd": [
         {
           "menuItemId": "halal-guys.breads.pita",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.lettuce-sandwich",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.veggies.tomatoes-small",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.white-sauce",
+          "quantity": 1
+        },
+        {
+          "menuItemId": "halal-guys.sauces.hot-sauce",
           "quantity": 1
         }
       ],
@@ -42,16 +135,22 @@
         {
           "categoryId": "protein",
           "promptCopy": "Choose your protein",
-          "choose": "many",
-          "required": true
+          "choose": "one",
+          "subsetItemIds": [
+            "halal-guys.protein.chicken-small",
+            "halal-guys.protein.beef-gyro-small",
+            "halal-guys.protein.falafel-small"
+          ],
+          "required": true,
+          "allowsSplit": false
         }
       ],
       "optionalCategoryIds": [
-        "veggies",
         "toppings",
         "sauces",
         "sides",
-        "extras"
+        "extras",
+        "drinks"
       ]
     }
   ]

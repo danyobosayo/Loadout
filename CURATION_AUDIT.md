@@ -6,7 +6,7 @@ sourced and verified) — it is about whether the app mirrors the counter.
 
 | Restaurant | Verdict | Size groups | House configs | Missing | Naming | Confidence |
 |---|---|---|---|---|---|---|
-| The Halal Guys | SIGNIFICANTLY_WRONG | 9 | 5 | 8 | 12 | medium |
+| The Halal Guys | CORE_FORMAT_FIXED_GAPS_REMAIN | 9 | 5 | 8 | 12 | medium |
 | Jersey Mike's | SIGNIFICANTLY_WRONG | 6 | 9 | 11 | 12 | medium |
 | MOD Pizza | SIGNIFICANTLY_WRONG | 1 | 23 | 11 | 17 | high |
 | Qdoba | SIGNIFICANTLY_WRONG | 16 | 7 | 20 | 28 | high |
@@ -22,6 +22,21 @@ sourced and verified) — it is about whether the app mirrors the counter.
 | Sweetgreen | NEEDS_WORK | 0 | 6 | 8 | 8 | high |
 
 ## The Halal Guys — SIGNIFICANTLY_WRONG
+
+**Core flow resolved 2026-09-02.** Loadout now begins with Regular Platter,
+Small Platter, and Sandwich. Each format seeds its officially published rice or
+pita portion, lettuce, tomato, white sauce, and hot sauce, then offers one
+published protein portion from the matching regular or small/sandwich tier. The former
+generic Platter flow seeded only rice, omitted the Small Platter entirely, and
+allowed incompatible protein portions to be selected together.
+
+The remaining gaps below are deliberately unresolved. The official nutrition
+guide does not publish the half-protein portions needed for a Combo, nor light
+or extra sauce portions, so Loadout does not guess those values. Low-carb base
+swaps and missing permanent sides also require source-backed portions before
+they can ship. The detailed audit remains below as the evidence and history for
+those follow-ups; descriptions of the old two-format flow are no longer the
+current app behavior.
 
 ### How you actually order
 

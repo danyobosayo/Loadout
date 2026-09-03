@@ -1044,6 +1044,7 @@ private extension MenuView {
     /// — not tacos (×3), a Footlong (×2), or the CAVA halves (already ½),
     /// which toggle at their set quantity instead.
     func canSplit(_ prompt: FormatPrompt) -> Bool {
+        guard prompt.allowsSplit else { return false }
         guard case .selectOne = prompt.choose else { return false }
         return prompt.quantityPerPick == 1 && (format?.portionMultiplier ?? 1) == 1
     }

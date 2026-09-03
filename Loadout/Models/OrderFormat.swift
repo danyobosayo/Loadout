@@ -74,13 +74,17 @@ nonisolated struct FormatPrompt: Codable, Hashable, Sendable, Identifiable {
     let required: Bool
     /// Units seeded per pick. Chipotle tacos = 3 shells of one type.
     let quantityPerPick: Double
+    /// Whether a one-serving `selectOne` prompt supports the app's usual
+    /// half-and-half gesture. Defaults to true. Set false when the restaurant
+    /// publishes one portion tier but does not publish a defensible split.
+    let allowsSplit: Bool
 
     // A format can prompt the SAME category twice (CAVA Greens+Grains:
     // a grain half and a greens half), so identity is category + copy.
     var id: String { "\(categoryId)|\(promptCopy)" }
 
     private enum CodingKeys: String, CodingKey {
-        case categoryId, promptCopy, choose, subsetItemIds, required, quantityPerPick
+        case categoryId, promptCopy, choose, subsetItemIds, required, quantityPerPick, allowsSplit
     }
 
     init(from decoder: Decoder) throws {
@@ -91,6 +95,7 @@ nonisolated struct FormatPrompt: Codable, Hashable, Sendable, Identifiable {
         subsetItemIds = try c.decodeIfPresent([String].self, forKey: .subsetItemIds)
         required = try c.decodeIfPresent(Bool.self, forKey: .required) ?? false
         quantityPerPick = try c.decodeIfPresent(Double.self, forKey: .quantityPerPick) ?? 1
+        allowsSplit = try c.decodeIfPresent(Bool.self, forKey: .allowsSplit) ?? true
     }
 
     func encode(to encoder: Encoder) throws {
@@ -101,6 +106,7 @@ nonisolated struct FormatPrompt: Codable, Hashable, Sendable, Identifiable {
         try c.encodeIfPresent(subsetItemIds, forKey: .subsetItemIds)
         try c.encode(required, forKey: .required)
         try c.encode(quantityPerPick, forKey: .quantityPerPick)
+        try c.encode(allowsSplit, forKey: .allowsSplit)
     }
 
     init(
@@ -109,7 +115,8 @@ nonisolated struct FormatPrompt: Codable, Hashable, Sendable, Identifiable {
         choose: SelectionRule,
         subsetItemIds: [String]? = nil,
         required: Bool = false,
-        quantityPerPick: Double = 1
+        quantityPerPick: Double = 1,
+        allowsSplit: Bool = true
     ) {
         self.categoryId = categoryId
         self.promptCopy = promptCopy
@@ -117,6 +124,7 @@ nonisolated struct FormatPrompt: Codable, Hashable, Sendable, Identifiable {
         self.subsetItemIds = subsetItemIds
         self.required = required
         self.quantityPerPick = quantityPerPick
+        self.allowsSplit = allowsSplit
     }
 }
 
