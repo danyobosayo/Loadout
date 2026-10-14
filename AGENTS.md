@@ -12,11 +12,11 @@
 
 ## Project management
 
-- Follow the shared workflow in `~/.codex/AGENTS.md`.
+- Follow the shared workflow in `~/.agents/AGENTS.md`.
 - Track this repository in `Dayo Product OS` with `Project = Loadout`.
 - The GitHub Project is the sole active backlog. Repository planning and curation
   documents provide specifications and evidence, not a second task queue.
-- This repository has a GitHub remote. Codex normally owns the branch, focused
+- This repository has a GitHub remote. The active coding agent owns the branch, focused
   verification, commit, and pull request for implementation work.
 
 ## Engineering workflow
